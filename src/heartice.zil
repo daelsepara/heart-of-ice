@@ -1,0 +1,18 @@
+"Necklace of Skulls (ZIL)"
+
+<CONSTANT GAME-TITLE "||Heart of Ice">
+<CONSTANT GAME-DESCRIPTION "|Dave Morris (1993)||Implemented in ZIL by SD Separa (2020)|">
+<CONSTANT RELEASEID 1>
+<CONSTANT IFID "C1D438C1-BBAD-4C43-BC74-7E490849D10E">
+<VERSION XZIP>
+
+<INSERT-FILE "minilib">
+<INSERT-FILE "gamebook">
+
+<ROUTINE GO ()
+    <V-VERSION>
+    <TELL CR "IFID: ">
+    <TELL IFID>
+    <CRLF>
+    <GAME-BOOK>
+    <QUIT-MSG>>
