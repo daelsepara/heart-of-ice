@@ -17,6 +17,9 @@
 
 <ROUTINE RESET-STORY ()
 	<RESET-TEMP-LIST>
+	<SETG PRACTICED-SHORTSWORD F>
+	<PUT <GETP ,STORY006 ,P?DESTINATIONS> 1 ,STORY138>
+	<PUT <GETP ,STORY006 ,P?DESTINATIONS> 2 ,STORY182>
 	<PUTP ,STORY004 ,P?DEATH T>
 	<RETURN>>
 
@@ -29,6 +32,8 @@
 <CONSTANT NATURAL-HARDINESS "Your natural hardiness made you cope better with the situation.">
 <CONSTANT ALL-POSSESSIONS "You lost all your possessions.">
 <CONSTANT VITALITY-RESTORED "Your vitality has been restored">
+
+<GLOBAL PRACTICED-SHORTSWORD F>
 
 <OBJECT LOST-SKILLS
 	(DESC "skills lost")
@@ -152,6 +157,20 @@
 	<COND (<CHECK-ITEM .ITEM> <LOSE-ITEM .ITEM>)>
 	<RFALSE>>
 
+<ROUTINE TEST-MORTALITY (DAMAGE MESSAGE "OPT" STORY SKILL)
+	<COND (<NOT .STORY> <SET STORY ,HERE>)>
+	<COND (
+		<AND
+			<EQUAL? .SKILL ,SKILL-CLOSE-COMBAT>
+			<CHECK-SKILL .SKILL>
+			<CHECK-ITEM ,SHORTSWORD>
+			,PRACTICED-SHORTSWORD 
+		>
+		<EMPHASIZE "The shortsword prevented 1 damage">
+		<SET DAMAGE <- .DAMAGE 1>>
+	)>
+	<LOSE-LIFE .DAMAGE .MESSAGE .STORY>>
+
 <CONSTANT TEXT "This story has not been written yet.">
 
 <CONSTANT BACKGROUND-TEXT "In 2023, worsening conditions in the world's climate led to the first Global Economic Conference. It was agreed to implement measures intended to reverse industrial damage to the ecology and replenish the ozone layer. By 2031, an array of weather control satellites were in orbit. For added efficiency, and as a mark of worldwide cooperation, these were placed under the control of a supercomputer network called Gaia: the Global Artificial Intelligence Array. The Earth's climate began to show steady improvement.||The first hint of disaster came early in 2037, when Gaia shut down inexplicably for a period of seventeen minutes. Normal operation was resumed but the system continued to suffer 'glitches'. One such glitch resulted in Paris being subjected to a two-day heat wave of such intensity that the pavements cracked. After several months, the fault was identified. A computer virus had been introduced into Gaia by unknown means. The system's designer began programming an antivirus but died before his war was complete. The crisis grew throughout that year until finally, following the death of five thousand people in a flash flood along the Bangladesh coastline, the Gaia project was officially denounced. Unfortunately, it was no longer possible to shut it down.||By the mid twenty-first century, global weather conditions were in chaos owing to Gaia's sporadic operation. Ice sheets advanced further each year. Australia was subject to virtually constant torrential rain. The centre of Asia had become an arid wasteland. The political situation reflected the ravages of the climate, with wars flaring continually around the globe. Late in 2054, computer scientists in London tried to hack into Gaia and locate the replicating viruses in the program. Gaia, detecting this, interpreted the action as an attack on its program and retaliated by taking over a range of defense networks which allowed it to launch a nuclear strike. London was completely destroyed.||By the end of the century Gaia had routed itself into all major computer networks, taking control of weather, communications and weapons systems all across the planet. Periods of lucidity and hospitable climate were interspersed with hurricanes and arctic blizzards. The US President gave an interview in which he likened Gaia to a living entity: \"She was intended as mankind's protective mother, but this 'mother' has gone mad.\" Spiralling decline in the world's fortunes left much of humanity on the brink of extinction. The population fell rapidly until only a few million people remained scattered around the globe -- mostly in cities where food could still be artificially produced.||It is now the year 2300. The rich stand aloof, disporting themselves with forced gaiety and waiting for the end. The poor inhabit jostling slums where disease is rife and law is unknown. Between the cities, the land lies under a blanket of snow and ice. No-one expects humanity to last another century. This is truly 'the end of history'.">
@@ -250,90 +269,64 @@
 	(CODEWORD CODEWORD-HUMBABA)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT006 "The library is a huge series of halls in the basement of the building. The air is dry and musty, and green-shaded lamps blaze at intervals above the imitation walnut desks. In addition to the thousands of books, there are two or three computer terminals of antique design.">
+<CONSTANT CHOICES006 <LTABLE "try to establish contact with Gaia" "read up concerning the Heart of Volent" "you can leave the library">>
+
 <ROOM STORY006
 	(DESC "006")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT006)
+	(PRECHOICE STORY006-PRECHOICE)
+	(CHOICES CHOICES006)
+	(DESTINATIONS <LTABLE STORY138 STORY182 STORY073>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY006-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-CYBERNETICS> <PUT <GETP ,STORY006 ,P?DESTINATIONS> 1 ,STORY116>)>
+	<COND (<CHECK-SKILL ,SKILL-LORE> <PUT <GETP ,STORY006 ,P?DESTINATIONS> 2 ,STORY160>)>>
+
+<CONSTANT TEXT007 "The elevator arrives at the lobby and the doors slide open, but the waiting security guards are amazed to find it empty. The security chief barks an order: \"Get upstairs! Check the other floors!\"||You hear them go charging up the stairs. Waiting until the coast is clear, you lower your back down through the access hatch on on top of the elevator car. Ignoring the spluttered protests of the receptionist, you dart out into the safety of the night.">
 
 <ROOM STORY007
 	(DESC "007")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT007)
+	(CONTINUE STORY311)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT008 "During your march east you have taken an hour or two each day to practice with the shortsword. The exercise has helped keep you warm, as well as acquainting you with the feel of your new weapon. Now you can use the shortsword in any hand to hand fight, its effect being to reduce any injury you take by 1 Life Point.">
 
 <ROOM STORY008
 	(DESC "008")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT008)
+	(PRECHOICE STORY008-PRECHOICE)
+	(CONTINUE STORY334)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY008-PRECHOICE ()
+	<SETG PRACTICED-SHORTSWORD T>>
+
+<CONSTANT TEXT009 "A short distance along one of the tunnels you find a doorway. While Fax looks on with fluttering gestures of protest, you force the door and enter a small computer room. A caretek is crawling across the banks of equipment, dutifully sweeping away the dust. You log into the computer. As you suspected, it maintains the city's generator and lighting systems, as well as hydroponic gardens which are presumably the ultimate source of food here.||Fax screws up enough courage to peer over your shoulder. \"What are you doing?\"||Your fingers flit across the keyboard. \"Trying to find if there's a communication line to the outside world still working anywhere in the city. Ah, here's one. Now I'm going to contact Gaia.\"||Fax utters a doleful bleat. \"Surely Gaia is mad? You are rash to draw her attention. She might switch off the sun!\"">
+<CONSTANT CHOICES009 <LTABLE "attempt to contact Gaia" "agree that the risk is too great and either explore the transit tunnels" "else leave Marsay and continue west">>
 
 <ROOM STORY009
 	(DESC "009")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT009)
+	(CHOICES CHOICES009)
+	(DESTINATIONS <LTABLE STORY336 STORY439 STORY420>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT010 "At dawn the ferry enters the Isis estuary and skims upriver towards Kashira. Taking a stroll on the deck, you notice a waft of warmth rising from the river. It eases the bitter chill of the morning air. Questioning one of the sailors, you learn that heating pipes are laid along the river bed. No one knows the source of energy, but the effect is to keep the Isis from freezing, with the result that river-plants and fish are more plentiful than you would expect. \"That is the basis of Kahira's prosperity,\" he tells you. \"But one day the pipes will fail. Then the river will freeze and Kahira must die.\"||You glance to the east, where the sun struggles morosely behind a drape of stern grey cloud. \"That is the whole world's eventual fate.\"||Kahira hoves into view around a bend in the river. It stands on massive concrete buttresses straddling the Isis, a huge fortress-city with towers like spines along its back, looking like a beast of mechanical Armageddon against the wintry surroundings. The ferry glides to a halt, the gang-ramp is extended, and you disembark in front of the city gates.">
 
 <ROOM STORY010
 	(DESC "010")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT010)
+	(PRECHOICE STORY010-PRECHOICE)
+	(CONTINUE STORY229)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY010-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-DIAMOND> <STORY-JUMP ,STORY251>)>>
 
 <ROOM STORY011
 	(DESC "011")
