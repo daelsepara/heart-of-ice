@@ -21,6 +21,8 @@
 	<PUT <GETP ,STORY006 ,P?DESTINATIONS> 1 ,STORY138>
 	<PUT <GETP ,STORY006 ,P?DESTINATIONS> 2 ,STORY182>
 	<PUTP ,STORY004 ,P?DEATH T>
+	<PUTP ,STORY013 ,P?DEATH T>
+	<PUTP ,STORY019 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -29,6 +31,7 @@
 <CONSTANT DIED-OF-THIRST "You go mad from thirst">
 <CONSTANT KILLED-AT-ONCE "You are killed at once">
 <CONSTANT DIED-FROM-INJURIES "You died from your injuries">
+<CONSTANT DIED-FROM-COLD "You freeze to death">
 <CONSTANT NATURAL-HARDINESS "Your natural hardiness made you cope better with the situation.">
 <CONSTANT ALL-POSSESSIONS "You lost all your possessions.">
 <CONSTANT VITALITY-RESTORED "Your vitality has been restored">
@@ -328,174 +331,132 @@
 <ROUTINE STORY010-PRECHOICE ()
 	<COND (<CHECK-CODEWORD ,CODEWORD-DIAMOND> <STORY-JUMP ,STORY251>)>>
 
+<CONSTANT TEXT011 "The fog makes the buildings across the plaza look like lace cut-outs against the night sky. You cross to a line of lights under a colonnade, your footsteps ringing on the slick cobblestones. Finding a row of shops and stalls, you search until you find an answer to your question. \"Seek at the rooms of Pinar the Copt,\" advises a stall-holder, pointing to a narrow door at the end of the colonnade\"He knows the answer to all mysteries.\"||Pindar seems to be a local fortune-teller and spinner of yarns. You stand at his door for a few moments, looking at the faded bronze plaque, then step inside. The room is hung with jewel-bright rugs and the air smells of must and incense. Three crabbed old men look up from their hubble-bubble pipe. Without asking your business, they wave you to a cushion.||You sit down. \"Tell me about the Sphinx.\"||\"She asked a riddle of all who passed, and those who failed to answer were devoured,\" says one of the old men.||\"The answer to her riddle was Man himself,\" says another.||Now Pinar speaks. \"That was the Greek Sphinx. The Egyptian Sphinx is male. He sits at Giza and watches over Kahira, keeping the Saharan snows from overrunning the city.\"||You smile. \"These are only stories.\"||\"Not the last part,\" insists Pindar in a pragmatic tone. \"A nuclear reactor is set under the Sphinx, and that is what powers the heating elements that keep the Isis River from freezing. The same reactor presumably still supplies power to the military complex inside the Great Pyramid.\"||Giving him a keen look, you say, \"You seem well informed.\"||\"I have lived a long time. If you are interested, the answer to the Sphinx's riddle these days is 'Humbaba'.\"">
+
 <ROOM STORY011
 	(DESC "011")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT011)
+	(PRECHOICE STORY011-PRECHOICE)
+	(CONTINUE STORY311)
+	(CODEWORD CODEWORD-HUMBABA)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY011-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-LORE> <STORY-JUMP ,STORY095>)>>
+
+<CONSTANT TEXT012 "Even after a century or more of disuse, the computers still work. The screen glimmers to life and you key in a connection to Gaia. A stream of meaningless gibberish runs onto the screen, followed by a sequence which seems ominously meaningful.">
 
 <ROOM STORY012
 	(DESC "012")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT012)
+	(PRECHOICE STORY012-PRECHOICE)
+	(CONTINUE STORY055)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY012-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-CYBERNETICS> <STORY-JUMP ,STORY034>)>>
+
+<CONSTANT TEXT013 "Sunlight, hazed by a high overcast, is thrown up from the snow dunes in an unremitting glare as white and harsh as exposed bone. Squinting does no good. Your eyes feel gritty and tired. On the fourth evening, huddling behind the shelter of a crag of ice, you gaze across the landscape. It is like looking through a film of blood. The next day you find the sunrise burn so hard that you cannot stand to open your eyes.||Snow-blinded, you can only sit and wait for the dazzle to clear. If you were to press on now, you would soon lose your bearings and die. As you wait, the chill crawls deeper into your bones.">
+<CONSTANT TEXT013-BURREK "You curl up and share the burrek's body warmth">
+<CONSTANT TEXT013-CONTINUED "You are relieved to discover after a day and a night your eyesight has recovered enough for you to press on. From now on you are careful to shield your face against the glare">
 
 <ROOM STORY013
 	(DESC "013")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT013)
+	(PRECHOICE STORY013-PRECHOICE)
+	(CONTINUE STORY403)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY013-PRECHOICE ("AUX" (HAS-BURREK F) (DAMAGE 3))
+	<COND (<CHECK-ITEM ,BURREK> <SET DAMAGE 2> <SET HAS-BURREK T>)>
+	<COND (<AND <NOT <CHECK-ITEM ,FUR-COAT>> <NOT <CHECK-ITEM ,WEATHER-SUIT>>> <SET DAMAGE <+ .DAMAGE 1>>)>
+	<TEST-MORTALITY .DAMAGE DIED-FROM-COLD ,STORY013>
+	<COND (<IS-ALIVE>
+		<CRLF>
+		<COND (.HAS-BURREK
+			<TELL TEXT013-BURREK>
+			<TELL ,PERIOD-CR>
+			<CRLF>
+		)>
+		<TELL TEXT013-CONTINUED>
+		<TELL ,PERIOD-CR>
+	)>>
+
+<CONSTANT TEXT014 "\"There is nothing else to interest you here,\" says Little Gaia when you question her. \"You should get under way.\"||Accepting her advice, you return up to the shaft to the top level.">
 
 <ROOM STORY014
 	(DESC "014")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT014)
+	(CONTINUE STORY361)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT015 "On the third day you do not awaken. The toxins in the air and wildlife here have got into your bloodstream. You moan and gasp, threshing weakly in the depths of a fever from which you will never recover.">
 
 <ROOM STORY015
 	(DESC "015")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT015)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT016 "You descend via a ruined subway entrance whose ventilation ducts connect with part of the catacombs. Golgoth jabs at buttons on his map box, bringing up a crackling image of the tunnel. The air in the ducts is stale, but he assures you that there is a good chance of reaching the underground tunnels close to the Shrine of the Heart. The Gargan sisters are even less enthusiastic about the route you are taking. With their broad shoulders, the duct feels like a long metal coffin.||The stale air makes it hot work. You are soaked in sweat by the time you finally wriggle out of the duct and drop to the floor of a dimly lit tunnel. The Gargan sisters follow, grunting curses, as Golgoth consults the map box.">
 
 <ROOM STORY016
 	(DESC "016")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT016)
+	(PRECHOICE STORY016-PRECHOICE)
+	(CONTINUE STORY325)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY016-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-ENKIDU> <STORY-JUMP ,STORY198>)>>
+
+<CONSTANT TEXT017 "Among the items originally stored in the sky-car's locker were a flashlight and a length of rope. If you have not equipped yourself with these already, you may as well do so now since, if the baron's hunch is right, the moment of truth is almost upon you.">
 
 <ROOM STORY017
 	(DESC "017")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT017)
+	(PRECHOICE STORY017-PRECHOICE)
+	(CONTINUE STORY039)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY017-PRECHOICE ()
+	<KEEP-ITEM ,FLASHLIGHT>
+	<KEEP-ITEM ,ROPE>>
+
+<CONSTANT TEXT018 "\"The Truth is a flame,\" you say.||\"What ignites the flame?\" intones the computer. So far so good.||\"The spark ignites the flame.\"||\"What is the spark?\" it asks.||\"The Heart of Volent.\"||You wait with bated breath. Then, with a hum, the elevator starts to descend. You are being conveyed to the Shrine of the Heart.">
 
 <ROOM STORY018
 	(DESC "018")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT018)
+	(CONTINUE STORY150)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT019 "Captain Novak comes racing towards you out of the smoke. His uniform is torn and signed by the explosion and he has a wild look in his eyes. You are not sure whether to block his way or stand aside, when suddenly a barysal shot streams through the air, piercing his brain. A second shot hits him as he falls, but glances off his armour and ricochets into you.||You are badly burned.">
 
 <ROOM STORY019
 	(DESC "019")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT019)
+	(PRECHOICE STORY019-PRECHOICE)
+	(CONTINUE STORY041)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY019-PRECHOICE ("AUX" (DAMAGE 6))
+	<COND (<CHECK-ITEM ,SPECULUM-JACKET> <SET DAMAGE 4>)>
+	<TEST-MORTALITY .DAMAGE DIED-FROM-INJURIES ,STORY019>
+	<COND (<IS-ALIVE> <DELETE-CODEWORD ,CODEWORD-MALLET>)>>
+
+<CONSTANT TEXT020 "Singh was so intent on watching for Golgoth that he did not expect an attack from you. Caught unawares, he is flung to the ground. Rushing in, you snatch up the cannon and finish him with a blast from his own weapon.||The smoke begins to disperse. At first you see no sign of Golgoth, then he emerges from one of the elevator tubes. He had attached his gun to the wall magnetically and set it for remote fire. Retrieving it, he casts a wary glance at the cannon and then smiles. \"Ultimate power can be quite a temptation,\" he says, glancing significantly from the cannon to the gun in his own hand.">
+<CONSTANT CHOICES020 <LTABLE "blast him" "trust him not to shoot">>
 
 <ROOM STORY020
 	(DESC "020")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT020)
+	(CHOICES CHOICES020)
+	(DESTINATIONS <LTABLE STORY043 STORY431>)
+	(REQUIREMENTS <LTABLE MANTRAMUKTA-CANNON NONE>)
+	(TYPES <LTABLE R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY021
