@@ -41,6 +41,12 @@
     (ADJECTIVE FUR)
     (FLAGS TAKEBIT)>
 
+<OBJECT ID-CARD
+    (DESC "ID card")
+    (SYNONYM CARD)
+    (ADJECTIVE ID)
+    (FLAGS TAKEBIT)>
+
 <OBJECT MANTRAMUKTA-CANNON
     (DESC "mantramukta cannon")
     (SYNONYM CANNON)
@@ -67,6 +73,11 @@
     (DESC "stun grenade")
     (SYNONYM GRENADE)
     (ADJECTIVE STUN)
+    (FLAGS TAKEBIT)>
+
+<OBJECT VADE-MECUM
+    (DESC "vade-mecum")
+    (SYNONYM VADE-MECUM)
     (FLAGS TAKEBIT)>
 
 <OBJECT WEATHER-SUIT
