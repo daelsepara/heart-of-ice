@@ -29,6 +29,7 @@
 	<PUTP ,STORY039 ,P?DEATH T>
 	<PUTP ,STORY043 ,P?DEATH T>
 	<PUTP ,STORY044 ,P?DEATH T>
+	<PUTP ,STORY056 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -844,175 +845,133 @@
 	(CONTINUE STORY229)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT051 "The elevator carries almost to the top floor of the building, where a well-equipped gym overlooks the city. You spend half an hour on the treadmill, watching your own reflection in the glass window superimposed against the mist-shrouded towers and twinkling lights of Kahira. Another half hour on various weights machines leaves you feeling firmed up and fit. You finish with five minutes on a massage bed followed by a relaxing spa.||As you are leaving the changing room, you almost collied with a huge Fijian in a trim black suit and mirror glasses. He grunts an absent-minded apology and hurries past, staring urgently around the room. He is the only other person you have seen in the building who doesn't seem to be an employee here. You are about to head off towards the elevator when he calls after you, \"Hey! Who are you?\"">
+<CONSTANT CHOICES051 <LTABLE "use a" "you prefer to use" "try" "you had better run for it">>
+
 <ROOM STORY051
 	(DESC "051")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT051)
+	(CHOICES CHOICES051)
+	(DESTINATIONS <LTABLE STORY227 STORY248 STORY269 STORY290>)
+	(REQUIREMENTS <LTABLE BARYSAL-GUN SKILL-CLOSE-COMBAT SKILL-CUNNING NONE>)
+	(TYPES <LTABLE R-ITEM R-SKILL R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT052 "The elevator reaches the ground floor and the doors slide open. You step out, only to be confronted by a group of uniformed security men with rifles. \"You're in illegal possession of a Compass Society ID,\" growls the security chief with a wolfish grin.||\"Let me explain.\"||He shakes his head. \"Tell it to the marines. Better yet, tell it to the angels.\"||With a click of his fingers, he signals to his men and you are blasted apart in a juddering hail of gunfire.">
 
 <ROOM STORY052
 	(DESC "052")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT052)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT053 "A rustling in the leaf canopy directly overhead warns you of danger. You open your eyes in time to see a narrow wedge/shaped head shaking down from the branches, its wide pink mouth lined with teeth like needles.||You react instantly, flipping backwards over the log an instant before the jaws strike. The creature roars back, spitting out soil and twigs, head bobbing on a long grey cable of neck, and lunges again. You slip aside, snatch up your belonging, and race off through the trees.">
 
 <ROOM STORY053
 	(DESC "053")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT053)
+	(CONTINUE STORY228)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT054 "You take yourself to a table and sit down. The twins watch you for a moment longer, then return to their drinking.||You glance around the inn. No one else dares stand up to the two Amazons. What about you?">
+<CONSTANT CHOICES054 <LTABLE "eavesdrop" "read their minds" "try to outwit them" "draw a" "you had better mind your own business">>
 
 <ROOM STORY054
 	(DESC "054")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT054)
+	(CHOICES CHOICES054)
+	(DESTINATIONS <LTABLE STORY208 STORY230 STORY120 STORY098 STORY252>)
+	(REQUIREMENTS <LTABLE SKILL-ROGUERY SKILL-ESP SKILL-CUNNING BARYSAL-GUN NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-SKILL R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT055 "The computer locks you out. You try rebooting, to no avail. With a shrug, you turn to exploring the rest of the pyramid idly wondering what Gaia was up to when she entered the stream of inexplicable commands into the computer system here.||The answer comes so suddenly that you never know it. Gaia was in the throes of her periodic madness when you contacted her this time. She located the nuclear reactor supplying power to the pyramid and ordered it to go critical. Without warning a blossom of plasma erupts from the earth. For a brief incandescent second it is as though time has turned back to before the Ice Age, and the Pyramid of Cheops once more sits on hot sands in blazing light. Then the blast spreads -- sweeping away the pyramids that have stood here for fifty centuries, vaporizing the snow and ice covering the desert, turning the rock to lava and the river to steam, and making of Kahira a cinderous ruin. In the midst of such a holocaust, your own death goes unnoticed.">
 
 <ROOM STORY055
 	(DESC "055")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT055)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT056 "You curse the recklessness that brought you into the Ice Wastes before you were adequately prepared. Your lack of food intensifies the cold, which seems to drill into your bones. Each dawn you arise lethargic and listless, like on who has been visited by a vampire in the night. Each step you take costs a greater effort. You feel torpid with fatigue and hunger.">
+<CONSTANT TEXT056-SURVIVOR "You manage to trap a bird which alights on one of the tors of glacial ice for food.">
+<CONSTANT TEXT056-BURREK "You tap some of the burrek's oily blood for sustenance">
 
 <ROOM STORY056
 	(DESC "056")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT056)
+	(PRECHOICE STORY056-PRECHOICE)
+	(CONTINUE STORY100)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY056-PRECHOICE ("AUX" (SURVIVOR F) (BURREK F) (DAMAGE 4))
+	<COND (<CHECK-SKILL ,SKILL-SURVIVAL> <SET DAMAGE 2> <SET SURVIVOR T>)>
+	<COND (<CHECK-ITEM ,BURREK> <SET DAMAGE <- .DAMAGE 1>> <SET BURREK T>)>
+	<TEST-MORTALITY .DAMAGE ,DIED-GREW-WEAKER ,STORY056>
+	<COND (<IS-ALIVE>
+		<COND (.SURVIVOR
+			<CRLF>
+			<TELL TEXT056-SURVIVOR>
+		)>
+		<COND (.BURREK
+			<COND (<NOT .SURVIVOR> <CRLF>)(ELSE <TELL " ">)>
+			<TELL TEXT056-BURREK>
+			<TELL ,PERIOD-CR>
+		)(.SURVIVOR
+			<TELL ,PERIOD-CR>
+		)>
+	)>>
+
+<CONSTANT TEXT057 "You touch the red button. The box produces a prolonged hum which rises in tone and then ends with a bleep. \"Ready,\" says a synthetic feminine voice from the speaker.||Taken aback for a moment, you lean closer and gingerly speak to the box. \"Er... ready for what?\"||\"Explain,\" says the box crisply. \"Your query was unspecific.\"||\"Is this a radio? Who am I talking to?\"||\"I am a miniature facsimile of the Global Artificial Intelligence Array,\" replies the box.||\"Gaia? But Gaia is crazy.\"||\"I was loaded with Gaia's program prior to virus infection. I am able to model the thinking of the Gaia system at a reduced rate owing to my limited memory capacity, which now stands at 512 gigabytes.\"||\"What can you tell me about the Heart of Volent?\"||\"Nothing. No such information has been loaded into my memory.\" The device has an annoyingly smug little voice. All the same, if it has even a fraction of Gaia's intelligence then it may be useful.">
+<CONSTANT CHOICES057 <LTABLE "search the lab for other equipment" "descend to the bottom level" "leave">>
 
 <ROOM STORY057
 	(DESC "057")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT057)
+	(CHOICES CHOICES057)
+	(DESTINATIONS <LTABLE STORY080 STORY255 STORY361>)
+	(TYPES THREE-NONES)
+	(ITEM LITTLE-GAIA)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT058 "The volcanic gases here make the air poisonous, stunting the trees around the oasis and causing the slow death of animal life. No doubt those insects swarming in the sudorific updraughts have had to mutate in order to tolerate the conditions here. You know that the prolonged exposure to the tainted air might eventually cause cancer unless you have some protection. Otherwise it is only worth staying if you are on the brink of death and are so desperate for recuperation now that you are willing to take a gamble with your life.">
+<CONSTANT CHOICES058 <LTABLE "stay for a day or so" "continue onwards at once">>
 
 <ROOM STORY058
 	(DESC "058")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT058)
+	(PRECHOICE STORY058-PRECHOICE)
+	(CHOICES CHOICES058)
+	(DESTINATIONS <LTABLE STORY103 STORY426>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY058-PRECHOICE ()
+	<COND (<OR <CHECK-ITEM ,GAS-MASK> <CHECK-CODEWORD ,CODEWORD-TALOS>> <STORY-JUMP ,STORY169>)>>
+
+<CONSTANT TEXT059 "He holds up his finger. \"Ah, it is a very ancient place, not very far to the west. There, in ancient times, were buried the royalty of Egypt. Later, men came from the distant corners of the globe with a great warrior they called Gilgamesh, who had skin of iron and eyes of fire. They told him to watch across the snows for stirrings of life in the ruins of Du-En and, if any threat arose from there, he was to take up his sword and venture forth.\" Bador sees the look on your face. \"It is true, all true!\"">
+<CONSTANT CHOICES059 <LTABLE "ask for advice about the Sahara" "about Kahira itself" "where to stay in the city" "you can dismiss him">>
 
 <ROOM STORY059
 	(DESC "059")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT059)
+	(CHOICES CHOICES059)
+	(DESTINATIONS <LTABLE STORY077 STORY143 STORY099 STORY095>)
+	(TYPES FOUR-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT060 "If Gaia is to be believed, to unleash the power of the Heart would spell death for all of creation. But is she to be believed? Or trusted, for that matter? Gaia is not even a 'she', but an 'it' -- just an artificial intelligence resident in a network of computers. And schizophrenic into the bargain, thanks to the computer viruses entrenched in her software. You must make up your own mind. If you think the Heart should be destroyed, you will need to find a friend who is willing to help you do it. You look dubiously around the faces limned in the campfires. By their very nature, these are the most ruthless and determined adventurers of the age. Can you make them trust you? Or should you forget Gaia's dire warning, and just try to get the Heart for yourself?">
 
 <ROOM STORY060
 	(DESC "060")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT060)
+	(PRECHOICE STORY060-PRECHOICE)
+	(CONTINUE STORY082)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY060-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-ESP> <STORY-JUMP ,STORY152>)>>
 
 <ROOM STORY061
 	(DESC "061")
