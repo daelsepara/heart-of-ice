@@ -138,9 +138,10 @@
 
 <ROUTINE DELETE-CODEWORD (CODEWORD)
 	<COND (<AND .CODEWORD <CHECK-CODEWORD .CODEWORD>>
-		<HLIGHT ,H-BOLD>
 		<CRLF>
-		<TELL "You lose the codeword " D .CODEWORD ,PERIOD-CR>
+		<TELL "[You lose the codeword ">
+		<HLIGHT ,H-BOLD>
+		<TELL D .CODEWORD "]" CR>
 		<HLIGHT 0>
 		<REMOVE .CODEWORD>
 	)>>
