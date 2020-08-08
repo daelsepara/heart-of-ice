@@ -23,6 +23,7 @@
 	<PUTP ,STORY004 ,P?DEATH T>
 	<PUTP ,STORY013 ,P?DEATH T>
 	<PUTP ,STORY019 ,P?DEATH T>
+	<PUTP ,STORY026 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -507,89 +508,77 @@
 <ROUTINE STORY025-PRECHOICE ()
 	<COND (<CHECK-CODEWORD ,CODEWORD-DIAMOND> <STORY-JUMP ,STORY224>)>>
 
+<CONSTANT TEXT026 "Reaching up, you point the shower nozzle so that a stream of scalding hot water hits one of your assailants in the face. He gives an agonized screech and falls clutching his eyes. By a lucky accident, the shower jet strikes the oil lamp by the door, plunging the shower hall into darkness. As you hear the other man step forward, you get ready to dart aside. He lunges, his knife gashing across your ribs to inflict some damage.">
+<CONSTANT TEXT026-EXPERT "You are expert enough to parry an attack even in the dark">
+<CONSTANT TEXT026-CONTINUED "Before the can thrust again, you have caught his wrist. There is a brief struggle -- a crack of bone, a wet sound, a groan. Slowly your attacker goes limp in your grasp, impaled on his own knife.||You grope your way to the door and relight the lamp. The dead man's blood goes swirling across the shower tiles into the drain. His accomplice whimpers as you approach">
+
 <ROOM STORY026
 	(DESC "026")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT026)
+	(PRECHOICE STORY026-PRECHOICE)
+	(CONTINUE STORY048)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY026-PRECHOICE ("AUX" (EXPERT F) (DAMAGE 3))
+	<COND (<CHECK-SKILL ,SKILL-CLOSE-COMBAT>
+		<SET EXPERT T>
+		<SET DAMAGE 1>
+	)>
+	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY026 ,SKILL-CLOSE-COMBAT>
+	<COND (<IS-ALIVE>
+		<CRLF>
+		<COND (.EXPERT
+			<TELL TEXT026-EXPERT>
+			<TELL ,PERIOD-CR>
+			<CRLF>
+		)>
+		<TELL TEXT026-CONTINUED>
+		<TELL ,PERIOD-CR>
+	)>>
+
+<CONSTANT TEXT027 "You can detect no thoughts from the next room. Either you imagined the voice, or the speaker was one whose thoughts you cannot read.||\"Hurry,\" the voice cries out. \"Not much time.\"">
+<CONSTANT CHOICES027 <LTABLE "ignore it and check out the Manta sky-car" "go through to the next room" "you think it would be wiser to get out of here">>
 
 <ROOM STORY027
 	(DESC "027")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT027)
+	(CHOICES CHOICES027)
+	(DESTINATIONS <LTABLE STORY049 STORY005 STORY395>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT028 "You step out of the elevator and follow the signs along empty corridors until you come to a plushly carpeted room with a door opposite. There is a desk where you might expect to see a nurse or clerk, but the room is unoccupied. The door has a plaque: the red crescent is a universal symbol, and beside it is the doctor's name-plate. You push the door open. A woman looks up from the book she was consulting and gives you a smile which is both a greeting and an enquiry.||\"Doctor Jaffe, I presume.\"||She puts the book into her bag and closes it. \"You caught me just in time. I was about to go home.\"||She is refreshingly free of the sycophancy that characterizes most of the Society's employees. You mention this to her as she is giving you a check-up and she laughs saying, \"Well, most of the members are so used to wielding power that they bully anyone who'll let them. That wouldn't do for a doctor; I'm supposed to be the bully!\"">
+<CONSTANT TEXT028-CONTINUED "Doctor Jaffe also gives you a pack of antidote pills. \"There are generally useful against most diseases and toxins you'll encounter while in Kahira.\"">
 
 <ROOM STORY028
 	(DESC "028")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT028)
+	(PRECHOICE STORY028-PRECHOICE)
+	(CONTINUE STORY073)
+	(ITEM ANTIDOTE-PILLS)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY028-PRECHOICE ()
+	<GAIN-LIFE 2>
+	<CRLF>
+	<TELL TEXT028-CONTINUED>
+	<CRLF>>
+
+<CONSTANT TEXT029 "The indicator light shows you have fifteen floors to go. About thirty seconds. Long enough to work a miracle if you're lucky. You clear your mind of everything but a single purpose: to direct your willpower through the psionic focus you wear.||The indicator light shows you have reached the third floor... the second... the first. With a chime, the elevator comes to a halt and the doors start to open.||Suddenly all the lights go out, not only here but in the street outside, plunging the lobby into total darkness.||\"Power cut!\" you hear someone shout. Then someone else snarls an order to open fire, and gunfire spatters the rear wall of the elevator where you were standing only seconds before.||Following the wall, you find the door and duck out into the night. Hurrying off, you go half a block through the welcome enveloping mist before allowing the electricity to flow again. That was as narrow an escape as you've ever had. You'll have to sharpen your edge if you are to have any chance of getting the Heart.">
 
 <ROOM STORY029
 	(DESC "029")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT029)
+	(CONTINUE STORY311)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT030 "Cold reptilian thoughts seep into your brain, jolting you awake. Your gaze flicks across the swaying fronds around you, searching for the source of the thoughts. Warned by an intuitive impulse, you glance up in time to see a narrow fang-lined snout dropping on a long neck towards you. Leaping to your feet, you cast a handful of soil into the creature's eyes and race off through the trees.">
 
 <ROOM STORY030
 	(DESC "030")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT030)
+	(CONTINUE STORY228)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY031

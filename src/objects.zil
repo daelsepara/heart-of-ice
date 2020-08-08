@@ -18,6 +18,12 @@
 
 ; Objects
 
+<OBJECT ANTIDOTE-PILLS
+    (DESC "antidote pills")
+    (SYNONYM PILLS)
+    (ADJECTIVE ANTIDOTE)
+    (FLAGS TAKEBIT)>
+
 <OBJECT BURREK
     (DESC "burrek")
     (SYNONYM BURREK)
