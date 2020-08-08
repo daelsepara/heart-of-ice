@@ -24,6 +24,8 @@
 	<PUTP ,STORY013 ,P?DEATH T>
 	<PUTP ,STORY019 ,P?DEATH T>
 	<PUTP ,STORY026 ,P?DEATH T>
+	<PUTP ,STORY035 ,P?DEATH T>
+	<PUTP ,STORY039 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -32,8 +34,8 @@
 <CONSTANT DIED-OF-THIRST "You go mad from thirst">
 <CONSTANT KILLED-AT-ONCE "You are killed at once">
 <CONSTANT DIED-FROM-INJURIES "You died from your injuries">
-<CONSTANT DIED-FROM-COLD "You freeze to death">
-<CONSTANT NATURAL-HARDINESS "Your natural hardiness made you cope better with the situation.">
+<CONSTANT DIED-FROM-COLD "You eventually freeze to death">
+<CONSTANT NATURAL-HARDINESS "Your natural hardiness made you cope better with the situation">
 <CONSTANT ALL-POSSESSIONS "You lost all your possessions.">
 <CONSTANT VITALITY-RESTORED "Your vitality has been restored">
 
@@ -581,174 +583,144 @@
 	(CONTINUE STORY228)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT031 "You sit at the front of the carriage and stare through the window, even though the tunnel is unlit and there is nothing to see. Hours pass before a glimmer of light shows ahead. The carriage glides to a halt and the doors open with a whirr. You emerge into a maze of partly collapsed corridors. There are no careteks here to keep the place spruce. You search until you find a spiral staircase, at the top of which is a tunnel choked with rubble. Laboriously you clear away the masonry blocks until at last you feel a slight breeze of fresh air. Flickering light shows through a crack in a wall panel. You press your fingers against the panel. It is only light plastiwood which you can break through easily.">
+
 <ROOM STORY031
 	(DESC "031")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT031)
+	(PRECHOICE STORY031-PRECHOICE)
+	(CONTINUE STORY357)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY031-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-ESP> <STORY-JUMP , STORY141>)>>
+
+<CONSTANT CHOICES032 <LTABLE "fight with" "draw a barysal gun on them" "resort to" "you really would be better off not tangling with them">>
 
 <ROOM STORY032
 	(DESC "032")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(CHOICES CHOICES032)
+	(DESTINATIONS <LTABLE STORY076 STORY098 STORY120 STORY054>)
+	(REQUIREMENTS <LTABLE SKILL-CLOSE-COMBAT SKILL-SHOOTING SKILL-CUNNING NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT033 "Bador thrusts his chin forward and strokes at his grizzled scrub of beard as he waits to see how he can help you.">
+<CONSTANT CHOICES033 <LTABLE "ask him about Giza" "Saharan Ice Wastes" "the city of Kahira" "where you should take lodging">>
 
 <ROOM STORY033
 	(DESC "033")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT033)
+	(CHOICES CHOICES033)
+	(DESTINATIONS <LTABLE STORY059 STORY077 STORY143 STORY099>)
+	(TYPES FOUR-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT034 "Gaia must be having one of her periodic bouts of madness. The commands that have appeared on the screen tell you that she has logged into the computer which oversees the nuclear reactor supplying power to this base. Your jaw sags in dismay as you see the next set of commands: a sequence which, if completed, would cause the reactor to go critical!||There are times for subtlety, but this isn't one of them. You rip out the external cables, physically breaking the link to Gaia. The computer sputters and fades before the reactor override command could be completed. You've saved yourself and quite possibly all of Kahira, but with the computer out of action there is no way to restore the reactor to full function. Failsafe systems will probably shut it down now. That means that the electricity will go off soon. Since that will disable the elevator, you lose no time in ascending to the surface while you still can.">
 
 <ROOM STORY034
 	(DESC "034")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT034)
+	(CONTINUE STORY361)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT035 "You gnaw wretchedly at your meagre provisions, trying to ration out what remains so that it will last as long as possible. You manage to trap a migrating bird which pauses to rest on one of the spars of ice.">
+<CONSTANT TEXT035-BIRD "The bird escapes while hunger continues to weaken you.">
 
 <ROOM STORY035
 	(DESC "035")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT035)
+	(PRECHOICE STORY035-PRECHOICE)
+	(CONTINUE STORY100)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY035-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-SURVIVAL>
+		<PREVENT-DEATH ,STORY035>
+	)(ELSE
+		<EMPHASIZE TEXT035-BIRD>
+		<TEST-MORTALITY 1 DIED-OF-HUNGER ,STORY035>
+	)>>
+
+<CONSTANT TEXT036 "A laboratory extends from the far end of the hall. A bank of computers lines one wall. The benches are strewn with electronic equipment whose function you cannot even guess at, most of it only half-constructed. On one bench, next to a metal box, you notice an empty coffee cup. It seems as though this base was evacuated in a hurry.||You stoop to inspect the metal box. It looks something like a communicator, with a viewscreen and speaker on one side next to an array of buttons. You guess that the prominent red button on the side will power it up... whatever it is.">
+<CONSTANT CHOICES036 <LTABLE "try using the computers to put through a message to Gaia" "power up the metal box" "spend time on a more thorough search of the laboratory" "descend to the military level" "leave the pyramid">>
 
 <ROOM STORY036
 	(DESC "036")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT036)
+	(CHOICES CHOICES036)
+	(DESTINATIONS <LTABLE STORY012 STORY057 STORY080 STORY255 STORY361>)
+	(TYPES FIVE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT037 "You make do as best you can with the little food remaining. You take to sleeping in the middle of each day, when the sunlight gives some small respite from the cold. Rising in late afternoon, you travel on through the night so that the activity keeps you from freezing to death. You watch the stars wheel ponderously overhead, melancholy sparks drifting through the silent heavens.">
+<CONSTANT TEXT037-CONTINUED "When dawn at last washes the sky silver and lays gold-pink tracks across the snow, you are amazed to find tears of joy running down your cheeks. You have survived another night of this terrible ordeal.">
 
 <ROOM STORY037
 	(DESC "037")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT037)
+	(PRECHOICE STORY037-PRECHOICE)
+	(CONTINUE STORY125)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY037-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-SURVIVAL>
+		<PREVENT-DEATH ,STORY037>
+		<EMPHASIZE NATURAL-HARDINESS>
+	)(ELSE
+		<TEST-MORTALITY 1 DIED-FROM-COLD ,STORY037>
+	)>>
+
+<CONSTANT TEXT038 "As night falls, an eerie glitter of lights appears in the sky like a translucent curtain draped across the cosmos. Janus Gaunt gazes up and tells you it is the aurora cordis, caused by particles from outer space falling into the field of paradox radiation emanating from the Heart of Volent.||You stand in awe, humbled by the magnificent sight. The curtain of light ripples and stirs in the heavens. \"It seems staggering,\" you remark to Gaunt in a whisper, \"to think that just a fraction of the Heart's power could create something on such a scale.\"||He chuckles. \"The Heart's power is much greater than that. Power enough to shape worlds and shift the stars in their courses, if the legend is to be believed.\"||\"And do you believe it?\"||He gives you an odd, half-frightened look. \"Believe it? I have studied the scientific records. I know it for a fact.\"">
 
 <ROOM STORY038
 	(DESC "038")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT038)
+	(PRECHOICE STORY038-PRECHOICE)
+	(CONTINUE STORY082)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY038-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-URUK>
+		<DELETE-CODEWORD ,CODEWORD-URUK>
+		<GAIN-CODEWORD ,CODEWORD-ENKIDU>
+	)>
+	<COND (<CHECK-CODEWORD ,CODEWORD-NEMESIS> <STORY-JUMP ,STORY060>)>>
+
+<CONSTANT TEXT039 "You ease yourselves down into the crevice. The walls are slick with frost and you have to brace your back against sharp rocks to keep from slipping. At last you see a glimmer of light below and you emerge onto a ledge overlooking a large underground cavern. A distant howl of rushing air reaches your ears, magnified by the vast space surrounding you. The light is a dull grey phosphorescence from deep in the rock. Climbing down to the floor of the cavern, you advance through a forest of slender stalagmites which glisten like old candles.||Baron Siriasis bobs along beside you like a grotesque broken manikin. He points. \"Ahead is a chasm. Fortunately for you both, there seems to be a bridge across it.\"||As you step out from among the stalagmites, you fail to notice at first that a thick glowing vapour is roiling around your feet. Boche heads towards the chasm, but stumbles and gives a cry of alarm as the vapour begins to creep around his limbs. With a groan, the baron seems to sag and drift down to the cavern floor. You take another step, then you realize that the mist is draining your strength. It rises across your vision, a luminous fog that seeps into your skin like ice water. You can no longer see your comrades. Then you see a sight that sends a tingle of dread through you. Taking shape within the mist, reaching towards you with ghastly imploring fingers, is a horribly twisted figure that looks like a squashed effigy of white clay.">
+<CONSTANT TEXT039-END "There is nothing you can do to stop the phantom from reaching through your skin and extracting your life-essence">
 
 <ROOM STORY039
 	(DESC "039")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT039)
+	(PRECHOICE STORY039-PRECHOICE)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY039-PRECHOICE ()
+	<COND (<OR <CHECK-CODEWORD ,CODEWORD-ENKIDU> <CHECK-CODEWORD ,CODEWORD-TALOS> <CHECK-SKILL ,SKILL-LORE>>
+		<PREVENT-DEATH ,STORY039>
+		<COND (<CHECK-CODEWORD ,CODEWORD-ENKIDU>
+			<STORY-JUMP ,STORY105>
+		)(<CHECK-CODEWORD ,CODEWORD-TALOS>
+			<STORY-JUMP ,STORY127>
+		)(ELSE
+			<STORY-JUMP ,STORY171>
+		)>
+		<RETURN>
+	)>
+	<CRLF>
+	<TELL TEXT039-END>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT040 "Tossing the nearest corpse aside, you lie down on the floor of the passage and tell Boche and Siriasis to start retreating. \"Keep firing at it, \"you say to Boche, \"and make sure you don't hit me.\"||Boche takes two more shots, forcing the thing to keep its front legs raised as a shield. It stalks forward, feeling its way with its other legs. You feel a shudder of dread as it reaches you and probes your prone body with a metal leg, but you force yourself to keep absolutely still. The thing assumes you are one of the corpses littering the passage. As it clambers across you in pursuit of Boche and Siriasis, you find yourself staring up at the stunted little body inside the glass bubble. There is no doubt that this is the thing's guiding intelligence. You lash upwards with your boot, cracking the glass, and the blue fluid pours out. The thing rears up on its legs like a dying spider, takes a series of rushing steps that up-end it against the wall, then twitches and dies.||In stunned silence, the three of you edge past and head on to the end of the passage.">
 
 <ROOM STORY040
 	(DESC "040")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT040)
+	(CONTINUE STORY281)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY041
