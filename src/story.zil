@@ -13,6 +13,7 @@
 	<RESET-CONTAINER ,LOST-SKILLS>
 	<RESET-CONTAINER ,EAT-BAG>
 	<RESET-CONTAINER ,LOST-BAG>
+	<PUTP ,BARYSAL-GUN ,P?CHARGES 6>
 	<RETURN>>
 
 <ROUTINE RESET-STORY ()
@@ -20,6 +21,7 @@
 	<SETG PRACTICED-SHORTSWORD F>
 	<PUT <GETP ,STORY006 ,P?DESTINATIONS> 1 ,STORY138>
 	<PUT <GETP ,STORY006 ,P?DESTINATIONS> 2 ,STORY182>
+	<PUT <GETP ,STORY069 ,P?DESTINATIONS> 1 ,STORY135>
 	<PUTP ,STORY004 ,P?DEATH T>
 	<PUTP ,STORY013 ,P?DEATH T>
 	<PUTP ,STORY019 ,P?DEATH T>
@@ -30,6 +32,8 @@
 	<PUTP ,STORY043 ,P?DEATH T>
 	<PUTP ,STORY044 ,P?DEATH T>
 	<PUTP ,STORY056 ,P?DEATH T>
+	<PUTP ,STORY065 ,P?DEATH T>
+	<PUTP ,STORY066 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -186,6 +190,13 @@
 		<PUTP .STORY ,P?DEATH F>
 	)>>
 
+<ROUTINE FIRE-BARYSAL ("AUX" (CHARGES 0))
+	<SET CHARGES <GETP ,BARYSAL-GUN ,P?CHARGES>>
+	<COND (<G? .CHARGES 0>
+		<SET CHARGES <- .CHARGES 1>>
+		<PUTP ,BARYSAL-GUN ,P?CHARGES .CHARGES>
+	)>>
+
 <CONSTANT TEXT "This story has not been written yet.">
 
 <CONSTANT BACKGROUND-TEXT "In 2023, worsening conditions in the world's climate led to the first Global Economic Conference. It was agreed to implement measures intended to reverse industrial damage to the ecology and replenish the ozone layer. By 2031, an array of weather control satellites were in orbit. For added efficiency, and as a mark of worldwide cooperation, these were placed under the control of a supercomputer network called Gaia: the Global Artificial Intelligence Array. The Earth's climate began to show steady improvement.||The first hint of disaster came early in 2037, when Gaia shut down inexplicably for a period of seventeen minutes. Normal operation was resumed but the system continued to suffer 'glitches'. One such glitch resulted in Paris being subjected to a two-day heat wave of such intensity that the pavements cracked. After several months, the fault was identified. A computer virus had been introduced into Gaia by unknown means. The system's designer began programming an antivirus but died before his war was complete. The crisis grew throughout that year until finally, following the death of five thousand people in a flash flood along the Bangladesh coastline, the Gaia project was officially denounced. Unfortunately, it was no longer possible to shut it down.||By the mid twenty-first century, global weather conditions were in chaos owing to Gaia's sporadic operation. Ice sheets advanced further each year. Australia was subject to virtually constant torrential rain. The centre of Asia had become an arid wasteland. The political situation reflected the ravages of the climate, with wars flaring continually around the globe. Late in 2054, computer scientists in London tried to hack into Gaia and locate the replicating viruses in the program. Gaia, detecting this, interpreted the action as an attack on its program and retaliated by taking over a range of defense networks which allowed it to launch a nuclear strike. London was completely destroyed.||By the end of the century Gaia had routed itself into all major computer networks, taking control of weather, communications and weapons systems all across the planet. Periods of lucidity and hospitable climate were interspersed with hurricanes and arctic blizzards. The US President gave an interview in which he likened Gaia to a living entity: \"She was intended as mankind's protective mother, but this 'mother' has gone mad.\" Spiralling decline in the world's fortunes left much of humanity on the brink of extinction. The population fell rapidly until only a few million people remained scattered around the globe -- mostly in cities where food could still be artificially produced.||It is now the year 2300. The rich stand aloof, disporting themselves with forced gaiety and waiting for the end. The poor inhabit jostling slums where disease is rife and law is unknown. Between the cities, the land lies under a blanket of snow and ice. No-one expects humanity to last another century. This is truly 'the end of history'.">
@@ -232,7 +243,7 @@
 		<PREVENT-DEATH ,STORY002>
 	)(ELSE
 		<CRLF>
-		<TELL TEXT002-END>
+		<TELL ,TEXT002-END>
 		<TELL ,PERIOD-CR>
 	)>>
 
@@ -268,7 +279,7 @@
 		<PREVENT-DEATH ,STORY004>
 	)(ELSE
 		<CRLF>
-		<TELL TEXT004-END>
+		<TELL ,TEXT004-END>
 		<TELL ,PERIOD-CR>
 	)>>
 
@@ -387,11 +398,11 @@
 	<COND (<IS-ALIVE>
 		<CRLF>
 		<COND (.HAS-BURREK
-			<TELL TEXT013-BURREK>
+			<TELL ,TEXT013-BURREK>
 			<TELL ,PERIOD-CR>
 			<CRLF>
 		)>
-		<TELL TEXT013-CONTINUED>
+		<TELL ,TEXT013-CONTINUED>
 		<TELL ,PERIOD-CR>
 	)>>
 
@@ -540,11 +551,11 @@
 	<COND (<IS-ALIVE>
 		<CRLF>
 		<COND (.EXPERT
-			<TELL TEXT026-EXPERT>
+			<TELL ,TEXT026-EXPERT>
 			<TELL ,PERIOD-CR>
 			<CRLF>
 		)>
-		<TELL TEXT026-CONTINUED>
+		<TELL ,TEXT026-CONTINUED>
 		<TELL ,PERIOD-CR>
 	)>>
 
@@ -573,7 +584,7 @@
 <ROUTINE STORY028-PRECHOICE ()
 	<GAIN-LIFE 2>
 	<CRLF>
-	<TELL TEXT028-CONTINUED>
+	<TELL ,TEXT028-CONTINUED>
 	<CRLF>>
 
 <CONSTANT TEXT029 "The indicator light shows you have fifteen floors to go. About thirty seconds. Long enough to work a miracle if you're lucky. You clear your mind of everything but a single purpose: to direct your willpower through the psionic focus you wear.||The indicator light shows you have reached the third floor... the second... the first. With a chime, the elevator comes to a halt and the doors start to open.||Suddenly all the lights go out, not only here but in the street outside, plunging the lobby into total darkness.||\"Power cut!\" you hear someone shout. Then someone else snarls an order to open fire, and gunfire spatters the rear wall of the elevator where you were standing only seconds before.||Following the wall, you find the door and duck out into the night. Hurrying off, you go half a block through the welcome enveloping mist before allowing the electricity to flow again. That was as narrow an escape as you've ever had. You'll have to sharpen your edge if you are to have any chance of getting the Heart.">
@@ -610,8 +621,8 @@
 	(DESC "032")
 	(CHOICES CHOICES032)
 	(DESTINATIONS <LTABLE STORY076 STORY098 STORY120 STORY054>)
-	(REQUIREMENTS <LTABLE SKILL-CLOSE-COMBAT SKILL-SHOOTING SKILL-CUNNING NONE>)
-	(TYPES <LTABLE R-SKILL R-SKILL R-SKILL R-NONE>)
+	(REQUIREMENTS <LTABLE SKILL-CLOSE-COMBAT <LTABLE BARYSAL-GUN> SKILL-CUNNING NONE>)
+	(TYPES <LTABLE R-SKILL R-ALL R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT033 "Bador thrusts his chin forward and strokes at his grizzled scrub of beard as he waits to see how he can help you.">
@@ -721,7 +732,7 @@
 		<RETURN>
 	)>
 	<CRLF>
-	<TELL TEXT039-END>
+	<TELL ,TEXT039-END>
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT040 "Tossing the nearest corpse aside, you lie down on the floor of the passage and tell Boche and Siriasis to start retreating. \"Keep firing at it, \"you say to Boche, \"and make sure you don't hit me.\"||Boche takes two more shots, forcing the thing to keep its front legs raised as a shield. It stalks forward, feeling its way with its other legs. You feel a shudder of dread as it reaches you and probes your prone body with a metal leg, but you force yourself to keep absolutely still. The thing assumes you are one of the corpses littering the passage. As it clambers across you in pursuit of Boche and Siriasis, you find yourself staring up at the stunted little body inside the glass bubble. There is no doubt that this is the thing's guiding intelligence. You lash upwards with your boot, cracking the glass, and the blue fluid pours out. The thing rears up on its legs like a dying spider, takes a series of rushing steps that up-end it against the wall, then twitches and dies.||In stunned silence, the three of you edge past and head on to the end of the passage.">
@@ -912,11 +923,11 @@
 	<COND (<IS-ALIVE>
 		<COND (.SURVIVOR
 			<CRLF>
-			<TELL TEXT056-SURVIVOR>
+			<TELL ,TEXT056-SURVIVOR>
 		)>
 		<COND (.BURREK
 			<COND (<NOT .SURVIVOR> <CRLF>)(ELSE <TELL " ">)>
-			<TELL TEXT056-BURREK>
+			<TELL ,TEXT056-BURREK>
 			<TELL ,PERIOD-CR>
 		)(.SURVIVOR
 			<TELL ,PERIOD-CR>
@@ -973,175 +984,131 @@
 <ROUTINE STORY060-PRECHOICE ()
 	<COND (<CHECK-SKILL ,SKILL-ESP> <STORY-JUMP ,STORY152>)>>
 
+<CONSTANT CHOICES061 <LTABLE "use" "try" "or" "use" "otherwise">>
+
 <ROOM STORY061
 	(DESC "061")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(CHOICES CHOICES061)
+	(DESTINATIONS <LTABLE STORY344 STORY365 STORY387 STORY408 STORY429>)
+	(REQUIREMENTS <LTABLE SKILL-ESP SKILL-ROGUERY SKILL-LORE <LTABLE SKILL-CYBERNETICS LITTLE-GAIA> NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-SKILL R-SKILL-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT062 "You are in no doubt that the stunted little form inside the central globe is the thing's guiding intellect. Racing forward, you avoid a sweep of the powerful metal legs and throw yourself into a forward roll that carries you onto the top of the glass globe. The half-formed face of the embryo is floating just inches from your own. Its muddy eyes give no sign of surprise or understanding -- it has the drooling vacant face of an imbecile -- but suddenly the metal legs buck and rear in a frantic effort to throw you off. You cling on for several seconds until you feel it give an upward thrust, trying to crush you against the ceiling. You leap clear at the crash. As the blue fluid drains away, the thing gives a dying spasm and then falls still.||Boche comes over and helps you to your feet. \"I wonder what that was,\" he says with emphatic distaste.||\"I don't care as long as there aren't any more of them,\" you reply. Together you head on to the end of the passage.">
 
 <ROOM STORY062
 	(DESC "062")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT062)
+	(CONTINUE STORY281)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT063 "The beam crackles through the air, only to splatter off an invisible shield of psychic force.">
+<CONSTANT CHOICES063 <LTABLE "try to strip away the defensive shield and fire again" "back out of the hall the way you came" "press on deeper into the catacombs">>
 
 <ROOM STORY063
 	(DESC "063")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(EVENTS STORY063-EVENTS)
+	(STORY TEXT063)
+	(CHOICES CHOICES063)
+	(DESTINATIONS <LTABLE STORY282 STORY107 STORY129>)
+	(REQUIREMENTS <LTABLE <LTABLE SKILL-PARADOXING BARYSAL-GUN> NONE NONE>)
+	(TYPES <LTABLE R-SKILL-ITEM R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY063-EVENTS ()
+	<COND (,RUN-ONCE <FIRE-BARYSAL>)>
+	<RETURN ,STORY063>>
 
 <ROOM STORY064
 	(DESC "064")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(EVENTS STORY064-EVENTS)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY064-EVENTS ()
+	<COND (<CHECK-SKILL ,SKILL-ESP> <RETURN ,STORY130>)>
+	<RETURN ,STORY240>>
+
+<CONSTANT TEXT065 "The shot was a decoy. Sensing Golgoth's thoughts, you whirl to see him running silently through the smoke towards you. He has a knife in his hand, and the look in his eyes is as cold as death. You block his first thrust but take a gash on your forearm, countering with an elbow-strike which leaves him dazed.||The fight is short and brutal. Golgoth is a master of lethal killing techniques.">
+<CONSTANT TEXT065-CONTINUE "You finally manage to twist the knife around and impale him.">
 
 <ROOM STORY065
 	(DESC "065")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT065)
+	(PRECHOICE STORY065-PRECHOICE)
+	(CONTINUE STORY072)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY065-PRECHOICE ("AUX" (DAMAGE 5))
+	<COND (<CHECK-SKILL ,SKILL-CLOSE-COMBAT> <SET DAMAGE 3>)>
+	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY065 ,SKILL-CLOSE-COMBAT>
+	<IF-ALIVE ,TEXT065-CONTINUE>>
+
+<CONSTANT TEXT066 "The puppets are programmed to fight each other in an epic theatrical battle. But you doubt if the programmers ever expected a group of spectators to wander onto the stage during the performance. Dodging the sword-blows is almost impossible. The strobing light was supposed to enhance the scene, adding a sense of frantic pace as well as disguising any jerkiness in the puppet' movement, but it also makes it much harder to see a sword-thrust coming.||You finally succeed in pushing your way through the melee and jumping down off the stage, but in the process you take several nasty cuts.">
 
 <ROOM STORY066
 	(DESC "066")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT066)
+	(PRECHOICE STORY066-PRECHOICE)
+	(CONTINUE STORY110)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY066-PRECHOICE ("AUX" (DAMAGE 2))
+	<COND (<CHECK-SKILL ,SKILL-CLOSE-COMBAT> <SET DAMAGE 1>)>
+	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY066 ,SKILL-CLOSE-COMBAT>>
+
+<CONSTANT TEXT067 "Taking up your pack, you trudge out into the snow. Moments later you hear the crunching of rapid footsteps and Boche catches up with you. His breath curls into the diamond-clear morning air. \"We may as well travel together for mutual convenience, at least for a while,\" he says chirpily.">
+<CONSTANT CHOICES067 <LTABLE "agree to this" "refuse point-blank">>
 
 <ROOM STORY067
 	(DESC "067")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT067)
+	(CHOICES CHOICES067)
+	(DESTINATIONS <LTABLE STORY133 STORY155>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT068 "There is the familiar pulse of blistering grey-white light, which instantaneously illuminates the overhanging crags like daylight. The sharp crack of vaporized snow and superheated air reverberates off the rocks. You are gratified to see the figure throw up its arms and fall to the ground.||\"That was rash,\" snaps Boche. \"You might have just killed a potential ally.\"||You lower yourself form the ledge and start off towards the prone figure. \"Let's find out,\" you call back over your shoulder. The figure looks dead, but you are careful to keep your gun trained on it.">
 
 <ROOM STORY068
 	(DESC "068")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT068)
+	(PRECHOICE STORY068-PRECHOICE)
+	(CONTINUE STORY090)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY068-PRECHOICE ()
+	<FIRE-BARYSAL>>
+
+<CONSTANT TEXT069 "The drawback to using the card is the holographic picture on the front, which looks nothing like you.">
+<CONSTANT CHOICES069 <LTABLE "get the ID card altered" "forget about the card and investigate your other options instead">>
 
 <ROOM STORY069
 	(DESC "069")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT069)
+	(PRECHOICE STORY069-PRECHOICE)
+	(CHOICES CHOICES069)
+	(DESTINATIONS <LTABLE STORY135 STORY414>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY069-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-ROGUERY> <STORY-JUMP ,STORY452>)>
+	<COND (<OR <CHECK-SKILL ,SKILL-STREETWISE> <CHECK-ITEM ,VADE-MECUM>>
+		<PUT <GETP ,STORY069 ,P?DESTINATIONS> 1 ,STORY113>
+	)(ELSE
+		<PUT <GETP ,STORY069 ,P?DESTINATIONS> 1 ,STORY135>
+	)>>
 
 <ROOM STORY070
 	(DESC "070")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(EVENTS STORY070-EVENTS)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY070-EVENTS ()
+	<COND (<CHECK-SKILL ,SKILL-PILOTING> <RETURN ,STORY115>)>
+	<RETURN ,STORY137>>
 
 <ROOM STORY071
 	(DESC "071")
