@@ -34,6 +34,8 @@
 	<PUTP ,STORY056 ,P?DEATH T>
 	<PUTP ,STORY065 ,P?DEATH T>
 	<PUTP ,STORY066 ,P?DEATH T>
+	<PUTP ,STORY070 ,P?DEATH T>
+	<PUTP ,STORY075 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -394,7 +396,7 @@
 <ROUTINE STORY013-PRECHOICE ("AUX" (HAS-BURREK F) (DAMAGE 3))
 	<COND (<CHECK-ITEM ,BURREK> <SET DAMAGE 2> <SET HAS-BURREK T>)>
 	<COND (<AND <NOT <CHECK-ITEM ,FUR-COAT>> <NOT <CHECK-ITEM ,WEATHER-SUIT>>> <SET DAMAGE <+ .DAMAGE 1>>)>
-	<TEST-MORTALITY .DAMAGE DIED-FROM-COLD ,STORY013>
+	<TEST-MORTALITY .DAMAGE ,DIED-FROM-COLD ,STORY013>
 	<COND (<IS-ALIVE>
 		<CRLF>
 		<COND (.HAS-BURREK
@@ -467,7 +469,7 @@
 
 <ROUTINE STORY019-PRECHOICE ("AUX" (DAMAGE 6))
 	<COND (<CHECK-ITEM ,SPECULUM-JACKET> <SET DAMAGE 4>)>
-	<TEST-MORTALITY .DAMAGE DIED-FROM-INJURIES ,STORY019>
+	<TEST-MORTALITY .DAMAGE ,DIED-FROM-INJURIES ,STORY019>
 	<COND (<IS-ALIVE> <DELETE-CODEWORD ,CODEWORD-MALLET>)>>
 
 <CONSTANT TEXT020 "Singh was so intent on watching for Golgoth that he did not expect an attack from you. Caught unawares, he is flung to the ground. Rushing in, you snatch up the cannon and finish him with a blast from his own weapon.||The smoke begins to disperse. At first you see no sign of Golgoth, then he emerges from one of the elevator tubes. He had attached his gun to the wall magnetically and set it for remote fire. Retrieving it, he casts a wary glance at the cannon and then smiles. \"Ultimate power can be quite a temptation,\" he says, glancing significantly from the cannon to the gun in his own hand.">
@@ -547,7 +549,7 @@
 		<SET EXPERT T>
 		<SET DAMAGE 1>
 	)>
-	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY026 ,SKILL-CLOSE-COMBAT>
+	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY026 ,SKILL-CLOSE-COMBAT>
 	<COND (<IS-ALIVE>
 		<CRLF>
 		<COND (.EXPERT
@@ -660,7 +662,7 @@
 		<PREVENT-DEATH ,STORY035>
 	)(ELSE
 		<EMPHASIZE TEXT035-BIRD>
-		<TEST-MORTALITY 1 DIED-OF-HUNGER ,STORY035>
+		<TEST-MORTALITY 1 ,DIED-OF-HUNGER ,STORY035>
 	)>>
 
 <CONSTANT TEXT036 "A laboratory extends from the far end of the hall. A bank of computers lines one wall. The benches are strewn with electronic equipment whose function you cannot even guess at, most of it only half-constructed. On one bench, next to a metal box, you notice an empty coffee cup. It seems as though this base was evacuated in a hurry.||You stoop to inspect the metal box. It looks something like a communicator, with a viewscreen and speaker on one side next to an array of buttons. You guess that the prominent red button on the side will power it up... whatever it is.">
@@ -690,7 +692,7 @@
 		<PREVENT-DEATH ,STORY037>
 		<EMPHASIZE NATURAL-HARDINESS>
 	)(ELSE
-		<TEST-MORTALITY 1 DIED-FROM-COLD ,STORY037>
+		<TEST-MORTALITY 1 ,DIED-FROM-COLD ,STORY037>
 	)>>
 
 <CONSTANT TEXT038 "As night falls, an eerie glitter of lights appears in the sky like a translucent curtain draped across the cosmos. Janus Gaunt gazes up and tells you it is the aurora cordis, caused by particles from outer space falling into the field of paradox radiation emanating from the Heart of Volent.||You stand in awe, humbled by the magnificent sight. The curtain of light ripples and stirs in the heavens. \"It seems staggering,\" you remark to Gaunt in a whisper, \"to think that just a fraction of the Heart's power could create something on such a scale.\"||He chuckles. \"The Heart's power is much greater than that. Power enough to shape worlds and shift the stars in their courses, if the legend is to be believed.\"||\"And do you believe it?\"||He gives you an odd, half-frightened look. \"Believe it? I have studied the scientific records. I know it for a fact.\"">
@@ -775,7 +777,7 @@
 
 <ROUTINE STORY043-PRECHOICE ("AUX" (DAMAGE 3))
 	<COND (<CHECK-ITEM ,SPECULUM-JACKET> <SET DAMAGE 2>)>
-	<TEST-MORTALITY .DAMAGE DIED-FROM-INJURIES ,STORY043>>
+	<TEST-MORTALITY .DAMAGE ,DIED-FROM-INJURIES ,STORY043>>
 
 <CONSTANT TEXT044 "Gargan XIV's fist lashes out, cracking your head back against the wall.">
 <CONSTANT TEXT044-CONTINUED "As you are squaring off for a hard fight, you see that Gargan XIII has drawn a knife and is standing over Golgoth, in no hurry to finish him off. Suddenly he looks up with a broad smile.">
@@ -790,7 +792,7 @@
 
 <ROUTINE STORY044-PRECHOICE ("AUX" (DAMAGE 3))
 	<COND (<CHECK-SKILL ,SKILL-CLOSE-COMBAT> <SET DAMAGE 1>)>
-	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY044 ,SKILL-CLOSE-COMBAT>
+	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY044 ,SKILL-CLOSE-COMBAT>
 	<IF-ALIVE TEXT044-CONTINUED>>
 
 <CONSTANT TEXT045 "You look at Boche's hand but do not take it. In these latter days, with humanity on the brink of extinction, you have learned to be way of strangers.||\"I travel alone.\"||Boche is not deterred. \"Come, that's hardly friendly. I've paid your bill.\"||\"I did not ask you to. Landlord, return this man's money. I shall settle my own account.\"">
@@ -1041,7 +1043,7 @@
 
 <ROUTINE STORY065-PRECHOICE ("AUX" (DAMAGE 5))
 	<COND (<CHECK-SKILL ,SKILL-CLOSE-COMBAT> <SET DAMAGE 3>)>
-	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY065 ,SKILL-CLOSE-COMBAT>
+	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY065 ,SKILL-CLOSE-COMBAT>
 	<IF-ALIVE ,TEXT065-CONTINUE>>
 
 <CONSTANT TEXT066 "The puppets are programmed to fight each other in an epic theatrical battle. But you doubt if the programmers ever expected a group of spectators to wander onto the stage during the performance. Dodging the sword-blows is almost impossible. The strobing light was supposed to enhance the scene, adding a sense of frantic pace as well as disguising any jerkiness in the puppet' movement, but it also makes it much harder to see a sword-thrust coming.||You finally succeed in pushing your way through the melee and jumping down off the stage, but in the process you take several nasty cuts.">
@@ -1056,7 +1058,7 @@
 
 <ROUTINE STORY066-PRECHOICE ("AUX" (DAMAGE 2))
 	<COND (<CHECK-SKILL ,SKILL-CLOSE-COMBAT> <SET DAMAGE 1>)>
-	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY066 ,SKILL-CLOSE-COMBAT>>
+	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY066 ,SKILL-CLOSE-COMBAT>>
 
 <CONSTANT TEXT067 "Taking up your pack, you trudge out into the snow. Moments later you hear the crunching of rapid footsteps and Boche catches up with you. His breath curls into the diamond-clear morning air. \"We may as well travel together for mutual convenience, at least for a while,\" he says chirpily.">
 <CONSTANT CHOICES067 <LTABLE "agree to this" "refuse point-blank">>
@@ -1101,99 +1103,99 @@
 		<PUT <GETP ,STORY069 ,P?DESTINATIONS> 1 ,STORY135>
 	)>>
 
+<CONSTANT TEXT070 "One of the men sticks out a foot to trip you, while the other chops at your neck with his knife.">
+<CONSTANT TEXT070-BLOCK "You are able to fend off the blow and escape past them, grabbing up your clothes as you run">
+<CONSTANT TEXT070-CONTINUED "The blade gashes you across the breast-bone -- a painful but not lethal injury">
+<CONSTANT CHOICES070 <LTABLE "retreat into the steam room" "stand your ground and fight">>
+
 <ROOM STORY070
 	(DESC "070")
-	(EVENTS STORY070-EVENTS)
+	(STORY TEXT070)
+	(PRECHOICE STORY070-PRECHOICE)
+	(CHOICES CHOICES070)
+	(DESTINATIONS <LTABLE STORY004 STORY026>)
+	(TYPES TWO-NONES)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
 
-<ROUTINE STORY070-EVENTS ()
+<ROUTINE STORY070-PRECHOICE ()
+	<CRLF>
+	<COND (<OR <CHECK-SKILL ,SKILL-AGILITY> <CHECK-SKILL ,SKILL-CLOSE-COMBAT>>
+		<TELL ,TEXT070-BLOCK>
+		<TELL ,PERIOD-CR>
+		<PREVENT-DEATH ,STORY070>
+		<STORY-JUMP ,STORY092>
+		<RETURN>
+	)>
+	<COND (,RUN-ONCE
+		<TEST-MORTALITY 3 ,DIED-FROM-INJURIES ,STORY070>
+	)>
+	<COND (<IS-ALIVE>
+		<TELL ,TEXT070-CONTINUED>
+		<TELL ,PERIOD-CR>
+	)>>
+
+<ROOM STORY071
+	(DESC "070")
+	(EVENTS STORY071-EVENTS)
+	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY071-EVENTS ()
 	<COND (<CHECK-SKILL ,SKILL-PILOTING> <RETURN ,STORY115>)>
 	<RETURN ,STORY137>>
 
-<ROOM STORY071
-	(DESC "071")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
-	(FLAGS LIGHTBIT)>
+<CONSTANT TEXT072 "\"We've done it!\" you cry. \"Now to destroy the Heart.\"||But Singh shakes his head. \"Nonsense. I have honoured our agreement thus far, but only to ensure success. Now we must decide which of us survives to claim the power.\"||\"Hardly an even battle.\" You nod at the powerful mantramukta cannon in his hands.||He tosses the cannon aside. In his belt is tucked a nozzle that tells you it is in fact a modified laser.">
+<CONSTANT CHOICES072 <LTABLE "use a" "otherwise">>
 
 <ROOM STORY072
 	(DESC "072")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT072)
+	(CHOICES CHOICES072)
+	(DESTINATIONS <LTABLE STORY283 STORY305>)
+	(REQUIREMENTS <LTABLE BARYSAL-GUN NONE>)
+	(TYPES <LTABLE R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT CHOICES073 <LTABLE "take the elevator to the library" "the medical lounge" "the gymnasium" "the armoury" "the canteen" "you have pushed your luck far enough and wish to leave before your deception is uncovered">>
 
 <ROOM STORY073
 	(DESC "073")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(CHOICES CHOICES073)
+	(DESTINATIONS <LTABLE STORY006 STORY204 STORY051 STORY447 STORY094 STORY311>)
+	(TYPES SIX-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT074 "The carriage gathers speed. You sit at the front and stare through the window at the darkness rushing by. Hours pass before you see the glimmer of lights along the tunnel. The carriage glides to a halt at a station lit by dull red lights. You stand up, but the doors do not open. Instead the motilator gives a placid announcement: \"We have arrived at a restricted area. We will now proceed to Maka, where you will be able to transfer to another vehicle for your onward journey. We apologize for any inconvenience.\"||Again the carriage picks up speed, this time for a journey of less than two hours. Arriving at another terminal, you wait to see what other destinations the motilator will offer. On the map, only Tarabul continues to flash.">
+<CONSTANT CHOICES074 <LTABLE "either take the subway there" "disembark and see where you are">>
 
 <ROOM STORY074
 	(DESC "074")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT074)
+	(CHOICES CHOICES074)
+	(DESTINATIONS <LTABLE STORY031 STORY375>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT075 "\"What's that, what's that?\"||You silt bolt upright and stare around. The voice you heard was jarringly strange: humanlike, but not quite human. Nerves tingling, you scan the undergrowth.||Teeth snare your shoulder and you cry out in pain and surprise.">
+<CONSTANT TEXT075-CONTINUED "You look up to see an uncanny beast peering down at you. Stretched between the branches, its body is a tent of leathery wing-flaps. Its head is a narrow snout filled with teeth, swaying on a long flexible neck. It watches you with small glittering eyes and croaks, \"What's that?\"||Nothing nice, that's for sure.">
+<CONSTANT CHOICES075 <LTABLE "use" "otherwise">>
 
 <ROOM STORY075
 	(DESC "075")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT075)
+	(PRECHOICE STORY075-PRECHOICE)
+	(CHOICES CHOICES075)
+	(DESTINATIONS <LTABLE STORY096 STORY118>)
+	(REQUIREMENTS <LTABLE SKILL-SHOOTING NONE>)
+	(TYPES <LTABLE R-SKILL R-NONE>)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY075-PRECHOICE ()
+	<COND (,RUN-ONCE
+		<TEST-MORTALITY 1 ,DIED-FROM-INJURIES ,STORY075>
+	)>
+	<IF-ALIVE ,TEXT075-CONTINUED>>
 
 <ROOM STORY076
 	(DESC "076")
