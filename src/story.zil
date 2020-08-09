@@ -1,7 +1,7 @@
 <INSERT-FILE "numbers">
 
 <GLOBAL CHARACTERS-ENABLED T>
-<GLOBAL STARTING-POINT BACKGROUND>
+<GLOBAL STARTING-POINT PROLOGUE>
 
 <CONSTANT BAD-ENDING "Your adventure ends here.|">
 <CONSTANT GOOD-ENDING "Further adventure awaits.|">
@@ -36,6 +36,7 @@
 	<PUTP ,STORY066 ,P?DEATH T>
 	<PUTP ,STORY070 ,P?DEATH T>
 	<PUTP ,STORY075 ,P?DEATH T>
+	<PUTP ,STORY076 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -197,6 +198,28 @@
 	<COND (<G? .CHARGES 0>
 		<SET CHARGES <- .CHARGES 1>>
 		<PUTP ,BARYSAL-GUN ,P?CHARGES .CHARGES>
+	)>>
+
+<ROUTINE TAKE-OR-CHARGE ("OPT" AMOUNT "AUX" CHARGES)
+	<COND (<NOT .AMOUNT> <SET AMOUNT 1>)>
+	<CRLF>
+	<COND (<CHECK-ITEM ,BARYSAL-GUN>
+		<TELL "Take " T ,BARYSAL-GUN "'s remaining ">
+		<COND (<G? .AMOUNT 1> <TELL N .AMOUNT " charges">)(ELSE <TELL "charge">)>
+		<TELL "?">
+		<COND (<YES?>
+			<SET CHARGES <GETP ,BARYSAL-GUN ,P?CHARGES>>
+			<SET CHARGES <+ .CHARGES .AMOUNT>>
+			<PUTP ,BARYSAL-GUN ,P?CHARGES .CHARGES>
+		)>
+	)(ELSE
+		<TELL "Take " T ,BARYSAL-GUN " (" N .AMOUNT " charge">
+		<COND (<G? .AMOUNT 1> <TELL "s">)>
+		<TELL " left)?">
+		<COND (<YES?>
+			<PUTP ,BARYSAL-GUN ,P?CHARGES .AMOUNT>
+			<TAKE-ITEM ,BARYSAL-GUN>
+		)>
 	)>>
 
 <CONSTANT TEXT "This story has not been written yet.">
@@ -1197,90 +1220,82 @@
 	)>
 	<IF-ALIVE ,TEXT075-CONTINUED>>
 
+<CONSTANT TEXT076 "\"I have been travelling for weeks,\" you reply curtly, \"and I will not be deterred from taking a good hot meal just because two slab-shouldered termagants want to drink themselves into a stupor.\"||A mutter of guarded approval goes around the other customers when they hear your tone of defiance. It is not exactly a cheer. Obviously the twins have kept everyone here tyrannized for hours.||You walk forward. One of the twins plants a hand in the middle of your chest. You seize it, apply a lock, and twist. She rolls out of the lock, bracing her arm against the bar and kicking up with strong yet fluid grace. You weave aside, block a punch from the other twin, and counter with a stiff-fingered strike to the solar plexus. She braces against the blow, taking it on muscles like steel cables. Her sister, springing upright, launches a kick at your kidneys which you barely avoid, the attack hitting you on the hip with bruising force.||The Jib-and-Halter Inn has never witnessed such a rough-house. Punches, kicks and brutal gouges lash back and forth while the other customers look on aghast.">
+<CONSTANT TEXT076-CONTINUED "The twins finally step back and signal that they are prepared to end the fight.">
+<CONSTANT CHOICES076 <LTABLE "agree" "insist on fighting on">>
+
 <ROOM STORY076
 	(DESC "076")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT076)
+	(PRECHOICE STORY076-PRECHOICE)
+	(CHOICES CHOICES076)
+	(DESTINATIONS <LTABLE STORY164 STORY186>)
+	(TYPES TWO-NONES)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY076-PRECHOICE ()
+	<COND (,RUN-ONCE <TEST-MORTALITY 3 ,DIED-IN-COMBAT ,STORY076 ,SKILL-CLOSE-COMBAT>)>
+	<IF-ALIVE ,TEXT076-CONTINUED>>
+
+<CONSTANT TEXT077 "Bador expresses dismay when you tell him you intend to cross the Ice Wastes. \"By your father's beard! Do you wish to become a corpse with hoarfrost in your veins? Put aside all thought of such a scheme, I pray you!\" You cannot help smiling. \"What?\" says Bador, starting to weep. \"Do you mock my concern?\"||You place a hand on his sleeve. \"Calm yourself. You and I are strangers, and you already have your fee. Do not allow thought of my death to upset you, but give me advice on how to avoid such a fate.\"||\"Only the barbarian Ebor venture into the Sahara, and even they go no further that its fringes. It is a place of ghosts and devils, and the wind is like flint.\"||\"The Ebor? A nomad tribe? How do they survive?\"||\"They have burreks, shaggy thick-necked beasts that grow folds of fat. When the blizzard comes, the Ebor rider shelters by his burrek and bleeds the animal, frying up a blood pudding to sustain him.\" Bador grimaces to show what he thinks of such a custom.">
+<CONSTANT CHOICES077 <LTABLE "ask what he knows about the city" "about Giza" "the best place to spend the night" "you have learned all you need and want to send him away">>
 
 <ROOM STORY077
 	(DESC "077")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT077)
+	(CHOICES CHOICES077)
+	(DESTINATIONS <LTABLE STORY143 STORY059 STORY099 STORY095>)
+	(TYPES FOUR-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT078 "The flyer slowly drifts into the air on streamers of lambent gas. As the main thrusters engage, it picks up speed and goes roaring up into the heavens. A flash of sunlight glances off the hull as it veers towards the east. You watch until it is lost in the soft blue haze.||You set out on foot until you come to a shore of white sand, which you follow north to a ferry building. A group of men emerge and appraise you with suspicious glances before showing you to the ferry boat, a single-masted schooner that has seen better days. Two or three other passengers are already aboard, and on seeing you one of them says, \"Good! Now the ferry is full, we can set sail for Port Sudan.\"">
+<CONSTANT TEXT078-CONTINUED "Moonlight is making such a creamy track in the water by the time you reach Sudan, a village of wooden huts huddled within the vast shell of an abandoned city wall. The boat sweeps in across the harbour, guided by a flaring beacon, and moors at a jetty reeking of fish. The streets are empty , and it is obviously too late to find a hostelry for the night, so you decide to sleep on the boat. The ferrymen are averse to this, insisting they should be paid more for providing you with accommodation as well as transport, but the other passengers are encouraged by your lead. \"You were happy enough to keep us waiting two days until you had enough passengers for the journey,\" snaps one.||At last the ferrymen sullenly agree. You sleep until dawn tinges the sky with the colour of a candle flame.">
+<CONSTANT CHOICES078 <LTABLE "do some shopping in Sudan" "you are eager to set out for Du-En">>
 
 <ROOM STORY078
 	(DESC "078")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT078)
+	(PRECHOICE STORY078-PRECHOICE)
+	(CHOICES CHOICES078)
+	(DESTINATIONS <LTABLE STORY101 STORY234>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY078-PRECHOICE ()
+	<COND (,RUN-ONCE <CHARGE-MONEY 1>)>
+	<CRLF>
+	<TELL ,TEXT078-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT079 "A thin searing beam spits through the air, burning a precise hole through the giant bometh's head. It utters a deep growl, takes two stumbling steps through the snow, and then falls. You hurry over to make sure of the kill. You would not want a wounded bometh stalking you through the night.">
 
 <ROOM STORY079
 	(DESC "079")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT079)
+	(PRECHOICE STORY079-PRECHOICE)
+	(CONTINUE STORY341)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY079-PRECHOICE ()
+	<FIRE-BARYSAL>>
+
+<CONSTANT TEXT080 "You find several items scattered across a bench at the back of the laboratory. These include a flashlight, a pair of binoculars, a set of polarized goggles, and a barysal gun. The gun has been opened for inspection, but it is a simple matter to secure the but and replace the screws. You check the power unit, finding two charges remaining.">
+<CONSTANT CHOICES080 <LTABLE "descend the shaft to the bottom level" "ascend and leave the pyramid">>
 
 <ROOM STORY080
 	(DESC "080")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT080)
+	(PRECHOICE STORY080-PRECHOICE)
+	(DESTINATIONS <LTABLE STORY255 STORY361>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY080-PRECHOICE ()
+	<COND (,RUN-ONCE
+		<TAKE-OR-CHARGE 2>
+		<SELECT-FROM-LIST <LTABLE FLASHLIGHT BINOCULARS POLARIZED-GOGGLES> 3 3>
+	)>>
 
 <ROOM STORY081
 	(DESC "081")

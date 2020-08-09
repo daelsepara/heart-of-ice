@@ -25,6 +25,12 @@
     (ADJECTIVE ANTIDOTE)
     (FLAGS TAKEBIT)>
 
+<OBJECT BINOCULARS
+    (DESC "pair of binoculars")
+    (SYNONYM BINOCULARS)
+    (ADJECTIVE PAIR)
+    (FLAGS TAKEBIT)>
+
 <OBJECT BURREK
     (DESC "burrek")
     (SYNONYM BURREK)
@@ -63,6 +69,12 @@
     (DESC "mantramukta cannon")
     (SYNONYM CANNON)
     (ADJECTIVE MANTRAMUKTA)
+    (FLAGS TAKEBIT)>
+
+<OBJECT POLARIZED-GOGGLES
+    (DESC "polarized goggles")
+    (SYNONYM GOGGLES)
+    (ADJECTIVE POLARIZED)
     (FLAGS TAKEBIT)>
 
 <OBJECT ROPE
