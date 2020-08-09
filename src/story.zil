@@ -1,7 +1,7 @@
 <INSERT-FILE "numbers">
 
 <GLOBAL CHARACTERS-ENABLED T>
-<GLOBAL STARTING-POINT STORY093>
+<GLOBAL STARTING-POINT BACKGROUND>
 
 <CONSTANT BAD-ENDING "Your adventure ends here.|">
 <CONSTANT GOOD-ENDING "Further adventure awaits.|">
@@ -201,7 +201,6 @@
 		<PUTP ,BARYSAL-GUN ,P?CHARGES .CHARGES>
 	)>>
 
-
 <ROUTINE CHARGE-BARYSAL ("OPT" AMOUNT "AUX" CHARGES)
 	<COND (<NOT .AMOUNT> <SET AMOUNT 1>)>
 	<SET CHARGES <GETP ,BARYSAL-GUN ,P?CHARGES>>
@@ -254,8 +253,29 @@
 		<PUTP .OBJECT ,P?QUANTITY .QUANTITY>
 	)>>
 
-<ROUTINE ADD-FOOD-PACKS ("OPT" AMOUNT)
-	<ADD-QUANTITY ,FOOD-PACKS .AMOUNT ,PLAYER>>
+<ROUTINE ADD-FOOD-PACK ("OPT" AMOUNT)
+	<ADD-QUANTITY ,FOOD-PACK .AMOUNT ,PLAYER>>
+
+<ROUTINE TAKE-FOOD-PACKS ("OPT" AMOUNT)
+	<COND (<NOT .AMOUNT> <SET .AMOUNT 1>)>
+	<CRLF>
+	<TELL "Take " T ,FOOD-PACK>
+	<COND (<G? .AMOUNT 1> <TELL "s">)>
+	<TELL "?">
+	<COND (<YES?>
+		<COND (<G? .AMOUNT 1>
+			<ADD-FOOD-PACK <GET-NUMBER "How many food packs will you take" 0 .AMOUNT>>
+		)(ELSE
+			<TAKE-ITEM ,FOOD-PACK>
+		)>
+	)>>
+
+<ROUTINE TAKE-QUANTITIES (OBJECT PLURAL MESSAGE "OPT" AMOUNT)
+	<CRLF>
+	<TELL "Take the " .PLURAL "?">
+	<COND (<YES?>
+		<ADD-QUANTITY .OBJECT <GET-NUMBER .MESSAGE 0 .AMOUNT> ,PLAYER>
+	)>>
 
 <CONSTANT TEXT "This story has not been written yet.">
 
@@ -1480,11 +1500,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY093-PRECHOICE ()
-	<CRLF>
-	<TELL "Take " T ,FOOD-PACKS "?">
-	<COND (<YES?>
-		<ADD-FOOD-PACKS <GET-NUMBER "How many food packs will you take" 0 10>>
-	)>
+	<TAKE-FOOD-PACKS 10>
 	<SELECT-FROM-LIST <LTABLE MEDICAL-KIT FLASHLIGHT COLD-WEATHER-SUIT ROPE> 4 4>>
 
 <CONSTANT TEXT094 "The canteen is located at the top of the building, with wide windows giving a breathtaking view over the city. You stand and look out for a few minutes at the tall towers wreathed in swirling fog. Below, a dark patch of woodland studded with mistily sparkling lamps can only be the infamous Claustral Park.||The canteen has no human attendants, just a food dispenser which brings forth foil-wrapped packs at the touch of a button.">
@@ -1502,13 +1518,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY094-PRECHOICE ()
-	<COND (,RUN-ONCE
-		<CRLF>
-		<TELL "Take " T ,FOOD-PACKS "?">
-		<COND (<YES?>
-		<ADD-FOOD-PACKS <GET-NUMBER "How many food packs will you take" 0 8>>
-		)>
-	)>>
+	<COND (,RUN-ONCE <TAKE-FOOD-PACKS 8>)>>
 
 <CONSTANT CHOICES095 <LTABLE "make use of an" "try to find out about Baron Siriasis" "Chaim Golgoth" "Gilgamesh" "the Sphinx" "you are ready to get some rest">>
 
@@ -1520,90 +1530,72 @@
 	(TYPES <LTABLE R-ITEM R-NONE R-NONE R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT096 "The blast hisses in the dank steamy air. Blue plasma-fire burns through the creature's neck. It utters a bleak wail of distress and falls crashing to the ground, where you finish off the twitching carcass with a heavy stone.||The wound in your shoulder is beginning to throb. You clean it with some leaves, then tear strips from the lining of your jacket to make a bandage. Lying back against the log, you feel slightly giddy, but this is no place to rest. There might be more of those creatures about. Hauling yourself to your feet, you lumber off in search of a safer place to hole up.">
+
 <ROOM STORY096
 	(DESC "096")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT096)
+	(PRECHOICE STORY096-PRECHOICE)
+	(CONTINUE STORY228)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY096-PRECHOICE ()
+	<FIRE-BARYSAL>>
+
+<CONSTANT TEXT097 "The nearest man stabs his knife at your heart. You deflect the blow with an open-handed block to his wrist, then sidestep in close to deliver two swift elbow strikes across his face. As he sags, you pluck the knife out of his fingers. The angle is wrong to get the man with the gun, so you cast the knife at each other. It catches him in the shoulder and he falls back with a grunt.||The man with the gun is about to fire. You throw yourself into a forward roll, hearing the blast crack overhead and explode against the wall. Scissoring your legs, you thrust him off-balance before he can take another shot. He topples into the fire, his frightened yelp cut brutally short as his head hits a rock.||Before you can get to your feet, the man with the knife in his shoulder comes lumbering forward and tries to stomp you in the guts. You jerk aside, catch his ankle, and bring him down backwards across your hip, where a swift powerful twist ends the struggle.||You search the shelter. The barysal gun has one charge left. You also find two knives, a set of polarized goggles, and cold weather clothes, binoculars, and six food packs.">
+<CONSTANT TEXT097-CONTINUED "Then you wait for the blizzard to blow itself out before you emerge into the crisp snow outside">
 
 <ROOM STORY097
 	(DESC "097")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT097)
+	(PRECHOICE STORY097-PRECHOICE)
+	(CONTINUE STORY393)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY097-PRECHOICE ()
+	<TAKE-OR-CHARGE 1 T>
+	<TAKE-FOOD-PACKS 6>
+	<TAKE-QUANTITIES ,KNIFE "knives" "How many knives will you take" 2>
+	<SELECT-FROM-LIST <LTABLE POLARIZED-GOGGLES COLD-WEATHER-SUIT BINOCULARS> 3 3>>
+
+<CONSTANT TEXT098 "Your gun is barely out of its holster before one of the twins flicks her wrist and sends a splash of fiery vodka into your eyes. The gun discharges with a sizzling crack. You stumble back, wiping your face. A kick lashes out, striking the gun from your hands. Strong fingers seize your head. There is no time to act before your legs are swept out form under you. You topple, and a mighty twist from your assailant breaks your neck. Your die in an unseemly tavern brawl.">
 
 <ROOM STORY098
 	(DESC "098")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT098)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT099 "He is emphatic that you should on no account sleep in Claustral Park. \"It is unsafe after nightfall,\" he says, wagging his finger. \"The claustrals are barely deterred from entering the streets as it is.\"||\"What are claustrals?\"||He jerks back in exaggerated surprise. \"Do you truly not know? They are rank fiends -- creatures that are the reverse of men. They flourish in the darkness, cold and filth; they abjure sunlight and goodness. Their food is the decaying remains of the dead.\" His fat jowls shudder with fright.||\"Decaying flesh? So why would they hunt a living person? Possibly the claustrals are simply figments of a fairy tale.\"||He looks at you sadly, as though at a person who had lost their wits. \"Do not allow your cynicism to tempt you into the park,\" he maintains.||\"So where should I stay?\"||\"The Ossiman Hotel is best. If you cannot afford a hotel, avoid the backstreets, where muggers lurk. If you must, sleep by the gratings on Fishermonger Plaza. It is well lit, warm, and there are plenty of folk around all through the night.\"">
+<CONSTANT CHOICES099 <LTABLE "ask his advice about the Sahara" "about Giza" "or about Kahira itself" "you can dismiss him">>
 
 <ROOM STORY099
 	(DESC "099")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT099)
+	(CHOICES CHOICES099)
+	(DESTINATIONS <LTABLE STORY077 STORY059 STORY143 STORY095>)
+	(TYPES FOUR-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT100 "You continue on, watching the sun slide dankly down into the west. A silvery afterglow rims the skyline. Pale humps of snow extend to the murky horizon, divided by hollows brimming with violet shadow. Catching a movement out of the corner of your eye you freeze, slowly turning to see a huge sabre-fanged bometh standing on a rise not fifty metres away. You slink back behind an ice boulder, not certain if the creature saw you.">
+<CONSTANT CHOICES100 <LTABLE "attack the bometh with a charged barysal gun" "or with a stun grenade" "close with it" "track it" "creep off before it spots you">>
 
 <ROOM STORY100
 	(DESC "100")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT100)
+	(PRECHOICE STORY100-PRECHOICE)
+	(CHOICES CHOICES100)
+	(DESTINATIONS <LTABLE STORY079 STORY145 STORY277 STORY319 STORY298>)
+	(REQUIREMENTS <LTABLE SKILL-SHOOTING STUN-GRENADE NONE BINOCULARS NONE>)
+	(TYPES <LTABLE R-SKILL R-ITEM R-NONE R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY100-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-ENKIDU>
+		<STORY-JUMP ,STORY123>
+	)(<CHECK-SKILL ,SKILL-SURVIVAL>
+		<STORY-JUMP ,STORY256>
+	)>>
 
 <ROOM STORY101
 	(DESC "101")

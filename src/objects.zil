@@ -47,12 +47,12 @@
     (SYNONYM FLASHLIGHT)
     (FLAGS TAKEBIT)>
 
-<OBJECT FOOD-PACKS
-    (DESC "food packs")
-    (SYNONYM PACKS)
+<OBJECT FOOD-PACK
+    (DESC "food pack")
+    (SYNONYM PACK)
     (ADJECTIVE FOOD)
     (QUANTITY 1)
-    (FLAGS TAKEBIT PLURALBIT)>
+    (FLAGS TAKEBIT)>
 
 <OBJECT FUR-COAT
     (DESC "fur coat")
@@ -70,6 +70,12 @@
     (DESC "ID card")
     (SYNONYM CARD)
     (ADJECTIVE ID)
+    (FLAGS TAKEBIT)>
+
+<OBJECT KNIFE
+    (DESC "knife")
+    (SYNONYM KNIFE)
+    (QUANTITY 1)
     (FLAGS TAKEBIT)>
 
 <OBJECT LITTLE-GAIA
