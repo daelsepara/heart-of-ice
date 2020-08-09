@@ -256,6 +256,33 @@
 <ROUTINE ADD-FOOD-PACK ("OPT" AMOUNT)
 	<ADD-QUANTITY ,FOOD-PACK .AMOUNT ,PLAYER>>
 
+<ROUTINE BUY-FOOD-PACK (PRICE "AUX" QUANTITIES)
+	<COND (<G=? ,MONEY .PRICE>
+		<CRLF>
+		<TELL "Buy a food pack for " .PRICE " scads each?">
+		<COND (<YES?>
+			<REPEAT ()
+				<SET QUANTITIES <GET-NUMBER "How many food packs will you buy" 0 8>>
+				<COND (<G? .QUANTITIES 0>
+					<COND (<L=? <* .QUANTITIES .PRICE> ,MONEY>
+						<CRLF>
+						<HLIGHT ,H-BOLD>
+						<TELL "You purchased " N .QUANTITIES>
+						<TELL D ,FOOD-PACK>
+						<COND (<G? .QUANTITIES 1> <TELL "s">)>
+						<CHARGE-MONEY <* .QUANTITIES .PRICE>>
+						<ADD-FOOD-PACK .QUANTITIES>
+						<COND (<L? ,MONEY .PRICE> <RETURN>)>
+					)(ELSE
+						<EMPHASIZE "You can't afford that!">
+					)>
+				)(ELSE
+					<RETURN>
+				)>
+			>
+		)>
+	)>>
+
 <ROUTINE TAKE-FOOD-PACKS ("OPT" AMOUNT)
 	<COND (<NOT .AMOUNT> <SET .AMOUNT 1>)>
 	<CRLF>
@@ -1597,22 +1624,29 @@
 		<STORY-JUMP ,STORY256>
 	)>>
 
+<CONSTANT TEXT101 "You stroll around the market, but there is little on offer here. If you wish to buy a fur coat, it will cost 5 scads. You can buy food packs for 4 scads each; these consist of fish, oil and grain dried into blocks, each giving rations for several days.">
+<CONSTANT TEXT101-CONTINUED "A small girl follows you along the dusty street singing a ditty:|\"Out across the Ice Wastes,|Yellow steam and snow,|Cough your gust and freeze to death,|A silly way to go.\"||No doubt the same rhyme has been repeated by children here for many generations. For some reason you find it more discouraging than any amount of sage advice. Not for the first time, you find yourself wondering if you are mad to consider a journey across the daunting Saharan plains. Still, when life on Earth is guttering like acandle about to blow out, only a fool makes plans for the future. You square your shoulders and turn to the west">
+
 <ROOM STORY101
 	(DESC "101")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT101)
+	(PRECHOICE STORY101-PRECHOICE)
+	(CONTINUE STORY234)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY101-PRECHOICE ()
+	<COND (<AND <G=? ,MONEY 5> <NOT <CHECK-ITEM ,FUR-COAT>>>
+		<CRLF>
+		<TELL "Buy " CT ,FUR-COAT "?">
+		<COND (<YES?>
+			<CHARGE-MONEY 5>
+			<TAKE-ITEM ,FUR-COAT>
+		)>
+	)>
+	<BUY-FOOD-PACK 4>
+	<CRLF>
+	<TELL ,TEXT101-CONTINUED>
+	<TELL ,PERIOD-CR>>
 
 <ROOM STORY102
 	(DESC "102")
