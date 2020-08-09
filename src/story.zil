@@ -259,7 +259,7 @@
 <ROUTINE BUY-FOOD-PACK (PRICE "AUX" QUANTITIES)
 	<COND (<G=? ,MONEY .PRICE>
 		<CRLF>
-		<TELL "Buy a food pack for " .PRICE " scads each?">
+		<TELL "Buy a food pack for " N .PRICE " scads each?">
 		<COND (<YES?>
 			<REPEAT ()
 				<SET QUANTITIES <GET-NUMBER "How many food packs will you buy" 0 8>>
