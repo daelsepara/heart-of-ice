@@ -38,6 +38,8 @@
 	<PUTP ,STORY075 ,P?DEATH T>
 	<PUTP ,STORY076 ,P?DEATH T>
 	<PUTP ,STORY085 ,P?DEATH T>
+	<PUTP ,STORY102 ,P?DEATH T>
+	<PUTP ,STORY108 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -136,7 +138,7 @@
 		<COND (<AND <OR <ASSIGNED? MINIMUM> <ASSIGNED? MAXIMUM>> <G? .MAXIMUM .MINIMUM>>
 			<TELL " (" N .MINIMUM "-" N .MAXIMUM ")">
 		)>
-		<TELL "?">
+		<TELL "? ">
 		<READLINE>
 		<COND (<EQUAL? <GETB ,LEXBUF 1> 1> <SET COUNT <CONVERT-TO-NUMBER 1 10>>
 			<COND (<OR .MINIMUM .MAXIMUM>
@@ -268,8 +270,9 @@
 						<CRLF>
 						<HLIGHT ,H-BOLD>
 						<TELL "You purchased " N .QUANTITIES>
-						<TELL D ,FOOD-PACK>
+						<TELL  " " D ,FOOD-PACK>
 						<COND (<G? .QUANTITIES 1> <TELL "s">)>
+						<TELL ,PERIOD-CR>
 						<CHARGE-MONEY <* .QUANTITIES .PRICE>>
 						<ADD-FOOD-PACK .QUANTITIES>
 						<COND (<L? ,MONEY .PRICE> <RETURN>)>
@@ -1625,7 +1628,7 @@
 	)>>
 
 <CONSTANT TEXT101 "You stroll around the market, but there is little on offer here. If you wish to buy a fur coat, it will cost 5 scads. You can buy food packs for 4 scads each; these consist of fish, oil and grain dried into blocks, each giving rations for several days.">
-<CONSTANT TEXT101-CONTINUED "A small girl follows you along the dusty street singing a ditty:|\"Out across the Ice Wastes,|Yellow steam and snow,|Cough your gust and freeze to death,|A silly way to go.\"||No doubt the same rhyme has been repeated by children here for many generations. For some reason you find it more discouraging than any amount of sage advice. Not for the first time, you find yourself wondering if you are mad to consider a journey across the daunting Saharan plains. Still, when life on Earth is guttering like acandle about to blow out, only a fool makes plans for the future. You square your shoulders and turn to the west">
+<CONSTANT TEXT101-CONTINUED "A small girl follows you along the dusty street singing a ditty:||\"Out across the Ice Wastes,|Yellow steam and snow,|Cough your gust and freeze to death,|A silly way to go.\"||No doubt the same rhyme has been repeated by children here for many generations. For some reason you find it more discouraging than any amount of sage advice. Not for the first time, you find yourself wondering if you are mad to consider a journey across the daunting Saharan plains. Still, when life on Earth is guttering like a candle about to blow out, only a fool makes plans for the future. You square your shoulders and turn to the west">
 
 <ROOM STORY101
 	(DESC "101")
@@ -1648,157 +1651,118 @@
 	<TELL ,TEXT101-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
+<CONSTANT TEXT102 "You are halfway across the tarmac when you realize your mistake. The pilot of the flyer has already engaged the boosters. You see him at the cockpit window, his face contorting in surprise and shock at the sight of you racing towards the craft. Your last image is of him jabbing desperately at the controls, but he is too late to abort the booster ignition. An instant later, a blast of white/hot gas bursts from the landing jets and billows up to press a wave of solid heat into your face. Blinding light burns into your retinas, followed by darkness and oblivion.">
+
 <ROOM STORY102
 	(DESC "102")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT102)
+	(PRECHOICE STORY102-PRECHOICE)
+	(CONTINUE STORY122)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY102-PRECHOICE ()
+	<TEST-MORTALITY 5 ,DIED-FROM-INJURIES ,STORY102>>
+
+<CONSTANT TEXT103 "You build a lean/to beside the bubbling pool in the shelter of dwarf conifers. You soon discover that the water of the pool is tainted with volcanic gases, but when you need to drink it is easy enough to collect snow from beyond the edge of the oasis and bring it back to camp to melt.||Food is more difficult to come by. The birds you saw when you first arrived prove to be very timid, and canny enough not to let you catch them. If someone had told you even two weeks ago that you would be eagerly chewing grubs and insects for sustenance, you would have laughed them to scorn. At least the hot gases rising from clefts in the rocks mean that you can bake the insects before eating them.">
+<CONSTANT TEXT103-CONTINUED "On the morning of your second day at the oasis, you notice a slight feeling of nausea, and begin to wonder whether the sulphur-tinged air is affecting your health">
+<CONSTANT CHOICES103 <LTABLE "leave the oasis and head on" "stay for a few days more">>
 
 <ROOM STORY103
 	(DESC "103")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT103)
+	(PRECHOICE STORY103-PRECHOICE)
+	(CHOICES CHOICES103)
+	(DESTINATIONS <LTABLE STORY426 STORY015>)
+	(REQUIREMENTS <LTABLE CODEWORD-HOURGLASS NONE>)
+	(TYPES <LTABLE R-GAIN-CODEWORD R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY103-PRECHOICE ()
+	<COND (,RUN-ONCE <GAIN-LIFE 2>)>
+	<TELL ,TEXT103-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT104 "Boche struts around the fire under the colonnade while outlining his plans for how you will share the power of the Heart. Lost in your own deep reverie, you hardly hear his words. Finally you look up and ask him, \"Why do you want ultimate power, Boche?\"||He stops short and looks at you sharply. For a moment you think he is about to give you a straight answer, but no. \"What are you saying? Are you having doubts? Surely not, when we are on the verge of triumph. You must not be so timid!\"">
+<CONSTANT CHOICES104 <LTABLE "suggest an alliance" "you would rather get some sleep">>
 
 <ROOM STORY104
 	(DESC "104")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT104)
+	(CHOICES CHOICES104)
+	(DESTINATIONS <LTABLE STORY236 STORY192>)
+	(REQUIREMENTS <LTABLE <LTABLE CODEWORD-NEMESIS> NONE>)
+	(TYPES <LTABLE R-CODEWORD R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT105 "Even though the three of you are helpless, Gilgamesh can still act. Lunging forward through the swirling vapour, he seizes the gnarled phantom in his arms and carries it on stiff strides to the edge of the chasm. It shrieks and twists in his grasp, flowing and distorting like a painting in the rain. Sparks cascade from Gilgamesh's visor as it sinks its fingers under his armour. For a long instant they both stand there, wreathed in white mist, struggling for the upper hand. Then Gilgamesh steps forward over the edge and he and the creature drop out of sight. You hear its thin bleating cry echo up from the depths and then there is silence. When you run to the chasm and look down, you find no trace of either the phantom or your loyal automaton.">
 
 <ROOM STORY105
 	(DESC "105")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT105)
+	(PRECHOICE STORY105-PRECHOICE)
+	(CONTINUE STORY149)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY105-PRECHOICE ()
+	<DELETE-CODEWORD ,CODEWORD-ENKIDU>>
+
+<CONSTANT TEXT106 "The thing comes stalking forward, feeling its way while keeping its front legs raised as a shield. You have already seen that gunfire cannot penetrate the tough metal alloy. The glass case in the centre is another matter, though. You roll your grenade along the floor of the passage and pull the others back to a safe distance. There is a loud bang. The grenade is designed only to stun a living target, but the explosion cracks the glass and the blue fluid gushes out. As it does, the thing rears up like a dying spider, falls with a twitching of its robotic legs, and lies still.||Boche nervously goes over to look at it. The little embryo inside the glass case lies as inert as a lump of cold clay. \"It's dead,\" he says. In stunned silence, the three of you head on to the end of the passage.">
 
 <ROOM STORY106
 	(DESC "106")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT106)
+	(PRECHOICE STORY106-PRECHOICE)
+	(CONTINUE STORY281)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY106-PRECHOICE ()
+	<LOSE-ITEM ,STUN-GRENADE>>
 
 <ROOM STORY107
 	(DESC "107")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(EVENTS STORY107-EVENTS)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY107-EVENTS ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-MALLET>
+		<DELETE-CODEWORD ,CODEWORD-MALLET>
+		<RETURN ,STORY195>
+	)>
+	<RETURN ,STORY217>>
+
+<CONSTANT TEXT108 "Golgoth had the same idea. You come face to face with him on the edge of the smoke cloud. Instead of a gun, he has a crossbow in his hands. He shoots, but you are already dodging and the bolt only opens a gash across your shoulder.">
 
 <ROOM STORY108
 	(DESC "108")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT108)
+	(PRECHOICE STORY108-PRECHOICE)
+	(CONTINUE STORY326)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY108-PRECHOICE ()
+	<TEST-MORTALITY 2 ,DIED-FROM-INJURIES ,STORY108>
+	<COND (<AND <IS-ALIVE> <CHECK-SKILL ,SKILL-SHOOTING>> <STORY-JUMP ,STORY304>)>>
+
+<CONSTANT TEXT109 "Vajra Singh had the same idea at the same time. Golgoth's gaze snaps form Singh to you, but he hesitates a moment too long. Your shot hits first, and Golgoth crumples to the floor. Singh wastes no time taking stock of the situation, swinging his mantramukta cannon around to point at you. Boche seizes his chance to take a shot, but it spatters off Singh's armour. It is the last thing you see, since a moment later you are blasted out of existence by the fiery roar of the mantramukta.">
 
 <ROOM STORY109
 	(DESC "109")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT109)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT110 "After Gargan XIII's wound has been seen to, you spend another hour searching the bomb shelter. You find a canteen, but the food is unsealed and spoiled. At last you have to accept that you will not get access to the Shrine of the Heart from here. Weary and disappointed, you head back to the ventilation duct.||\"You know the theory that the Heart was formed in the Big Bang?\" says Golgoth to you. \"The boffins say it's actually another universe, like a seed that didn't quite get started. I read somewhere that the same thing happens with people. Often you start off with a twin in the womb, but that twin gets reabsorbed into you. In some people, the process happens quite late in the foetus's development. Occasionally the vestigial remains of the unborn twin is found inside a cyst -- you know, tiny limbs, a nubbin of a heart, and so on. It might be true of any of us\"||You wonder why he is telling you this rather ghoulish bit of medical lore when one of the Gargan sisters interrupts. \"That is only true for those born in the inferior natural way, inside a womb. My sisters and I were all carefully nurtured and grown to maturity. The artificial wombs guaranteed perfect nutrient balance.\"||Golgoth laughs at her proud remarks. It seems to you he is deliberately provoking her. \"Your own twin sisters were all fine specimens of womanhood,\" he replies. \"I should know; it was me that killed all twelve of them.\"||You have not taken in what Golgoth said before Gargan XII explodes into action. Roaring in fury, she grabs Golgoth's shoulder and spins him around. His gun is in his hand and it looks to you that he might have got off a shot, but Gargan XIII slaps it away and knees him in the stomach. He reels back into Gargan XIV, who grabs him by the throat and dangles him like a rag doll. \"So this is the great Commander Golgoth, sister,\" she says contemptuously. \"Like all so-called natural humans, he is compared to our pure racial stock.\"||She tosses Golgoth aside and he slumps to the floor. You have a nasty feeling you'll be next.">
+<CONSTANT CHOICES110 <LTABLE "order your automaton to attack" "step in to fight them yourself" "you can  hold back to see what happens">>
 
 <ROOM STORY110
 	(DESC "110")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT110)
+	(CHOICES CHOICES110)
+	(DESTINATIONS <LTABLE STORY220 STORY044 STORY088>)
+	(REQUIREMENTS <LTABLE <LTABLE CODEWORD-ENKIDU> NONE NONE>)
+	(TYPES <LTABLE R-CODEWORD R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY111

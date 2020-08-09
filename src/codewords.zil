@@ -8,6 +8,10 @@
     (DESC "Enkidu")
     (SYNONYM ENKIDU)>
 
+<OBJECT CODEWORD-HOURGLASS
+    (DESC "Hourglass")
+    (SYNONYM HOURGLASS)>
+
 <OBJECT CODEWORD-HUMBABA
     (DESC "Humbaba")
     (SYNONYM HUMBABA)>
