@@ -109,3 +109,10 @@
     (SYNONYM SUIT)
     (ADJECTIVE WEATHER)
     (FLAGS TAKEBIT)>
+
+; Vehicle
+<OBJECT MANTA-SKY-CAR
+    (DESC "Manta sky-car")
+    (SYNONYM CAR)
+    (ADJECTIVE MANTA SKY)
+    (FLAGS TAKE-BIT)>

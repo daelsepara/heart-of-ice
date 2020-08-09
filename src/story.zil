@@ -7,7 +7,7 @@
 <CONSTANT GOOD-ENDING "Further adventure awaits.|">
 
 <OBJECT CURRENCY (DESC "scads")>
-<OBJECT VEHICLE (DESC "none")>
+<OBJECT VEHICLE (DESC "car")>
 
 <ROUTINE RESET-OBJECTS ()
 	<RESET-CONTAINER ,LOST-SKILLS>
@@ -37,6 +37,7 @@
 	<PUTP ,STORY070 ,P?DEATH T>
 	<PUTP ,STORY075 ,P?DEATH T>
 	<PUTP ,STORY076 ,P?DEATH T>
+	<PUTP ,STORY085 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -200,27 +201,44 @@
 		<PUTP ,BARYSAL-GUN ,P?CHARGES .CHARGES>
 	)>>
 
-<ROUTINE TAKE-OR-CHARGE ("OPT" AMOUNT "AUX" CHARGES)
+
+<ROUTINE CHARGE-BARYSAL ("OPT" AMOUNT "AUX" CHARGES)
 	<COND (<NOT .AMOUNT> <SET AMOUNT 1>)>
-	<CRLF>
+	<SET CHARGES <GETP ,BARYSAL-GUN ,P?CHARGES>>
+	<SET CHARGES <+ .CHARGES .AMOUNT>>
+	<PUTP ,BARYSAL-GUN ,P?CHARGES .CHARGES>>
+
+<ROUTINE TAKE-BARYSAL ("OPT" AMOUNT)
+	<COND (<NOT .AMOUNT> <SET AMOUNT 1>)>
+	<PUTP ,BARYSAL-GUN ,P?CHARGES .AMOUNT>
+	<TAKE-ITEM ,BARYSAL-GUN>>
+
+<ROUTINE TAKE-OR-CHARGE ("OPT" AMOUNT PROMPT)
+	<COND (<NOT .AMOUNT> <SET AMOUNT 1>)>
+	<COND (.PROMPT <CRLF>)>
 	<COND (<CHECK-ITEM ,BARYSAL-GUN>
-		<TELL "Take " T ,BARYSAL-GUN "'s remaining ">
-		<COND (<G? .AMOUNT 1> <TELL N .AMOUNT " charges">)(ELSE <TELL "charge">)>
-		<TELL "?">
-		<COND (<YES?>
-			<SET CHARGES <GETP ,BARYSAL-GUN ,P?CHARGES>>
-			<SET CHARGES <+ .CHARGES .AMOUNT>>
-			<PUTP ,BARYSAL-GUN ,P?CHARGES .CHARGES>
+		<COND (.PROMPT
+			<TELL "Take " T ,BARYSAL-GUN "'s remaining ">
+			<COND (<G? .AMOUNT 1> <TELL N .AMOUNT " charges">)(ELSE <TELL "charge">)>
+			<TELL "?">
+			<COND (<YES?> <CHARGE-BARYSAL .AMOUNT>)>
+		)(ELSE
+			<CHARGE-BARYSAL .AMOUNT>
 		)>
 	)(ELSE
-		<TELL "Take " T ,BARYSAL-GUN " (" N .AMOUNT " charge">
-		<COND (<G? .AMOUNT 1> <TELL "s">)>
-		<TELL " left)?">
-		<COND (<YES?>
-			<PUTP ,BARYSAL-GUN ,P?CHARGES .AMOUNT>
-			<TAKE-ITEM ,BARYSAL-GUN>
+		<COND (.PROMPT
+			<TELL "Take " T ,BARYSAL-GUN " (" N .AMOUNT " charge">
+			<COND (<G? .AMOUNT 1> <TELL "s">)>
+			<TELL " left)?">
+			<COND (<YES?> <TAKE-BARYSAL .AMOUNT>)>
+		)(ELSE
+			<TAKE-BARYSAL .AMOUNT>
 		)>
 	)>>
+
+<ROUTINE CHECK-VEHICLE (RIDE)
+	<COND (<OR <IN? .RIDE ,VEHICLES> <AND ,CURRENT-VEHICLE <EQUAL? ,CURRENT-VEHICLE .RIDE>>> <RTRUE>)>
+	<RFALSE>>
 
 <CONSTANT TEXT "This story has not been written yet.">
 
@@ -1293,178 +1311,122 @@
 
 <ROUTINE STORY080-PRECHOICE ()
 	<COND (,RUN-ONCE
-		<TAKE-OR-CHARGE 2>
+		<TAKE-OR-CHARGE 2 T>
 		<SELECT-FROM-LIST <LTABLE FLASHLIGHT BINOCULARS POLARIZED-GOGGLES> 3 3>
 	)>>
 
+<CONSTANT TEXT081 "Gilgamesh stands rock-still beside you. You hear the soft whirr of a fan sucking air into his chest-plate. Then he announces that the air here is toxic.||\"How toxic? The trees seem to survive well enough.\" You brush midges away from your face. \"And insects.\"||\"They are adapted to the conditions here,\" replies Gilgamesh in his abrupt mechanical voice. \"Trace elements may cause cancer in higher life forms.\"||\"After how long?\"||\"Unknown. Even one day's exposure is potentially hazardous. Recommend you take precautions to filter your air supply or leave the vicinity">
+<CONSTANT CHOICES081 <LTABLE "stay and rest for a few days" "depart as Gilgamesh suggests">>
+
 <ROOM STORY081
 	(DESC "081")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT081)
+	(PRECHOICE STORY081-PRECHOICE)
+	(CHOICES CHOICES081)
+	(DESTINATIONS <LTABLE STORY103 STORY426>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY081-PRECHOICE ()
+	<COND (<CHECK-ITEM ,GAS-MASK> <STORY-JUMP ,STORY169>)>>
+
+<CONSTANT TEXT082 "The moon rises, wreathed in a haze of frost. In the crisp cold light, the ancient halls and towers look more than half unreal. You watch the others huddled by their campfires. No one else has much to say. Each of them is absorbed in private hopes, dreams and fears of what tomorrow will bring. When the Heart is found it will be every man for himself. Who would expect anything else, when the prize at stake is nothing less than the power of a god?||Vajra Singh and Thadra Bey have retreated to their respective tents and scarcely seem to invite conversation.">
+<CONSTANT CHOICES082 <LTABLE "talk to one of the others -- either Chaim Golgoth" "Kyle Boche" "Janus Gaunt" "Baron Siriasis" "alternatively you could just turn in for the night">>
 
 <ROOM STORY082
 	(DESC "082")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT082)
+	(CHOICES CHOICES082)
+	(DESTINATIONS <LTABLE STORY126 STORY104 STORY148 STORY170 STORY192>)
+	(TYPES FIVE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT083 "The sky is clear and blue, with high wisps of grey cloud. The snow crunches underfoot as you walk across the square to join Kyle Boche. Floating out of his tent comes the legless Baron Siriasis. You look around but the square is otherwise deserted apart from clumps of servants waiting beside the tents.||\"The others have already descended,\" Boche tells you and the baron. \"Vajra Singh went with Golgoth, down through the main temple complex. Thadra Bey took herself alone into the adjoining subway tunnels. Janus Gaunt was gone before I woke.\"||\"I suggest we three team up, then,\" says the baron briskly.||Boche nods. \"Agreed. If we find the Heart, our alliance holds until the other teams are dealt with. Where shall we descend?\"||Last night you noticed an icy crevice beside the building that Singh levelled with his mantramukta cannon. You point it out to the others. \"It looks to give onto the cellars, and there may be a way through to the temple catacombs below.\"||The baron gazes down into the crevice, then gives a curt nod. \"I sense it is a favourable route. It will lead us to the Heart.\"">
 
 <ROOM STORY083
 	(DESC "083")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT083)
+	(PRECHOICE STORY083-PRECHOICE)
+	(CONTINUE STORY039)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY083-PRECHOICE ()
+	<COND (<CHECK-VEHICLE ,MANTA-SKY-CAR> <STORY-JUMP ,STORY017>)>>
+
+<CONSTANT TEXT084 "You see the air twist inside out as the baron projects a bolt of psychic force against the oncoming creature. Like Boche's gun blast, the bolt is deflected by its shield of metal legs. \"It is a robot, immune to paradoxing,\" shouts the baron. \"We must retreat!\"||You have abetter idea. You may not be as powerful a psionic as Baron Siriasis, but that only means you've learned to be smarter. Instead of channelling your psi-force as a direct bolt, you use it to transmute the blue fluid that fills the glass bubble. Within moments the gnarled little homunculous inside is floating in acid. The thing rears up on its long legs like a dying spider, then topples to the floor. By the time you go over to look, the body inside has entirely dissolved away.||\"Not a robot,\" you say to the startled baron, \"but a cyborg. You should have attacked the organic part.\"||He glares at you, then gives a curt nod of respect. \"It seems I can still learn new tricks of my craft, even from a youngster like you.\"||Together you head on to the end of the passage.">
 
 <ROOM STORY084
 	(DESC "084")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT084)
+	(CONTINUE STORY281)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT085 "The brain reaches you. Its single remaining eye glares into yours, seeming to burn your soul like a lens focusing the rays of the sun. Your veins and arteries feel as though they are filled with ice water. Thoughts which are not your own intrude upon your mind. You are locked in a psychic contest for possession of your living body!">
+<CONSTANT TEXT085-END "You can do nothing to save yourself, and darkness closes over your soul as Baron Siriasis claims your body as his own">
 
 <ROOM STORY085
 	(DESC "085")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT085)
+	(PRECHOICE STORY085-PRECHOICE)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY085-PRECHOICE ()
+	<COND (<AND <CHECK-SKILL ,SKILL-ESP> <CHECK-SKILL ,SKILL-PARADOXING>>
+		<PREVENT-DEATH ,STORY085>
+		<STORY-JUMP ,STORY151>
+		<RETURN>
+	)>
+	<CRLF>
+	<TELL ,TEXT085-END>
+	<TELL ,PERIOD-CR>>
 
 <ROOM STORY086
 	(DESC "086")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(EVENTS STORY086-EVENTS)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY086-EVENTS ()
+	<COND (<CHECK-SKILL ,SKILL-ESP> <RETURN ,STORY065>)>
+	<RETURN ,STORY240>>
+
+<CONSTANT TEXT087 "Boche falls to your first shot. His death acts as a signal for the start of hostilities. Golgoth and Singh, in no doubt that each is the most dangerous foe, whirl to face each other. Golgoth's first shot hisses into sparks on Singh's armour as the Sikh warlord raises his mighty mantramukta cannon.">
 
 <ROOM STORY087
 	(DESC "087")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT087)
+	(PRECHOICE STORY087-PRECHOICE)
+	(CONTINUE STORY410)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY087-PRECHOICE ()
+	<FIRE-BARYSAL>>
+
+<CONSTANT TEXT088 "Gargan XIV closes in on you. Gargan XIII draws a knife and looks down at Golgoth, in no hurry to finish him off. Suddenly he looks up with abroad smile. She was wrong in thinking him beaten. To the contrary, he has the look of a cat who has trapped two very large mice.">
 
 <ROOM STORY088
 	(DESC "088")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT088)
+	(CONTINUE STORY154)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT089 "There is no love lost between you and the Gargan twins. Seeing you square off warily against them, Janus Gaunt tries to defuse the situation, saying. \"Come now, we must set aside past differences. Until we can locate the Heart, a state of truce must apply.\"||\"Truce? That word is a refuge for cowards,\" Gargan XIV hisses at him, while never letting her molten gaze stray from you.||\"Du-En's getting overcrowded,\" says Gargan XIII as she takes a step towards you. \"Someone has to put the rubbish out.\"||You flick a glance at Gargan XIV. While her sister kept your attention, she has drawn a gun. You leap to one side just as a thin beam of energy spits past your shoulder and sears a gobbet of molten stone out of the wall behind. Gargan XIII drops into a crouch and comes stamping forward to grapple you, but you throw one of Gaunt's glassy-eyed xoms towards her and duck away behind the weathered stump of a pillar.||In the tense atmosphere of the camp, the squabble acts like a spark in a powder keg. Within seconds everyone is preparing for full-scale battle. Boche dives through an open doorway just in time to avoid Thadra Bey's throwing-dagger. An ectoplasmic aura crackles around Baron Siriasis as he marshals his psychic force. With a thoughtful frown, Chaim Golgoth draws his gun and steps back looking for a target. Janus Gaunt panics and shouts to his xom servants, \"Kill everyone! Protect me!\"||Then a voice rips like thunder across the square: \"Stop this senseless fighting now!\" and turning, you have your first view of the mighty Vajra Singh.">
 
 <ROOM STORY089
 	(DESC "089")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT089)
+	(CONTINUE STORY300)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT090 "\"Is it dead?\" says Boche.||You snap an icicle from under the ledge and drive it deep into the grotesque pulpy head. The creature gives a single spasm and lies still. \"It is now.\"||You roll the body over to inspect it and are almost overcome by a wave of nausea. It is the most loathsome thing you have ever seen: a thin malformed body with a bloated mauve-pink head. The only facial feature is a long thick stalk ending in the cyclopean eye, now thankfully dimmed by the glaze of death. The scalp is covered with tiny orifices like gaping eyelids. Are they breathing holes? Sensory organs? There is no way to tell.||Boche joins you beside the body. \"It's a mutant.\"||You nod. \"That's for sure, but a mutant what?\"">
+<CONSTANT CHOICES090 <LTABLE "follow the creature's tracks back to its lair before the snow covers them" "wait where you are until dawn">>
 
 <ROOM STORY090
 	(DESC "090")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT090)
+	(CHOICES CHOICES090)
+	(DESTINATIONS <LTABLE STORY134 STORY310>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY091
