@@ -1,7 +1,7 @@
 <INSERT-FILE "numbers">
 
 <GLOBAL CHARACTERS-ENABLED T>
-<GLOBAL STARTING-POINT PROLOGUE>
+<GLOBAL STARTING-POINT STORY093>
 
 <CONSTANT BAD-ENDING "Your adventure ends here.|">
 <CONSTANT GOOD-ENDING "Further adventure awaits.|">
@@ -240,6 +240,23 @@
 	<COND (<OR <IN? .RIDE ,VEHICLES> <AND ,CURRENT-VEHICLE <EQUAL? ,CURRENT-VEHICLE .RIDE>>> <RTRUE>)>
 	<RFALSE>>
 
+<ROUTINE ADD-QUANTITY (OBJECT "OPT" AMOUNT CONTAINER "AUX" QUANTITY CURRENT)
+	<COND (<NOT .OBJECT> <RETURN>)>
+	<COND (<L=? .AMOUNT 0> <RETURN>)>
+	<COND (<NOT .CONTAINER> <SET CONTAINER ,PLAYER>)>
+	<COND (<EQUAL? .CONTAINER ,PLAYER>
+		<DO (I 1 .AMOUNT)
+			<TAKE-ITEM .OBJECT>
+		>
+	)(ELSE
+		<SET CURRENT <GETP .OBJECT ,P?QUANTITY>>
+		<SET QUANTITY <+ .CURRENT .AMOUNT>>
+		<PUTP .OBJECT ,P?QUANTITY .QUANTITY>
+	)>>
+
+<ROUTINE ADD-FOOD-PACKS ("OPT" AMOUNT)
+	<ADD-QUANTITY ,FOOD-PACKS .AMOUNT ,PLAYER>>
+
 <CONSTANT TEXT "This story has not been written yet.">
 
 <CONSTANT BACKGROUND-TEXT "In 2023, worsening conditions in the world's climate led to the first Global Economic Conference. It was agreed to implement measures intended to reverse industrial damage to the ecology and replenish the ozone layer. By 2031, an array of weather control satellites were in orbit. For added efficiency, and as a mark of worldwide cooperation, these were placed under the control of a supercomputer network called Gaia: the Global Artificial Intelligence Array. The Earth's climate began to show steady improvement.||The first hint of disaster came early in 2037, when Gaia shut down inexplicably for a period of seventeen minutes. Normal operation was resumed but the system continued to suffer 'glitches'. One such glitch resulted in Paris being subjected to a two-day heat wave of such intensity that the pavements cracked. After several months, the fault was identified. A computer virus had been introduced into Gaia by unknown means. The system's designer began programming an antivirus but died before his war was complete. The crisis grew throughout that year until finally, following the death of five thousand people in a flash flood along the Bangladesh coastline, the Gaia project was officially denounced. Unfortunately, it was no longer possible to shut it down.||By the mid twenty-first century, global weather conditions were in chaos owing to Gaia's sporadic operation. Ice sheets advanced further each year. Australia was subject to virtually constant torrential rain. The centre of Asia had become an arid wasteland. The political situation reflected the ravages of the climate, with wars flaring continually around the globe. Late in 2054, computer scientists in London tried to hack into Gaia and locate the replicating viruses in the program. Gaia, detecting this, interpreted the action as an attack on its program and retaliated by taking over a range of defense networks which allowed it to launch a nuclear strike. London was completely destroyed.||By the end of the century Gaia had routed itself into all major computer networks, taking control of weather, communications and weapons systems all across the planet. Periods of lucidity and hospitable climate were interspersed with hurricanes and arctic blizzards. The US President gave an interview in which he likened Gaia to a living entity: \"She was intended as mankind's protective mother, but this 'mother' has gone mad.\" Spiralling decline in the world's fortunes left much of humanity on the brink of extinction. The population fell rapidly until only a few million people remained scattered around the globe -- mostly in cities where food could still be artificially produced.||It is now the year 2300. The rich stand aloof, disporting themselves with forced gaiety and waiting for the end. The poor inhabit jostling slums where disease is rife and law is unknown. Between the cities, the land lies under a blanket of snow and ice. No-one expects humanity to last another century. This is truly 'the end of history'.">
@@ -436,7 +453,7 @@
 
 <ROUTINE STORY013-PRECHOICE ("AUX" (HAS-BURREK F) (DAMAGE 3))
 	<COND (<CHECK-ITEM ,BURREK> <SET DAMAGE 2> <SET HAS-BURREK T>)>
-	<COND (<AND <NOT <CHECK-ITEM ,FUR-COAT>> <NOT <CHECK-ITEM ,WEATHER-SUIT>>> <SET DAMAGE <+ .DAMAGE 1>>)>
+	<COND (<AND <NOT <CHECK-ITEM ,FUR-COAT>> <NOT <CHECK-ITEM ,COLD-WEATHER-SUIT>>> <SET DAMAGE <+ .DAMAGE 1>>)>
 	<TEST-MORTALITY .DAMAGE ,DIED-FROM-COLD ,STORY013>
 	<COND (<IS-ALIVE>
 		<CRLF>
@@ -1429,89 +1446,78 @@
 	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT091 "You piece together a jigsaw of legend, superstition and historical fact. The Heart fell from the sky: an unearthly gemstone that became the focus of a crazed cult. The cult used the Heart's miraculous power to wage the Paradox war. Now it lies buried under the ruined city of Du-En, and the one who retrieves it will become mightier than any man has ever been.||\"Why, then, did the civilization of Du-En fall?\" you ask a scholar at the library.||\"Its rulers went mad. No one could wield such power and stay sane.\"||\"Do you know it for a fact, or is it just your own theory?\"||But his only answer to that is a whimsical smile.">
+
 <ROOM STORY091
 	(DESC "091")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT091)
+	(PRECHOICE STORY091-PRECHOICE)
+	(CONTINUE STORY025)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY091-PRECHOICE ()
+	<COND (<OR <CHECK-SKILL ,SKILL-STREETWISE> <CHECK-ITEM ,VADE-MECUM>>
+		<STORY-JUMP ,STORY157>
+	)(<CHECK-SKILL ,SKILL-LORE>
+		<STORY-JUMP ,STORY414>
+	)>>
+
+<CONSTANT TEXT092 "By the front desk of the inn there is a notice-board where posters are pinned up for the perusal of bounty hunters. You scan the pictures of wanted criminals to see if any resemble the two men who attacked you, but without success. When you ask the innkeeper, he shrugs and says that people are constantly coming and going. \"I cannot keep track of all the riff-raff of Venis.\"||\"But I might very easily have been murdered.\"||His only answer to this is to point to a sign on the wall which reads: 'The management is not responsible for the safety of customers or their belongings.' You give him a glowering look, then turn and stride out of the inn. A walk in the night air will help you to cool off.">
 
 <ROOM STORY092
 	(DESC "092")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT092)
+	(CONTINUE STORY329)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT093 "You lay out the contents of the storage compartment on the floor beside the vehicle. There are ten food packs, a medical kit, a flashlight, a cold-weather suit and a length of nylon rope.">
 
 <ROOM STORY093
 	(DESC "093")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT093)
+	(PRECHOICE STORY093-PRECHOICE)
+	(CONTINUE STORY395)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY093-PRECHOICE ()
+	<CRLF>
+	<TELL "Take " T ,FOOD-PACKS "?">
+	<COND (<YES?>
+		<ADD-FOOD-PACKS <GET-NUMBER "How many food packs will you take" 0 10>>
+	)>
+	<SELECT-FROM-LIST <LTABLE MEDICAL-KIT FLASHLIGHT COLD-WEATHER-SUIT ROPE> 4 4>>
+
+<CONSTANT TEXT094 "The canteen is located at the top of the building, with wide windows giving a breathtaking view over the city. You stand and look out for a few minutes at the tall towers wreathed in swirling fog. Below, a dark patch of woodland studded with mistily sparkling lamps can only be the infamous Claustral Park.||The canteen has no human attendants, just a food dispenser which brings forth foil-wrapped packs at the touch of a button.">
+<CONSTANT TEXT094-CONTINUED "As you are leaving the canteen, you almost collied with a huge Fijian in a trim black suit and mirror glasses. He grunts an absent-minded apology and hurries past, staring urgently around the room. He is the only other person you have seen in the building who doesn't seem to be an employee here. You are about to head off towards the elevator when he calls after you, \"Hey, who are you?\"">
+<CONSTANT CHOICES094 <LTABLE "use a" "use" "try" "you had better run for it">>
 
 <ROOM STORY094
 	(DESC "094")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT094)
+	(PRECHOICE STORY094-PRECHOICE)
+	(CHOICES CHOICES094)
+	(DESTINATIONS <LTABLE STORY227 STORY248 STORY269 STORY290>)
+	(REQUIREMENTS <LTABLE <LTABLE BARYSAL-GUN> SKILL-CLOSE-COMBAT SKILL-CUNNING NONE>)
+	(TYPES <LTABLE R-ALL R-SKILL R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY094-PRECHOICE ()
+	<COND (,RUN-ONCE
+		<CRLF>
+		<TELL "Take " T ,FOOD-PACKS "?">
+		<COND (<YES?>
+		<ADD-FOOD-PACKS <GET-NUMBER "How many food packs will you take" 0 8>>
+		)>
+	)>>
+
+<CONSTANT CHOICES095 <LTABLE "make use of an" "try to find out about Baron Siriasis" "Chaim Golgoth" "Gilgamesh" "the Sphinx" "you are ready to get some rest">>
 
 <ROOM STORY095
 	(DESC "095")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(CHOICES CHOICES095)
+	(DESTINATIONS <LTABLE STORY401 STORY422 STORY380 STORY011 STORY311>)
+	(REQUIREMENTS <LTABLE ID-CARD NONE NONE NONE  NONE>)
+	(TYPES <LTABLE R-ITEM R-NONE R-NONE R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY096

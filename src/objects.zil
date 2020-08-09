@@ -36,10 +36,23 @@
     (SYNONYM BURREK)
     (FLAGS TAKEBIT)>
 
+<OBJECT COLD-WEATHER-SUIT
+    (DESC "cold weather suit")
+    (SYNONYM SUIT)
+    (ADJECTIVE COLD WEATHER)
+    (FLAGS TAKEBIT)>
+
 <OBJECT FLASHLIGHT
     (DESC "flashlight")
     (SYNONYM FLASHLIGHT)
     (FLAGS TAKEBIT)>
+
+<OBJECT FOOD-PACKS
+    (DESC "food packs")
+    (SYNONYM PACKS)
+    (ADJECTIVE FOOD)
+    (QUANTITY 1)
+    (FLAGS TAKEBIT PLURALBIT)>
 
 <OBJECT FUR-COAT
     (DESC "fur coat")
@@ -69,6 +82,12 @@
     (DESC "mantramukta cannon")
     (SYNONYM CANNON)
     (ADJECTIVE MANTRAMUKTA)
+    (FLAGS TAKEBIT)>
+
+<OBJECT MEDICAL-KIT
+    (DESC "medical kit")
+    (SYNONYM MEDICAL)
+    (ADJECTIVE KIT)
     (FLAGS TAKEBIT)>
 
 <OBJECT POLARIZED-GOGGLES
@@ -102,12 +121,6 @@
 <OBJECT VADE-MECUM
     (DESC "vade-mecum")
     (SYNONYM VADE-MECUM)
-    (FLAGS TAKEBIT)>
-
-<OBJECT WEATHER-SUIT
-    (DESC "weather suit")
-    (SYNONYM SUIT)
-    (ADJECTIVE WEATHER)
     (FLAGS TAKEBIT)>
 
 ; Vehicle
