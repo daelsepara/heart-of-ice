@@ -12,6 +12,10 @@
     (DESC "Enkidu")
     (SYNONYM ENKIDU)>
 
+<OBJECT CODEWORD-FOCUS
+    (DESC "Focus")
+    (SYNONYM FOCUS)>
+
 <OBJECT CODEWORD-HOURGLASS
     (DESC "Hourglass")
     (SYNONYM HOURGLASS)>
