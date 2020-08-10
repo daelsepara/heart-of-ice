@@ -1,5 +1,9 @@
 ; "Codewords for Heart of Ice"
 
+<OBJECT CODEWORD-BLUE
+    (DESC "Blue")
+    (SYNONYM BLUE)>
+
 <OBJECT CODEWORD-DIAMOND
     (DESC "Diamond")
     (SYNONYM DIAMOND)>
@@ -24,6 +28,10 @@
     (DESC "Nemesis")
     (SYNONYM NEMESIS)>
 
+<OBJECT CODEWORD-RED
+    (DESC "Red")
+    (SYNONYM RED)>
+
 <OBJECT CODEWORD-SCOTOPIC
     (DESC "Scotopic")
     (SYNONYM SCOTOPIC)>
@@ -39,3 +47,7 @@
 <OBJECT CODEWORD-URUK
     (DESC "Uruk")
     (SYNONYM URUK)>
+
+<OBJECT CODEWORD-YELLOW
+    (DESC "Yellow")
+    (SYNONYM YELLOW)>

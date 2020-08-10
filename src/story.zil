@@ -45,17 +45,19 @@
 	<PUTP ,STORY127 ,P?DEATH T>
 	<PUTP ,STORY129 ,P?DEATH T>
 	<PUTP ,STORY131 ,P?DEATH T>
+	<PUTP ,STORY137 ,P?DEATH T>
+	<PUTP ,STORY147 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
-<CONSTANT DIED-OF-HUNGER "You died of hunger and thirst">
-<CONSTANT DIED-GREW-WEAKER "You grow weaker and eventually died">
+<CONSTANT DIED-OF-HUNGER "You starved to death">
+<CONSTANT DIED-GREW-WEAKER "You grew weaker and eventually died">
 <CONSTANT DIED-OF-THIRST "You go mad from thirst">
 <CONSTANT KILLED-AT-ONCE "You are killed at once">
 <CONSTANT DIED-FROM-INJURIES "You died from your injuries">
 <CONSTANT DIED-FROM-COLD "You eventually freeze to death">
 <CONSTANT NATURAL-HARDINESS "Your natural hardiness made you cope better with the situation">
-<CONSTANT ALL-POSSESSIONS "You lost all your possessions.">
+<CONSTANT ALL-POSSESSIONS "You lost all your possessions">
 <CONSTANT VITALITY-RESTORED "Your vitality has been restored">
 
 <GLOBAL PRACTICED-SHORTSWORD F>
@@ -2212,175 +2214,133 @@
 	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT141 "There are men beyond the plastiwood partition. You read their thoughts: three hunters. No doubt the cruelty you see in their minds is only a symptom of their harsh existence on the fringes of the Sahara. All the same, you are wise to stay concealed. They are not above murdering lone travellers for the clothes on their back.||Waiting until they go to sleep, you carefully ease the partition open and sneak past them. A rug hangs across the entrance of their shelter. You can hear a blizzard howling through the night outside -- an uninviting sound, but preferable to staying here to be butchered when these three wake. Drawing your hood down, you slip out into the icy wind.">
+
 <ROOM STORY141
 	(DESC "141")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT141)
+	(CONTINUE STORY314)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT142 "The reputation of the Gargan clones is so daunting that no one dares to suggest killing them. \"I have heard that the other members of the clone group were killed, but who can be sure?\" says one man with the flaring blue hat-flaps of a Tuareg hunter.||\"That's true,\" admits the innkeeper with a nod. \"I wouldn't care to have twelve identical Amazons barge into my taproom a month from now and demand retributions for their sisters.\"||At last a compromise is reached. The unconscious sisters are taken down to the shore and placed in a small boat which you push out to sea. You watch the boat drift away into the frosty evening haze. Shivering, you stamp back through the snow to the inn, where you are given food and wine and treated like a hero.||The innkeeper also offers you provisions for your journey: two food packs.">
 
 <ROOM STORY142
 	(DESC "142")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT142)
+	(PRECHOICE STORY142-PRECHOICE)
+	(CONTINUE STORY273)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY142-PRECHOICE ()
+	<GAIN-LIFE 1>
+	<ADD-FOOD-PACK 2>>
+
+<CONSTANT TEXT143 "\"On this point,\" announces Bador, \"I would be untruthful if I pretended to know with adamantine certainty. According to some, the city took its name from Khare-Ohe, or 'Field of Conflict,' as it was found on the spot where the first pharaoh watched a falcon fight a rat. Another version relates it to the settlement of el-Qahira, consecrated to the red planet of victory.\"||You shake your head. \"These are ancient myths. I am interested in recent history.\"||Ah, Well, then Du-En rose to power, Kahira became an important as a base of operations for those armed forces opposing the Volentine Watchers -- in essence, the rest of the world. Owing to heat-conductive pipes buried along the bed of the Isis River, fishes are abundant even in these parlous times, and Kahira continues to flourish. The warm water, rising into contact with icy winds off the Saharan plain, forms the incessant mist which is characteristic of the city.\"||\"And why is the city built on high columns of concrete, instead of sprawling along the river banks?\"||Balor pulls an uncertain face. \"Defence? Scarcity of materials? An obscure edict? Who can say?\"">
+<CONSTANT CHOICES143 <LTABLE "ask his advice about the Sahara" "about Giza" "about the best place to stay" "you can dismiss him">>
 
 <ROOM STORY143
 	(DESC "143")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT143)
+	(CHOICES CHOICES143)
+	(DESTINATIONS <LTABLE STORY077 STORY059 STORY099 STORY095>)
+	(TYPES FOUR-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT144 "\"I found a terminal of the intercontinental subway system, beneath the ruins of Lost Marsay. I tried to reach Giza, but I was unable to alight there and was left with no alternative but to travel on to Maka.\"||He strokes his thumbnail across the cleft of his chin, deep in thought. \"Why were you trying to reach Giza?\" he asks at last.||The truth seems absurd, but you tell him anyway. \"I was following the advice of Gaia.\"||He gives you a sharp look. \"Do not attempt to contact Gaia while you are on al-Lat. Our computer systems are secure from viruses, and that's the way we'd like it to stay.\" His face softens into an easy smile. \"Still, I'm forgetting my manners. I am Riza Baihaqi.\"||You shake hands. There is a moment of uncomfortable silence, then Riza says, \"I can never atone for the guilt I feel. This dreadful injury you've suffered...\"||You raise your artificial arm and flex the fingers. There is a soft buzz of gears, but they seem dextrous enough. \"It could be worse,\" you admit. \"These prosthetics will do as temporary repairs, at any rate.\"||\"You are putting a brave face on things, my friend,\" says Riza. \"But, in all truth, where on Earth could you hope to find a cure for your dreadful injuries?\"">
+<CONSTANT CHOICES144 <LTABLE "tell him about Du-En" "say you are keen to return to Earth">>
 
 <ROOM STORY144
 	(DESC "144")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT144)
+	(CHOICES CHOICES144)
+	(DESTINATIONS <LTABLE STORY188 STORY275>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT145 "The stun grenade sails through the air and crunches into the deep snow at the foot of the rise. The bometh slowly stirs itself and lumbers down the slop to snuffle around. As it locates the grenade, you detonate by remote. A flurry of snow is thrown up into the bometh's face by the blast and you see it drop. An imperceptible fraction of a second later, the hard crump of the explosion reaches your ears. By that time you are already running towards the fallen predator.||Kneeling beside it in the crater of slush formed by the explosion, you life the huge limp head across your knee and give it a sharp twist. The bometh gives a spasm and then lies still.">
 
 <ROOM STORY145
 	(DESC "145")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT145)
+	(PRECHOICE STORY145-PRECHOICE)
+	(CONTINUE STORY341)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY145-PRECHOICE ()
+	<LOSE-ITEM ,STUN-GRENADE>>
+
+<CONSTANT TEXT146 "You explore the corridors leading off the platform, but all are blocked by rubble. There is no way of reaching the surface from here. As you return to the carriage, though, you notice a small partition in the wall. It is labelled as an air vent. You remove the grating and peer up the darkened shaft. A waft of rich loamy air drifts down. The shaft is intended for careteks servicing the ventilation ducts, but at a pinch you might be able to squeeze up it -- if you're not bothered by claustrophobia.">
+<CONSTANT CHOICES146 <LTABLE "venture up the shaft" "otherwise you must take the subway back to Marsay, from where you can proceed to Kahira" "to Tarabul" "or to Giza" "resume your journey on foot">>
 
 <ROOM STORY146
 	(DESC "146")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT146)
+	(CHOICES CHOICES146)
+	(DESTINATIONS <LTABLE STORY168 STORY050 STORY031 STORY074 STORY420>)
+	(TYPES FIVE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT147 "How long have you been out on the Ice Wastes? You've lost all sense of time. The wind becomes a constant roaring in your ears. You stumble on through the sheets of snowflakes, each breath sounding like a sob of pain.">
+<CONSTANT TEXT147-BURREK "You slaughter the burrek in desperation for its meat">
 
 <ROOM STORY147
 	(DESC "147")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT147)
+	(PRECHOICE STORY147-PRECHOICE)
+	(CONTINUE STORY125)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY147-PRECHOICE ("AUX" (DAMAGE 4) (MEAT F))
+	<COND (<CHECK-SKILL ,SKILL-SURVIVAL> <SET DAMAGE 3>)>
+	<COND (<CHECK-ITEM ,BURREK> <SET MEAT T> <SET DAMAGE <- .DAMAGE 2>>)>
+	<TEST-MORTALITY .DAMAGE ,DIED-GREW-WEAKER ,STORY147>
+	<COND (<AND <IS-ALIVE> .MEAT>
+		<CRLF>
+		<TELL ,TEXT147-BURREK>
+		<TELL ,PERIOD-CR>
+		<LOSE-ITEM ,BURREK>
+	)>>
+
+<CONSTANT TEXT148 "Gaunt walks with you to the outskirts of Du-En to show you the night sky. His undead xoms stalk silently alongside bearing glow-lamps. At the city gates, they dim the lamps and you are left with the light of ten thousand glittering stars. The snows of the Sahara are swallowed by darkness, but you get the impression of standing at the hub of infinity.||For a long period neither of you speaks. Then Gaunt recites softly, \"Some say the world will end in fire, some say in ice. From what I've tasted of desire, I hold with those who favour fire. But if it had to perish twice, I think I know enough of hate to say that ice is also great, and would suffice.\"||\"What's that?\"||\"The words of a poet long ago.\" He gazes to the north. \"My home city lies under a shield of ice a kilometre thick. Soon the world will slip into a coma, like a man frozen at the point of death. The polar caps will meet and everything will end.\"||\"Unless we find the Heart and use its power to set things right.\"||He turns with a smile almost of delight. \"Is that why you've come here? I fear you'll be disappointed. The Heart must inevitably fall into the hands of one who is most ruthless. To seize true power, a man must have a heart of ice. When the powerful do good deeds -- I speak of Caesar, Alexander, Napoleon, Mao -- they do so inadvertently. The good and honest of the world are always the most impotent.||It suddenly occurs to you that Gaunt hasn't a chance of surviving here. He is too intellectual to vie with the others for the Heart.">
+<CONSTANT CHOICES148 <LTABLE "tell him that" "ask what he thinks of the others" "otherwise, you can return to the main square and seek out Kyle Boche" "turn in for the night">>
 
 <ROOM STORY148
 	(DESC "148")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT148)
+	(CHOICES CHOICES148)
+	(DESTINATIONS <LTABLE STORY279 STORY258 STORY104 STORY192>)
+	(TYPES FIVE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT149 "Slowly the chill leaves your bodies. \"Curious,\" mutters the baron, floating over to peer into the chasm. \"It seemed to be a genuine ghost, so far as I could tell. I could not read its mind, at any rate.\"||\"Just as long as it's gone now,\" grunts Boche. He gestures at a narrow stone bridge spanning the chasm. On the far side, an archway opens onto a tiled hall. \"Who wants to go first?\"||The baron gives him a scornful look and hovers out across the drop. As you watch him drift to a halt on the far side, it occurs to you that he looks a rather ghostly figure himself.||Boche glances at you, shrugs and strides rapidly across the bridge. \"It's not too bad as long as you don't look down,\" he calls over his shoulder.||They are waiting for you to cross. As you step onto the bridge, you find your gaze drawn downwards in spite of Boche's advice. The walls of the chasm plunge dizzyingly into feculent darkness. Then you notice something else. Set into the rock walls, about five metres below the level of the bridge, are a row of metal grilles.">
+<CONSTANT CHOICES149 <LTABLE "climb down to investigate" "continue across the bridge">>
 
 <ROOM STORY149
 	(DESC "149")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT149)
+	(CHOICES CHOICES149)
+	(DESTINATIONS <LTABLE STORY193 STORY215>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT150 "You step out of the elevator to find Singh, Boche and Golgoth already here. Thadra Bey didn't make it.||You are in a dome so vast that it feels like a gulf in the black void of intergalactic space. Boche's flashlight does not reach the far wall. In the centre of the chamber, on a raised dais at the end of a ramp, lies a purple gemstone almost two metres in diameter. Scintillant sparks stream from deep in its core, giving off a violet radiation that causes a pain at the back of your eyes.||\"The Heart of Volent...\" breathes Boche in a voice of awe. \"The key to ultimate power.\"">
 
 <ROOM STORY150
 	(DESC "150")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT150)
+	(PRECHOICE STORY150-PRECHOICE)
+	(CONTINUE STORY367)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY150-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-RED>
+		<STORY-JUMP ,STORY303>
+	)(<CHECK-CODEWORD ,CODEWORD-BLUE>
+		<STORY-JUMP ,STORY346>
+	)(<CHECK-CODEWORD ,CODEWORD-YELLOW>
+		<STORY-JUMP ,STORY324>
+	)>>
 
 <ROOM STORY151
 	(DESC "151")
