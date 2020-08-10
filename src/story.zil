@@ -22,6 +22,8 @@
 	<PUT <GETP ,STORY006 ,P?DESTINATIONS> 1 ,STORY138>
 	<PUT <GETP ,STORY006 ,P?DESTINATIONS> 2 ,STORY182>
 	<PUT <GETP ,STORY069 ,P?DESTINATIONS> 1 ,STORY135>
+	<PUT <GETP ,STORY116 ,P?DESTINATIONS> 1 ,STORY160>
+	<PUT <GETP ,STORY138 ,P?DESTINATIONS> 1 ,STORY182>
 	<PUTP ,STORY004 ,P?DEATH T>
 	<PUTP ,STORY013 ,P?DEATH T>
 	<PUTP ,STORY019 ,P?DEATH T>
@@ -42,6 +44,7 @@
 	<PUTP ,STORY108 ,P?DEATH T>
 	<PUTP ,STORY127 ,P?DEATH T>
 	<PUTP ,STORY129 ,P?DEATH T>
+	<PUTP ,STORY131 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -319,6 +322,21 @@
 		<UPDATE-STATUS-LINE>
 	)>>
 
+<ROUTINE LOSE-VEHICLE (VEHICLE)
+	<COND (.VEHICLE
+		<COND (<CHECK-VEHICLE .VEHICLE>
+			<REMOVE .VEHICLE>
+			<SETG CURRENT-VEHICLE NONE>
+			<UPDATE-STATUS-LINE>
+		)>
+	)>>
+
+<ROUTINE ASSASSINS-LOOT (KNIVES AMOUNT)
+	<TAKE-QUANTITIES ,KNIFE "knives" "How many of the assassins' knives will you take" .KNIVES>
+	<CRLF>
+	<TELL "Take the money on the dead man's body (" N .AMOUNT " scads)?">
+	<COND (<YES?> <GAIN-MONEY .AMOUNT>)>>
+
 <CONSTANT TEXT "This story has not been written yet.">
 
 <CONSTANT BACKGROUND-TEXT "In 2023, worsening conditions in the world's climate led to the first Global Economic Conference. It was agreed to implement measures intended to reverse industrial damage to the ecology and replenish the ozone layer. By 2031, an array of weather control satellites were in orbit. For added efficiency, and as a mark of worldwide cooperation, these were placed under the control of a supercomputer network called Gaia: the Global Artificial Intelligence Array. The Earth's climate began to show steady improvement.||The first hint of disaster came early in 2037, when Gaia shut down inexplicably for a period of seventeen minutes. Normal operation was resumed but the system continued to suffer 'glitches'. One such glitch resulted in Paris being subjected to a two-day heat wave of such intensity that the pavements cracked. After several months, the fault was identified. A computer virus had been introduced into Gaia by unknown means. The system's designer began programming an antivirus but died before his war was complete. The crisis grew throughout that year until finally, following the death of five thousand people in a flash flood along the Bangladesh coastline, the Gaia project was officially denounced. Unfortunately, it was no longer possible to shut it down.||By the mid twenty-first century, global weather conditions were in chaos owing to Gaia's sporadic operation. Ice sheets advanced further each year. Australia was subject to virtually constant torrential rain. The centre of Asia had become an arid wasteland. The political situation reflected the ravages of the climate, with wars flaring continually around the globe. Late in 2054, computer scientists in London tried to hack into Gaia and locate the replicating viruses in the program. Gaia, detecting this, interpreted the action as an attack on its program and retaliated by taking over a range of defense networks which allowed it to launch a nuclear strike. London was completely destroyed.||By the end of the century Gaia had routed itself into all major computer networks, taking control of weather, communications and weapons systems all across the planet. Periods of lucidity and hospitable climate were interspersed with hurricanes and arctic blizzards. The US President gave an interview in which he likened Gaia to a living entity: \"She was intended as mankind's protective mother, but this 'mother' has gone mad.\" Spiralling decline in the world's fortunes left much of humanity on the brink of extinction. The population fell rapidly until only a few million people remained scattered around the globe -- mostly in cities where food could still be artificially produced.||It is now the year 2300. The rich stand aloof, disporting themselves with forced gaiety and waiting for the end. The poor inhabit jostling slums where disease is rife and law is unknown. Between the cities, the land lies under a blanket of snow and ice. No-one expects humanity to last another century. This is truly 'the end of history'.">
@@ -430,8 +448,16 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY006-PRECHOICE ()
-	<COND (<CHECK-SKILL ,SKILL-CYBERNETICS> <PUT <GETP ,STORY006 ,P?DESTINATIONS> 1 ,STORY116>)>
-	<COND (<CHECK-SKILL ,SKILL-LORE> <PUT <GETP ,STORY006 ,P?DESTINATIONS> 2 ,STORY160>)>>
+	<COND (<CHECK-SKILL ,SKILL-CYBERNETICS>
+		<PUT <GETP ,STORY006 ,P?DESTINATIONS> 1 ,STORY116>
+	)(ELSE
+		<PUT <GETP ,STORY006 ,P?DESTINATIONS> 1 ,STORY138>
+	)>
+	<COND (<CHECK-SKILL ,SKILL-LORE>
+		<PUT <GETP ,STORY006 ,P?DESTINATIONS> 2 ,STORY160>
+	)(ELSE
+		<PUT <GETP ,STORY006 ,P?DESTINATIONS> 2 ,STORY182>
+	)>>
 
 <CONSTANT TEXT007 "The elevator arrives at the lobby and the doors slide open, but the waiting security guards are amazed to find it empty. The security chief barks an order: \"Get upstairs! Check the other floors!\"||You hear them go charging up the stairs. Waiting until the coast is clear, you lower your back down through the access hatch on on top of the elevator car. Ignoring the spluttered protests of the receptionist, you dart out into the safety of the night.">
 
@@ -1827,10 +1853,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY114-PRECHOICE ()
-	<TAKE-QUANTITIES ,KNIFE "knives" "How many of the assassins' knives will you take" 2>
-	<CRLF>
-	<TELL "Take the money on the dead man's body (10 scads)?">
-	<COND (<YES?> <GAIN-MONEY 10>)>>
+	<ASSASSINS-LOOT 2 10>>
 
 <CONSTANT TEXT115 "You settle at the controls of the sky-car and touch the button to power it up. There is a deep hum, and slowly it rises into the air. Hovering at the height of a metre above the floor, you cautiously engage the thrusters. A blaze of blue-white light illuminates the rear wall as the sky-car cannons forward. Quickly you reduce thrust, adroitly steering towards the corridor leading to the entrance. A couple of times you bump the wings against the side walls, scratching to your great annoyance, the perfect matt-black paintwork. You must take care until you have got the hang of this vehicle.||As you emerge into the open, the gondo looks on aghast and then, turning with a yell, starts running clumsily off through the deep snowdrifts. You increase the speed to catch up. He drops flat as you roar overhead and swing around to hover beside him. He lies trembling with his arms over his head until you say, \"It's just me.\"||He looks up, \"I thought you were a flying monster!\"||\"You should have looked twice before you panicked,\" you say with a laugh.||After some urging, the gondo warily clambers up and slides into the seat beside you. \"Is there any roof to shield the cockpit?\" he asks.||\"Apparently not. Remember that when the Manta sky-car was in common use, people go about in thin clothing without the fear of freezing to death.\"||You steer back towards Venis. The outward journey took a couple of hours; returning is a matter of minutes.">
 
@@ -1846,18 +1869,24 @@
 	<COND (<CHECK-CODEWORD ,CODEWORD-DIAMOND> <STORY-JUMP ,STORY181>)>>
 
 <CONSTANT TEXT116 "The computer terminals are only intended to access the library catalogue, but you have no trouble routing into the building's administrative computer and then opening an outside line via the rooftop satellite dish. Like most organizations with the ability to connect into global communications, the Society protects its system from accidental linkage into Gaia by the use of a filter program. This is necessary to prevent infection by the same viruses that are resident in Gaia, as well as to stop Gaia from taking over the Society's whole system for her own use.||You set a standard filter-override program running. It should take a few minutes, and to kill time you run a check on other users who have logged into the system recently. Only one name is displayed: Janus Gaunt. He requested all the Society's records regarding the Heart of Volent. Intrigued, you call up his biofile. The screen shows a round-faced man with extremely white skin and hair like silver floss. Flicking idly through the data, you find he has a reputation for outstanding work in the fields of bioengineering and nanotechnology. The address of his mansion causes you a double-take; it is located in the Paris catacombs. You were not even sure Paris still existed.||The terminal bleeps, informing you the link with Gaia is ready. You switch over. When you type in your query about the Heart, Gaia's response is swift: THE HEART MUST BE DESTROYED. ACTIVATION OF ITS POWER WILL CRASH THE UNIVERSE, WIPING OUT ALL THAT EXISTS.||You reply: INCLUDING EARTH?||EVERYTHING, Gaia tells you. BARYSAL BOMBARDMENT CAN CAUSE A CRITICAL RESONANCE. DESTROYING THE HEART'S CRYSTALLINE STRUCTURE. TWO SIMULTANEOUS BOMBARDMENTS MUST BE MADE, THE BEAMS PHASED AND CROSSING AT RIGHT ANGLES.||This is awkward. From what you have heard, the Heart is a gem several metres across. To destroy it as Gaia suggests, you'd need an accomplice. And two barysal guns. You try to get further information, but the link is broken. Like a senile invalid, Gaia has lapsed back into her customary incoherence.">
-<CONSTANT CHOICES116 <LTABLE "study the records on Heart of Volent" "use" "you have finished in the library">>
+<CONSTANT CHOICES116 <LTABLE "study the records on Heart of Volent" "you have finished in the library">>
 
 <ROOM STORY116
 	(DESC "116")
 	(STORY TEXT116)
+	(PRECHOICE STORY116-PRECHOICE)
 	(CHOICES CHOICES116)
-	(DESTINATIONS <LTABLE STORY160 STORY182 STORY073>)
-	(REQUIREMENTS <LTABLE NONE SKILL-LORE NONE>)
-	(TYPES <LTABLE R-NONE R-SKILL R-NONE>)
+	(DESTINATIONS <LTABLE STORY182 STORY073>)
+	(TYPES TWO-NONES)
 	(CODEWORD CODEWORD-NEMESIS)
 	(FLAGS LIGHTBIT)>
 
+<ROUTINE STORY116-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-LORE>
+		<PUT <GETP ,STORY116 ,P?DESTINATIONS> 1 ,STORY160>
+	)(ELSE
+		<PUT <GETP ,STORY116 ,P?DESTINATIONS> 1 ,STORY182>
+	)>>
 <CONSTANT TEXT117 "\"It's been useful having you along,\" says Shandor, beaming his confident smile as he firmly shakes your hand. \"Iøm sure you won't need my advice on getting by in Venis, resourceful as you are, so let me give you something else.\"||He reaches into a pocket and produces a monkey token which he touches to yours, automatically transferring the sum of 20 scads to you. You are about to protest when you notice the sum remaining on his token. He can well afford what he's paid to you.">
 <CONSTANT TEXT117-CONTINUED "Bidding Shandor and his men farewell, you set off into Venis">
 
@@ -2052,174 +2081,135 @@
 <ROUTINE STORY130-PRECHOICE ()
 	<FIRE-BARYSAL 1>>
 
+<CONSTANT TEXT131 "Your shot burns through Singh's armour and he staggers back, but although wounded he is far from beaten. He presses the fire button on his mantramukta cannon just as Boche goes for an opportunist shot at you. The beam carves through your shoulder.">
+<CONSTANT TEXT131-CONTINUED "A moment later Boche falls as Singh swings the cannon around, blasting him apart with a torrent of searing energy.||There is a moment of silence as the cannon's blast cuts out. It will take a few seconds to build up charge before it can fire again. Golgoth seizes the chance to take aim with his barysal gun. This is the showdown that will decide which of you lives to claim the power of the Heart.">
+
 <ROOM STORY131
 	(DESC "131")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT131)
+	(PRECHOICE STORY131-PRECHOICE)
+	(CONTINUE STORY410)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY131-PRECHOICE ("AUX" (DAMAGE 2))
+	<COND (<CHECK-ITEM ,SPECULUM-JACKET> <SET DAMAGE 1>)>
+	<TEST-MORTALITY .DAMAGE ,DIED-FROM-INJURIES ,STORY131>
+	<IF-ALIVE ,TEXT131-CONTINUED>>
+
+<CONSTANT TEXT132 "A barrage of tightly focused plasma bolts flash through the air directly overhead. You feel the wave of heat as the copper wires are vaporized. The puppets drop lifeless to the stage.||Gilgamesh lowers his arm. Smoke is wafting from his built-in gun. \"Random motion of manikins could have caused you damage,\" he grates in his mechanical voice. \"They have been rendered inert. Danger now over.\"||\"And you wanted to leave the tin man behind,\" Golgoth reminds the Gargan sisters as you get down off the stage.">
 
 <ROOM STORY132
 	(DESC "132")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT132)
+	(CONTINUE STORY110)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT133 "\"You won't regret it,\" he says emphatically.||You look to the east, where the morning sun is hidden under a shelf of heavy grey cloud. A link of black posts protrude from the snow, marking the road to Venis. The other direction would take you through the swamplands of Lyonesse -- the one region of Europe not afflicted by ice sheets and arctic blizzards. But Lyonesse has dangers of its own.">
+<CONSTANT CHOICES133 <LTABLE "head east, towards Venis" "go west through Lyonesse">>
 
 <ROOM STORY133
 	(DESC "133")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT133)
+	(CHOICES CHOICES133)
+	(DESTINATIONS <LTABLE STORY200 STORY177>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT134 "The creature's lair proves to be a cave at the end of the pass. Inside you find a fire of smouldering peat. Around it are strewn bones from humans and large animals. It seems that the creature trapped its prey by hypnosis, leaving the victim to die of exposure. Whenever it needed fresh meat, it had only to fetch in one of the frozen bodies along the pass -- a gruesomely effective procedure. The aftermath of the Paradox War has left the world with many such weird mutations.||Boche gives an involuntary cry of disgust, which he immediately disguises with a nervous laugh. He has discovered a clutch of the creature's young: blobby heads like diseased potatoes, bodies as shrivelled as a bag of giblets, the mesmeric eye no more than a yellow pebble on the end of an embryonic tuber-like stalk.||\"Cure little devils.\"">
+<CONSTANT CHOICES134 <LTABLE "kill them" "not">>
 
 <ROOM STORY134
 	(DESC "134")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT134)
+	(CHOICES CHOICES134)
+	(DESTINATIONS <LTABLE STORY156 STORY178>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT135 "You show the card to various forgers around town. One tells you that the process involved in altering a hologram is very expensive, since lasers and other rare devices are needed. You are about to leave his shop when he sidles over and glances furtively along the street. Dusk squats over the city, pouring dank slush snow from a colourless sky. He lowers the blinds. \"I can't alter the picture,\" he says. \"But what about your own face?\"||\"Cosmetic surgery?\"||He shows you to a room at the back. \"I do it all the time for clients who want to escape their past misdeeds. A whiff of gas and you sleep. When you wake, you'll have a new face.\"||\"How much?\"||After some haggling, he settles on the sum of 5 scads. He reaches out his hand, but you smilingly shake your head, telling him you will pay once the operation is over. He prepares his instruments, then invites you to breathe the anaesthetic gas.">
+<CONSTANT CHOICES135 <LTABLE "reconsider and leave now" "go ahead with the operation">>
 
 <ROOM STORY135
 	(DESC "135")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT135)
+	(CHOICES CHOICES135)
+	(DESTINATIONS <LTABLE STORY223 STORY201>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT136 "You sense that he is lying. Narrowing your gaze, you search deeper into his thoughts while he lies there helpless on the titles. The shower splashes water onto both of you, icy cold now.||You glimpse the image of a crippled man. white hair like a puff of steam surrounds an old, sick, deeply seamed face. He ordered your death. The assassin does not know why.||Deciding it is easier just to question the man, you say, \"Who was the man who hired you?\"||\"Baron Siriasis, a paradoxer from Bezant. He said you were not to reach Kahira.\"||\"Why did he want me dead?\" you ask. But the question is futile; you have already read the assassin's mind, and he cannot give you any answer. It is a mystery you must clear up later. Telling the man to make himself scarce, you dry yourself off and get dressed.">
 
 <ROOM STORY136
 	(DESC "136")
 	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(PRECHOICE STORY136-PRECHOICE)
+	(CONTINUE STORY092)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY136-PRECHOICE ()
+	<ASSASSINS-LOOT 2 10>>
+
+<CONSTANT TEXT137 "The sky-car emits a soft hum as you engage the power. White light flares from the thrusters, casting a garish glow across the walls. It rises to hover a metre or so above the floor. Despite the smoothness of its movement, you are aware of the enormous power in the machine and open the throttle only gently. Unfortunately you misjudge it even so. The thrusters boom, sending the sky-car caroming across the chamber. Frantically you twist the joystick, trying to turn towards the corridor, but you are going too fast. The sky-car smashes into the wall and you are flung out, hitting the floor with numbing impact.||When you come round, your whole body is a single throbbing ache. You feel sure you must have cracked a couple of ribs, and your wrist is badly wrenched. Blood pours from a deep graze above your eyes, and as you get to your feet a wave of dizziness hits you.">
+<CONSTANT TEXT137-CONTINUED "You stagger over to look at the sky-car. It is a wreck. The chassis has split and white-hot sparks are cascading from the broken power unit. The caretek that had maintained it for all these years comes crawling drearily forward and begins probing the wreckage. You almost feel story for it. It has its work cut out for the next year or so. The sky-car will not fly again before then. Now all you can do is rummage through the storage locker and salvage a few items.">
 
 <ROOM STORY137
 	(DESC "137")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT137)
+	(PRECHOICE STORY137-PRECHOICE)
+	(CONTINUE STORY093)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY137-PRECHOICE ()
+	<TEST-MORTALITY 4 ,DIED-FROM-INJURIES ,STORY137>
+	<COND (<IS-ALIVE>
+		<CRLF>
+		<TELL ,TEXT137-CONTINUED>
+		<TELL ,PERIOD-CR>
+		<LOSE-VEHICLE ,MANTA-SKY-CAR>
+	)>>
+
+<CONSTANT TEXT138 "You seek out the librarian, a plump sour-faced man who sits at his desk amid the stacks like a spider in its web. He is barely able to disguise his irritation when you explain what you want. \"A link to Gaia? That is most irregular. Very few of our members make such requests.\"||He will deter you if you let him, if only to spare himself inconvenience. Recalling the status of the typical Society member, you adopt an uncompromising attitude and say, \"It was not a request, but a command. You will now establish a link so that I can talk to Gaia.\"||\"Talk?\" He spreads his hands imploringly. \"What will you talk about? Gaia is mad!\" Seeing you will not be put off, he grumbles under his breath and pushes a slip of paper across the desk. \"Write your query there and it will be broadcast to Gaia. The reply will be brought back to you.\"||\"I prefer a direct two-way communication.\"||\"Impossible!\" he cries. \"That is against Society policy, as nay link to Gaia must be stringently monitored to prevent arrogation of our computer network.\"|||You see he will not be swayed on this point. You write out your message and wait for half an hour until the librarian comes back. \"Here is your reply from Gaia,\" he says, his tone of surprise showing that he did not expect anything but gibberish. He reads from the paper in his hand; \"go and meet with Gilgamesh under the pyramid. Humbaba will give you access.\"||\"Is that all?\"||He nods. \"Gaia then began to transmit random references to Babylonian history followed by a digression into architectural feats of history, and the link was terminated.\"">
+<CONSTANT CHOICES138 <LTABLE "consult the archives for information about the Heart of Volent" "you are finished in the library">>
 
 <ROOM STORY138
 	(DESC "138")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT138)
+	(PRECHOICE STORY138-PRECHOICE)
+	(CHOICES CHOICES138)
+	(DESTINATIONS <LTABLE STORY182 STORY073>)
+	(TYPES TWO-NONES)
+	(CODEWORD CODEWORD-HUMBABA)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY138-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-LORE>
+		<PUT <GETP ,STORY138 ,P?DESTINATIONS> 1 ,STORY160>
+	)(ELSE
+		<PUT <GETP ,STORY138 ,P?DESTINATIONS> 1 ,STORY182>
+	)>>
+
+<CONSTANT TEXT139 "You ascend into the mountains across stark rocky ridges like the broken backs of colossal dinosaurs. The sun shines as feebly as a flashlight seen through a thick pane of ice. When the wind gusts into your face, it is so cold that you can hardly draw breath.||On the second day you come upon four figures also trudging eastwards. They are several hundred metres ahead on the surface of a glacier. As you hurry to catch up, you see patches where the snow has swirled away to reveal the sky surface of the glacier reflecting glints of feeble daylight.||The leader of the group is a short broad-shouldered man whose dark sparkling eyes display an easy authority. The other three, apparently his bodyguards, are hulking men whom you take to be of South Pacific origin. It is hard to be sure with the fur hoods drawn so tightly around their faces.||The short hand man shakes hands and introduces himself as Hal Shandor. \"Our sky-car crashed in the hills back there,\" he explains. \"We're going on to Venis. Travel with us if you want.\"">
+<CONSTANT CHOICES139 <LTABLE "join their group" "you prefer to journey alone">>
 
 <ROOM STORY139
 	(DESC "139")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT139)
+	(CHOICES CHOICES139)
+	(DESTINATIONS <LTABLE STORY225 STORY161>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT140 "The creature that attacked you is a sanguivore, a mutant lizard with gliding and mimicking abilities. The sanguivore's saliva contains an anti-clotting agent, ensuring that its prey slow bleeds to death even after escaping from it. That explains why it's in no hurry to catch up with you. It is content to track you through the woods and wait until you collapse from exhaustion. Well, you have a few resources not shared by any wild animal. Tearing the lining of your jacket into strips, you bind the wound to prevent further loss.">
+<CONSTANT CHOICES140 <LTABLE "rest here" "press on through the jungle for a while">>
 
 <ROOM STORY140
 	(DESC "140")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT140)
+	(CHOICES CHOICES140)
+	(DESTINATIONS <LTABLE STORY184 STORY250>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY141
