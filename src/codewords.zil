@@ -24,6 +24,10 @@
     (DESC "Nemesis")
     (SYNONYM NEMESIS)>
 
+<OBJECT CODEWORD-SCYTHE
+    (DESC "Scythe")
+    (SYNONYM SCYTHE)>
+
 <OBJECT CODEWORD-TALOS
     (DESC "Talos")
     (SYNONYM TALOS)>

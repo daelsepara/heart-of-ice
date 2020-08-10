@@ -237,10 +237,6 @@
 		)>
 	)>>
 
-<ROUTINE CHECK-VEHICLE (RIDE)
-	<COND (<OR <IN? .RIDE ,VEHICLES> <AND ,CURRENT-VEHICLE <EQUAL? ,CURRENT-VEHICLE .RIDE>>> <RTRUE>)>
-	<RFALSE>>
-
 <ROUTINE ADD-QUANTITY (OBJECT "OPT" AMOUNT CONTAINER "AUX" QUANTITY CURRENT)
 	<COND (<NOT .OBJECT> <RETURN>)>
 	<COND (<L=? .AMOUNT 0> <RETURN>)>
@@ -305,6 +301,18 @@
 	<TELL "Take the " .PLURAL "?">
 	<COND (<YES?>
 		<ADD-QUANTITY .OBJECT <GET-NUMBER .MESSAGE 0 .AMOUNT> ,PLAYER>
+	)>>
+
+<ROUTINE CHECK-VEHICLE (RIDE)
+	<COND (<OR <IN? .RIDE ,VEHICLES> <AND ,CURRENT-VEHICLE <EQUAL? ,CURRENT-VEHICLE .RIDE>>> <RTRUE>)>
+	<RFALSE>>
+
+<ROUTINE TAKE-VEHICLE (VEHICLE)
+	<COND (.VEHICLE
+		<COND (,CURRENT-VEHICLE <REMOVE ,CURRENT-VEHICLE>)>
+		<MOVE .VEHICLE ,VEHICLES>
+		<SETG CURRENT-VEHICLE .VEHICLE>
+		<UPDATE-STATUS-LINE>
 	)>>
 
 <CONSTANT TEXT "This story has not been written yet.">
@@ -1765,175 +1773,151 @@
 	(TYPES <LTABLE R-CODEWORD R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT111 "After a cursory greeting, the others start to disperse back to their tents, Janus Gaunt tells you he has just brewed a pot of tea and invites you to join him. You are pleased enough to share the warmth of his fire, but when a xom hands you a teacup in its bloodless fingers you cannot suppress a shiver of dread.||Don't bother about them,\" he says with a laugh. \"They're just robots, really, except that they're made out of once-living tissue instead of plastic and metal. They're powered by a small electrochemical implant in the chest cavity.\"||\"They are an abomination against nature,\" says Boche flatly, draining his tea. \"Where do we get firewood?\"||Gaunt is taken aback by Boche's rudeness, but replies courteously: \"Take it from the buildings around the square. The mulberry window-shutters you are warming your hands over, for instance, date from tenth-century Persia. It is a pity to burn such artifacts as these, but the former owners have no more use for them.\"||Boche rises with a grunt and trudges off, entering a narrow doorway. You follow to find him flashing his torch around. \"Ah, here is some firewood already broken up for our convenience,\" he says.||\"It is mine,\" he purrs a voice of menace from the doorway. Thadra Bey stands there, muscles coiled taut in pantherish grace, a lethal dart-projector in her hand.||\"Down!\" roars Boche, cannoning into you from behind and sending you flying into Thadra Bey. You and she go rolling out into the snow, her dart singing through the air and narrowly missing Chaim Golgoth, who responds once by drawing his barysal gun. In seconds all hell has broken loose, as the uneasy truce splinters apart. Thadra Bey rakes her fingers across your face and leaps away, levelling her dart-projector, and you hear Gaunt yelling to his xoms, \"Defend me! Slay any who attack!\"||For a moment it seems that the struggle for power will be decided here and now. Then a voice rips like thunder across the square: \"Stop this senseless fighting now!\" and, turning, you have your first view of the mighty Vajra Singh.">
+
 <ROOM STORY111
 	(DESC "111")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT111)
+	(CONTINUE STORY300)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT112 "With only a split-second left before the creature's gaze paralyses you, you act on raw instinct. Leaping high into the air, you somersault over its head, twisting so as to land directly behind it. The eyestalk sweeps frantically, trying to see where you went. But before the creature can bring its  ghastly scrutiny to bear, you give it a hard blow across the back of the head. As it falls senseless in the snow, Boche recovers from the hypnotic trance. Even so, it is several seconds before he has recovered his wits enough to speak.">
 
 <ROOM STORY112
 	(DESC "112")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT112)
+	(CONTINUE STORY090)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT113 "You soon find a man who can do what you want: a fat sweaty fellow with a profusion of ancient tools and devices strewn around his shop. Guiding his laser by hand, he makes a few deft changes to the image on the card until it could pass for your own likeness. \"Five scads,\" he says, holding it out to you.||\"Five?\" you scowl.||\"Membership of the prestigious Compass Society is usually much more expensive than that,\" he says with a shrug.||You consider snatching the card back, but the fat man cannily anticipates you and holds it close to the laser beam until you pay.">
 
 <ROOM STORY113
 	(DESC "113")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT113)
+	(PRECHOICE STORY113-PRECHOICE)
+	(CONTINUE STORY414)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY113-PRECHOICE ()
+	<COND (<G? ,MONEY 4>
+		<CRLF>
+		<TELL "Agree to his terms?">
+		<COND (<YES?>
+			<CHARGE-MONEY 5>
+		)(ELSE
+			<EMPHASIZE "Since you refused to pay, he destroys the ID card.">
+			<LOSE-ITEM ,ID-CARD>
+		)>
+	)(ELSE
+		<EMPHASIZE "Since you cannot pay for it, he destroys the ID card.">
+		<LOSE-ITEM ,ID-CARD>
+	)>>
+
+<CONSTANT TEXT114 "\"There's flaw in your story,\" you point out to the man as you scoop up the knife he dropped. You stroke the point against his neck, pricking the skin until a single drop of blood appears. He swallows nervously. You go on, \"Body snatchers don't use knives. There's too much risk of puncturing a vital organ -- damage to merchandise, you might say. They prefer garrottes and sedative sprays.\"||\"All right,\" he admits. \"We were hired to kill you.\"||\"Who?\" You prod him again with the knife.||\"Baron Siriasis.\"||You are puzzled. \"I've never heard of him. Why should he want me dead?\"||\"He didn't explain it to us. Apparently he regards you as a rival.\"||This is a mystery you can clear up later. Telling the surviving assassin to make himself scarce, you dry yourself off and get dressed.">
 
 <ROOM STORY114
 	(DESC "114")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT114)
+	(PRECHOICE STORY114-PRECHOICE)
+	(CONTINUE STORY092)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY114-PRECHOICE ()
+	<TAKE-QUANTITIES ,KNIFE "knives" "How many of the assassins' knives will you take" 2>
+	<CRLF>
+	<TELL "Take the money on the dead man's body (10 scads)?">
+	<COND (<YES?> <GAIN-MONEY 10>)>>
+
+<CONSTANT TEXT115 "You settle at the controls of the sky-car and touch the button to power it up. There is a deep hum, and slowly it rises into the air. Hovering at the height of a metre above the floor, you cautiously engage the thrusters. A blaze of blue-white light illuminates the rear wall as the sky-car cannons forward. Quickly you reduce thrust, adroitly steering towards the corridor leading to the entrance. A couple of times you bump the wings against the side walls, scratching to your great annoyance, the perfect matt-black paintwork. You must take care until you have got the hang of this vehicle.||As you emerge into the open, the gondo looks on aghast and then, turning with a yell, starts running clumsily off through the deep snowdrifts. You increase the speed to catch up. He drops flat as you roar overhead and swing around to hover beside him. He lies trembling with his arms over his head until you say, \"It's just me.\"||He looks up, \"I thought you were a flying monster!\"||\"You should have looked twice before you panicked,\" you say with a laugh.||After some urging, the gondo warily clambers up and slides into the seat beside you. \"Is there any roof to shield the cockpit?\" he asks.||\"Apparently not. Remember that when the Manta sky-car was in common use, people go about in thin clothing without the fear of freezing to death.\"||You steer back towards Venis. The outward journey took a couple of hours; returning is a matter of minutes.">
 
 <ROOM STORY115
 	(DESC "115")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT115)
+	(PRECHOICE STORY115-PRECHOICE)
+	(CONTINUE STORY159)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY115-PRECHOICE ()
+	<TAKE-VEHICLE ,MANTA-SKY-CAR>
+	<COND (<CHECK-CODEWORD ,CODEWORD-DIAMOND> <STORY-JUMP ,STORY181>)>>
+
+<CONSTANT TEXT116 "The computer terminals are only intended to access the library catalogue, but you have no trouble routing into the building's administrative computer and then opening an outside line via the rooftop satellite dish. Like most organizations with the ability to connect into global communications, the Society protects its system from accidental linkage into Gaia by the use of a filter program. This is necessary to prevent infection by the same viruses that are resident in Gaia, as well as to stop Gaia from taking over the Society's whole system for her own use.||You set a standard filter-override program running. It should take a few minutes, and to kill time you run a check on other users who have logged into the system recently. Only one name is displayed: Janus Gaunt. He requested all the Society's records regarding the Heart of Volent. Intrigued, you call up his biofile. The screen shows a round-faced man with extremely white skin and hair like silver floss. Flicking idly through the data, you find he has a reputation for outstanding work in the fields of bioengineering and nanotechnology. The address of his mansion causes you a double-take; it is located in the Paris catacombs. You were not even sure Paris still existed.||The terminal bleeps, informing you the link with Gaia is ready. You switch over. When you type in your query about the Heart, Gaia's response is swift: THE HEART MUST BE DESTROYED. ACTIVATION OF ITS POWER WILL CRASH THE UNIVERSE, WIPING OUT ALL THAT EXISTS.||You reply: INCLUDING EARTH?||EVERYTHING, Gaia tells you. BARYSAL BOMBARDMENT CAN CAUSE A CRITICAL RESONANCE. DESTROYING THE HEART'S CRYSTALLINE STRUCTURE. TWO SIMULTANEOUS BOMBARDMENTS MUST BE MADE, THE BEAMS PHASED AND CROSSING AT RIGHT ANGLES.||This is awkward. From what you have heard, the Heart is a gem several metres across. To destroy it as Gaia suggests, you'd need an accomplice. And two barysal guns. You try to get further information, but the link is broken. Like a senile invalid, Gaia has lapsed back into her customary incoherence.">
+<CONSTANT CHOICES116 <LTABLE "study the records on Heart of Volent" "use" "you have finished in the library">>
 
 <ROOM STORY116
 	(DESC "116")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT116)
+	(CHOICES CHOICES116)
+	(DESTINATIONS <LTABLE STORY160 STORY182 STORY073>)
+	(REQUIREMENTS <LTABLE NONE SKILL-LORE NONE>)
+	(TYPES <LTABLE R-NONE R-SKILL R-NONE>)
+	(CODEWORD CODEWORD-NEMESIS)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT117 "\"It's been useful having you along,\" says Shandor, beaming his confident smile as he firmly shakes your hand. \"Iøm sure you won't need my advice on getting by in Venis, resourceful as you are, so let me give you something else.\"||He reaches into a pocket and produces a monkey token which he touches to yours, automatically transferring the sum of 20 scads to you. You are about to protest when you notice the sum remaining on his token. He can well afford what he's paid to you.">
+<CONSTANT TEXT117-CONTINUED "Bidding Shandor and his men farewell, you set off into Venis">
 
 <ROOM STORY117
 	(DESC "117")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT117)
+	(PRECHOICE STORY117-PRECHOICE)
+	(CONTINUE STORY334)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY117-PRECHOICE ()
+	<GAIN-MONEY 20>
+	<COND (<AND <CHECK-SKILL ,SKILL-CLOSE-COMBAT> <CHECK-ITEM ,SHORTSWORD>> <STORY-JUMP ,STORY008>)>
+	<CRLF>
+	<TELL ,TEXT117-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT118 "You jump to your feet and scramble through the undergrowth. The creature follows at a leisurely pace, squawking triumphantly from high in the branches. It claws its way effortlessly between the close spaced trunks, sometimes sailing out across clearings on the wide leathery kite of its body.">
 
 <ROOM STORY118
 	(DESC "118")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT118)
+	(PRECHOICE STORY118-PRECHOICE)
+	(CONTINUE STORY162)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY118-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-SURVIVAL>
+		<STORY-JUMP ,STORY206>
+	)(<CHECK-SKILL ,SKILL-LORE>
+		<STORY-JUMP ,STORY140>
+	)>>
+
+<CONSTANT TEXT119 "A lethal blue spike of light pierces the air, charring its way through the chest of the man with the gun. The knifeman blinks, starts to backpedal then realizes he has no choice but to attack you anyway. The instant's hesitation proves his undoing, as you have time to swing your gun around and unload a blast at point-blank range. The third man rushes in with a sob of desperate fury. You lash out with the but of the gun and he drops as though poleaxed.||You search the trapper's shelter. Their barysal gun has two charges left. You also find two knives, a set of polarized goggles, binoculars, and a cold-weather suit, and six food packs.">
+<CONSTANT TEXT119-CONTINUED "Then you wait for the blizzard to blow itself out before you emerge into the crisp snow outside">
 
 <ROOM STORY119
 	(DESC "119")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT119)
+	(PRECHOICE STORY119-PRECHOICE)
+	(CONTINUE STORY393)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY119-PRECHOICE ()
+	<TAKE-OR-CHARGE 2 T>
+	<TAKE-QUANTITIES ,KNIFE "knives" "How many of the assassins' knives will you take" 2>
+	<TAKE-FOOD-PACKS 6>
+	<SELECT-FROM-LIST <LTABLE POLARIZED-GOGGLES BINOCULARS COLD-WEATHER-SUIT> 3 3>
+	<CRLF>
+	<TELL ,TEXT119-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT120 "The innkeeper is cringing at the end of the bar with a sick look on his face. You bow to the twins, saying, \"Ladies, pardon me. I am a simple servant here.\" Turning to the innkeeper, you ask, \"master, shall I fetch the very best vodka for your guests?\"||The twins scowl at him. \"Isn't this the best?\"||He twitches nervously, but senses you have a plan in mind. \"Er... my my dear ladies, cherished guests --\"||One of the twins seizes his jerkin and hauls him across the bar, glaring into his face. \"Well?\"||\"Ulp. In fact, there is one bottle of extremely fine Old Daralbad Immolate in the cellar.\"||\"Fetch it.\" This is addressed to you. You race out to the cellar door to get a bottle, returning by way of the bathroom at the back of the building where you find the inn's medicine cabinet. As you come racking back, the bottle is snatched out of your hands.||\"I must advise caution, my lady,\" you say, almost grovelling. \"This is strong liquor.\"||\"Pah!\" She drains half the bottle at a gulp, then hands the rest to her sister.||You stand back and watch. Gradually the twins start to yawn, then fold across the bar. Only when they begin snoring do the rest of the customers feel safe in approaching these two fearsome Amazons. Even asleep, they inspire such fear that no one knows quite what to do with them, until you suggest putting them in a rowboat and pushing it out to sea.||\"How long  before they wake up?\" asks the innkeeper.||You shake your head. \"Who knows? I put a whole packet of sleeping pills in that vodka, but these two seem to have a vigorous metabolism. Best that we get rid of them at once.\"">
 
 <ROOM STORY120
 	(DESC "120")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT120)
+	(PRECHOICE STORY120-PRECHOICE)
+	(CONTINUE STORY142)
+	(CODEWORD CODEWORD-SCYTHE)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY120-PRECHOICE ()
+	<KEEP-ITEM ,MEDICAL-KIT>>
 
 <ROOM STORY121
 	(DESC "121")
