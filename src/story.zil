@@ -40,6 +40,8 @@
 	<PUTP ,STORY085 ,P?DEATH T>
 	<PUTP ,STORY102 ,P?DEATH T>
 	<PUTP ,STORY108 ,P?DEATH T>
+	<PUTP ,STORY127 ,P?DEATH T>
+	<PUTP ,STORY129 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -196,10 +198,12 @@
 		<PUTP .STORY ,P?DEATH F>
 	)>>
 
-<ROUTINE FIRE-BARYSAL ("AUX" (CHARGES 0))
+<ROUTINE FIRE-BARYSAL ("OPT" AMOUNT "AUX" (CHARGES 0))
+	<COND (<NOT .AMOUNT> <SET AMOUNT 1>)>
 	<SET CHARGES <GETP ,BARYSAL-GUN ,P?CHARGES>>
 	<COND (<G? .CHARGES 0>
-		<SET CHARGES <- .CHARGES 1>>
+		<SET CHARGES <- .CHARGES .AMOUNT>>
+		<COND (<L? .CHARGES 1> <SET CHARGES 0>)>
 		<PUTP ,BARYSAL-GUN ,P?CHARGES .CHARGES>
 	)>>
 
@@ -1134,7 +1138,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY063-EVENTS ()
-	<COND (,RUN-ONCE <FIRE-BARYSAL>)>
+	<COND (,RUN-ONCE <FIRE-BARYSAL 1>)>
 	<RETURN ,STORY063>>
 
 <ROOM STORY064
@@ -1197,7 +1201,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY068-PRECHOICE ()
-	<FIRE-BARYSAL>>
+	<FIRE-BARYSAL 1>>
 
 <CONSTANT TEXT069 "The drawback to using the card is the holographic picture on the front, which looks nothing like you.">
 <CONSTANT CHOICES069 <LTABLE "get the ID card altered" "forget about the card and investigate your other options instead">>
@@ -1371,7 +1375,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY079-PRECHOICE ()
-	<FIRE-BARYSAL>>
+	<FIRE-BARYSAL 1>>
 
 <CONSTANT TEXT080 "You find several items scattered across a bench at the back of the laboratory. These include a flashlight, a pair of binoculars, a set of polarized goggles, and a barysal gun. The gun has been opened for inspection, but it is a simple matter to secure the but and replace the screws. You check the power unit, finding two charges remaining.">
 <CONSTANT CHOICES080 <LTABLE "descend the shaft to the bottom level" "ascend and leave the pyramid">>
@@ -1475,7 +1479,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY087-PRECHOICE ()
-	<FIRE-BARYSAL>>
+	<FIRE-BARYSAL 1>>
 
 <CONSTANT TEXT088 "Gargan XIV closes in on you. Gargan XIII draws a knife and looks down at Golgoth, in no hurry to finish him off. Suddenly he looks up with abroad smile. She was wrong in thinking him beaten. To the contrary, he has the look of a cat who has trapped two very large mice.">
 
@@ -1578,7 +1582,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY096-PRECHOICE ()
-	<FIRE-BARYSAL>>
+	<FIRE-BARYSAL 1>>
 
 <CONSTANT TEXT097 "The nearest man stabs his knife at your heart. You deflect the blow with an open-handed block to his wrist, then sidestep in close to deliver two swift elbow strikes across his face. As he sags, you pluck the knife out of his fingers. The angle is wrong to get the man with the gun, so you cast the knife at each other. It catches him in the shoulder and he falls back with a grunt.||The man with the gun is about to fire. You throw yourself into a forward roll, hearing the blast crack overhead and explode against the wall. Scissoring your legs, you thrust him off-balance before he can take another shot. He topples into the fire, his frightened yelp cut brutally short as his head hits a rock.||Before you can get to your feet, the man with the knife in his shoulder comes lumbering forward and tries to stomp you in the guts. You jerk aside, catch his ankle, and bring him down backwards across your hip, where a swift powerful twist ends the struggle.||You search the shelter. The barysal gun has one charge left. You also find two knives, a set of polarized goggles, and cold weather clothes, binoculars, and six food packs.">
 <CONSTANT TEXT097-CONTINUED "Then you wait for the blizzard to blow itself out before you emerge into the crisp snow outside">
@@ -1898,6 +1902,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY119-PRECHOICE ()
+	<FIRE-BARYSAL 2>
 	<TAKE-OR-CHARGE 2 T>
 	<TAKE-QUANTITIES ,KNIFE "knives" "How many of the assassins' knives will you take" 2>
 	<TAKE-FOOD-PACKS 6>
@@ -1919,175 +1924,133 @@
 <ROUTINE STORY120-PRECHOICE ()
 	<KEEP-ITEM ,MEDICAL-KIT>>
 
+<CONSTANT TEXT121 "Golgoth must have a keen interest in lurid fiction, because his thoughts are filled with images of carnage, explosions, gunfire, and violent death. Then you realize that these are not scenes from films or books -- they are Golgoth's actual memories. He has successfully eliminated dozens of the United States' enemies around the world, mainly by dint of trickery, cunning and a quite unabashed level of viciousness. Viewing these memories from his mind, at the same time as you return that placid smiling gaze, sends a shiver along your spine.">
+<CONSTANT CHOICES121 <LTABLE "ask Golgoth what he knows about Giza" "question his reason for carrying a crossbow" "allow Boche to lead you away from this hardened killer">>
+
 <ROOM STORY121
 	(DESC "121")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT121)
+	(CHOICES CHOICES121)
+	(DESTINATIONS <LTABLE STORY337 STORY315 STORY358>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT122 "Awareness returns slowly, the details of your surroundings emerging out of a blur. There is a white ceiling above you and soft fabric at your back. The air carries a faint smell of antiseptic. You can make out the low whine of air conditioning.||\"You're able to hear me?\" booms a voice.||You wince, focussing on a face that looms above yours. The colours seem harsh, garish. Sounds come to your ears with a rasping undertone, as though filtered by electronics.||Another face comes into view, slender and handsome with a high forehead capped by a green circlet. He has a lopsided but not unfriendly smile. \"How are you feeling?\" he asks.||\"I've got pins and needles,\" you say in a voice still slurred by anaesthetic. Reaching across to rub your left arm, you feel the unyielding hardness of metal in place of flesh. You sit bolt upright with a thrill of horror, throwing off the sheets. You can only stare at what they have made of you: a being half of robotics, half of living tissue. A cyborg.||\"It was all we could do to save your life,\" explains the man wearing the green circlet. \"You were caught in the jets as my flyer took off. I brought you up here. It was touch and go for a couple of weeks, but you should be all right now.\"||\"What's left of me, that is,\" you say bitterly. Turning to the window, you see a surprising profusion of stars in a black void. \"Where are we, anyhow?\"||The other man, the doctor, takes you by your still-living right arm and leads you to the window. A vast crescent globe of swirling grey and white hangs in space below you.||\"That's the Earth,\" he says. \"You're on al-Lat.\"||The pilot joins you. \"I know you are still shaken, but I must ask you some questions. You should not have been in Maka. How did you get there, and why?\"">
+<CONSTANT CHOICES122 <LTABLE "tell him the truth" "you prefer to invent a convincing story">>
 
 <ROOM STORY122
 	(DESC "122")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT122)
+	(CHOICES CHOICES122)
+	(DESTINATIONS <LTABLE STORY144 STORY166>)
+	(TYPES TWO-NONES)
+	(CODEWORD CODEWORD-TALOS)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT123 "\"Target identification: bometh,\" grates Gilgamesh. \"Mutant wolf/bear hybrid. Predator. It presents a danger. Immediate elimination is called for.\"||He raises his arm, ejecting a crackling blast of energy that turns the dusk to day. The swirling snowflakes hiss into steam. On the crest of the rise, the giant beast shudders and falls, rolling down into the deep snow. With Gilgamesh clanking along behind, you hurry over to make sure the bometh is dead, as you would not want a wounded predator stalking you through the night.">
 
 <ROOM STORY123
 	(DESC "123")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT123)
+	(CONTINUE STORY341)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT124 "The carriage rushes on into the darkness of the tunnel. You wait for almost two hours, and then you start to feel the carriage slowing down. It enters a station and glides to a halt, but there is a delay before the doors open. \"Karthag station is damaged,\" explains the motilator's calm electronic voice. \"You are recommended to select an alternative destination.\"||Through the window, you can see that the station has caved in. Huge chunks of shattered concrete litter the platform, with twisted metal cables extending from them like torn arteries from a heart. It is sheer luck that the tunnel itself was not blocked, otherwise you would have ended your journey with a sever jolt, to say the least.||What now?">
+<CONSTANT CHOICES124 <LTABLE "disembark here" "take the subway back to Marsay, and from there head on to Kahira" "to Tarabul" "to Giza" " resume your journey on foot">>
 
 <ROOM STORY124
 	(DESC "124")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT124)
+	(CHOICES CHOICES124)
+	(DESTINATIONS <LTABLE STORY146 STORY050 STORY031 STORY074 STORY420>)
+	(TYPES FIVE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT125 "At last you see a streak of dark rubble against the dazzling skyline. You fear it might just be a line of hills or even a trick of the light, but as you approach on quickened footsteps it is possible to make out the details of brooding towers, empty palaces and gargantuan snow-bound walls. You have arrived at the lost city of Du-En.">
 
 <ROOM STORY125
 	(DESC "125")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT125)
+	(PRECHOICE STORY125-PRECHOICE)
+	(CONTINUE STORY213)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY125-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-DIAMOND>
+		<DELETE-CODEWORD ,CODEWORD-DIAMOND>
+		<STORY-JUMP ,STORY191>
+	)>>
+
+<CONSTANT TEXT126 "You find Golgoth squatting by torchlight at the end of the colonnade, where he has laid out all his weapons o the flagstones. As he checks each, he slips it into its concealed sheath: a garrotte wire under his belt, along with a flexible steel blade; poison darts in a bandolier inside his jacket; guns at hip, ankle and wrist; small flat grenades clipped along his sabretache. You watch him aghast for a few minutes.||\"Quite the professional killer, aren't you, Golgoth?\"||\"Don't get far if you only make t a hobby.\"||You heave a sigh. \"Does human life mean anything to you?\"||He buckles on his barysal gun, gets up, and gives you a long thoughtful look in the torchlight. \"Not the life of scum like this.\" He gestures along the colonnade. \"I've happily sent hundreds like them to an early grave. Who do you think my USI bosses should've sent -- a pack of boy-scout Marines?\"||\"So youøre here as a USI agent?\"||He nods. \"Of course. The power of the Heart cannot be allowed to fall into hostile hands. In order of priority, I will either take it to the States, get the power myself, or destroy it.\"">
+<CONSTANT CHOICES126 <LTABLE "propose an alliance" "go and talk to Kyle Boche" "get some sleep">>
 
 <ROOM STORY126
 	(DESC "126")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT126)
+	(CHOICES CHOICES126)
+	(DESTINATIONS <LTABLE STORY214 STORY104 STORY192>)
+	(REQUIREMENTS <LTABLE <LTABLE CODEWORD-NEMESIS> NONE NONE>)
+	(TYPES <LTABLE R-CODEWORD R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT127 "The glowing phantom is leeching the strength from your living tissue, but your artificial body parts are not affected. Lunging out with your metal arm, you seize it by the neck. Your cyborg leg carries you forward with a lurching gait until you stand on the brink of the chasm. The phantom squirms in your unbreakable grip, its form twisting and flowing like melting wax. As its fingers penetrate the circuitry of your arm there is a flash of sparks and the feedback causes some damage.">
+<CONSTANT TEXT127-CONTINUED "You manage to throw the phantom down. Its thin bleating cry echoes up from the depths as it falls, trailing its gleaming wisps of vapour like a comet's tail.">
 
 <ROOM STORY127
 	(DESC "127")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT127)
+	(PRECHOICE STORY127-PRECHOICE)
+	(CONTINUE STORY149)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY127-PRECHOICE ()
+	<TEST-MORTALITY 2 ,DIED-FROM-INJURIES ,STORY127>
+	<IF-ALIVE ,TEXT127-CONTINUED>>
+
+<CONSTANT TEXT128 "The passage brings you to a series of galleries, each consisting of a cloister running either side of a central concourse softly illuminated by chandeliers. Many of the heavy buttresses have been defaced, leaving chunks of broken masonry scattered across the marble floor. \"No doubt this devastation was wreaked in the city's collapse,\" says Boche in a hushed voice. \"It's said that the people of Du-En went mad and turned against their leaders.\"||Baron Siriasis drifts to a halt and peers off into the gloom of the cloistered walkway at the side of the room. \"I sense a presence,\" he says after a moment's concentration. \"Something is stalking us.\"||Quickening your pace you hurry on through the galleries until you see a heavy iron-bound door ahead. A rasping sound echoes out of the cloisters to one side. It sounds like chitin slithering across stone. You are about to break into a run when the lights go out and you are plunged into darkness.">
+<CONSTANT CHOICES128 <LTABLE "use" "or" "a charged barysal gun" "light a" "otherwise">>
 
 <ROOM STORY128
 	(DESC "128")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT128)
+	(PRECHOICE STORY128-PRECHOICE)
+	(CHOICES CHOICES128)
+	(DESTINATIONS <LTABLE STORY216 STORY194 STORY238 STORY172 STORY260>)
+	(REQUIREMENTS <LTABLE SKILL-ROGUERY SKILL-ESP SKILL-SHOOTING <LTABLE FLASHLIGHT LANTERN> NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-SKILL R-ANY R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY128-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-SCOTOPIC> <STORY-JUMP ,STORY302>)>>
+
+<CONSTANT TEXT129 "With the ghastly brain floating after you, you race out of the hall. The passage soon forks, but you have no time to pause and get your bearings. You blunder on, gasping for breath, looking back over your shoulder to see if your pursuer is still there. Losing sight of it around a bend in the tunnel, you begin to calm down and think. The baron is a powerful psychic .. ore powerful than you ever dreamed, to outlive his body like this -- but he cannot survive once the remaining oxygen in his brain tissue is used up. All you have to do is stay ahead of him that long.||Your simple plan is ruined a moment later when, darting around a junction in the passage, you come face to face with a hover-droid. A quarter of a second is long enough for you to start tor turn, and for the hover-droid to identify you as an intruder in the catacombs. As you leap back, its laser flares up and you feel a sickening pain as the hot beam cuts through your gut.">
+<CONSTANT TEXT129-CONTINUED "You retreat rapidly. But just as you lose sight of the hover-droid, you turn to see the baron's brain drifting towards you. You are between a rock and a hard place.">
 
 <ROOM STORY129
 	(DESC "129")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT129)
+	(PRECHOICE STORY129-PRECHOICE)
+	(CONTINUE STORY085)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY129-PRECHOICE ("AUX" (DAMAGE 4))
+	<COND (<CHECK-ITEM ,SPECULUM-JACKET> <SET DAMAGE 3>)>
+	<TEST-MORTALITY .DAMAGE ,DIED-FROM-INJURIES ,STORY129>
+	<IF-ALIVE ,TEXT129-CONTINUED>>
+
+<CONSTANT TEXT130 "The shot was a decoy. Sensing Golgoth's thoughts, you whirl to see him running silently through the smoke towards you. The look in his eyes is the chilling glint of an inhuman killer. Your arm comes up by instinct and you send a lethal blast of energy through his heart. He topples at your feet.">
 
 <ROOM STORY130
 	(DESC "130")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT130)
+	(PRECHOICE STORY130-PRECHOICE)
+	(CONTINUE STORY072)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY130-PRECHOICE ()
+	<FIRE-BARYSAL 1>>
 
 <ROOM STORY131
 	(DESC "131")

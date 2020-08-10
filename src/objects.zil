@@ -78,6 +78,11 @@
     (QUANTITY 1)
     (FLAGS TAKEBIT)>
 
+<OBJECT LANTERN
+    (DESC "lantern")
+    (SYNONYM LANTERN)
+    (FLAGS TAKEBIT)>
+
 <OBJECT LITTLE-GAIA
     (DESC "Little Gaia")
     (SYNONYM GAIA)

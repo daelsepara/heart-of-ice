@@ -24,6 +24,10 @@
     (DESC "Nemesis")
     (SYNONYM NEMESIS)>
 
+<OBJECT CODEWORD-SCOTOPIC
+    (DESC "Scotopic")
+    (SYNONYM SCOTOPIC)>
+
 <OBJECT CODEWORD-SCYTHE
     (DESC "Scythe")
     (SYNONYM SCYTHE)>
