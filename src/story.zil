@@ -61,6 +61,8 @@
 	<PUTP ,STORY186 ,P?DEATH T>
 	<PUTP ,STORY192 ,P?DEATH T>
 	<PUTP ,STORY194 ,P?DEATH T>
+	<PUTP ,STORY201 ,P?DEATH T>
+	<PUTP ,STORY207 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -2453,7 +2455,7 @@
 	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT160 "The Society's books add little to what you already knew. The Heart of Volent fell from space, a meteorite resembling a violet gemstone two metres across. It became revered by a religious cult calling themselves the Volentine Watchers, led by one Eleazar Picard. Learning how to tap the Heart's power, the cultists reversed the degradation of Earth's environment in a small region around their city of Du-En, in the Sahara, and for a time enjoyed prosperity.|\Then came the Paradox War. The Volentine Watchers used their strange power to send blasts of chaos-inducing radiation against the nations of the world, whom they deemed corrupt and decadent. The new Ice Age was already under way because of Gaia's instability, and the Paradox War accelerated the process. Some regions became so irradiated that the normal laws of nature no longer applied, and they were quickly overrun by eerie mutants.||The rest of the world allied to establish a military bunker at Giza, intending to strike from there against Du-En, but it was never needed. The people of Du-En succumbed to mass insanity and fled their city, only to perish in the Sahara as the snows returned. Eleazar Picard himself was found by a patrol from al-Lat, but only rambled incoherently for a few days before dying. Du-En was declared off limits, the Sahara an icy wasteland inhabited only by ghosts. And so it has remained for two hundred years.||You return the books to the shelves.">
+<CONSTANT TEXT160 "The Society's books add little to what you already knew. The Heart of Volent fell from space, a meteorite resembling a violet gemstone two metres across. It became revered by a religious cult calling themselves the Volentine Watchers, led by one Eleazar Picard. Learning how to tap the Heart's power, the cultists reversed the degradation of Earth's environment in a small region around their city of Du-En, in the Sahara, and for a time enjoyed prosperity.||Then came the Paradox War. The Volentine Watchers used their strange power to send blasts of chaos-inducing radiation against the nations of the world, whom they deemed corrupt and decadent. The new Ice Age was already under way because of Gaia's instability, and the Paradox War accelerated the process. Some regions became so irradiated that the normal laws of nature no longer applied, and they were quickly overrun by eerie mutants.||The rest of the world allied to establish a military bunker at Giza, intending to strike from there against Du-En, but it was never needed. The people of Du-En succumbed to mass insanity and fled their city, only to perish in the Sahara as the snows returned. Eleazar Picard himself was found by a patrol from al-Lat, but only rambled incoherently for a few days before dying. Du-En was declared off limits, the Sahara an icy wasteland inhabited only by ghosts. And so it has remained for two hundred years.||You return the books to the shelves.">
 <CONSTANT CHOICES160 <LTABLE "try making contact with Gaia" "you've finished in the library">>
 
 <ROOM STORY160
@@ -3022,175 +3024,115 @@
 	(CODEWORD CODEWORD-DIAMOND)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT201-ESP "A sudden sense of danger warns you not to proceed and you slip out of the shop">
+<CONSTANT TEXT201-END "You blithely submit to the anaesthetic and your consciousness slides away, never to return. You should have been more wary than to put yourself at the mercy of such street scum">
 
 <ROOM STORY201
 	(DESC "201")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(PRECHOICE STORY201-PRECHOICE)
+	(CONTINUE STORY223)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY201-PRECHOICE ()
+	<CRLF>
+	<COND (<CHECK-SKILL ,SKILL-ESP>
+		<PREVENT-DEATH ,STORY201>
+		<TELL ,TEXT201-ESP>
+	)(ELSE
+		<TELL ,TEXT201-END>
+	)>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT202 "The queue shuffles along slowly and at last you reach the ticket office. A bored official in the livery of a Venisian merchant guild peers at you through a screen of wire/meshed glass. \"The cost of passage as far as Kahira is ten scads,\" he tells you.">
+<CONSTANT CHOICES202 <LTABLE "pay this sum" "not">>
 
 <ROOM STORY202
 	(DESC "202")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT202)
+	(CHOICES CHOICES202)
+	(DESTINATIONS <LTABLE STORY246 STORY288>)
+	(REQUIREMENTS <LTABLE 10 NONE>)
+	(TYPES <LTABLE R-MONEY R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT203 "Boche has a broad grin on his face as he looks over the sky-car and then turns to you, saying, \"This is a startling and welcome piece of luck! Now that we have a Manta, success in our venture is virtually assured.\"||\"Our venture?\" You raise your eyebrows. \"So you did overhear Gaia's message back at the Etruscan Inn.\"||He claps you heartily on the back. \"You know I did, but what of it? We are partners, and shall share the power of the Heart equally. Now that we have this vehicle, there is no need to wait for the ferry to Kahira. We can set out directly for Du-En.\"">
 
 <ROOM STORY203
 	(DESC "203")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT203)
+	(CONTINUE STORY159)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT204 "You take the elevator to the floor indicated but find only the dim after-hours lights illuminating the corridor. As you are looking around, a janitor steps out of an office with pail and broom in hand and nods to you respectfully. \"If you are looking for Doctor Jaffe, she has gone home for the night. The surgery opens again at nine AM.\"">
 
 <ROOM STORY204
 	(DESC "204")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT204)
+	(CONTINUE STORY073)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT205 "Shandor's two remaining bodyguards produce small picks with which they hack at the ice. They are strong men and throw themselves into the job tirelessly, but it is soon obvious that the ice is too hard-packed. They remove their fur jackets despite the cold and one of them, turning to Shandor and wiping beads of sweat out of his eyes, says, \"It's going to take us hours to get the body out, boss.\"||Shandor glances at you, then shrugs. \"Just chip the ice away around the hand, then. Get the sword.\"||It is almost an hour before they have achieved this. By now the wind has dropped, making just a low ghastly moan as it gusts along the gully leading down to the cave. Nightfall cannot be more than a couple of hours off. You go over with Shandor and peer at the ice wall. Where the picks have gouged down to the corpse's hand, the clear blue ice has become cloudy with white cracks. The hand hangs limply, the shortsword still clutched in its fingers. Shandor goes to take it, hesitates, turns to you with a grimace of distance. \"I'm not easily spooked, but... \" He gives an embarrassed chuckle.||The shortsword is of Japanese style, its blade still razor sharp in spite of a faint speckling of rust. You can take it if you wish; if not one of the bodyguards will claim it.||You notice something odd about the corpse's hand. The slight violet bloom to the skin could be attributed to its preservation in ice, but the long index finger and the hair on the palm are not so easy to explain.">
 
 <ROOM STORY205
 	(DESC "205")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
+	(STORY TEXT205)
+	(PRECHOICE STORY205-PRECHOICE)
+	(CONTINUE STORY270)
 	(VICTORY F)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY205-PRECHOICE ()
+	<KEEP-ITEM ,SHORTSWORD>
+	<COND (<CHECK-SKILL ,SKILL-LORE> <STORY-JUMP ,STORY183>)>>
+
+<CONSTANT TEXT206 "The creature that attacked you is a sanguivore. A species of tree/dwelling lizard which is halfway to evolving flight, this is just one of the hallucinatory by-products of the Paradox War. From the way your wound is pouring blood, you suspect the sanguivore's saliva contained an anti-clotting agent. That alone would not explain your increasing dizziness, though, which suggests its bite also injected a drug. No wonder it's in no hurry to catch up with you -- easier by far to track you through the woods and wait until you collapse. Well, you are not as helpless as the wild animals on which the sanguivore normally preys. Tearing the lining of your jacket into strips, you bind the wound to prevent further blood loss.||The only thing you can do about the drug is stay on the move until you find shelter. If you were to lie down now you would never get up again.">
 
 <ROOM STORY206
 	(DESC "206")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT206)
+	(CONTINUE STORY250)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT207 "You start to move forwards, begin a lunge towards the man with the gun, the jump adroitly aside as he discharges a blast. The blue-white flash snaps through the air and explodes against the knife-wielder's arm. He drops with a whimper. The third hunter runs in, arms spread wide to grab you, but you duck under his clumsy tackle and dart towards the rug covering the door. Another shot crackles from the gun, and again you veer away, but this time it glances across your hip, burning the clothing away and inflicting a painful burn.">
+<CONSTANT TEXT207-CONTINUED "You are luck to be alive. Wasting no more time, you throw yourself through the opening and limp off into the blizzard. The hunters do not give chase.">
 
 <ROOM STORY207
 	(DESC "207")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT207)
+	(PRECHOICE STORY207-PRECHOICE)
+	(CONTINUE STORY314)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY207-PRECHOICE ()
+	<TEST-MORTALITY 1 ,DIED-FROM-INJURIES ,STORY207>
+	<IF-ALIVE ,TEXT207-CONTINUED>>
+
+<CONSTANT TEXT208 "Placing your chair behind a heavy oaken post, you drape your coat across the back and prop your travelling-pack under it. If the sisters were to glance in your direction, they would assume you were still brooding at your table. In fact they seem entirely preoccupied, leaning on the bar and muttering to one another in terse whispers. You slide through the shadows to the far end of the room, slip unnoticed over the bar, then creep back on hands and knees until you are hidden just below where the sisters are talking. The innkeeper notices you, but luckily he is too terrified to make any comment.||\"We'll need a barysal gun,\" one of the sisters is saying.||\"We'll need two. Gaia said the Heart must be bombarded with two barysal beams at right angles. That will cause a critical resonance and destroy it.\"||\"There's going to be others heading for the Heart. Vajra Singh's interest cannot be a coincidence; Janus Gaunt too. It'll be difficult to achieve the Heart's destruction with such as they are intent on preserving it.\"||You listen with keen interest. So others are bound for Du-En and it seems not all of them share the goal of ultimate power. This is worth thinking about. Meanwhile, you return stealthily to your seat.">
 
 <ROOM STORY208
 	(DESC "208")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT208)
+	(CONTINUE STORY252)
+	(CODEWORD CODEWORD-NEMESIS)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT209 "Claustral Park is a large expanse in the upper level of the city which is entirely given over to wilderness. The fence is lined up with bright arc-lamps, and these are directed inwards across a grassy perimeter towards a thick unkempt woodland.||Scaling the fence, you scurry across the open area of grass and push into the bushes. Twigs and moss suffice to make a reasonably comfortable bed. As you drift off to sleep, you gaze back through the tree at the arc-lamps glaring hard in the mist. Why illuminate the park if no one comes here after dark? Perhaps the lamps were installed in bygone days and it is not known how to turn them off...||You wake with a stifled scream. You heave been seized by many hands and they are dragging you deep into the woods. You struggle, making contact with rough bodies that rasp your flesh like sandpaper. In the darkness you can see nothing of your assailants, but you can hear their snuffling grunts. They drag you to a clearing and break your limbs so that you cannot escape.||The claustrals cannot believe their good luck. Now they will feed on fresh meat for weeks to come.">
 
 <ROOM STORY209
 	(DESC "209")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT209)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT210 "Initiating a search of the files, you turn up a video almost two hundred years old. It shows an interview with Eleazar Picard, leader of the Volentine Cult, after he had fled form the unexplained destruction of Du-En. As you listen to Picard rambling about 'the madness' and 'the end of everything', you begin to piece together the facts. Apparently there was some kind of cataclysm or riot in the city, from which Picard barely escaped with his life.||A hawk-faced man in a colonel's uniform appears on the screen. He listens as Picard becomes slightly more lucid under the effect of truth serum: \"It was the light at the end of Time, and my sanity is blinded!\"||\"How is it you escaped?\" asks the colonel. \"You alone and no one else?\"|\Picard replies, \"I remembered the Truth.\"||At this point, Picard's eyes glaze and he starts to recite a catechism of his faith: \"The Truth is a flame. What ignites the flame? The spark ignites the flame. What is the spark? The Heart of Volent!\"||You scan forward through the rest of the interview, but Picard soon lapses into incoherence. A message at the end informs you that he died soon afterwards.">
 
 <ROOM STORY210
 	(DESC "210")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT210)
+	(CONTINUE STORY254)
+	(CODEWORD CODEWORD-LUNAR)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY211
