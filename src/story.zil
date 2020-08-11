@@ -50,6 +50,8 @@
 	<PUTP ,STORY137 ,P?DEATH T>
 	<PUTP ,STORY147 ,P?DEATH T>
 	<PUTP ,STORY158 ,P?DEATH T>
+	<PUTP ,STORY161 ,P?DEATH T>
+	<PUTP ,STORY162 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -2500,174 +2502,155 @@
 		<PUT <GETP ,STORY160 ,P?DESTINATIONS > 1 ,STORY138>
 	)>>
 
+<CONSTANT TEXT161 "You trek wearily onwards, often plunging almost to your waist through fine powdery banks of snow. The sun pokes feeble rays of light across the bleak sky like an old man clutching for his pills. Quicksilver ribbons lie across the landscape, marking out the course of glaciers through the ridges of rock. Night descends like a sheath of hoarfrost. For days your ordeal continues as you cross the rugged mountain slops and finally begin your descent towards the foothills.">
+<CONSTANT TEXT161-CONTINUED "You give a hoarse grunt of relief through frost-numbed limbs when the towers and cupolas Venis finally appear against the skyline">
+
 <ROOM STORY161
 	(DESC "161")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT161)
+	(PRECHOICE STORY161-PRECHOICE)
+	(CONTINUE STORY334)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY161-PRECHOICE ("AUX" (DAMAGE 3))
+	<COND (<CHECK-SKILL ,SKILL-SURVIVAL> <SET DAMAGE 2>)>
+	<TEST-MORTALITY .DAMAGE ,DIED-GREW-WEAKER ,STORY161>
+	<COND (<IS-ALIVE>
+		<CRLF>
+		<TELL ,TEXT161-CONTINUED>
+		<TELL ,PERIOD-CR>
+		<COND (<AND <CHECK-SKILL ,SKILL-CLOSE-COMBAT> <CHECK-ITEM ,SHORTSWORD>> <STORY-JUMP ,STORY008>)>
+	)>>
+
+<CONSTANT TEXT162 "With each step you take you are getting weaker.">
+<CONSTANT TEXT162-CONTINUED "The blood is still pouring freely from the jagged rip in your shoulder, and you realize that the creature must have injected an anti-clotting agent. Hurriedly tearing the lining of your jacket into strips, you bind the wound to prevent further blood loss.||Looking back, you see no sign of your pursuer. Perhaps it lost interest after having a taste of your flesh.">
+<CONSTANT CHOICES162 <LTABLE "rest hear" "press on further into the jungle">>
 
 <ROOM STORY162
 	(DESC "162")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT162)
+	(PRECHOICE STORY162-PRECHOICE)
+	(CHOICES CHOICES162)
+	(DESTINATIONS <LTABLE STORY184 STORY250>)
+	(TYPES TWO-NONES)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY162-PRECHOICE ()
+	<COND (,RUN-ONCE <TEST-MORTALITY 1 ,DIED-FROM-INJURIES ,STORY162>)>
+	<IF-ALIVE ,TEXT162-CONTINUED>>
+
+<CONSTANT TEXT163 "You are held at gunpoint while your arms are wrenched behind your back and securely tied. One of the men rummages through your belongings, then jerks his thumb contemptuously towards you. \"Are we keeping an extra mouth to feed, then, Snarvo?\"||The man with the knife sneers. \"Not unless you want a pet for yourself, mate.\"||\"Hang on,\" says the third man as he tucks his gun away. He stands peering at you in the firelight, chewing his lip thoughtfully. \"I've seen your face before, haven't I?\"||\"Yeah,\" you say sarcastically, \"at the President's last garden party in Dallas.\"||The others snigger at this, admiring your casual attitude in the face of death, but the man with the gun stands there glowering in silence. Suddenly he clicks his fingers. \"On a wanted poster in Daralbad, that's where it was. They've et a bounty of five hundred scads for you, my friend.\"||\"I'm much in demand.\"||\"Too right! Too right!\" He strides excited around the fire, then turns to his cronies. \"Well, what's it to be? Hang on here in the hope of another bear, or take this prize to Daralbad for the bounty?\"||They settle on cashing you in for the reward. You pretend to take the news sourly, then wait while they celebrate by drinking themselves into a stupor. Flexing your wrists, you soon work free of your bonds and creep quietly over to their supply packs. You remove three food packs, a cold-weather suit, and some polarized goggles.">
+<CONSTANT TEXT163-CONTINUED "Then you slip out into the snow">
 
 <ROOM STORY163
 	(DESC "163")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT163)
+	(PRECHOICE STORY163-PRECHOICE)
+	(CONTINUE STORY314)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY163-PRECHOICE ()
+	<TAKE-FOOD-PACKS 3>
+	<SELECT-FROM-LIST <LTABLE COLD-WEATHER-SUIT POLARIZED-GOGGLES> 2 2>
+	<CRLF>
+	<TELL ,TEXT163-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT164 "Gargan XIII heartily shakes your hand, Gargan XIV sets up the glasses and pours each of you a shot of vodka. You take the glass and sip, only to wince as the alcohol sears into your cut gums. A mist of blood tinges the vodka. The Gargan sisters down their own drinks without a murmur. \"You are a fine warrior!\" declares XIV with approval.||Despite their declarations of friendship, you are careful not to drink much. It's possible that, having realized you are too tough to beat in a straight fight, they hope to ply you with vodka until you are helpless. Turning to the innkeeper, you ask, \"I'll take food and a room for the night. How much do I owe you?\"||Eyes rolling in fright at the two Amazons, he flaps a hand limply in the air and replies in a strained voice: \"No charge, since you are a friend of these fine ladies.\"||You recover a bit after a night's rest.">
+<CONSTANT TEXT164-CONTINUED "In the morning, the innkeeper provides you with a food pack for the journey">
+<CONSTANT CHOICES164 <LTABLE "travel with the Gargan sisters" "you can delay setting out until they have moved on">>
 
 <ROOM STORY164
 	(DESC "164")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT164)
+	(PRECHOICE STORY164-PRECHOICE)
+	(CHOICES CHOICES164)
+	(DESTINATIONS <LTABLE STORY294 STORY273>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY164-PRECHOICE ()
+	<COND (,RUN-ONCE <GAIN-LIFE 1>)>
+	<CRLF>
+	<TELL ,TEXT164-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT CHOICES165 <LTABLE "bed down in a park" "a quiet back alley" "an open plaza">>
 
 <ROOM STORY165
 	(DESC "165")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(EVENTS STORY165-EVENTS)
+	(CHOICES CHOICES165)
+	(DESTINATIONS <LTABLE STORY209 STORY231 STORY253>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY165-EVENTS ()
+	<COND (<CHECK-SKILL ,SKILL-STREETWISE> <RETURN ,STORY187>)>
+	<RETURN ,STORY165>>
+
+<CONSTANT TEXT166 "You steady yourself as if you were suffering a giddy spell. \"I... can't remember,\" you tell him. \"My mind's a blank. The accident...\"||He glances at the doctor, who nods and says: \"That isn't uncommon in a case like this. You'll find your memory patchy at first, but it will slowly come back to you.\"||The pilot seems satisfied. His brooding look is suddenly swept away by an open smile. \"I have forgotten my manners. I am Riza Baihaqi; this is Dr. Anwar Mujam.\"||You shake hands. \"Be careful to use your flesh-and-blood hand for delicate tasks,\" warns the doctor. \"The grip strength of your cyborg arm is enough to crush bone.\"||\"I'll be careful,\" you reply with a strained laugh.||Riza gestures towards the viewport where the crescent Earth hangs like a luminous pearl. \"You would of course be welcome to remain here as our guest, but I expect that you will be anxious to return to Earth?\"">
+<CONSTANT CHOICES166 <LTABLE "go straight back to earth" "tell Riza about your quest">>
 
 <ROOM STORY166
 	(DESC "166")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT166)
+	(CHOICES CHOICES166)
+	(DESTINATIONS <LTABLE STORY275 STORY188>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT167 "There is an alphanumeric keypad set in a recess beside the door. You tap in the sequence H-U-M-B-A-B-A and hold your breath, hardly daring to hope that the antique circuitry still works. Then, with a soft whir, the door slides up and you are able to step into the interior of the Great Pyramid.">
 
 <ROOM STORY167
 	(DESC "167")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT167)
+	(CONTINUE STORY233)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT168 "After some squirming, you manage to wedge yourself into the shaft and begin a slow ascent. You are in total darkness. Minutes crawl by, and the air grows stifling as you climb. At last with the sweat pouring off your body, you are on the verge of giving up when you detect a nimbus of grey light from just above. You struggle towards it, cramming your body around a twist in the shaft. A heady aroma hangs in the air here, sweet as greenwood.||You emerge into a larger space at the junction of several ducts. As your eyes adjust to the faint light trickling down from above, you make out a human shape in the gloom. He is hanging like a puppet, entangled in a thick mass of fleshy creepers dangling from the top of the shaft. You approach and touch his shoulder. His head lolls back slowly, falls off, and strikes the floor with a hollow clatter.||You cannot stifle a gasp of horror. You step back, only to find a taut vine cable wound around your ankle. Another brushes your face, gropes with abrupt vitality, and seizes your throat in a firm grip. The creepers are alive and predatory. You struggle, grappling with the vine at your neck to no avail. It is tightening, squeezing your windpipe. Your pulse pounds inside your ears with a dull roar.">
+<CONSTANT TEXT168-END "There is nothing you can do to free yourself and you will slowly strangle to death in the grip of the mutant plant">
 
 <ROOM STORY168
 	(DESC "168")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT168)
+	(PRECHOICE STORY168-PRECHOICE)
+	(CONTINUE STORY190)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY168-PRECHOICE ()
+	<COND (<CHECK-ITEM ,VINE-KILLER>
+		<PREVENT-DEATH ,STORY168>
+	)(ELSE
+		<CRLF>
+		<TELL ,TEXT168-END>
+		<TELL ,PERIOD-CR>
+	)>>
+
+<CONSTANT TEXT169 "The air here is tolerable once filtered of volcanic fumes. You build a lean-to beside the bubbling pool in the shelter of the dwarf conifers. Although the water of the pool is undrinkable, you can easily collect snow from beyond the edge of the oasis and bring it back to camp to melt. For food, you catch insects and grubs and bake them on the hot rocks.">
 
 <ROOM STORY169
 	(DESC "169")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT169)
+	(PRECHOICE STORY169-PRECHOICE)
+	(CONTINUE STORY426)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY169-PRECHOICE ()
+	<GAIN-LIFE 4>>
+
+<CONSTANT TEXT170 "The baron is cloistered in his tent. A couple of servants are hunkered down in the snow outside next to a glimmering fire, but they pay you no heed. Glancing into the tent as you pass, you notice that the baron is intently studying a video screen which he has set up on a low table next to the cushions on which he is propped. He seems to be muttering something quietly to himself.">
+<CONSTANT CHOICES170 <LTABLE "eavesdrop" "boldly enter the tent uninvited" "go and talk to Golgoth" "Boche" "Gaunt">>
 
 <ROOM STORY170
 	(DESC "170")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT170)
+	(CHOICES CHOICES170)
+	(DESTINATIONS <LTABLE STORY364 STORY386 STORY126 STORY104 STORY148>)
+	(TYPES FIVE-NONES)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY171

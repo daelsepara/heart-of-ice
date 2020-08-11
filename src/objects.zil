@@ -140,6 +140,12 @@
     (SYNONYM VADE-MECUM)
     (FLAGS TAKEBIT)>
 
+<OBJECT VINE-KILLER
+    (DESC "vade-mecum")
+    (SYNONYM KILLER)
+    (ADJECTIVE VINE)
+    (FLAGS TAKEBIT)>
+
 ; Vehicle
 <OBJECT MANTA-SKY-CAR
     (DESC "Manta sky-car")
