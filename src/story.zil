@@ -5,6 +5,7 @@
 
 <CONSTANT BAD-ENDING "Your adventure ends here.|">
 <CONSTANT GOOD-ENDING "Further adventure awaits.|">
+<CONSTANT DESTINY-GODHOOD "You are immortal and all-powerful now. Your adventure has culminated in godhood.|">
 
 <OBJECT CURRENCY (DESC "scads")>
 <OBJECT VEHICLE (DESC "car")>
@@ -52,6 +53,8 @@
 	<PUTP ,STORY158 ,P?DEATH T>
 	<PUTP ,STORY161 ,P?DEATH T>
 	<PUTP ,STORY162 ,P?DEATH T>
+	<PUTP ,STORY168 ,P?DEATH T>
+	<PUTP ,STORY171 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -85,7 +88,23 @@
 	(ADJECTIVE LOST)
 	(FLAGS CONTBIT OPENBIT)>
 
-<ROUTINE SPECIAL-INTERRUPT-ROUTINE (KEY)
+<CONSTANT CHARGE-BARYSAL-KEY !\b>
+<CONSTANT CHARGE-BARYSAL-KEY-CAPS !\B>
+
+<ROUTINE SPECIAL-INTERRUPT-ROUTINE (KEY "AUX" CHARGES)
+	<COND (<EQUAL? .KEY ,CHARGE-BARYSAL-KEY-CAPS ,CHARGE-BARYSAL-KEY>
+		<COND (<AND <CHECK-ITEM ,BATTERY-UNIT> <CHECK-ITEM ,BARYSAL-GUN>>
+			<SET CHARGES <GETP ,BATTERY-UNIT ,P?CHARGES>>
+			<CRLF>
+			<TELL CR "Charge " T ,BARYSAL-GUN "?">
+			<COND (<YES?>
+				<SET CHARGES <+ .CHARGES <GETP ,BARYSAL-GUN ,P?CHARGES>>>
+				<PUTP ,BARYSAL-GUN ,P?CHARGES .CHARGES>
+				<LOSE-ITEM ,BATTERY-UNIT>
+			)>
+			<RTRUE>
+		)>
+	)>
 	<RFALSE>>
 
 <ROUTINE LOSE-STUFF (CONTAINER LOST-CONTAINER ITEM "OPT" MAX ACTION "AUX" (COUNT 0) ITEMS)
@@ -1920,7 +1939,7 @@
 	)(ELSE
 		<PUT <GETP ,STORY116 ,P?DESTINATIONS> 1 ,STORY182>
 	)>>
-<CONSTANT TEXT117 "\"It's been useful having you along,\" says Shandor, beaming his confident smile as he firmly shakes your hand. \"Iøm sure you won't need my advice on getting by in Venis, resourceful as you are, so let me give you something else.\"||He reaches into a pocket and produces a monkey token which he touches to yours, automatically transferring the sum of 20 scads to you. You are about to protest when you notice the sum remaining on his token. He can well afford what he's paid to you.">
+<CONSTANT TEXT117 "\"It's been useful having you along,\" says Shandor, beaming his confident smile as he firmly shakes your hand. \"I'm sure you won't need my advice on getting by in Venis, resourceful as you are, so let me give you something else.\"||He reaches into a pocket and produces a monkey token which he touches to yours, automatically transferring the sum of 20 scads to you. You are about to protest when you notice the sum remaining on his token. He can well afford what he's paid to you.">
 <CONSTANT TEXT117-CONTINUED "Bidding Shandor and his men farewell, you set off into Venis">
 
 <ROOM STORY117
@@ -2043,7 +2062,7 @@
 		<STORY-JUMP ,STORY191>
 	)>>
 
-<CONSTANT TEXT126 "You find Golgoth squatting by torchlight at the end of the colonnade, where he has laid out all his weapons o the flagstones. As he checks each, he slips it into its concealed sheath: a garrotte wire under his belt, along with a flexible steel blade; poison darts in a bandolier inside his jacket; guns at hip, ankle and wrist; small flat grenades clipped along his sabretache. You watch him aghast for a few minutes.||\"Quite the professional killer, aren't you, Golgoth?\"||\"Don't get far if you only make t a hobby.\"||You heave a sigh. \"Does human life mean anything to you?\"||He buckles on his barysal gun, gets up, and gives you a long thoughtful look in the torchlight. \"Not the life of scum like this.\" He gestures along the colonnade. \"I've happily sent hundreds like them to an early grave. Who do you think my USI bosses should've sent -- a pack of boy-scout Marines?\"||\"So youøre here as a USI agent?\"||He nods. \"Of course. The power of the Heart cannot be allowed to fall into hostile hands. In order of priority, I will either take it to the States, get the power myself, or destroy it.\"">
+<CONSTANT TEXT126 "You find Golgoth squatting by torchlight at the end of the colonnade, where he has laid out all his weapons o the flagstones. As he checks each, he slips it into its concealed sheath: a garrotte wire under his belt, along with a flexible steel blade; poison darts in a bandolier inside his jacket; guns at hip, ankle and wrist; small flat grenades clipped along his sabretache. You watch him aghast for a few minutes.||\"Quite the professional killer, aren't you, Golgoth?\"||\"Don't get far if you only make t a hobby.\"||You heave a sigh. \"Does human life mean anything to you?\"||He buckles on his barysal gun, gets up, and gives you a long thoughtful look in the torchlight. \"Not the life of scum like this.\" He gestures along the colonnade. \"I've happily sent hundreds like them to an early grave. Who do you think my USI bosses should've sent -- a pack of boy-scout Marines?\"||\"So you're here as a USI agent?\"||He nods. \"Of course. The power of the Heart cannot be allowed to fall into hostile hands. In order of priority, I will either take it to the States, get the power myself, or destroy it.\"">
 <CONSTANT CHOICES126 <LTABLE "propose an alliance" "go and talk to Kyle Boche" "get some sleep">>
 
 <ROOM STORY126
@@ -2653,175 +2672,138 @@
 	(TYPES FIVE-NONES)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT171 "It is a beam phantom -- the victim of a teleporter accident which has left it eternally out of phase with the rest of the world. Such creatures suffer eternal torment because of the teleporter's mangling of their internal organs, but there is nothing that can be done for them, since they do not truly exist. Even in their ghostly state they are dangerous, however, as their desire to return to solid form means that they insatiably seek contact with the living. And their touch drains all life energy.||While you still have strength to move, you shrug off your jacket and lunge forward holding it like a net, catching the beam phantom inside. The feel of it is sickening, like a broken body that has been put back together by a maniac surgeon. Even with the jacket insulating your grip, its negative force drains you like a well of coldness.">
+<CONSTANT TEXT171-CONTINUED "You succeed in manhandling the squirming creature over to the chasm and hurling it down. Its thin bleating cry echoes up from the depths as it falls, trailing its gleaming wisps of vapour like a comet's tail.">
+
 <ROOM STORY171
 	(DESC "171")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT171)
+	(PRECHOICE STORY171-PRECHOICE)
+	(CONTINUE STORY149)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY171-PRECHOICE ()
+	<TEST-MORTALITY 2 ,DIED-GREW-WEAKER ,STORY171>
+	<IF-ALIVE ,TEXT171-CONTINUED>>
+
+<CONSTANT TEXT172 "You hear a scuttling of many insectoid legs. In the sudden flare of light you catch a glimpse of a shape like a giant black centipede, mouthparts churning like oiled blades. Blinded by the unexpected light, it writhes and retreats in panic to the darkness of the cloisters. The three of you seize your chance to hurry on through the iron-bound door, slamming it behind you. A moment later a heavy form thuds against the door.||\"That was a close call,\" breathes Boche, wiping a trickle of cold sweat out of his eyes.">
 
 <ROOM STORY172
 	(DESC "172")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT172)
+	(CONTINUE STORY281)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT173 "Misjudging the leap, you fall short by an arm's length and go plunging down through the fog to meet your doom on the hard flagstones twenty storeys below.">
 
 <ROOM STORY173
 	(DESC "173")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT173)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT174 "You kneel beside the huge gem and embrace it, feeling its power surge through you. Coruscating bands of energy blaze from the depths of the unearthly gem, swathing you in an aura of blinding violet light. The fabric of reality is ripped apart and you feel weightless. A vortex spins up through the dome, sweeping away rock and air, rising up into space out past the moon and planets. In what seems like seconds, all of creation has been swept away, replaced by a new universe of your own making.">
 
 <ROOM STORY174
 	(DESC "174")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT174)
+	(VICTORY DESTINY-GODHOOD)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT175 "There is a sound from somewhere ahead in the maze of tunnels. Boche cocks his hear. \"It's the old-fashioned laser fire,\" he says, adding significantly: \"But none of the others were carrying lasers.\"||The mystery is soon explained. Turning a corner, you find yourselves facing three hover-droids that resemble large silver eggs with a rotating gun-turret mounted underneath. They are gliding directly towards you, the aiming-lights of their lasers playing across your vision. Boche throws himself down a side tunnel. You are in motion an instant later, just as three laser beams lance out, burning a patch of molten stone on the floor where you had been standing.||Racing headlong through the tunnels, you reach a circular room with a violet starburst set in mosaic on the floor. Several other tunnels lead into the chamber, and down one of them you see Vajra Singh, Thadra Bey and Chaim Golgoth running from another group of hover-droids. \"We stirred up a whole nest of them,\" shouts Golgoth. \"Too many to fight!\"||As he enters the room, Vajra Singh whirls and fires his mantramukta cannon over the heads of Bey and Golgoth. Four hover-droids explode in a blossom of plasma, but you can see others converging on the room from the other tunnels.||Across the sweep of the opposite wall are seven glass-fronted elevators, each large enough for one person. Thadra Bey lopes across to the nearest and the door slides shut behind her. In moments the room will be swarming with hover-droids. The rest of you have no choice but to follow her lead. As you step into an elevator, the door closes and an electronic voice says: \"Identify yourself, please.\"">
+<CONSTANT CHOICES175 <LTABLE "tell the truth" "pretend to be a follower of the Volentine cult">>
 
 <ROOM STORY175
 	(DESC "175")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT175)
+	(CHOICES CHOICES175)
+	(DESTINATIONS <LTABLE STORY280 STORY301>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT176 "You return to the surface. Janus Gaunt and Thadra Bey are already back at the camp. They tell you they explored a warren of tunnels under the plaza but to no avail. \"All we found were vaults full of mildewed grain,\" growls Bey.||The long list of sunset is bathing the ruins by the time Vajra Singh and the baron reappear. You soon learn that they set out along different routes which converged at a long underground hall. They are obviously excited by what they discovered. \"We have identified the temple precincts,\" announces Vajra Singh, gesturing to a cluster of buildings across the square. \"The Heart of Volent lies somewhere below. Tomorrow may be the last day of the search.\"">
 
 <ROOM STORY176
 	(DESC "176")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT176)
+	(CONTINUE STORY038)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT177 "Boche is not enthusiastic. \"The Lyonesse region is infested with malefactors and noctambules,\" he avers. \"We would be at great risk. Also, the Atlas Mountains are a daunting obstacle. As your partner in this venture, I strongly urge you to reconsider.\"||He is obviously not willing to accompany you if you insist on heading west.">
+<CONSTANT CHOICES177 <LTABLE "do so anyway" "you can change your mind and take the road to Venis">>
 
 <ROOM STORY177
 	(DESC "177")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT177)
+	(CHOICES CHOICES177)
+	(DESTINATIONS <LTABLE STORY221 STORY200>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT178 "Strewn amid the mortal remains of the gorgon's victims, you discover a number of items: an ID card, a battery unit for a barysal gun (good for six charges), a working flashlight, and a set of polarized goggles.||Boche holds up the goggles and jokes, \"I don't suppose our one-eyed chum had much use for these, eh?\" He insists on an equal division of the spoils, but gives you first choice. Add two of the items to your list of possessions.">
+<CONSTANT TEXT178-CONTINUED "You spend a reasonably comfortable night in the cave and head on your way in the morning">
 
 <ROOM STORY178
 	(DESC "178")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT178)
+	(PRECHOICE STORY178-PRECHOICE)
+	(CONTINUE STORY199)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY178-PRECHOICE ("AUX" (COUNT 2) CHARGES)
+	<CRLF>
+	<TELL "Take the battery unit (6 charges)?">
+	<COND (<YES?>
+		<COND (<CHECK-ITEM ,BARYSAL-GUN>
+			<CHARGE-BARYSAL 6>
+		)(ELSE
+			<COND (<CHECK-ITEM ,BATTERY-UNIT>
+				<SET CHARGES <GETP ,BATTERY-UNIT ,P?CHARGES>>
+				<SET CHARGES <+ .CHARGES 6>>
+			)(ELSE
+				<SET CHARGES 6>
+				<TAKE-ITEM ,BATTERY-UNIT>
+				<EMPHASIZE "To charge a barysal gun with the battery-unit, press 'B' during action selection.">
+				<PRESS-A-KEY>
+			)>
+			<PUTP ,BATTERY-UNIT ,P?CHARGES .CHARGES>
+		)>
+		<SET COUNT <- .COUNT 1>>
+	)>
+	<SELECT-FROM-LIST <LTABLE ID-CARD FLASHLIGHT POLARIZED-GOGGLES> 3 .COUNT>
+	<CRLF>
+	<TELL ,TEXT178-CONTINUED>>
+
+<CONSTANT TEXT179 "You find an answer to your enquiries in a drinking parlour under the Bridge of Sighs. Here a group of men, rendered affable and talkative by the vials of synthash liqueur they have imbibed, tell you all you need to know.||\"Ky Boche?\" says one of them, scowling distractedly out into the drizzle beyond the eaves of the drinking parlour. \"I have heard of him. A wayfarer and sometimes trader.\"||\"A trader?\" snorts another of the men, sluicing the hot liqueur around his mouth before adding, \"A parasite, rather. His sole instinct is treachery; his sole talent is self-preservation.\"||You turn to the man who has just spoken. \"I take it you've personally had dealings with Kyle Boche?\"||He nods slowly, narrowing his eyes as he peers inward at his memories through a haze of synthash fumes. \"We collaborated in a smuggling operation running furs into Daralbad. This was a few years back. The militia were alerted and Boche scarpered in the boat, leaving me to face the music alone. They're pigs in Daralbad, and that's how I lost these two fingers, see? Later I managed to escape, and I heard Boche had been strutting around telling everyone how I let him down. If I knew where to find him, I'd go this minute and put a knife through his weaselly heart!\"||A third man joins the conversations. \"I do not wholly disagree with my friend here, except to add that Boche's character is more complex than he suggests. If he is treacherous or self-serving, he is not aware of being so, for he is a man of such prodigious vanity that he can admit no faults.||\"The other man, refilling his glass, only hisses like an angry swan and says again, \"He is a mere parasite!\"||If you wish to reveal your knowledge of Boche's whereabouts to the man he betrayed, he will pay you 10 scads for the information.">
 
 <ROOM STORY179
 	(DESC "179")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT179)
+	(PRECHOICE STORY179-PRECHOICE)
+	(CONTINUE STORY414)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY179-PRECHOICE ()
+	<CRLF>
+	<TELL "Do you wish to reveal Kyle Boche's whereabouts?">
+	<COND (<YES?>
+		<GAIN-MONEY 10>
+		<DELETE-CODEWORD ,CODEWORD-DIAMOND>
+	)>>
+
+<CONSTANT TEXT180 "You slump in the corner of the bench with barely strength to move. At last, thinking you helpless, the assassins open the steam room door. \"Let's get this carcass over to the baron -- prove we've done the job,\" one of them says.||\"Rather a disappointment,\" says the other, grabbing a hunk of your hair and lifting your head up off the bench. \"I was hoping I'd get to use my knife.\"||Hearing this, you explode into action. You have no compunction about giving the nearest man a very hard kick in the groin. As he doubles up and his accomplice gapes in surprise, you lunge out of the door and race back towards the dormitory. Your nakedness draw a few choice looks from the inn's other residents, so you hastily pull on your clothes.||A few minutes later, the assassins glance into the dormitory. With so many people around, they think better of pursuing you and instead duck out into the night. Just as well. After being shut up in the steam room, you feel too weak for a fight.">
 
 <ROOM STORY180
 	(DESC "180")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(PRECHOICE STORY180-PRECHOICE)
+	(CONTINUE STORY092)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY180-PRECHOICE ()
+	<TEST-MORTALITY 2 ,DIED-FROM-INJURIES ,STORY180>
+	<IF-ALIVE ,TEXT180>>
 
 <ROOM STORY181
 	(DESC "181")
