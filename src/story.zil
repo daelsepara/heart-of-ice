@@ -11,23 +11,21 @@
 <OBJECT VEHICLE (DESC "car")>
 
 <ROUTINE RESET-OBJECTS ()
-	<RESET-CONTAINER ,LOST-SKILLS>
-	<RESET-CONTAINER ,EAT-BAG>
-	<RESET-CONTAINER ,LOST-BAG>
 	<PUTP ,BARYSAL-GUN ,P?CHARGES 6>
+	<PUTP ,BATTERY-UNIT ,P?CHARGES 0>
 	<RETURN>>
 
 <ROUTINE RESET-STORY ()
 	<RESET-TEMP-LIST>
 	<SETG PRACTICED-SHORTSWORD F>
-	<PUT <GETP ,STORY006 ,P?DESTINATIONS> 1 ,STORY138>
-	<PUT <GETP ,STORY006 ,P?DESTINATIONS> 2 ,STORY182>
-	<PUT <GETP ,STORY069 ,P?DESTINATIONS> 1 ,STORY135>
-	<PUT <GETP ,STORY116 ,P?DESTINATIONS> 1 ,STORY160>
-	<PUT <GETP ,STORY138 ,P?DESTINATIONS> 1 ,STORY182>
-	<PUT <GETP ,STORY153 ,P?DESTINATIONS> 3 ,STORY454>
-	<PUT <GETP ,STORY160 ,P?DESTINATIONS > 1 ,STORY138>
-	<PUT <GETP ,STORY182 ,P?DESTINATIONS> 1 ,STORY138>
+	<SET-DESTINATION ,STORY006 1 ,STORY138>
+	<SET-DESTINATION ,STORY006 2 ,STORY182>
+	<SET-DESTINATION ,STORY069 1 ,STORY135>
+	<SET-DESTINATION ,STORY116 1 ,STORY160>
+	<SET-DESTINATION ,STORY138 1 ,STORY182>
+	<SET-DESTINATION ,STORY153 3 ,STORY454>
+	<SET-DESTINATION ,STORY160 1 ,STORY138>
+	<SET-DESTINATION ,STORY182 1 ,STORY138>
 	<PUTP ,STORY004 ,P?DEATH T>
 	<PUTP ,STORY013 ,P?DEATH T>
 	<PUTP ,STORY019 ,P?DEATH T>
@@ -64,33 +62,11 @@
 <CONSTANT DIED-IN-COMBAT "You died in combat">
 <CONSTANT DIED-OF-HUNGER "You starved to death">
 <CONSTANT DIED-GREW-WEAKER "You grew weaker and eventually died">
-<CONSTANT DIED-OF-THIRST "You go mad from thirst">
-<CONSTANT KILLED-AT-ONCE "You are killed at once">
 <CONSTANT DIED-FROM-INJURIES "You died from your injuries">
 <CONSTANT DIED-FROM-COLD "You eventually freeze to death">
 <CONSTANT NATURAL-HARDINESS "Your natural hardiness made you cope better with the situation">
-<CONSTANT ALL-POSSESSIONS "You lost all your possessions">
-<CONSTANT VITALITY-RESTORED "Your vitality has been restored">
 
 <GLOBAL PRACTICED-SHORTSWORD F>
-
-<OBJECT LOST-SKILLS
-	(DESC "skills lost")
-	(SYNONYM SKILLS)
-	(ADJECTIVE LOST)
-	(FLAGS CONTBIT OPENBIT)>
-
-<OBJECT EAT-BAG
-	(DESC "stuff eaten")
-	(SYNONYM BAG)
-	(ADJECTIVE EAT)
-	(FLAGS CONTBIT OPENBIT)>
-
-<OBJECT LOST-BAG
-	(DESC "stuff lost")
-	(SYNONYM BAG)
-	(ADJECTIVE LOST)
-	(FLAGS CONTBIT OPENBIT)>
 
 <CONSTANT CHARGE-BARYSAL-KEY !\b>
 <CONSTANT CHARGE-BARYSAL-KEY-CAPS !\B>
@@ -110,57 +86,6 @@
 		)>
 	)>
 	<RFALSE>>
-
-<ROUTINE LOSE-STUFF (CONTAINER LOST-CONTAINER ITEM "OPT" MAX ACTION "AUX" (COUNT 0) ITEMS)
-	<COND (<NOT .MAX> <SET MAX 1>)>
-	<COND (<G? <COUNT-CONTAINER .CONTAINER> .MAX>
-		<RESET-TEMP-LIST>
-		<SET ITEMS <COUNT-CONTAINER .CONTAINER>>
-		<DO (I 1 .ITEMS)
-			<SET COUNT <+ .COUNT 1>>
-			<COND (<L=? .COUNT .ITEMS>
-				<PUT TEMP-LIST .COUNT <GET-ITEM .I .CONTAINER>>
-			)>
-		>
-		<REPEAT ()
-			<COND (.ACTION <APPLY .ACTION>)>
-			<SELECT-FROM-LIST TEMP-LIST .COUNT .MAX .ITEM .CONTAINER "retain">
-			<COND (<EQUAL? <COUNT-CONTAINER .CONTAINER> .MAX>
-				<CRLF>
-				<TELL "You have selected: ">
-				<PRINT-CONTAINER .CONTAINER>
-				<CRLF>
-				<TELL "Do you agree?">
-				<COND (<YES?> <RETURN>)>
-			)(ELSE
-				<CRLF>
-				<HLIGHT ,H-BOLD>
-				<TELL "You must select " N .MAX " " .ITEM>
-				<COND (<G? .MAX 1> <TELL "s">)>
-				<TELL ,PERIOD-CR>
-				<HLIGHT 0>
-			)>
-		>
-		<DO (I 1 .COUNT)
-			<COND (<NOT <IN? <GET TEMP-LIST .I> .CONTAINER>>
-				<MOVE <GET TEMP-LIST .I> .LOST-CONTAINER>
-			)>
-		>
-	)>>
-
-<ROUTINE LOSE-SKILLS ("OPT" MAX)
-	<COND (<NOT .MAX> <SET MAX 1>)>
-	<LOSE-STUFF ,SKILLS ,LOST-SKILLS "skill" .MAX RESET-SKILLS>>
-
-<ROUTINE LOSE-SKILL (SKILL)
-	<COND (<AND .SKILL <CHECK-SKILL .SKILL>>
-		<CRLF>
-		<HLIGHT ,H-BOLD>
-		<TELL "You lost " T .SKILL " skill">
-		<TELL ,PERIOD-CR>
-		<HLIGHT 0>
-		<MOVE .SKILL ,LOST-SKILLS>
-	)>>
 
 <ROUTINE PREVENT-DEATH ("OPT" STORY)
 	<COND (<NOT .STORY> <SET STORY ,HERE>)>
@@ -193,13 +118,6 @@
 		<TELL D .CODEWORD "]" CR>
 		<HLIGHT 0>
 		<REMOVE .CODEWORD>
-	)>>
-
-<ROUTINE RESTORE-VITALITY ()
-	<COND (<L? ,LIFE-POINTS ,MAX-LIFE-POINTS>
-		<EMPHASIZE VITALITY-RESTORED>
-		<SETG LIFE-POINTS ,MAX-LIFE-POINTS>
-		<UPDATE-STATUS-LINE>
 	)>>
 
 <ROUTINE KEEP-ITEM (ITEM "OPT" JUMP)
@@ -505,14 +423,14 @@
 
 <ROUTINE STORY006-PRECHOICE ()
 	<COND (<CHECK-SKILL ,SKILL-CYBERNETICS>
-		<PUT <GETP ,STORY006 ,P?DESTINATIONS> 1 ,STORY116>
+		<SET-DESTINATION ,STORY006 1 ,STORY116>
 	)(ELSE
-		<PUT <GETP ,STORY006 ,P?DESTINATIONS> 1 ,STORY138>
+		<SET-DESTINATION ,STORY006 1 ,STORY138>
 	)>
 	<COND (<CHECK-SKILL ,SKILL-LORE>
-		<PUT <GETP ,STORY006 ,P?DESTINATIONS> 2 ,STORY160>
+		<SET-DESTINATION ,STORY006 2 ,STORY160>
 	)(ELSE
-		<PUT <GETP ,STORY006 ,P?DESTINATIONS> 2 ,STORY182>
+		<SET-DESTINATION ,STORY006 2 ,STORY182>
 	)>>
 
 <CONSTANT TEXT007 "The elevator arrives at the lobby and the doors slide open, but the waiting security guards are amazed to find it empty. The security chief barks an order: \"Get upstairs! Check the other floors!\"||You hear them go charging up the stairs. Waiting until the coast is clear, you lower your back down through the access hatch on on top of the elevator car. Ignoring the spluttered protests of the receptionist, you dart out into the safety of the night.">
@@ -1300,9 +1218,9 @@
 <ROUTINE STORY069-PRECHOICE ()
 	<COND (<CHECK-SKILL ,SKILL-ROGUERY> <STORY-JUMP ,STORY452>)>
 	<COND (<OR <CHECK-SKILL ,SKILL-STREETWISE> <CHECK-ITEM ,VADE-MECUM>>
-		<PUT <GETP ,STORY069 ,P?DESTINATIONS> 1 ,STORY113>
+		<SET-DESTINATION ,STORY069 1 ,STORY113>
 	)(ELSE
-		<PUT <GETP ,STORY069 ,P?DESTINATIONS> 1 ,STORY135>
+		<SET-DESTINATION ,STORY069 1 ,STORY135>
 	)>>
 
 <CONSTANT TEXT070 "One of the men sticks out a foot to trip you, while the other chops at your neck with his knife.">
@@ -1939,9 +1857,9 @@
 
 <ROUTINE STORY116-PRECHOICE ()
 	<COND (<CHECK-SKILL ,SKILL-LORE>
-		<PUT <GETP ,STORY116 ,P?DESTINATIONS> 1 ,STORY160>
+		<SET-DESTINATION ,STORY116 1 ,STORY160>
 	)(ELSE
-		<PUT <GETP ,STORY116 ,P?DESTINATIONS> 1 ,STORY182>
+		<SET-DESTINATION ,STORY116 1 ,STORY182>
 	)>>
 <CONSTANT TEXT117 "\"It's been useful having you along,\" says Shandor, beaming his confident smile as he firmly shakes your hand. \"I'm sure you won't need my advice on getting by in Venis, resourceful as you are, so let me give you something else.\"||He reaches into a pocket and produces a monkey token which he touches to yours, automatically transferring the sum of 20 scads to you. You are about to protest when you notice the sum remaining on his token. He can well afford what he's paid to you.">
 <CONSTANT TEXT117-CONTINUED "Bidding Shandor and his men farewell, you set off into Venis">
@@ -2241,9 +2159,9 @@
 
 <ROUTINE STORY138-PRECHOICE ()
 	<COND (<CHECK-SKILL ,SKILL-LORE>
-		<PUT <GETP ,STORY138 ,P?DESTINATIONS> 1 ,STORY160>
+		<SET-DESTINATION ,STORY138 1 ,STORY160>
 	)(ELSE
-		<PUT <GETP ,STORY138 ,P?DESTINATIONS> 1 ,STORY182>
+		<SET-DESTINATION ,STORY138 1 ,STORY182>
 	)>>
 
 <CONSTANT TEXT139 "You ascend into the mountains across stark rocky ridges like the broken backs of colossal dinosaurs. The sun shines as feebly as a flashlight seen through a thick pane of ice. When the wind gusts into your face, it is so cold that you can hardly draw breath.||On the second day you come upon four figures also trudging eastwards. They are several hundred metres ahead on the surface of a glacier. As you hurry to catch up, you see patches where the snow has swirled away to reveal the sky surface of the glacier reflecting glints of feeble daylight.||The leader of the group is a short broad-shouldered man whose dark sparkling eyes display an easy authority. The other three, apparently his bodyguards, are hulking men whom you take to be of South Pacific origin. It is hard to be sure with the fur hoods drawn so tightly around their faces.||The short hand man shakes hands and introduces himself as Hal Shandor. \"Our sky-car crashed in the hills back there,\" he explains. \"We're going on to Venis. Travel with us if you want.\"">
@@ -2427,9 +2345,9 @@
 
 <ROUTINE STORY153-PRECHOICE ()
 	<COND (<CHECK-CODEWORD ,CODEWORD-FOCUS>
-		<PUT <GETP ,STORY153 ,P?DESTINATIONS> 3 ,STORY354>
+		<SET-DESTINATION ,STORY153 3 ,STORY354>
 	)(ELSE
-		<PUT <GETP ,STORY153 ,P?DESTINATIONS> 3 ,STORY454>
+		<SET-DESTINATION ,STORY153 3 ,STORY454>
 	)>>
 
 <CONSTANT TEXT154 "Gargan XIII follow Golgoth's gaze to her leg, where there is a razor-thin cut through the trouser fabric. She pulls it apart to reveal a scratch on the skin. Golgoth holds up a small needle he had hidden in the palm of his hand.||You see now that Gargan XIV has a similar scratch on her forearm. \"Cyanide,\" explains Golgoth. \"Should take about five seconds now... four... three...\"||The Gargan sisters exchange a look. There is no time for words. Suffering identical stabs of pain, they crumple to the floor. By the time you feel for a pulse, they are already dead. \"They went two seconds sooner than I thought,\" says Golgoth in a curious tone. \"Must've been their faster metabolism. Well, let's see what they've got.\"||Stripping the bodies of equipment, you find two barysal guns (each with three charges), a flashlight, a medical kit, a stun grenade, and three food packs. Golgoth offers you the choice of any four items you like.">
@@ -2520,9 +2438,9 @@
 
 <ROUTINE STORY160-PRECHOICE ()
 	<COND (<CHECK-SKILL ,SKILL-CYBERNETICS>
-		<PUT <GETP ,STORY160 ,P?DESTINATIONS > 1 ,STORY116>
+		<SET-DESTINATION ,STORY160 1 ,STORY116>
 	)(ELSE
-		<PUT <GETP ,STORY160 ,P?DESTINATIONS > 1 ,STORY138>
+		<SET-DESTINATION ,STORY160 1 ,STORY138>
 	)>>
 
 <CONSTANT TEXT161 "You trek wearily onwards, often plunging almost to your waist through fine powdery banks of snow. The sun pokes feeble rays of light across the bleak sky like an old man clutching for his pills. Quicksilver ribbons lie across the landscape, marking out the course of glaciers through the ridges of rock. Night descends like a sheath of hoarfrost. For days your ordeal continues as you cross the rugged mountain slops and finally begin your descent towards the foothills.">
@@ -2836,9 +2754,9 @@
 
 <ROUTINE STORY182-PRECHOICE ()
 	<COND (<CHECK-SKILL ,SKILL-CYBERNETICS>
-		<PUT <GETP ,STORY182 ,P?DESTINATIONS> 1 ,STORY116>
+		<SET-DESTINATION ,STORY182 1 ,STORY116>
 	)(ELSE
-		<PUT <GETP ,STORY182 ,P?DESTINATIONS> 1 ,STORY138>
+		<SET-DESTINATION ,STORY182 1 ,STORY138>
 	)>>
 
 <CONSTANT TEXT183 "The signs you have noticed indicate a porphyr. These are parasitical creatures of ancient myth who roam the night in search of living victims, from whom they drain the body warmth (or, in some versions, the very lifeblood) in order to sustain their own existence. They can only be slain by decapitation, but are vulnerable to direct sunlight, running water, and certain extinct herbs.||You guess that this porphyr was overpowered and hurled into the glacier centuries ago as a way of getting rid of him. Even frozen running water has the power to hold him immobile. Of course, now that the ice has been chipped away, he might be able to escape. You glance up at the thin wedge of powder-blue sky beyond the crevasse, already streaked with dusky grey streamers of cloud. Less than two hours of daylight remain. You tell Shandor your suspicions.||\"Porphyrs?\" he mocks. \"Fairy tales for kiddies, surely.\"||You aren't so sceptical. Fortunately you remember one other thing about these creatures. Their minds are quite simple, and they are particularly baffled by vertical or horizontal lines, which their eyes try to follow to infinity -- similar to the way a chicken can be hypnotized by drawing a chalk mark in front of its beak. You scratch two intersecting lines into the ice directly in front of the trapped porphyr's eyes, then step back with a satisfied nod. \"There it can't escape now.\"||Shandor chuckles and claps his hand on your shoulder. \"In case you hadn't noticed, it couldn't anyway: it's been dead two hundred years and it's trapped under thousands of tons of ice. Still, if it makes you feel safer.\" He turns to his bodyguards. \"Let's get going. We can do another six kilometres by nightfall.\"">

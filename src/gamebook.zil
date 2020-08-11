@@ -350,6 +350,9 @@
     )>
     <RETURN !\x>>
 
+<ROUTINE SET-DESTINATION (STORY DESTINATION NEW)
+	<PUT <GETP .STORY ,P?DESTINATIONS> 1 .NEW>>
+
 ; "Story - Choice Requirements Validations"
 ; ---------------------------------------------------------------------------------------------
 <ROUTINE CHECK-ALL (ITEMS "OPT" CONTAINER "AUX" COUNT)
