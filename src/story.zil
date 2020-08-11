@@ -6,6 +6,7 @@
 <CONSTANT BAD-ENDING "Your adventure ends here.|">
 <CONSTANT GOOD-ENDING "Further adventure awaits.|">
 <CONSTANT DESTINY-GODHOOD "You are immortal and all-powerful now. Your adventure has culminated in godhood.|">
+<CONSTANT DESTINY-SENTINEL "The stasis bomb activates, turning you into an undying sentinel for all time.|">
 
 <OBJECT CURRENCY (DESC "scads")>
 <OBJECT VEHICLE (DESC "car")>
@@ -26,6 +27,7 @@
 	<SET-DESTINATION ,STORY153 3 ,STORY454>
 	<SET-DESTINATION ,STORY160 1 ,STORY138>
 	<SET-DESTINATION ,STORY182 1 ,STORY138>
+	<SET-DESTINATION ,STORY199 1 ,STORY286>
 	<PUTP ,STORY004 ,P?DEATH T>
 	<PUTP ,STORY013 ,P?DEATH T>
 	<PUTP ,STORY019 ,P?DEATH T>
@@ -57,6 +59,8 @@
 	<PUTP ,STORY180 ,P?DEATH T>
 	<PUTP ,STORY185 ,P?DEATH T>
 	<PUTP ,STORY186 ,P?DEATH T>
+	<PUTP ,STORY192 ,P?DEATH T>
+	<PUTP ,STORY194 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -278,6 +282,31 @@
 		)>
 	)>
 	<RETURN 0>>
+
+<ROUTINE CONSUME-FOOD ("OPT" AMOUNT JUMP "AUX" QUANTITY (RETURN-VALUE F))
+	<COND (<NOT .AMOUNT> <SET AMOUNT 1>)>
+	<COND (<CHECK-ITEM ,FOOD-PACK>
+		<SET QUANTITY <GETP ,FOOD-PACK ,P?QUANTITY>>
+		<COND (<G? .QUANTITY 0>
+			<SET QUANTITY <- .QUANTITY .AMOUNT>>
+			<PUTP ,FOOD-PACK ,P?QUANTITY .QUANTITY>
+			<COND (<G=? .QUANTITY 1>
+				<CRLF>
+				<HLIGHT ,H-BOLD>
+				<TELL "[Your supply of food packs decreased by " N .AMOUNT "]" CR>
+				<HLIGHT 0>
+			)(ELSE
+				<EMPHASIZE "[You've exhausted your food packs]">
+			)>
+			<COND (.JUMP <STORY-JUMP .JUMP>)>
+			<SET RETURN-VALUE T>
+		)>
+		<COND (<L? .QUANTITY 1>
+			<PUTP ,FOOD-PACK ,P?QUANTITY 1>
+			<REMOVE ,FOOD-PACK>
+		)>
+	)>
+	<RETURN .RETURN-VALUE>>
 
 <ROUTINE TAKE-QUANTITIES (OBJECT PLURAL MESSAGE "OPT" AMOUNT)
 	<CRLF>
@@ -2857,175 +2886,142 @@
 	<TELL ,TEXT190-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
+<CONSTANT TEXT191 "The gates of Du-En stand open to the elements, leaving the wide avenues piled under deep snow-dunes. The buildings are monoliths of dark stone, desolate remnants of a civilization long gone. Their vast scale and pitiless geometric decoration make them seem out of proportion to the human soul. You find them tyrannical and depressing.||\"Impressive architecture, eh?\" says Boche, looking to a high black tower whose fretwork dome shows like a fleshless head against the bleak white sky.||You see a thin swirl of smoke rising from a campfire in the main plaza of the city. \"It seems we're not the only ones to heed Gaia's message,\" you say dourly. \"Come on, let's introduce ourselves.\"">
+
 <ROOM STORY191
 	(DESC "191")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT191)
+	(CONTINUE STORY243)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT192 "You return to your campsite in the shelter of a ruined building and settle down for the night. The flames of the fire throw long capering shadows across the walls. The ground is so cold that it seems to suck the vitality out of you.||How long has it been since you ate?">
 
 <ROOM STORY192
 	(DESC "192")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT192)
+	(PRECHOICE STORY192-PRECHOICE)
+	(CONTINUE STORY083)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY192-PRECHOICE ("AUX" (LIFE 0))
+	<COUNT-POSSESSIONS>
+	<COND (<CHECK-VEHICLE ,MANTA-SKY-CAR>
+		<SET LIFE 2>
+	)(ELSE
+		<COND (<CONSUME-FOOD 1> <SET LIFE <+ .LIFE 1>>)>
+		<COND (<CHECK-ITEM ,MEDICAL-KIT> <SET LIFE <+ .LIFE 1>>)>
+	)>
+	<COND (<CHECK-CODEWORD ,CODEWORD-HOURGLASS> <SET LIFE <- .LIFE 1>>)>
+	<COND (<G=? .LIFE 0>
+		<GAIN-LIFE .LIFE>
+		<PREVENT-DEATH ,STORY192>
+	)(ELSE
+		<TEST-MORTALITY 1 ,DIED-GREW-WEAKER ,STORY192>
+	)>>
+
+<CONSTANT TEXT193 "Your footing slips on an icy outcropping as you are making your way down and, having no wish to fall to your doom in the bowels of the earth, you scramble back up onto the bridge.">
 
 <ROOM STORY193
 	(DESC "193")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(EVENTS STORY193-EVENTS)
+	(STORY TEXT193)
+	(CONTINUE STORY215)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY193-EVENTS ()
+	<COND (<AND <CHECK-SKILL ,SKILL-AGILITY> <CHECK-ITEM ,ROPE>> <RETURN ,STORY237>)>
+	<RETURN ,STORY193>>
+
+<CONSTANT TEXT194 "Your sixth sense, while not as sensitive as the baron's, warns you of something alien and predatory moving in for the kill. You hear its insectoid legs rattling on the marble floor. Diving to one side, you feel a stab of pain lance up your leg. Without the forewarning of your ESP you would have been torn in half by the monster's mandibles.">
+<CONSTANT TEXT194-CONTINUED "You scramble to the doorway where you now see the flash of Boche's torch. As you throw yourself through, the baron slams the door shut and Boche drops the bolt. Just in time. A second later and the door gives a jolt as something massive slams against the other side.">
 
 <ROOM STORY194
 	(DESC "194")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT194)
+	(PRECHOICE STORY194-PRECHOICE)
+	(CONTINUE STORY281)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY194-PRECHOICE ()
+	<TEST-MORTALITY 1 ,DIED-FROM-INJURIES ,STORY194>
+	<IF-ALIVE ,TEXT194-CONTINUED>>
+
+<CONSTANT TEXT195 "You retreat as far as the room where Novak was frozen in stasis. The baron's brain glides closer. The telepathic messages are getting scrambled and incoherent now, as the thing slowly uses up its remaining oxygen.">
+<CONSTANT TEXT195-ESP "The soldier's dead. Can't risk using Boche... Not until I know... How did he hide grenade from me? Need new body... new life. Yours...">
 
 <ROOM STORY195
 	(DESC "195")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT195)
+	(PRECHOICE STORY195-PRECHOICE)
+	(CONTINUE STORY085)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY195-PRECHOICE ()
+	<CRLF>
+	<HLIGHT ,H-ITALIC>
+	<TELL ,TEXT195-ESP>
+	<HLIGHT 0>
+	<CRLF>
+	<COND (<CHECK-ITEM ,STUN-GRENADE> <STORY-JUMP ,STORY239>)>>
+
+<CONSTANT TEXT196 "You manage to jump across catch hold of a girder that projects from the roof of the building opposite. You scramble up over the parapet and run off while the Fijian shouts out threats behind you.">
 
 <ROOM STORY196
 	(DESC "196")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT196)
+	(CONTINUE STORY311)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT197 "You fetch Vajra Singh's cannon and begin to power it up. A hum of colossal energy fills the air. Taking the stasis bomb from your pack, you station yourself beside the Heart. You will freeze yourself in time, so that if any others reach here in the years to come they will find you waiting, sealed along with the Heart inside a zone of stasis. Even if they have the means to break the stasis, they will have to get past you to claim the Heart.">
 
 <ROOM STORY197
 	(DESC "197")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT197)
+	(VICTORY DESTINY-SENTINEL)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT198 "You had not expected Gilgamesh to be able to follow through the narrow ventilation ducts, but now there is a metallic clanking and he climbs out into the corridor. In order to fit in the shaft, he has detached his right arm and most of his armour segments, so that he now looks like a bizarre metal skeleton.||\"This reconfiguration lacks a long-term power source,\" he tells you. \"I have enough power stored for three hours, then I must reintegrate with my other components.\"||\"Aren't you more vulnerable without your armour?\"\"Affirmative. I shall avoid direct danger except when your own life is threatened.\"||\"The automaton looks less impressive when it's undressed,\" you overhear Gargan XIII remark to her sister.||\"Probably just like its owner,\" says Gargan XIV with a sneer.">
 
 <ROOM STORY198
 	(DESC "198")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT198)
+	(CONTINUE STORY325)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT199 "Dusk is falling on the tenth day after leaving the Etruscan Inn when you finally come in sight of Venis. It shimmers with a thousand lights under a sky like dull green bronze. Hungry and cold, you quicken your pace until you can make out individual buildings -- first the temporary shacks where hunters and traders dwell, then the slums of corrugated iron and plastic which fill the narrow streets that some say were once canals. Above them loom the blocks of ancient plazas, where the rich and powerful of the city reside in palatial buildings shored up with wooden scaffolding to support them from the ravages of time.||You soon learn that the ferry to Kahira is not due for a couple of days. Kyle Boche tells you that he has friends he must visit, and arranges to meet up with you when the ferry arrives. While waiting, you have a choice of where to take lodging. The lavish Marco Polo Hotel will charge 12 scads for two nights; the Hotel Paradise will charge 6 scads; the disreputable Doge's Inn will cost only 3 scads.">
+<CONSTANT CHOICES199 <LTABLE "go to the Marco Polo" "opt for Paradise" "check in at the Doge's Inn">>
 
 <ROOM STORY199
 	(DESC "199")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT199)
+	(PRECHOICE STORY199-PRECHOICE)
+	(CHOICES CHOICES199)
+	(DESTINATIONS <LTABLE STORY286 STORY244 STORY371>)
+	(REQUIREMENTS <LTABLE 12 6 3>)
+	(TYPES <LTABLE R-MONEY R-MONEY R-MONEY>)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY199-PRECHOICE ()
+	<COND (<CHECK-ITEM ,ID-CARD>
+		<SET-DESTINATION ,STORY199 1 ,STORY222>
+	)(ELSE
+		<SET-DESTINATION ,STORY199 1 ,STORY286>
+	)>>
+
+<CONSTANT TEXT200 "Your journey takes you up into the mountains, where the days are dull under a leaden sky and the nights are filled with swirling snow. You subsist on a few rations brought with you from the inn, but these are quickly used up. Too quickly. You must reach an inhabited area soon or else starve.||Forcing your way bent-backed against a glacial wind, you are traversing a narrow pass when you catch sight of a human figure on a ledge up ahead. Your cries of greeting are ignored, and the figure is hidden for a moment behind a veil of snow. Hurrying forward, you discover several other figures, but none are glad to see you. They are beyond any emotion, in fact, being long dead and frozen into rigid statues by the cold.">
+<CONSTANT CHOICES200 <LTABLE "go closer to investigate" "ignore the frozen corpses and continue along the pass">>
 
 <ROOM STORY200
 	(DESC "200")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT200)
+	(CHOICES CHOICES200)
+	(DESTINATIONS <LTABLE STORY265 STORY285>)
+	(TYPES TWO-NONES)
+	(CODEWORD CODEWORD-DIAMOND)
 	(FLAGS LIGHTBIT)>
+
 
 <ROOM STORY201
 	(DESC "201")
