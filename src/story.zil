@@ -7,6 +7,7 @@
 <CONSTANT GOOD-ENDING "Further adventure awaits.|">
 <CONSTANT DESTINY-GODHOOD "You are immortal and all-powerful now. Your adventure has culminated in godhood.|">
 <CONSTANT DESTINY-SENTINEL "The stasis bomb activates, turning you into an undying sentinel for all time.|">
+<CONSTANT DESTINY-SACRIFICE "In this chamber deep blow the ruins of Du-En, the two of you give your lives for the sake of the whole world.|">
 
 <OBJECT CURRENCY (DESC "scads")>
 <OBJECT VEHICLE (DESC "car")>
@@ -2951,7 +2952,7 @@
 	<IF-ALIVE ,TEXT194-CONTINUED>>
 
 <CONSTANT TEXT195 "You retreat as far as the room where Novak was frozen in stasis. The baron's brain glides closer. The telepathic messages are getting scrambled and incoherent now, as the thing slowly uses up its remaining oxygen.">
-<CONSTANT TEXT195-ESP "The soldier's dead. Can't risk using Boche... Not until I know... How did he hide grenade from me? Need new body... new life. Yours...">
+<CONSTANT TEXT195-ESP "The soldier's dead. Can't risk using Boche... Not until I know... How did he hide grenade from me? Need new body... new life. Yours..">
 
 <ROOM STORY195
 	(DESC "195")
@@ -3135,175 +3136,112 @@
 	(CODEWORD CODEWORD-LUNAR)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT211 "In a recess beside the door is a keypad comprising both letters and numerals. Putting your ear to the door, you begin to experiment with various combinations. Only an expert cracksman like yourself could recognize the distinctive clicks and whirs from the mechanism that show when you are on the right track.||After an hour or so you have identified the first four letters of the code sequence. From that point it is a simple matter of trial and error to find the correct keys to press. Your efforts are rewarded with a hum of machinery as the door slides upwards, revealing the interior of the pyramid.">
+
 <ROOM STORY211
 	(DESC "211")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT211)
+	(CONTINUE STORY233)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT212 "The motilator registers your destination by flashing a light on the map. A chime sounds, warning that the doors are about to close. Fax steps back and raises his hand to wave. You watch his lean figure recede along the platform as the carriage gathers speed. The lights of the station dwindle into the distance of the tunnel.||You are on your way... where?">
+<CONSTANT CHOICES212 <LTABLE "go to Kahira" "to Karthag" "to Tarabul" "to Giza">>
 
 <ROOM STORY212
 	(DESC "212")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT212)
+	(CHOICES CHOICES212)
+	(DESTINATIONS <LTABLE STORY050 STORY124 STORY031 STORY074>)
+	(TYPES FOUR-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT213 "Up ahead you can now see a small figure trudging through the snow, dwarfed by the high walls of the city. Approaching, you attract his attention and he turns. As he unzips his hood you are struck by sudden recognition. \"Kyle Boche,\" you mutter wryly. \"What a small world.\"||\"So,\" he says with a wide grin, \"you have also come to seek the ultimate power!\"">
 
 <ROOM STORY213
 	(DESC "213")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT213)
+	(CONTINUE STORY191)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT214 "\"You might alter that list of priorities once you've heard what the Heart's 'ultimate power' actually consists of,\" you tell him.||He listens as you explain about Gaia's warnings. \"That does change things,\" he admits. \"It seems the Heart is a danger to the existence of the United States.\"||\"The existence of the whole universe!\"|\Golgoth smiles. \"The universe doesn't sign my pay cheques. But I agree, we must see that the Heart is destroyed.\"">
 
 <ROOM STORY214
 	(DESC "214")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT214)
+	(CONTINUE STORY192)
+	(CODEWORD CODEWORD-BLUE)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT215 "You reach the far end of the bridge and pass through into the tiled hall beyond. The architecture here is the same oppressive design as on the surface: the heavy harshly-chiselled lintels and monumental bulbous columns, the gigantic vaults and grotesque carvings. You have a choice of routes on from here: either of the two wide passages directly ahead, or a doorway to your left.">
+<CONSTANT CHOICES215 <LTABLE "go through the door" "take the left-hand passage" "take the right-hand passage">>
 
 <ROOM STORY215
 	(DESC "215")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT215)
+	(CHOICES CHOICES215)
+	(DESTINATIONS <LTABLE STORY259 STORY003 STORY128>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT216 "You are used to sneaking about in the dark, and you have learned to rely on your other sense almost as well as on your sight. Even as the huge predator comes darting out from the cloisters to attack, you are racing nimbly ahead to the feeble glimmer of light from the doorway.||Reaching it, you turn to see Boche and the baron fleeing in terror. In the light of Boche's flashlight you have a brief glimpse of a gigantic centipede with flanks like polished steel. As the others dive through, you slam the door shut and drop the bolt. A second later the door judders as the monster throws itself against it.||\"Let's hope it holds,\" says Boche grimly. \"I wouldn't want to fight that beastie!\"">
 
 <ROOM STORY216
 	(DESC "216")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT216)
+	(CONTINUE STORY281)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT217 "You retreat as far as the room where the soldier is frozen in stasis. The baron's brain glides in pursuit. The telepathic messages are getting scrambled and incoherent now, as the brain slowly uses up its remaining oxygen.">
+<CONSTANT TEXT217-MESSAGE "Stay... need your body. Getting dark.. Need new body...">
+<CONSTANT TEXT217-CONTINUED "So that's its game! You duck around behind the stasis zone, watching the hovering brain as though through a lens. As soon as you are around the edge of the zone, you sidle to a point directly opposite your foe, then backtrack and run around to come up behind it. In his confusion, the baron had forgotten that light takes several seconds to cross the stasis zone. He is still watching your image when you club out of the air and crush him underfoot. The brain emits a dying wail -- a silent sound that you hear only inside your mind. It will haunt your nightmares for many years. If you live that long">
 
 <ROOM STORY217
 	(DESC "217")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT217)
+	(PRECHOICE STORY217-PRECHOICE)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY217-PRECHOICE ()
+	<CRLF>
+	<HLIGHT ,H-ITALIC>
+	<TELL ,TEXT217-MESSAGE>
+	<HLIGHT 0>
+	<CRLF>
+	<CRLF>
+	<TELL ,TEXT217-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT218 "Veering the sky-car in the air over Kahira, you glance down to see the Fijian shaking his fist up at you. He looks a tiny figure from here. You buzz him, swooping so low that he has to throw himself flat on the roof for fear of being hit. You fly off laughing into the night.">
 
 <ROOM STORY218
 	(DESC "218")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT218)
+	(PRECHOICE STORY218-PRECHOICE)
+	(CONTINUE STORY311)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY218-PRECHOICE ()
+	<TAKE-VEHICLE ,MANTA-SKY-CAR>>
+
+<CONSTANT TEXT219 "You station yourselves beside the Heart. Within its glittering facets, a universe is waiting to be born. Infinite possibilities flicker in the violet glare.|Golgoth seems to share your mood. \"There's no other way,\" he says. \"Ready?\"||\"What will happen?\" you ask him. \"I mean, will it just disappear, or will there be an explosion?\"||He shrugs. \"I don't know. Personally I doubt if I'll be around afterwards to collect this month's pay, but no one lives for ever.\"||You nod. \"I just never expected to be a martyr, that's all.\"||The beams from your guns converge at the centre of the Heart, splintering its crystal lattice. The light within grows until it blinds you. With a rush of energy, the Heart suddenly bursts apart, engulfing you and Golgoth in a cold flare of energy.">
 
 <ROOM STORY219
 	(DESC "219")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT219)
+	(VICTORY DESTINY-SACRIFICE)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT220 "Gargan XIV was expecting that. She tosses a glass vial into Gilgamesh's unprotected ribcage. It breaks, releasing a green fluid which hisses as it gives off a cloud of acrid vapour. Gilgamesh staggers as the acid burns through his central power casing. He tries to aim his gun, but suddenly there is a crackle of sparks and his body locks rigid. You see the gleam of light fade from his eye-slit.||\"That's your robot dealt with,\" says Gargan XIV, beckoning you to come closer. \"See if you can do any better.\"||Meanwhile, Gargan XII has drawn a knife and is standing over Golgoth. She thinks he is beaten, when suddenly he looks up with a broad smile.">
 
 <ROOM STORY220
 	(DESC "220")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT220)
+	(PRECHOICE STORY220-PRECHOICE)
+	(CONTINUE STORY154)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY220-PRECHOICE ()
+	<DELETE-CODEWORD ,CODEWORD-ENKIDU>>
 
 <ROOM STORY221
 	(DESC "221")
