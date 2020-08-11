@@ -24,6 +24,10 @@
     (DESC "Humbaba")
     (SYNONYM HUMBABA)>
 
+<OBJECT CODEWORD-LUNAR
+    (DESC "Lunar")
+    (SYNONYM LUNAR)>
+
 <OBJECT CODEWORD-MALLET
     (DESC "Mallet")
     (SYNONYM MALLET)>

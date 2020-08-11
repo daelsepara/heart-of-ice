@@ -27,6 +27,7 @@
 	<PUT <GETP ,STORY138 ,P?DESTINATIONS> 1 ,STORY182>
 	<PUT <GETP ,STORY153 ,P?DESTINATIONS> 3 ,STORY454>
 	<PUT <GETP ,STORY160 ,P?DESTINATIONS > 1 ,STORY138>
+	<PUT <GETP ,STORY182 ,P?DESTINATIONS> 1 ,STORY138>
 	<PUTP ,STORY004 ,P?DEATH T>
 	<PUTP ,STORY013 ,P?DEATH T>
 	<PUTP ,STORY019 ,P?DEATH T>
@@ -55,6 +56,9 @@
 	<PUTP ,STORY162 ,P?DEATH T>
 	<PUTP ,STORY168 ,P?DEATH T>
 	<PUTP ,STORY171 ,P?DEATH T>
+	<PUTP ,STORY180 ,P?DEATH T>
+	<PUTP ,STORY185 ,P?DEATH T>
+	<PUTP ,STORY186 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -2807,173 +2811,133 @@
 
 <ROOM STORY181
 	(DESC "181")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(PRECHOICE STORY181-PRECHOICE)
+	(CONTINUE STORY159)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY181-PRECHOICE ()
+	<CRLF>
+	<TELL "Do you want to find Kyle Boche and tell him about acquiring the sky-car?">
+	<COND (<YES?> <STORY-JUMP ,STORY203> <RETURN>)>
+	<DELETE-CODEWORD ,CODEWORD-DIAMOND>>
+
+<CONSTANT TEXT182 "By luck you find the following reference:||Extract form the interrogation of Eleazar Picard, leader and sole survivor of the Volentine Cult, July 16, 2113 AD; debriefing conducted by Colonel Mehmet Alishah of al-Lat:||Picard: It was the light at the end of Time, and my sanity is blinded.|Alishah: How is it you escaped? You alone and no one else?|Picard: I remember the Truth.|Alishah: What is the Truth?|Picard [recites]: \"The Truth is a flame. What ignites the flame? The spark ignites the flame. What is the spark? The heart of Volent!\"||You flip through a few other books. Eleazar Picard was the founder of the cult that worshipped the Heart of Volent two hundred years go. He ruled Du-En with six others -- until the night of July 15, 2113, when the entire populace of the city went mad and fled into the Saharan Ice Wastes. Du-En has stood abandoned since then. You check one other detail. Picard died, still raving, only hours after being questioned by Colonel Alishah.">
+<CONSTANT CHOICES182 <LTABLE "try making contact with Gaia" "you're finished in the library">>
 
 <ROOM STORY182
 	(DESC "182")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT182)
+	(PRECHOICE STORY182-PRECHOICE)
+	(CHOICES CHOICES182)
+	(DESTINATIONS <LTABLE STORY138 STORY073>)
+	(TYPES TWO-NONES)
+	(CODEWORD CODEWORD-LUNAR)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY182-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-CYBERNETICS>
+		<PUT <GETP ,STORY182 ,P?DESTINATIONS> 1 ,STORY116>
+	)(ELSE
+		<PUT <GETP ,STORY182 ,P?DESTINATIONS> 1 ,STORY138>
+	)>>
+
+<CONSTANT TEXT183 "The signs you have noticed indicate a porphyr. These are parasitical creatures of ancient myth who roam the night in search of living victims, from whom they drain the body warmth (or, in some versions, the very lifeblood) in order to sustain their own existence. They can only be slain by decapitation, but are vulnerable to direct sunlight, running water, and certain extinct herbs.||You guess that this porphyr was overpowered and hurled into the glacier centuries ago as a way of getting rid of him. Even frozen running water has the power to hold him immobile. Of course, now that the ice has been chipped away, he might be able to escape. You glance up at the thin wedge of powder-blue sky beyond the crevasse, already streaked with dusky grey streamers of cloud. Less than two hours of daylight remain. You tell Shandor your suspicions.||\"Porphyrs?\" he mocks. \"Fairy tales for kiddies, surely.\"||You aren't so sceptical. Fortunately you remember one other thing about these creatures. Their minds are quite simple, and they are particularly baffled by vertical or horizontal lines, which their eyes try to follow to infinity -- similar to the way a chicken can be hypnotized by drawing a chalk mark in front of its beak. You scratch two intersecting lines into the ice directly in front of the trapped porphyr's eyes, then step back with a satisfied nod. \"There it can't escape now.\"||Shandor chuckles and claps his hand on your shoulder. \"In case you hadn't noticed, it couldn't anyway: it's been dead two hundred years and it's trapped under thousands of tons of ice. Still, if it makes you feel safer.\" He turns to his bodyguards. \"Let's get going. We can do another six kilometres by nightfall.\"">
 
 <ROOM STORY183
 	(DESC "183")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT183)
+	(CONTINUE STORY249)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT184 "At last you nestle down in the cleft of a dead tree and drift off to sleep. Strange feverish dreams flicker across the back of your eyelids. Moaning, bathed in torrents of sweat, you fling out an arm to brush away what you imagine to be a gnat. You are not aware of the long prow of reptilian head that hangs down out of the foliage and starts to sup on your blood. Its venom thunders through your bloodstream and keeps you drowsy wile it feasts. You are destined never to wake.">
 
 <ROOM STORY184
 	(DESC "184")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT184)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT185 "They obviously mean to kill you, not out of viciousness but from the simple logic of survival. There probably is not enough game in the region to provide enough food for a fourth person. As they close in, you put on a crafty expression and glance over your shoulder, back the way you came.||\"Got friends, have you?\" growls the man with the knife. He puts the tip to your throat. \"Answer.\"||\"I'm alone.\"||\"What, then? What were you looking at?\"||\"Nothing.\" You compress your lips. The knife presses tighter, shedding a drop of your blood. \"All right! There's a storeroom down there -- food, medical supplies, that sort of thing. I was just regretting that I'll never get back to civilization and sell it.\"||They peer into the rubble-clogged tunnel, a sheen of greed in their eyes. \"You're lying,\" suggests the man with the gun.||You shrug. \"Yeah. I was just prowling the tunnels for the sake of sightseeing. Of course.\"||The third man scratches his chin thoughtfully. \"We ought to take a look. This joker didn't just spring out of thin air, after all.\" He looks at the man with the knife. \"Snarvo, you stay here and watch our... guest. Krench, you come with me.\"||They tie you up, then depart in search of non-existent booty. You wait until they must be out of earshot in the tunnels below. Snarvo is facing down the tunnel. He thinks you helpless, but in fact you have been burning the rope away from your wrists over the crackling fire. It is a painful business, but better than certain death.">
+<CONSTANT TEXT185-CONTINUED "Suddenly you cannon into Snarvo, winding him with a butt in the stomach. Wrestling for the knife, you twist it around and stab him. As he slumps gasping to the floor, you snatch up the knife and run over to the opening. Outside a blizzard is raging, but you cannot wait for the others to return. You push the rug aside and dash out into the storm.">
 
 <ROOM STORY185
 	(DESC "185")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT185)
+	(PRECHOICE STORY185-PRECHOICE)
+	(CONTINUE STORY314)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY185-PRECHOICE ()
+	<TEST-MORTALITY 1 ,DIED-FROM-INJURIES ,STORY185>
+	<IF-ALIVE ,TEXT185-CONTINUED>
+	<TAKE-ITEM ,KNIFE>>
+
+<CONSTANT TEXT186 "Again the battle is joined. This time you and your two opponents have the measure of each other. The twins circle warily, trying to divide your attention. You plant your back solidly to the bar and wait with arms spread wide, daring them to attack. The extravagant acrobatics have been set aside now. All three of you are too breathless to waste effort on high flying kicks or fast barrages of punching.||One lunges forward, clutching at your neck. You counter, pushing her arm up as you drive stiffened fingers into the corded muscles of her throat. As she splutters, briefly limp, you swing her around, using her as a shield that her sister's sudden attack catches her in the back. But she recovers faster than you expected, and her knee drives up agonizingly into your groin.">
+<CONSTANT TEXT186-CONTINUED "You finally manage to swing one of the twins off her feet and hurl her at the other with such force that both are knocked senseless. You are not in much better shape yourself.">
 
 <ROOM STORY186
 	(DESC "186")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT186)
+	(PRECHOICE STORY186-PRECHOICE)
+	(CONTINUE STORY142)
+	(CODEWORD CODEWORD-SCYTHE)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY186-PRECHOICE ()
+	<TEST-MORTALITY 3 ,DIED-IN-COMBAT ,STORY186 ,SKILL-CLOSE-COMBAT>
+	<IF-ALIVE ,TEXT186-CONTINUED>>
+
+<CONSTANT TEXT187 "You recognize the signs that mark some areas of the city as unsafe: the hard sidelong scrutiny of the locals, the ragged evidence of poverty, the nervous hurrying footsteps in the fog. You head for a well-lit plaza where people are likely to be working all night.">
 
 <ROOM STORY187
 	(DESC "187")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT187)
+	(CONTINUE STORY253)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT188 "You explain what you have learned regarding Du-En and the Heat of Volent. \"It seems far-fetched,\" says Riza when he has heard you out.||\"You look down dourly at the fusion of metal and flesh that is now your body. \"Before my accident, it seemed a noble but distant goal. Now it has taken on a personal dimension. With the power of the Heart, I can restore myself.\"||\"And much more, if Gaia is to be believed,\" says Riza. He takes you through to another room and sits you in front of a screen. \"Here you have access to the information banks. Perhaps you can find out something that will help in your venture.\"||You watch as he touches a few buttons. A list of files concerning the Heart of Volent appears on the screen. \"I think I can take it from here,\" you tell Riza.||He nods. \"Good. I'll come back in an hour or so and see how your work is going.\"">
+<CONSTANT CHOICES188 <LTABLE "check through the files on the screen" "go for a stroll and see what else you can find out here">>
 
 <ROOM STORY188
 	(DESC "188")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT188)
+	(PRECHOICE STORY188-PRECHOICE)
+	(CHOICES CHOICES188)
+	(DESTINATIONS <LTABLE STORY210 STORY254>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY188-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-LORE> <STORY-JUMP ,STORY232>)>>
+
+<CONSTANT TEXT189 "Glancing around for a means of opening the door, you notice an alphanumeric keypad set in a recess to one side. As you are cleaning away the crust of snow, it strikes you that a hundred years might have passed since this door last opened. There are billions of possible combinations, but whoever used it then would have known the correct sequence to punch into the keypad.||You close your eyes, focusing with that inward mental sense which transcends ordinary reality. The veil of time draws aside. For a moment you glimpse a figure in the military dress of an earlier era, stabbing impatiently at this very keypad.||The image flickers, breaks apart like a projection on smoke. With bated breath you enter the same sequence you thought you saw the soldier use: H-U-M-B-A-B-A. There is a crackling of ice as the door slides up to admit you.">
 
 <ROOM STORY189
 	(DESC "189")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT189)
+	(CONTINUE STORY233)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT190 "A haze begins to close over your vision. You haul out the canister, point it up into the mass of squirming roots above your head, and press the nozzle. An acrid fluid sprays out, soaking the plant. Some of it covers your fingers, causing the canister to slip out of your grasp. Ignoring the slight stinging sensation, you jab your hand against the root holding your throat. With a hushed and eerie rustling sound, the creepers pull away and shrivel up the shaft. You steady yourself against the wall and gratefully suck in lungfuls of the stale vine-scented air.||The canister fell by your feet. As you retrieve it, you notice something glinting in the half-light. A barysal gun. You glance at the long-dead cadaver. The gun didn't do him much good, but you might find a use for it. It has just one charge remaining.">
+<CONSTANT TEXT190-CONTINUED "You can see now that there is no way you can hope to reach the surface form here. The shaft is blocked by the dead plant. You wriggle back down the shaft and take the subway carriage back to Marsay. Fax has long gone, of course">
+<CONSTANT CHOICES190 <LTABLE "go up to the ruins and continue your journey on foot" "try one of the subway's other destinations: choose between Kahira" "Tarabul" "Giza">>
 
 <ROOM STORY190
 	(DESC "190")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT190)
+	(PRECHOICE STORY190-PRECHOICE)
+	(CHOICES CHOICES190)
+	(DESTINATIONS <LTABLE STORY420 STORY050 STORY031 STORY074>)
+	(TYPES FOUR-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY190-PRECHOICE ()
+	<TAKE-OR-CHARGE 1 T>
+	<CRLF>
+	<TELL ,TEXT190-CONTINUED>
+	<TELL ,PERIOD-CR>>
 
 <ROOM STORY191
 	(DESC "191")
