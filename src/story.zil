@@ -1,7 +1,7 @@
 <INSERT-FILE "numbers">
 
 <GLOBAL CHARACTERS-ENABLED T>
-<GLOBAL STARTING-POINT BACKGROUND>
+<GLOBAL STARTING-POINT PROLOGUE>
 
 <CONSTANT BAD-ENDING "Your adventure ends here.|">
 <CONSTANT GOOD-ENDING "Further adventure awaits.|">
@@ -19,6 +19,8 @@
 
 <ROUTINE RESET-STORY ()
 	<RESET-TEMP-LIST>
+	<RESET-RETROVIRUS>
+	<RESET-CONTAINER ,LOST-SKILLS>
 	<SETG PRACTICED-SHORTSWORD F>
 	<SET-DESTINATION ,STORY006 1 ,STORY138>
 	<SET-DESTINATION ,STORY006 2 ,STORY182>
@@ -69,6 +71,7 @@
 	<PUTP ,STORY248 ,P?DEATH T>
 	<PUTP ,STORY249 ,P?DEATH T>
 	<PUTP ,STORY260 ,P?DEATH T>
+	<PUTP ,STORY262 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -260,7 +263,7 @@
 						<CRLF>
 						<HLIGHT ,H-BOLD>
 						<TELL "You purchased " N .QUANTITIES>
-						<TELL  " " D ,FOOD-PACK>
+						<TELL " " D ,FOOD-PACK>
 						<COND (<G? .QUANTITIES 1> <TELL "s">)>
 						<TELL ,PERIOD-CR>
 						<CHARGE-MONEY <* .QUANTITIES .PRICE>>
@@ -350,6 +353,108 @@
 	<CRLF>
 	<TELL "Take the money on the dead man's body (" N .AMOUNT " scads)?">
 	<COND (<YES?> <GAIN-MONEY .AMOUNT>)>>
+
+<OBJECT LOST-SKILLS
+	(DESC "skills lost")
+	(SYNONYM SKILLS)
+	(ADJECTIVE LOST)
+	(FLAGS CONTBIT OPENBIT)>
+
+<ROUTINE LOSE-SKILL (SKILL)
+	<COND (<AND .SKILL <CHECK-SKILL .SKILL>>
+		<CRLF>
+		<HLIGHT ,H-BOLD>
+		<TELL "You lost " T .SKILL " skill">
+		<TELL ,PERIOD-CR>
+		<HLIGHT 0>
+		<MOVE .SKILL ,LOST-SKILLS>
+	)>>
+
+<ROUTINE RESET-RETROVIRUS ()
+	<PUTP ,VIRID-MYSTERY ,P?PURCHASED F>
+	<PUTP ,EXALTED-ENHANCER ,P?PURCHASED F>
+	<PUTP ,MASK-OF-OCCULTATION ,P?PURCHASED F>
+	<PUTP ,PEERLESS-PERCEPTIVATE ,P?PURCHASED F>>
+
+<ROUTINE MALENGIN-BUSINESS ("AUX" KEY ITEMS ITEM VIRUS PRICE ACTIVATE)
+	<RESET-CONTAINER ,LOST-SKILLS>
+	<REPEAT ()
+		<RESET-TEMP-LIST>
+		<SET ITEMS 0>
+		<COND (<NOT <GETP ,VIRID-MYSTERY ,P?PURCHASED>> <SET ITEMS <+ .ITEMS 1>> <PUT ,TEMP-LIST .ITEMS ,VIRID-MYSTERY>)>
+		<COND (<NOT <GETP ,EXALTED-ENHANCER ,P?PURCHASED>> <SET ITEMS <+ .ITEMS 1>> <PUT ,TEMP-LIST .ITEMS ,EXALTED-ENHANCER>)>
+		<COND (<NOT <GETP ,MASK-OF-OCCULTATION ,P?PURCHASED>> <SET ITEMS <+ .ITEMS 1>> <PUT ,TEMP-LIST .ITEMS ,MASK-OF-OCCULTATION>)>
+		<COND (<NOT <GETP ,PEERLESS-PERCEPTIVATE ,P?PURCHASED>> <SET ITEMS <+ .ITEMS 1>> <PUT ,TEMP-LIST .ITEMS ,PEERLESS-PERCEPTIVATE>)>
+		<COND (<AND <G? .ITEMS 0> <G? ,MONEY 3>>
+			<CRLF>
+			<HLIGHT ,H-BOLD>
+			<TELL "Malengin: ">
+			<HLIGHT 0>
+			<TELL "Select which retrovirus to purchase:" CR>
+			<DO (I 1 .ITEMS)
+				<HLIGHT ,H-BOLD>
+				<TELL N .I>
+				<HLIGHT 0>
+				<TELL " - " D <GET ,TEMP-LIST .I> " (" N <GETP <GET ,TEMP-LIST .I> ,P?PRICE> " " D ,CURRENCY ")" CR>
+			>
+			<HLIGHT ,H-BOLD>
+			<TELL "C">
+			<HLIGHT 0>
+			<TELL " - View your character (" D ,CURRENT-CHARACTER ")" CR>
+			<HLIGHT ,H-BOLD>
+			<TELL "G">
+			<HLIGHT 0>
+			<TELL " - Display Skills Glossary" CR>
+			<HLIGHT ,H-BOLD>
+			<TELL "0">
+			<HLIGHT 0>
+			<TELL " - Bye" CR>
+			<TELL "You are carrying " N ,MONEY " " D ,CURRENCY ": ">
+			<REPEAT ()
+				<SET KEY <INPUT 1>>
+				<COND (
+					<OR
+						<AND <G=? .KEY !\1> <L=? .KEY !\9> <L=? <- .KEY !\0> .ITEMS>>
+						<AND ,CHARACTERS-ENABLED <OR <EQUAL? .KEY !\c !\C> <EQUAL? .KEY !\i !\I>>>
+						<EQUAL? .KEY !\G !\g !\h !\H !\? !\0>
+					>
+					<RETURN>
+				)>
+			>
+			<CRLF>
+			<COND (<AND ,CHARACTERS-ENABLED <EQUAL? .KEY !\c !\C>> <DESCRIBE-PLAYER> <PRESS-A-KEY>)>
+			<COND (<AND ,CHARACTERS-ENABLED <EQUAL? .KEY !\G !\g>> <PRINT-SKILLS>)>
+			<COND (<AND <G? .KEY 48> <L? .KEY <+ .ITEMS 49>>>
+				<SET ITEM <- .KEY 48>>
+				<SET VIRUS <GET ,TEMP-LIST .ITEM>>
+				<SET PRICE <GETP .VIRUS ,P?PRICE>>
+				<SET ACTIVATE <GETP .VIRUS ,P?ACTION>>
+				<CRLF>
+				<TELL "Purchase " D .VIRUS " (" N .PRICE " " D ,CURRENCY ")?">
+				<COND (<YES?>
+					<CRLF>
+					<HLIGHT ,H-BOLD>
+					<COND (<L? ,MONEY .PRICE>
+						<TELL "You can't afford " T .VIRUS ,EXCLAMATION-CR>
+        	)(ELSE
+						<SETG MONEY <- ,MONEY .PRICE>>
+						<TELL "You bought " T .VIRUS ,PERIOD-CR>
+						<PUTP .VIRUS ,P?PURCHASED T>
+						<APPLY .ACTIVATE>
+						<PRESS-A-KEY>
+					)>
+				)>
+				<UPDATE-STATUS-LINE>
+			)(<EQUAL? .KEY !\0>
+				<CRLF>
+				<TELL "Are you sure?">
+				<COND (<YES?> <RETURN>)>
+			)>
+		)(ELSE
+			<EMPHASIZE "There are no retrovirus potions left.">
+			<RETURN>
+		)>
+	>>
 
 <CONSTANT TEXT "This story has not been written yet.">
 
@@ -1608,7 +1713,7 @@
 	(DESC "095")
 	(CHOICES CHOICES095)
 	(DESTINATIONS <LTABLE STORY401 STORY422 STORY380 STORY011 STORY311>)
-	(REQUIREMENTS <LTABLE ID-CARD NONE NONE NONE  NONE>)
+	(REQUIREMENTS <LTABLE ID-CARD NONE NONE NONE NONE>)
 	(TYPES <LTABLE R-ITEM R-NONE R-NONE R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
 
@@ -1806,7 +1911,7 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT110 "After Gargan XIII's wound has been seen to, you spend another hour searching the bomb shelter. You find a canteen, but the food is unsealed and spoiled. At last you have to accept that you will not get access to the Shrine of the Heart from here. Weary and disappointed, you head back to the ventilation duct.||\"You know the theory that the Heart was formed in the Big Bang?\" says Golgoth to you. \"The boffins say it's actually another universe, like a seed that didn't quite get started. I read somewhere that the same thing happens with people. Often you start off with a twin in the womb, but that twin gets reabsorbed into you. In some people, the process happens quite late in the foetus's development. Occasionally the vestigial remains of the unborn twin is found inside a cyst -- you know, tiny limbs, a nubbin of a heart, and so on. It might be true of any of us\"||You wonder why he is telling you this rather ghoulish bit of medical lore when one of the Gargan sisters interrupts. \"That is only true for those born in the inferior natural way, inside a womb. My sisters and I were all carefully nurtured and grown to maturity. The artificial wombs guaranteed perfect nutrient balance.\"||Golgoth laughs at her proud remarks. It seems to you he is deliberately provoking her. \"Your own twin sisters were all fine specimens of womanhood,\" he replies. \"I should know; it was me that killed all twelve of them.\"||You have not taken in what Golgoth said before Gargan XII explodes into action. Roaring in fury, she grabs Golgoth's shoulder and spins him around. His gun is in his hand and it looks to you that he might have got off a shot, but Gargan XIII slaps it away and knees him in the stomach. He reels back into Gargan XIV, who grabs him by the throat and dangles him like a rag doll. \"So this is the great Commander Golgoth, sister,\" she says contemptuously. \"Like all so-called natural humans, he is compared to our pure racial stock.\"||She tosses Golgoth aside and he slumps to the floor. You have a nasty feeling you'll be next.">
-<CONSTANT CHOICES110 <LTABLE "order your automaton to attack" "step in to fight them yourself" "you can  hold back to see what happens">>
+<CONSTANT CHOICES110 <LTABLE "order your automaton to attack" "step in to fight them yourself" "you can hold back to see what happens">>
 
 <ROOM STORY110
 	(DESC "110")
@@ -1825,7 +1930,7 @@
 	(CONTINUE STORY300)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT112 "With only a split-second left before the creature's gaze paralyses you, you act on raw instinct. Leaping high into the air, you somersault over its head, twisting so as to land directly behind it. The eyestalk sweeps frantically, trying to see where you went. But before the creature can bring its  ghastly scrutiny to bear, you give it a hard blow across the back of the head. As it falls senseless in the snow, Boche recovers from the hypnotic trance. Even so, it is several seconds before he has recovered his wits enough to speak.">
+<CONSTANT TEXT112 "With only a split-second left before the creature's gaze paralyses you, you act on raw instinct. Leaping high into the air, you somersault over its head, twisting so as to land directly behind it. The eyestalk sweeps frantically, trying to see where you went. But before the creature can bring its ghastly scrutiny to bear, you give it a hard blow across the back of the head. As it falls senseless in the snow, Boche recovers from the hypnotic trance. Even so, it is several seconds before he has recovered his wits enough to speak.">
 
 <ROOM STORY112
 	(DESC "112")
@@ -1954,7 +2059,7 @@
 	<TELL ,TEXT119-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
-<CONSTANT TEXT120 "The innkeeper is cringing at the end of the bar with a sick look on his face. You bow to the twins, saying, \"Ladies, pardon me. I am a simple servant here.\" Turning to the innkeeper, you ask, \"master, shall I fetch the very best vodka for your guests?\"||The twins scowl at him. \"Isn't this the best?\"||He twitches nervously, but senses you have a plan in mind. \"Er... my my dear ladies, cherished guests --\"||One of the twins seizes his jerkin and hauls him across the bar, glaring into his face. \"Well?\"||\"Ulp. In fact, there is one bottle of extremely fine Old Daralbad Immolate in the cellar.\"||\"Fetch it.\" This is addressed to you. You race out to the cellar door to get a bottle, returning by way of the bathroom at the back of the building where you find the inn's medicine cabinet. As you come racking back, the bottle is snatched out of your hands.||\"I must advise caution, my lady,\" you say, almost grovelling. \"This is strong liquor.\"||\"Pah!\" She drains half the bottle at a gulp, then hands the rest to her sister.||You stand back and watch. Gradually the twins start to yawn, then fold across the bar. Only when they begin snoring do the rest of the customers feel safe in approaching these two fearsome Amazons. Even asleep, they inspire such fear that no one knows quite what to do with them, until you suggest putting them in a rowboat and pushing it out to sea.||\"How long  before they wake up?\" asks the innkeeper.||You shake your head. \"Who knows? I put a whole packet of sleeping pills in that vodka, but these two seem to have a vigorous metabolism. Best that we get rid of them at once.\"">
+<CONSTANT TEXT120 "The innkeeper is cringing at the end of the bar with a sick look on his face. You bow to the twins, saying, \"Ladies, pardon me. I am a simple servant here.\" Turning to the innkeeper, you ask, \"master, shall I fetch the very best vodka for your guests?\"||The twins scowl at him. \"Isn't this the best?\"||He twitches nervously, but senses you have a plan in mind. \"Er... my my dear ladies, cherished guests --\"||One of the twins seizes his jerkin and hauls him across the bar, glaring into his face. \"Well?\"||\"Ulp. In fact, there is one bottle of extremely fine Old Daralbad Immolate in the cellar.\"||\"Fetch it.\" This is addressed to you. You race out to the cellar door to get a bottle, returning by way of the bathroom at the back of the building where you find the inn's medicine cabinet. As you come racking back, the bottle is snatched out of your hands.||\"I must advise caution, my lady,\" you say, almost grovelling. \"This is strong liquor.\"||\"Pah!\" She drains half the bottle at a gulp, then hands the rest to her sister.||You stand back and watch. Gradually the twins start to yawn, then fold across the bar. Only when they begin snoring do the rest of the customers feel safe in approaching these two fearsome Amazons. Even asleep, they inspire such fear that no one knows quite what to do with them, until you suggest putting them in a rowboat and pushing it out to sea.||\"How long before they wake up?\" asks the innkeeper.||You shake your head. \"Who knows? I put a whole packet of sleeping pills in that vodka, but these two seem to have a vigorous metabolism. Best that we get rid of them at once.\"">
 
 <ROOM STORY120
 	(DESC "120")
@@ -3381,7 +3486,7 @@
 	(CODEWORD CODEWORD-NEMESIS)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT233 "A tunnel beyond the doorway is lit by luminant strips close to the floor, which bathe you in a sinister blue glow as you advance towards the centre of the pyramid. You reach a room whose walls are covered with video screens. A partial projection of the world's surface stretches across the ceiling, reduced to a chequerboard of black patches where the scanning satellites have gone offline over the years.||In the centre of the room is a shaft that descends into the depths of the pyramid. A circular steel plate hovers at the top, beside a row of buttons. You guest it is a sort of elevator, although  a much more sophisticated design than any in existence nowadays. Studying the buttons, you discount the levels given over to dormitories and recreation. That leaves the research and military levels, located furthest down in the building.">
+<CONSTANT TEXT233 "A tunnel beyond the doorway is lit by luminant strips close to the floor, which bathe you in a sinister blue glow as you advance towards the centre of the pyramid. You reach a room whose walls are covered with video screens. A partial projection of the world's surface stretches across the ceiling, reduced to a chequerboard of black patches where the scanning satellites have gone offline over the years.||In the centre of the room is a shaft that descends into the depths of the pyramid. A circular steel plate hovers at the top, beside a row of buttons. You guest it is a sort of elevator, although a much more sophisticated design than any in existence nowadays. Studying the buttons, you discount the levels given over to dormitories and recreation. That leaves the research and military levels, located furthest down in the building.">
 <CONSTANT CHOICES233 <LTABLE "risk taking the strange elevator going to the research level" "the military level at the very bottom of the shaft" "you think it would be wiser to leave the way you came">>
 
 <ROOM STORY233
@@ -3503,7 +3608,7 @@
 	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT243 "Passing under a broken arch, you enter the central plaza. This is a broad area of snow-covered flagstones, roughly three hundred metres across, enclosed by  ruined palaces that gleam like lead in the white haze.||There are several campfires built up against a fallen colonnade. As you get closer you see antique furniture and splintered doors crackling in the flames: plunder from the once great city of Du-En, list art treasures beyond price. In this desolate place, their only value is the warmth they give.||A man steps forward from the fireside and pulls off his glove to shake hands. \"Greetings. I am Janus Gaunt.\"||While Boche makes the introductions, you take stock of Gaunt. He is younger than his grey hair would suggest, with an open friendly manner. His servants stumble along behind him in the snow, but they wear only thin clothes and you guess they are past feeling the cold. Gaunt sees you looking at them and nods. \"These are my xoms -- reanimated cadavers, loyal and tireless.\"||Others are now emerging from their tents along the colonnade. A wizened old man with no legs who comes drifting through the air like a ghost is introduced as Baron Siriasis, a psionic from Bezant. Next comes a woman who walks with long feline strides, eyes glittering like jade in the wan afternoon light. She gives you a single guarded look and then turns away. \"That is Thadra Bey of al-Lat,\" says Gaunt. \"An here is Commander Chaim Golgoth, an agent of United States Intelligence. The two strapping bronzed ladies behind him are Gargan XIII and Gargan XIV, sole survivors of a clone superwarrior group.\"||Golgoth smiles and shakes hands. The Gargan twins watch you with a glare like Medusa's sisters. \"There's also Vajra Singh,\" adds Golgoth, nodding towards a large scarlet-and-black pavilion across the plaza. \"You'll meet him soon enough, I'll warrant.\"">
+<CONSTANT TEXT243 "Passing under a broken arch, you enter the central plaza. This is a broad area of snow-covered flagstones, roughly three hundred metres across, enclosed by ruined palaces that gleam like lead in the white haze.||There are several campfires built up against a fallen colonnade. As you get closer you see antique furniture and splintered doors crackling in the flames: plunder from the once great city of Du-En, list art treasures beyond price. In this desolate place, their only value is the warmth they give.||A man steps forward from the fireside and pulls off his glove to shake hands. \"Greetings. I am Janus Gaunt.\"||While Boche makes the introductions, you take stock of Gaunt. He is younger than his grey hair would suggest, with an open friendly manner. His servants stumble along behind him in the snow, but they wear only thin clothes and you guess they are past feeling the cold. Gaunt sees you looking at them and nods. \"These are my xoms -- reanimated cadavers, loyal and tireless.\"||Others are now emerging from their tents along the colonnade. A wizened old man with no legs who comes drifting through the air like a ghost is introduced as Baron Siriasis, a psionic from Bezant. Next comes a woman who walks with long feline strides, eyes glittering like jade in the wan afternoon light. She gives you a single guarded look and then turns away. \"That is Thadra Bey of al-Lat,\" says Gaunt. \"An here is Commander Chaim Golgoth, an agent of United States Intelligence. The two strapping bronzed ladies behind him are Gargan XIII and Gargan XIV, sole survivors of a clone superwarrior group.\"||Golgoth smiles and shakes hands. The Gargan twins watch you with a glare like Medusa's sisters. \"There's also Vajra Singh,\" adds Golgoth, nodding towards a large scarlet-and-black pavilion across the plaza. \"You'll meet him soon enough, I'll warrant.\"">
 
 <ROOM STORY243
 	(DESC "243")
@@ -3732,175 +3837,116 @@
 	<TEST-MORTALITY .DAMAGE ,DIED-FROM-INJURIES ,STORY260 ,SKILL-CLOSE-COMBAT>
 	<IF-ALIVE ,TEXT260-CONTINUED>>
 
+<CONSTANT TEXT261 "You find Boche recovering from the blast. Despite a gash on his forehead, he is in good spirits. \"It worked!\" he says. \"I'd been barring that grenade all along, but the joke was that I didn't even know it myself. It was the only way to foil the baron's mind-reading you see.\"||\"I don't understand.\"||Boche spits out rock dust before explaining. \"I knew the baron was heading for Du-En and that he'd be the hardest foe I'd have to face, so I got myself hypnotized to forget that I was carrying a grenade. I had a post-hypnotic suggestion planted that I should use it at a key moment. He never knew what hit him, did he?\"||\"A ruthlessly clever scheme.\"||If you intended any sarcasm, Boche fails to notice it. \"Thanks,\" he says. \"Now, let's get going and find the Heart.\"">
+
 <ROOM STORY261
 	(DESC "261")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT261)
+	(CONTINUE STORY175)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT262 "A swishing in the air is followed by a noise like a knife being driven into an apple. You are startled to see a crossbow bolt protruding from Singh's eye. He is spun round by the impact, dead on his feet, raking the floor with a random blast from the mantramukta as he falls. Molten chunks of marble fly up, one of them striking you heavily across the left arm.">
+<CONSTANT TEXT262-CONTINUED "As the smoke disperses you see that Golgoth had attached his gun to the wall magnetically and set it for remote-controlled fire. Retrieving it, he casts a wary glance at you. \"It's just up to us now,\" he says. \"We can make a shoot-out of it, and probably both die, or we can cooperate to get rid of that.\" And he jerks his thumb towards the ominously glittering Heart of Volent.\"">
 
 <ROOM STORY262
 	(DESC "262")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT262)
+	(PRECHOICE STORY262-PRECHOICE)
+	(CONTINUE STORY431)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY262-PRECHOICE ("AUX" (DAMAGE 4))
+	<COND (<CHECK-CODEWORD ,CODEWORD-TALOS> <SET DAMAGE 1>)>
+	<TEST-MORTALITY .DAMAGE ,DIED-FROM-INJURIES ,STORY262>
+	<IF-ALIVE ,TEXT262-CONTINUED>>
+
+<CONSTANT TEXT263 "Golgoth gives you a bleak smile. His gun is aimed at your chest. \"So we can't destroy the damned thing after all,\" he says without relish. \"I certainly can't get it back to the States, so I guess that leaves one option.\"||\"You can't...\" you say, shaking your head. \"It'll be the end of the world.\"||\"The world is on its last legs anyway. No one thinks humanity will survive another century. Maybe I can make a better world.\"||You give him a withering look. \"You're just trying to justify yourself, Golgoth. You're like all the rest. It was power you wanted all along.\"||He shrugs. \"Just doing my job.\" And his gun spurts fire, killing you instantly.">
 
 <ROOM STORY263
 	(DESC "263")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT263)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT264 "Boche scrambles up to the ledge and goes through the pockets of one of the corpses. \"I don't like robbing the dead, but there might be some food,\" he mutters.">
 
 <ROOM STORY264
 	(DESC "264")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT264)
+	(PRECHOICE STORY264-PRECHOICE)
+	(CONTINUE STORY306)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY264-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-ROGUERY>
+		<STORY-JUMP ,STORY328>
+	)(<CHECK-SKILL ,SKILL-PARADOXING>
+		<STORY-JUMP ,STORY370>
+	)>>
+
+<CONSTANT TEXT265 "After reassuring the anxious scribe that you will do nothing to damage his hardware, you connect one of the laptops into the phone network. The antiquity of the modem will limit your ability to converse with Gaia, but it also means that the terminal you are using is safe from Gaia's resident hyperviruses, which are too complex to copy themselves across the primitive modem link.||The scribe watches in amazement as you type your questions. In this world of declining technology, what you are doing seems to him like magic.||> HELLO, GAIA. PLEASE TELL ME ABOUT THE HEART OF VOLENT.|> IT WAS FORMED AT THE BEGINNING OF TIME. THE PERSON WHO ATTUNES IT WILL HAVE POWER OVER EVERYTHING.|> HOW CAN YOU HELP ME TO GET IT?|> MY MIND IS NOT ALWAYS CLEAR. YOU WILL NEED AN ALLY. GO TO GIZA. SEEK GILGAMESH UNDER THE PYRAMID. HUMBABA WILL GIVE YOU ENTRY.|> WHAT THEN?|> UNKNOWN. THE FUTURE. A TABULA RASA.||The screen goes blank as the scribe reaches out and pulls the plug. \"Enough, please,\" he says firmly. \"I know you've assured me there is no risk, but bear in mind it is my livelihood that's at stake.\"||Resolving to establish a better link with Gaia when you have time, you leave the stall and head off along the street.">
 
 <ROOM STORY265
 	(DESC "265")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT265)
+	(CONTINUE STORY372)
+	(CODEWORD CODEWORD-HUMBABA)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT266 "You identify each of the potions, describing its effects in detail. Malengin takes out a pad and eagerly scribbles down everything you can tell him. \"This will be invaluable,\" he says, so pleased that he agrees to sell to you at a discount.||The potion he calls the Virid Mystery is easiest to identify. It is simply an antidote designed to reverse unwanted genetic changes. Luckily the other three potions are more useful.||The potion called the Exalted Enhancer costs 7 scads and will toughen your skin so that you gain 5 Life Points, even above your initial score. However it also slows your reflexes so that you must lose the AGILITY skill if you have it.||The Mask of Occultation costs 6 scads and gives the ability to alter your appearance and colouring.||The Peerless Perceptive costs 4 scads and confers the ability to see in almost total darkness.">
 
 <ROOM STORY266
 	(DESC "266")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT266)
+	(PRECHOICE STORY266-PRECHOICE)
+	(CONTINUE STORY025)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY266-PRECHOICE ()
+	<MALENGIN-BUSINESS>
+	<COND (<OR <CHECK-SKILL ,SKILL-STREETWISE> <CHECK-ITEM ,VADE-MECUM>> <STORY-JUMP ,STORY414>)>>
+
+<CONSTANT TEXT267 "Boche frowns in indignation and amazement. \"I cannot understand your attitude. I've worked very hard getting you this far, and now you propose to abandon me!\"||You thank the official for your ticket and then turn to Boche, saying, \"In the area of wilderness survival, you turned out to be long on opinion but short on expertise. Even so, I tolerated your company because you gave me to understand that your contacts would be useful once we reached civilization. However, I have not seen anything of you for the two days we've spent in Venis. Now you show up like a bad penny, having squandered your money on fancy gear such as that new barysal gun, and you have the audacity to expect me to pay for your passage. Boche, you are an idiot.\"||Though taken aback, he is not at a loss for words. \"I expected a little more support from you. Have you forgotten that I started out with a gesture of comradeship by paying your bill at the Etruscan Inn before I knew a thing about you?\"||\"That, more than anything else, should have warned me off associating with you. It's the typical con-man's opening gambit.\" You give a bored sigh. \"Farewell, Boche.\"||You walk off towards the seafront before he can say anything else.">
+
 
 <ROOM STORY267
 	(DESC "267")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT267)
+	(PRECHOICE STORY267-PRECHOICE)
+	(CONTINUE STORY246)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY267-PRECHOICE ()
+	<DELETE-CODEWORD ,CODEWORD-DIAMOND>>
+
+<CONSTANT TEXT268 "You travel upriver. Flurries of sleet sweep out of the evening sky. Veering west, you steer towards the pyramids of Giza where they stand outlined against the feeble afterglow of sunset. The Sphinx lies huddled with banks of snow along its stone flanks, its face ravaged by frostbite. You set the sky-car down and trudge across the icy plain towards those ancient ruins.">
 
 <ROOM STORY268
 	(DESC "268")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT268)
+	(CONTINUE STORY440)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT269 "You catch on at once. The Fijian obviously works for the person who originally owned your ID card, and rushed up here in search of his boss, only to find you instead. \"There was another person here,\" you glibly tell him, \"who suffered a heart attack just minutes ago and was taken on a stretcher to the medical lounge. Could that have been your boss?\"||His jaw drops, then he races out and stabs anxiously at the elevator button. You join him and politely ask for the ground floor. Watching him fidget impatiently as the elevator descends, you say, \"Don't worry, the Society has excellent medical facilities -- the best in Kahira. I'm sure your boss will be all right.\"||The elevator stops at the floor for the medical lounge and the Fijian gets out. You continue down to the lobby and leave without delay, before he discovers he's been lied to.">
 
 <ROOM STORY269
 	(DESC "269")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT269)
+	(CONTINUE STORY311)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT270 "You find the missing bodyguard, Goro, lying only fifty metres from the ice cave where you took shelter. He froze to death on his hands and knees, crawling in the teeth of the blizzard. Snow is piled around the body. Ice cakes his features, locked rigid in an expression of stubborn intensity. The other two, who may be his brothers for all you know, betray no emotion at the sight. Of course, they must have realized he couldn't have survived. \"Shall we bury him, boss?\" says one.||Shandor looks at the sky. Dusk is already descending along the edge of the valley, shadows creeping like blots of soot across the crisp white snow. He considers, then gives a curt nod back towards the crevasse. \"Toss the body down into the cave -- it's as good a tomb as any. I want to be off this glacier by nightfall.\"||After sliding Goro's body down into the crevasse, the four of you trudge on in silence. By the time you crest the shoulder of bare black rock bordering the glacier, stars begin to glimmer between the low banks of cloud. Something impels you to glance back. You see the last of the sunlight trickle off the world. In the same instant, a slurry of thick purple steam gushes out of the crack in the ice far behind. You rub your eyes and look again. Now there is nothing. It must have been a trick of the fading light.||Shandor's bodyguards have found a spar of rock to give cover from the night winds. They heat it with blasts from their barysal guns, leaving the rock surface pleasantly warm when you hunker down beside it to eat the rations that Shandor shares out.">
 
 <ROOM STORY270
 	(DESC "270")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT270)
+	(PRECHOICE STORY270-PRECHOICE)
+	(CONTINUE STORY312)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY270-PRECHOICE ()
+	<COND (<CHECK-ITEM ,SHORTSWORD> <STORY-JUMP ,STORY291>)>>
 
 <ROOM STORY271
 	(DESC "271")

@@ -4,6 +4,10 @@
     (DESC "Blue")
     (SYNONYM BLUE)>
 
+<OBJECT CODEWORD-CAMOUFLAGE
+    (DESC "Camouflage")
+    (SYNONYM CAMOUFLAGE)>
+
 <OBJECT CODEWORD-DIAMOND
     (DESC "Diamond")
     (SYNONYM DIAMOND)>
