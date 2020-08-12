@@ -64,6 +64,7 @@
 	<PUTP ,STORY194 ,P?DEATH T>
 	<PUTP ,STORY201 ,P?DEATH T>
 	<PUTP ,STORY207 ,P?DEATH T>
+	<PUTP ,STORY234 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -165,10 +166,13 @@
 		<PUTP ,BARYSAL-GUN ,P?CHARGES .CHARGES>
 	)>>
 
+<CONSTANT MAX-BARYSAL 6>
+
 <ROUTINE CHARGE-BARYSAL ("OPT" AMOUNT "AUX" CHARGES)
 	<COND (<NOT .AMOUNT> <SET AMOUNT 1>)>
 	<SET CHARGES <GETP ,BARYSAL-GUN ,P?CHARGES>>
 	<SET CHARGES <+ .CHARGES .AMOUNT>>
+	<COND (<G? .CHARGES ,MAX-BARYSAL> <SET CHARGES ,MAX-BARYSAL>)>
 	<PUTP ,BARYSAL-GUN ,P?CHARGES .CHARGES>>
 
 <ROUTINE TAKE-BARYSAL ("OPT" AMOUNT)
@@ -3349,174 +3353,124 @@
 	(CODEWORD CODEWORD-NEMESIS)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT231 "You find a deserted alley where you slump down behind a stack of cardboard boxes.||You have no sense of how long has passed when you feel a boot nudge you in the ribs. You open your eyes. Half a dozen figures stand over you in the dim mist-filtered moonlight. \"Get up,\" says a voice.||You start to rise, but the nearest figure sweeps out his leg and sends you sprawling back against the wall. You steady yourself against the damp brickwork and glare back at them.||A woman steps forward and speaks in a brittle zealous voice. \"We are of the Church of Gaia. Give of your belongings that Gaia may bring salvation to the world.\"||You have heard of this cult -- just one of hundreds that have sprung up in the latter days of the world, as people turn in their desperation to strange beliefs. The Church is founded on a particularly deranged creed. Instead of thinking Gaia to be a sophisticated computer, they believe she is the creator goddess.">
+<CONSTANT CHOICES231 <LTABLE "give the your money" "use" "fight">>
+
 <ROOM STORY231
 	(DESC "231")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT231)
+	(CHOICES CHOICES231)
+	(DESTINATIONS <LTABLE STORY274 STORY295 STORY316>)
+	(REQUIREMENTS <LTABLE NONE SKILL-CUNNING NONE>)
+	(TYPES <LTABLE R-NONE R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT232 "You try a peripheral avenue of investigation, consulting all files relating to the Heart of Volent before it acquired that name. You discover that it was a large gemstone, apparently of interstellar origin, which fell to Earth in the late twenty-first century. Coming into the hands of the Volentine cult, it became the focus of cult worship and was conveyed to their citadel in the fastness of the Sahara.||The technical records are intriguing. Before the Heart was stolen by the Volentines, a preliminary scientific study was made to analyse its crystalline, structure and intrinsic radiation. The results, when fed into Gaia, yielded the startling conclusion that it was a by-product of the Big Bang which created the universe -- in essence a kind of 'twin' universe which had frozen in stasis before it could expand. It is eerily akin to the way that abortive twins are sometimes formed in human gestation, only to be reabsorbed by the developing foetus.||Gaia's remarks from the time ring ominously across the gulf of centuries: \"This object is unstable. Psionic disruption, as from direct contact with a human man, could reactivate its expansion inside our own universe, leading to the destruction of all that exists. A new universe would result. Destruction of the object is advised, and this can be simply accomplished by bombardment with coupled barysal beams of complementary phasing.\"||Gaia's advice was not acted upon. She was already considered unreliable. That was before the world experienced the Paradox War -- evidence of what a fraction of the Heart's untapped power could do.">
+<CONSTANT CHOICES232 <LTABLE "look through the data on the Volentine cult" "take a look around the rest of al-Lat">>
 
 <ROOM STORY232
 	(DESC "232")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT232)
+	(CHOICES CHOICES232)
+	(DESTINATIONS <LTABLE STORY210 STORY254>)
+	(TYPES TWO-NONES)
+	(CODEWORD CODEWORD-NEMESIS)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT233 "A tunnel beyond the doorway is lit by luminant strips close to the floor, which bathe you in a sinister blue glow as you advance towards the centre of the pyramid. You reach a room whose walls are covered with video screens. A partial projection of the world's surface stretches across the ceiling, reduced to a chequerboard of black patches where the scanning satellites have gone offline over the years.||In the centre of the room is a shaft that descends into the depths of the pyramid. A circular steel plate hovers at the top, beside a row of buttons. You guest it is a sort of elevator, although  a much more sophisticated design than any in existence nowadays. Studying the buttons, you discount the levels given over to dormitories and recreation. That leaves the research and military levels, located furthest down in the building.">
+<CONSTANT CHOICES233 <LTABLE "risk taking the strange elevator going to the research level" "the military level at the very bottom of the shaft" "you think it would be wiser to leave the way you came">>
 
 <ROOM STORY233
 	(DESC "233")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT233)
+	(PRECHOICE STORY323-PRECHOICE)
+	(CHOICES CHOICES233)
+	(DESTINATIONS <LTABLE STORY276 STORY255 STORY361>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY323-PRECHOICE ()
+	<COND (,RUN-ONCE <DELETE-CODEWORD ,CODEWORD-HUMBABA>)>>
+
+<CONSTANT TEXT234 "The ground underfoot is hard-packed gravel under a sprinkling of snow. As you travel on, a biting wind sweeps down from the north bringing heavy snow. The pale blue sky is blotted out by glowering clouds through which enough daylight seeps to give the snow a canescent hue. You hunch into the wind and trudge on, fearing to step and rest in case you never get up again.">
+<CONSTANT TEXT234-CONTINUED "You eventually reach the River Isis and cross over an old iron bridge to the west bank. From here, a broad sweep of gleaming ivory dunes extends to the horizon under a sky darker than wet stone. These are the Saharan Ice Wastes, thousands of kilometres of uncharted wilderness, desolate snow fields pounded by incessant arctic gales. This is the terrible barrier that separates you from your goal.">
 
 <ROOM STORY234
 	(DESC "234")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT234)
+	(PRECHOICE STORY234-PRECHOICE)
+	(CONTINUE STORY393)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY234-PRECHOICE ()
+	<COND (<OR <CHECK-ITEM ,COLD-WEATHER-SUIT> <CHECK-ITEM ,FUR-COAT>>
+		<PREVENT-DEATH ,STORY234>
+	)(ELSE
+		<TEST-MORTALITY 1 ,DIED-FROM-COLD ,STORY234>
+	)>
+	<IF-ALIVE ,TEXT234-CONTINUED>>
+
+<CONSTANT TEXT235 "You pass a restless night troubled by bouts of nausea. As the sky begins to show the dim silver burnish of predawn light, you rise and run trembling fingers through your sweat-matted hair.">
 
 <ROOM STORY235
 	(DESC "235")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT235)
+	(PRECHOICE STORY235-PRECHOICE)
+	(CONTINUE STORY342)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY235-PRECHOICE ()
+	<COND (<CHECK-ITEM ,ANTIDOTE-PILLS> <STORY-JUMP ,STORY320>)>>
+
+<CONSTANT TEXT236 "He listens with interest as you explain how the Heart can be destroyed by two people working together. \"A fitting use for that fine barysal pistol of yours.\" you conclude with a grim smile.||He nods and then leans close, putting an arm across your shoulders. \"You're right of course. I'm glad you confided all this to me. We must keep it secret from the others. They are mad dogs, who care nothing for whether the world lives or dies.\"">
 
 <ROOM STORY236
 	(DESC "236")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT236)
+	(CONTINUE STORY192)
+	(CODEWORD CODEWORD-YELLOW)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT237 "Reaching the nearest grille, you find it rusted and easy to wrench out of the wall. Narrowing your shoulders, you squeeze through into a small tomb chamber. A body lies on a low carved slab, withered but preserved by the cold dry breeze gusting up from below. The robes suggest this was one of the priests of the Volentine cult. Hearing the others calling you, you make a hurried search of the tomb, finding nothing of interest except for a speculum jacket. This gives some protection from barysal gunshots.||Since the others are anxious to be off, you climb back up to rejoin them without inspecting the other grilles.">
 
 <ROOM STORY237
 	(DESC "237")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT237)
+	(CONTINUE STORY215)
+	(ITEM SPECULUM-JACKET)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT238 "With unerring precision, you blast a shot at the lintel above the doorway. The beam fractures the darkness and raises the lintel to white heat in an instant. \"Run towards the door!\" you shout to the others.||You race in the direction of the glowing stone lintel. The baron reaches it first, gliding through the doorway and turning to slam it after you and Boche have run through. A moment later, something slams into the other side with juddering impact, but the door holds.||\"What was that?\" you ask.||\"I caught a brief glimpse of it in the glare from your gunshot,\" says Boche. \"Believe me, you don't want to know.\"">
 
 <ROOM STORY238
 	(DESC "238")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT238)
+	(PRECHOICE STORY238-PRECHOICE)
+	(CONTINUE STORY281)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY238-PRECHOICE ()
+	<FIRE-BARYSAL 1>>
+
+<CONSTANT TEXT239 "You are almost hypnotized by terror, and it is only by the merest chance that your fingers brush the grenade hanging at your belt. Unclipping it, you send it rolling and bounding across the floor. The baron's brain comes rushing through the air just as the grenade detonates. There is a flash, and the brain is flung to the floor by the concussion. While it lies dazed, you crush it under your heel. If only you could shut out the dying shriek that echoes telepathically through your mind and will stay with you until your dying day.">
 
 <ROOM STORY239
 	(DESC "239")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT239)
+	(PRECHOICE STORY239-PRECHOICE)
+	(CONTINUE STORY261)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY239-PRECHOICE ()
+	<LOSE-ITEM ,STUN-GRENADE>>
+
+<CONSTANT TEXT240 "You feel a jolting impact as though someone had punched you in the throat. Looking down, you are amazed to see a steel crossbow bolt has pierced your windpipe. You stagger back a couple of steps and then fall, dying in a pool of blood. You have failed with success almost in your grasp.">
 
 <ROOM STORY240
 	(DESC "240")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT240)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY241
