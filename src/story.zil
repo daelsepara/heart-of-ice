@@ -3243,174 +3243,110 @@
 <ROUTINE STORY220-PRECHOICE ()
 	<DELETE-CODEWORD ,CODEWORD-ENKIDU>>
 
+<CONSTANT TEXT221 "As you travel west, the bitter cold begins to ease. Instead of wild blizzards, you find yourself trudging through flurries of soft sleet. After several days you see a harsh light on the horizon. Ahead looms an arc of sunlight slanting through a wide gulf in the clouds. Even when night falls, the light keeps blazing down. An old weather satellite far out in space, misdirected by Gaia's freakish whims, battles the landscape in endless sun. These are the steaming swamps and jungles of Lyonesse.||On the northern fringes of the region, you have heard that men exploit the fertile farmland to support the old city of Lyon. To the south, the warm waters mean plentiful fish. But no one inhabits the interior of Lyonesse, which is the stalking ground of mutated beasts and carnivorous fungi.||You press on undaunted, pleased to be able to shrug off your thick furs as you leave the icy wasteland behind and enter the lush dank morass. Foliage like ships' sails blots out much of the sky, leaving you plunged in green gloom despite the ceaseless daylight. Extravagant blooms with jewel-like colours exude a mingle of musky scents. Creepers stretch in nets between the black trees. Ferns form high banks across your path. Off in the distance, the chittering and screeching of jungle animals seem unreal after so many days with only the wind's howl in your ears. Here there is no night or day. When tiredness becomes too much, you slump sweat-soaked beside a fallen log and roll our clothing up to make a pillow. The succulent jungle whispers lull you off to sleep.">
+
 <ROOM STORY221
 	(DESC "221")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT221)
+	(PRECHOICE STORY221-PRECHOICE)
+	(CONTINUE STORY075)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY221-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-ESP>
+		<STORY-JUMP ,STORY030>
+	)(<CHECK-SKILL ,SKILL-AGILITY>
+		<STORY-JUMP ,STORY053>
+	)>>
+
+<CONSTANT TEXT222 "You notice a man at reception using a gold card similar to the one you found. After glancing at it, the clerk puts on an ingratiating smile and escorts the man through the VIP lounge. You make discreet enquiries of a bellboy, who tells you that the cardholder is a member of the Society of the Compass. \"They're the top people. Always get the best of everything.\"||\"It's a sort of traveller's club, then?\"||\"More than a club. One gentleman who stayed here told me that he displayed his Compass ID to a mugger who threatened him in the street. The mugger was so frightened of the Compass Society's retribution that he ran off empty-handed\"||A useful item. You examine your own ID card in the privacy of your room. Unfortunately, the hologram photo looks nothing like you. Perhaps you can see about getting it altered somehow.">
 
 <ROOM STORY222
 	(DESC "222")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT222)
+	(CONTINUE STORY286)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT223 "You hurry along to the end of the street, where an old man stops you and asks, \"Is Sarco the Poisoner still open for business?\"||\"How should I know?\" you reply. \"I am not acquainted with the man you mention.\"||He returns a look that suggests you are either deranged or a liar. \"I just now saw you leave his shop!\" he declares.||You rub your jaw ruefully. \"Sarco the Poisoner, indeed.\"||It seems you've had a narrow escape.">
+<CONSTANT CHOICES223 <LTABLE "keep trying to get the ID card altered" "see to other matters before the ferry to Kahira arrives">>
 
 <ROOM STORY223
 	(DESC "223")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT223)
+	(CHOICES CHOICES223)
+	(DESTINATIONS <LTABLE STORY245 STORY414>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT224 "As the queue moves along, Kyle Boche hurries to join you. Stamping his feet to fend off the morning chill, he tells you that he was delayed by some last-minute purchases in town. You notice a new barysal gun at his belt. \"We're on our way now,\" he says excitedly, grinning as he stares out into the mist over the sea. \"The adventure's begin!\"||A problem arises when you reach the ticket office. The cost of passage to Kahira is 10 scads each. Boche peers woefully at his remaining funds and then turns to you with a shrug. \"You'll have to pay for me, I'm afraid. Still we're partners. I'm sure you'll agree I've never stinted from doing my bit up till now.\"">
+<CONSTANT CHOICES224 <LTABLE "pay for both" "pay for yourself but not for him" "you do not have enough money even to buy your own ticket">>
 
 <ROOM STORY224
 	(DESC "224")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT224)
+	(CHOICES CHOICES224 )
+	(DESTINATIONS <LTABLE STORY246 STORY267 STORY288>)
+	(REQUIREMENTS <LTABLE 20 10 NONE>)
+	(TYPES <LTABLE R-MONEY R-MONEY R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT225 "The next morning you are overtaken by a blizzard that turns the sky dark as Doomsday. Stumbling on, you are barely able to see the others through the thick snowfall. Then a blue flare erupts in the gloom, drawing you to where Shandor stands with two of his bodyguards. He has a sputtering magnesium torch in his hand which drips hissing fragments of hot metal into the snow. \"Where's Goro?\" says one of the bodyguards.||You all gaze off into the blizzard. No one says a thing until Shandor grabs your sleeve. \"We can't do anything for him now,\" he calls over the shrieking wind. \"Come on, there's an ice cave we can shelter in.\"||You follow the others down a crevice in the ground. In the light of Shandor's flare, the walls around you gleam like old blue glass. \"This is frozen meltwater,\" you say, running your hand across the smooth ice. \"We must be on another glacier.\"||\"Inside a glacier, you mean,\" mutters Shandor. \"Eerie, isn't it? We're safer here than out in that storm, though.\"||You walk along the gallery of ice, overwhelmed by a sense of awe. Perhaps this was a mighty river once, a raging torrent, before the summers died and the Ice Age took root in the world. Now it slides imperceptibly along the rate of a few centimetres a year.||You see a face in the ice and jump back with a startled cry. Shandor comes over and raises the torch. Frozen just inside the surface of the wall is a man in black military-style overalls, a shortsword held in one hand. Perhaps he has been there for centuries, but what makes you shudder is that fact that his eyes are wide open. \"I could almost fancy he's watching us,\" you say.||\"Tell you what I fancy,\" says Shandor. \"That sword he's got.\"">
+<CONSTANT CHOICES225 <LTABLE "chip the body out of the ice" "wait until the blizzard is past and then press on">>
 
 <ROOM STORY225
 	(DESC "225")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT225)
+	(CHOICES CHOICES225)
+	(DESTINATIONS <LTABLE STORY205 STORY249>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT226 "The relief crew arrive and take shelter from the cold inside the terminal building. Strolling along the wharf, you spy a cluster of wickerwork pots containing live cancretes. These are pale crustaceans with long spines: a noted local delicacy when baked in clay. With cautious dexterity, you open one of the pots and remove the cancrete inside. The cold has made it torpid and it makes only a half-hearted effort to sever your thumb with its claws. You wrap it up in your jacket. Returning with it to the terminal building, you sidle over to the fireside where some of the sailors are enjoying and early-morning nip of whiskey. None of them notices you slip the cancrete into the pile of jackets and pullovers they have strewn across a chair.||You stand by the window and look out to sea, pretending to watch for the ferry. At last a gong is sounded, announcing the ferry's imminent arrival, and the relief crew begin to gather their belongings. Suddenly there is a yelp of pain from one of the sailors and he throws off his jacket as though it were on fire. The cancrete emerges and crawls sullenly away across the floorboards. \"That cancrete has bitten me severely,\" says the sailor, displaying a read weal on his hand.||A youngster whom you take to be the cabin boy watches in horror as the cancrete squeezes into hiding behind the stones of the hearth. You guess that this is his first voyage when he blurts out, \"Did you see that horrific creature? Are they common in the Inland Sea?\"||\"Not of such a size,\" you tell him quietly. He looks relieved until you add, \"Most grow much bigger. Didn't your shipmates tell you about them?\"||Eyes widening in fright, the cabin boy rushes out without making any explanation. You step smartly into the breach. Introducing yourself to the captain, you portray yourself as a person with some prior nautical experience. \"Your cabin boy has withdraw from the voyage, but I am a willing and able worker,\" you tell him.||A faint furrow of suspicion clouds his brow, but he admits that he is one hand short. \"Very well, I'll take you on. But since you are untried, I won't be offering full pay.\"||You shrug casually as you shoulder your pack. \"Pay? Passage to Kahira is enough.\"">
 
 <ROOM STORY226
 	(DESC "226")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT226)
+	(CONTINUE STORY246)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT227 "\"They told me my boss was up there,\" says the Fijian, \"but all I see is you. Imposter!\" He starts to lunge towards you.||You turn in the doorway to face him, displaying your gun. \"Here are my credentials,\" you say coolly. \"Now, let's go and see what's in that closet over there.\"||Staring down the barrel of your gun, he has no arguments. You guess that he is a professional bodyguard because he obviously expects what's coming next. With hands on the top of his head, he turns his back and steps into the closet. You club him across the neck with the butt of the gun and he drops. Closing the door of the closet, you leave quickly before he can recover and raise the alarm.">
 
 <ROOM STORY227
 	(DESC "227")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT227)
+	(CONTINUE STORY311)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT228 "Crashing through a thicket of glossy green fronds, you are brought up short by an astounding sight. A majestic ruined city spreads off into the jungle in front of you, seeming to shimmer in the haze of eternal tree-filtered sunlight. Some of the buildings have been choked by vegetation, grappled to destruction by cables of vine, walls uprooted by inexorable growth and carpeted with moss. But other towers still stand gleaming, bright glass and polished steel glorious in the dappled green-gold light. Those must be the buildings still cleaned and maintained by careteks, the diligent robot janitors left by the ancients.||You skirt the perimeter of the city, stumbling and staggering from sheer awe, like a blind man suddenly given the gift of vision. It can only be the remnants of old Marsay, the mythic place lost for two centuries. A bee as big as a child's fist goes careering cumbersomely past your ear, legs sprawling like a helicopter's skids, and disappears into a vast buzzing hive in the eaves of a crumbled house. Birds sit pecking at lichen-stained girders, sparing you only disdainful glance. You feel like an intruder here.||A barren patch of ground lies ahead, about fifty paces across, forming an avenue towards the intact area of the city.">
+<CONSTANT CHOICES228 <LTABLE "follow it" "press on into the jungle">>
 
 <ROOM STORY228
 	(DESC "228")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT228)
+	(CHOICES CHOICES228)
+	(DESTINATIONS <LTABLE STORY271 STORY292>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT229 "Kahira is shrouded in a perpetual mist that rises from the warm river waters that flow beneath the city. The city gate is a metal shutter opening into a wide cargo lift at the bottom of a concrete buttress. You hurry through just before the gate closes for the final time this evening. Standing in a crowd of people, donkeys and camels, you wait while the lift rattles up to the street level and opens to disgorge its passengers onto a fog-draped plaza. You step out under the dank glare of a neon lamp and gaze around the plaza, ignoring the stragglers barging past you with their packs. The babble of voices is muffled by the fog. The air is dankly cold, with a flat reek of mist and wet concrete.||A man wearing an illuminated fez scurries up to you, brushing his fingertips together as though washing. A clutch of snaggled teeth gleam in the street-light as he bows. \"Greetings! I am Bador, a dracoman. For a single scad I will be pleased to assist you with the many queries you must have regarding this estimable city.\"">
+<CONSTANT CHOICES229 <LTABLE "pay Bador's fee" "tell him to be gone">>
 
 <ROOM STORY229
 	(DESC "229")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT229)
+	(CHOICES CHOICES229)
+	(DESTINATIONS <LTABLE STORY033 STORY095>)
+	(REQUIREMENTS <LTABLE 1 NONE>)
+	(TYPES <LTABLE R-MONEY R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT230 "You look into the surface thoughts of the twins as they converse. The memories are of a hostelry in Florida, a cracking video screen, a tantalizing message concerning the power of the Heart of Volent. They, like you, heard a transmission from Gaia. They travelled across the Atlantic to get here. No question about it -- they must be heading for Du-En.||You are about to end the mind probe when you glimpse another memory that amazes you. At an old computer complex in Madeira, the twins managed to make contact with Gaia again. This time she seems to have been more coherent, and told them that the Heart was dangerous. If a person were to claim its power, the universe as it currently exists would be swept away, remade in a new image.||The twins apparently concluded that the Heart should be destroyed. Gaia told them that this could be done by dual barysal beams striking the gemstones at right angles, which would set up an internal dissonance. The Heart would then crack apart like a glass shattered by a soprano's highest note.||One of the twin glances up. Guiltily you withdraw your mental scan, looking away before she notices you watching.">
 
 <ROOM STORY230
 	(DESC "230")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT230)
+	(CONTINUE STORY252)
+	(CODEWORD CODEWORD-NEMESIS)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY231
