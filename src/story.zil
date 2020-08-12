@@ -436,7 +436,7 @@
 					<HLIGHT ,H-BOLD>
 					<COND (<L? ,MONEY .PRICE>
 						<TELL "You can't afford " T .VIRUS ,EXCLAMATION-CR>
-        	)(ELSE
+					)(ELSE
 						<SETG MONEY <- ,MONEY .PRICE>>
 						<TELL "You bought " T .VIRUS ,PERIOD-CR>
 						<PUTP .VIRUS ,P?PURCHASED T>
