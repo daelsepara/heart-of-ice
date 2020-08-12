@@ -29,6 +29,7 @@
 	<SET-DESTINATION ,STORY160 1 ,STORY138>
 	<SET-DESTINATION ,STORY182 1 ,STORY138>
 	<SET-DESTINATION ,STORY199 1 ,STORY286>
+	<SET-DESTINATION ,STORY259 1 ,STORY242>
 	<PUTP ,STORY004 ,P?DEATH T>
 	<PUTP ,STORY013 ,P?DEATH T>
 	<PUTP ,STORY019 ,P?DEATH T>
@@ -67,6 +68,7 @@
 	<PUTP ,STORY234 ,P?DEATH T>
 	<PUTP ,STORY248 ,P?DEATH T>
 	<PUTP ,STORY249 ,P?DEATH T>
+	<PUTP ,STORY260 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -3133,7 +3135,7 @@
 	(DEATH T)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT210 "Initiating a search of the files, you turn up a video almost two hundred years old. It shows an interview with Eleazar Picard, leader of the Volentine Cult, after he had fled form the unexplained destruction of Du-En. As you listen to Picard rambling about 'the madness' and 'the end of everything', you begin to piece together the facts. Apparently there was some kind of cataclysm or riot in the city, from which Picard barely escaped with his life.||A hawk-faced man in a colonel's uniform appears on the screen. He listens as Picard becomes slightly more lucid under the effect of truth serum: \"It was the light at the end of Time, and my sanity is blinded!\"||\"How is it you escaped?\" asks the colonel. \"You alone and no one else?\"|\Picard replies, \"I remembered the Truth.\"||At this point, Picard's eyes glaze and he starts to recite a catechism of his faith: \"The Truth is a flame. What ignites the flame? The spark ignites the flame. What is the spark? The Heart of Volent!\"||You scan forward through the rest of the interview, but Picard soon lapses into incoherence. A message at the end informs you that he died soon afterwards.">
+<CONSTANT TEXT210 "Initiating a search of the files, you turn up a video almost two hundred years old. It shows an interview with Eleazar Picard, leader of the Volentine Cult, after he had fled form the unexplained destruction of Du-En. As you listen to Picard rambling about 'the madness' and 'the end of everything', you begin to piece together the facts. Apparently there was some kind of cataclysm or riot in the city, from which Picard barely escaped with his life.||A hawk-faced man in a colonel's uniform appears on the screen. He listens as Picard becomes slightly more lucid under the effect of truth serum: \"It was the light at the end of Time, and my sanity is blinded!\"||\"How is it you escaped?\" asks the colonel. \"You alone and no one else?\"||Picard replies, \"I remembered the Truth.\"||At this point, Picard's eyes glaze and he starts to recite a catechism of his faith: \"The Truth is a flame. What ignites the flame? The spark ignites the flame. What is the spark? The Heart of Volent!\"||You scan forward through the rest of the interview, but Picard soon lapses into incoherence. A message at the end informs you that he died soon afterwards.">
 
 <ROOM STORY210
 	(DESC "210")
@@ -3169,7 +3171,7 @@
 	(CONTINUE STORY191)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT214 "\"You might alter that list of priorities once you've heard what the Heart's 'ultimate power' actually consists of,\" you tell him.||He listens as you explain about Gaia's warnings. \"That does change things,\" he admits. \"It seems the Heart is a danger to the existence of the United States.\"||\"The existence of the whole universe!\"|\Golgoth smiles. \"The universe doesn't sign my pay cheques. But I agree, we must see that the Heart is destroyed.\"">
+<CONSTANT TEXT214 "\"You might alter that list of priorities once you've heard what the Heart's 'ultimate power' actually consists of,\" you tell him.||He listens as you explain about Gaia's warnings. \"That does change things,\" he admits. \"It seems the Heart is a danger to the existence of the United States.\"||\"The existence of the whole universe!\"||Golgoth smiles. \"The universe doesn't sign my pay cheques. But I agree, we must see that the Heart is destroyed.\"">
 
 <ROOM STORY214
 	(DESC "214")
@@ -3546,7 +3548,7 @@
 	<EMPHASIZE "He destroys the ID card.">
 	<LOSE-ITEM ,ID-CARD>>
 
-<CONSTANT TEXT246 "After fifteen minutes, a pale green light flashes through the murk out to sea. The assembled travellers start to rise and gather their belongings as the ferry comes sweeping in towards the dock. A massive hovercraft of the tree tiered decks surmounted by a high conning-tower, the ferry glides up the frosty foreshore and settles on its metal skirt. Workers immediately rush out with planks to assemble a boardwlk, and you go aboard with the others.||There is a delay while supplies are loaded. You find a couch on the middle deck and gaze out to sea. A polarizing tint in the glass adds to the gloominess of the scene, with tall iron-black clouds pile high above a sea of grey swell and ice floes.||Eventually the craft raises itself and you are under way. Stewards come round and lunch is served at long curved tables in the central lounge. You chew at the stodgy gruel formulated from sea algae, washed down with spiced tea.||You take a promenade of outside deck, but the chill of the afternoon soon drives you back inside. Some of the other passengers started card games. As the daylight fades, a gap in the louring cloud reveals a handful of diamond-bright stars. The bar is opened and the atmosphere aboard gradually acquires a current of bonhomie, but you remain aloof and troubled. Most of these people have no further destination in mind than Kahira, no ambition beyond a small profit and a frisson of petty adventure. But your own goal is directly remote: the lost ruins of Du-En, in the far hinterland of the Saharan Ice Wastes. It seems impossible to believe, but here in Du-En you will either grasp the ultimate power -- or perish.">
+<CONSTANT TEXT246 "After fifteen minutes, a pale green light flashes through the murk out to sea. The assembled travellers start to rise and gather their belongings as the ferry comes sweeping in towards the dock. A massive hovercraft of the tree tiered decks surmounted by a high conning-tower, the ferry glides up the frosty foreshore and settles on its metal skirt. Workers immediately rush out with planks to assemble a boardwalk, and you go aboard with the others.||There is a delay while supplies are loaded. You find a couch on the middle deck and gaze out to sea. A polarizing tint in the glass adds to the gloominess of the scene, with tall iron-black clouds pile high above a sea of grey swell and ice floes.||Eventually the craft raises itself and you are under way. Stewards come round and lunch is served at long curved tables in the central lounge. You chew at the stodgy gruel formulated from sea algae, washed down with spiced tea.||You take a promenade of outside deck, but the chill of the afternoon soon drives you back inside. Some of the other passengers started card games. As the daylight fades, a gap in the louring cloud reveals a handful of diamond-bright stars. The bar is opened and the atmosphere aboard gradually acquires a current of bonhomie, but you remain aloof and troubled. Most of these people have no further destination in mind than Kahira, no ambition beyond a small profit and a frisson of petty adventure. But your own goal is directly remote: the lost ruins of Du-En, in the far hinterland of the Saharan Ice Wastes. It seems impossible to believe, but here in Du-En you will either grasp the ultimate power -- or perish.">
 
 <ROOM STORY246
 	(DESC "246")
@@ -3609,175 +3611,126 @@
 	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT251 "The city gate is a metal shutter that opens into a wide cargo lift at the bottom of a concrete abutment. Those entering are conveyed up inside the abutment to the lowest street level twenty metres above. You have arrived just before the gates are closed for the night, and as you step out into the street you draw the attention of a man in blue-&-grey combat dress.||Boche recognizes him, throwing out his chest in a display of wary truculence. The man stops and nods, a relaxed smile on his slim features. \"Kyle Boche. And is this your accomplice, or your latest victim?\"||\"Chaim Golgoth! Are you still a hired murderer?\" pipes up Boche in a tone of bravado. He turns to you. \"This man kills people for a living.\"||You notice the insignia on Golgoth's sleeve: the blazoned sliver eagle and blue stars of United States Intelligence. Even with the world close to collapse, the United States remains a force to be reckoned with. If Golgoth really is a USI assassin, Boche is being reckless in bantering with him like this. You size up what you can see.||Golgoth has a holstered a barysal gun and, to your surprise, a steel crossbow slung behind his hip. At a glance he looks open and friendly, his voice mild with wry amusement. But there is something almost chilling about the eyes. Those are the eyes of a man who is always alert.">
+<CONSTANT CHOICES251 <LTABLE "probe Golgoth's mind" "query him about Giza" "his reason for carrying a crossbow" "simply pass by him into the city">>
+
 <ROOM STORY251
 	(DESC "251")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(CHOICES CHOICES251)
+	(DESTINATIONS <LTABLE STORY121 STORY337 STORY315 STORY358>)
+	(REQUIREMENTS <LTABLE SKILL-ESP NONE NONE NONE>)
+	(TYPES <LTABLE R-SKILL R-NONE R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT252 "At last the fearsome twins begin to show signs of lassitude. They call for plates of stew, which they devour with gusto, then go crashing off into the dormitory where they hurl themselves down on cots and are soon snoring like lionesses.||\"What fearsome furies,\" says the innkeeper in a disconsolate whisper. \"They drank a hundred scads' worth of vodka. I think there's little hope of getting my money, however.\"||The other customers of the inn set up bedding on the floor of the taproom. No one dares to share the dormitory for fear of the Gargan sisters awakening and setting on them in a drunken rage. You cannot blame them. You pass an uneasy night yourself, rising early to set out on your way.">
 
 <ROOM STORY252
 	(DESC "252")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT252)
+	(CONTINUE STORY273)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT253 "Fishermonger Plaza, on the lowest level of the city, is a wide paved area surrounding an area of gratings directly above the river. At night, the gratings are opened and nets lowered. Bright lamps are shone down into the river to attract the attention of the fish, which are then hauled up in huge writhing shoals. This continues throughout the night, and the promise of fresh fried fish brings all manner of night-time workers to the plaza. At stalls ranged around the gratings, a curious band rub shoulders: off-duty policemen, fishmongers, prostitutes, street cleaners, beggars, and burglars.||You huddle down beside a shuttered pastry stall. The bright light and bustle make it difficult to sleep here, but at least you are safe from muggers. You pass a restless night, awakening before the dawn with a gritty feeling in your eyes and cramp in your limbs. \"Get away from here,\" say the stall-holder as he opens up for the day. \"I will not have my wares contaminated by a beggar's lice.\"||You wait until he is not looking to steal a pastry for your breakfast, then make your way to the bazaar.">
 
 <ROOM STORY253
 	(DESC "253")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT253)
+	(CONTINUE STORY333)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT254 "A young technician sees you wandering around bewildered and takes you on a tour of the laboratories. \"The al-Lat station was originally intended as a base of pure scientific research,\" he explains. \"Luckily we were always designed to be self sufficient, so the degradation of Earth's climate and population has not affected us.\"||You pause beside a bank of supercooled chambers. \"What research is going on here?\"||\"These are neural networks -- artificial brains into which we are loading the original weather control programs used when Gaia was first set up. They are works of genius, unsurpassed even today. Naturally we cannot tap into Gaia herself, by reason of the viruses that have invaded the system. But these original programs are uninfected.\"||\"What is the purpose of the work?\" you ask.||\"We hope to terraform the planet Venus -- that is, make it suitable for human habitation. Then we can colonize.\"||You give a snort of incredulous laughter. \"Why not use your skills on Earth? Although inhospitable, it is still a better place than Venus!\"||He smile. \"We thought of that, of course. Any attempt to alter the Earth's current climate might meet with Gaia's displeasure, and al-Lat would be targeted by nuclear missiles against which we have no defence.\"">
+<CONSTANT CHOICES254 <LTABLE "argue that the Earth should not be callously abandoned" "offer to join the people of al-Lat and help with the terraforming project">>
 
 <ROOM STORY254
 	(DESC "254")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT254)
+	(CHOICES CHOICES254)
+	(DESTINATIONS <LTABLE STORY296 STORY317>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT255 "You step onto the hovering platform, surprised and relieved that it remains steady under your weight and does not go plummeting to the bottom of the shaft. Once again, as so often in the past, you have cause to marvel at the technology of your ancestors. Touching the lowest button, you activate the elevator and the platform glides gently down the shaft, depositing you in a circular chamber from which several doors lead off. All are closed. As you stand pondering which way to go, an automatic circuit engages and a synthesized voice speaks from a slot in the wall, enquiring your reason for being there. What will you answer?">
+<CONSTANT CHOICES255 <LTABLE "answer: \"Gaia\"" "\"Gilgamesh\"" "\"Du-En\"" "\"the Heart of Volent\"">>
 
 <ROOM STORY255
 	(DESC "255")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT255)
+	(CHOICES CHOICES255)
+	(DESTINATIONS <LTABLE STORY297 STORY318 STORY441 STORY383>)
+	(TYPES FOUR-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT256 "A hunter who makes a habit of tangling with bomeths will not live very long. Instead of grand heroics, you decide to track the beast to its lair. Crouching motionless until the moon rises, you see the bometh rouse itself and go loping away across the undulating hillocks of snow. You follow until you see it disappear into a snowdrift, whereupon you drop low and compose yourself for a long wait. Two or three hours go by. At last it emerges from the lair, sniffs the wind, and lumbers off in search of prey.|\Once it is out of sight, you scramble over the snowdrift, pushing along a tunnel into a hollowed-out cavity where there are three small bomeths on a nest of moulted fur. Ignoring them, you turn your attention to the closely packed walls of the lair: the bometh's larder, where the beast has stored remains of previous kills. You dig out the carcass of a large fowl, which the icy cold has preserved well. Wrapping the flesh carefully, you make two food packs.">
+<CONSTANT TEXT256-CONTINUED "One of the young bomeths nips at your ankle. The teeth do not penetrate your boot, but it is a timely reminder that the parent might return any time. You squirm back to the open and hurry away">
 
 <ROOM STORY256
 	(DESC "256")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT256)
+	(PRECHOICE STORY256-PRECHOICE)
+	(CONTINUE STORY298)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY256-PRECHOICE ()
+	<TAKE-FOOD-PACKS 2>
+	<CRLF>
+	<TELL ,TEXT256-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT257 "Your fingers show signs of frostbite and you have dozen small bruises. You does yourself with antibiotics and apply ointments and dressings from the medical kit.">
 
 <ROOM STORY257
 	(DESC "257")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT257)
+	(PRECHOICE STORY257-PRECHOICE)
+	(CONTINUE STORY278)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY257-PRECHOICE ()
+	<GAIN-LIFE 1>>
+
+<CONSTANT TEXT258 "When he folds his hands across his chest and speaks in his mild whimsical way, Janus Gaunt puts you in mind of a priest. \"Vajra Singh is the lion among us,\" he says; \"proud, brave and noble -- but cross him, and you'll measure your remaining span in seconds. So, if Singh is a lion, Golgoth is a fox, agile and crafty. For Baron Siriasis's totem I would suggest the spider: a brooding, spiteful, sinister creature, always ready to cast its net.\"||\"And Thadra Bey is evidently a tigress,\" you say, \"for I have never seen a woman so sleek and fierce. And Kyle Boche?\"||\"Boche?\" He gives a snort of contempt. \"He is a jackal... no, an albatross around your neck, I think.\"||\"And what about you, Janus Gaunt?\" breaks in a voice abruptly. You turn to see Kyle Boche sauntering out across the snow. He casts a hooded glance around the throng of silent xoms. \"Perhaps you're the worm of the group? The maggot that eats from within?\"||Gaunt turns on his heel and stalks away without reply, his xoms clustering along behind like sleepwalkers. Boche takes your arm and leads you back to the main square. \"You should be more careful,\" he chides. \"Gaunt might have murdered you out there and turned you into one of his undead. You're lucky I came along when I did.\"">
 
 <ROOM STORY258
 	(DESC "258")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT258)
+	(CONTINUE STORY104)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT259 "You are in a dimly lit room with a number of smaller rooms leading off it. You guess that this was where the acolytes of the Volentine cult lived. Even after two hundred years, there are still signs of the rioting that led to the city's downfall. You clamber through a wreckage of broken furniture and toppled cupboards. Crumpled sheets of writing-plastic litter the floor.||Boche picks up a book, ruffles the charred pages and drops it to the floor. \"There's nothing here to interest us,\" he says. \"Let's press on.\"">
+<CONSTANT CHOICES256 <LTABLE "insist on searching the wreckage" "go back to the antechamber and take either the passage to the left" "the passage to the right">>
 
 <ROOM STORY259
 	(DESC "259")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT259)
+	(PRECHOICE STORY259-PRECHOICE)
+	(CHOICES CHOICES256)
+	(DESTINATIONS <LTABLE STORY242 STORY003 STORY128>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY259-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-ROGUERY>
+		<SET-DESTINATION ,STORY259 1 ,STORY412>
+	)(ELSE
+		<SET-DESTINATION ,STORY259 1 ,STORY242>
+	)>>
+
+<CONSTANT TEXT260 "There is the rattle of hard insectoid legs on the smooth floor, then something huge slams into you. It feels like a coiled monster with a body as hard as ebony. Striking out blindly, you feel a segmented eye squash under your fist, spurting out ichor. Then it seizes you in its mandibles and two scything blades are driven into your sides. You give a scream of agony. It feels as though the monster is trying to saw you in half.">
+<CONSTANT TEXT260-CONTINUED "You manage to break free with a sob of terror and stumble on to the doorway. Boche and the baron slam and bolt the door behind you, and you see it almost buckle off its hinges as the monster throws itself furiously against the other side. \"I hope that holds,\" you say to the others, \"or else we're insect food.\"">
 
 <ROOM STORY260
 	(DESC "260")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT260)
+	(PRECHOICE STORY260-PRECHOICE)
+	(CONTINUE STORY281)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY260-PRECHOICE ("AUX" (DAMAGE 6))
+	<COND (<CHECK-SKILL ,SKILL-CLOSE-COMBAT> <SET DAMAGE 4>)>
+	<COND (<CHECK-CODEWORD ,CODEWORD-TALOS> <SET DAMAGE <- .DAMAGE 1>>)>
+	<TEST-MORTALITY .DAMAGE ,DIED-FROM-INJURIES ,STORY260 ,SKILL-CLOSE-COMBAT>
+	<IF-ALIVE ,TEXT260-CONTINUED>>
 
 <ROOM STORY261
 	(DESC "261")
