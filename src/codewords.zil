@@ -36,6 +36,10 @@
     (DESC "Nemesis")
     (SYNONYM NEMESIS)>
 
+<OBJECT CODEWORD-PROTEUS
+    (DESC "Proteus")
+    (SYNONYM PROTEUS)>
+
 <OBJECT CODEWORD-RED
     (DESC "Red")
     (SYNONYM RED)>

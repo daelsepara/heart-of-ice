@@ -65,6 +65,8 @@
 	<PUTP ,STORY201 ,P?DEATH T>
 	<PUTP ,STORY207 ,P?DEATH T>
 	<PUTP ,STORY234 ,P?DEATH T>
+	<PUTP ,STORY248 ,P?DEATH T>
+	<PUTP ,STORY249 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -3473,174 +3475,138 @@
 	(DEATH T)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT241 "Golgoth checks Boche's gun, but the charge has been used up.">
+
 <ROOM STORY241
 	(DESC "241")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT241)
+	(PRECHOICE STORY241-PRECHOICE)
+	(CONTINUE STORY263)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY241-PRECHOICE ()
+	<COND (<AND <CHECK-ITEM ,BATTERY-UNIT> <G? <GETP ,BATTERY-UNIT ,P?CHARGES> 0>>
+		<EMPHASIZE "You charge it with the battery unit in your backpack">
+		<STORY-JUMP ,STORY219>
+	)>>
+
+<CONSTANT TEXT242 "You sift carefully through the debris, but find nothing more than torn clothes and broken ornaments. Boche points out a rusty brown stain on a broken tabletop. \"The rioters went in for human sacrifice,\" he says.||The baron hovers over the spot, peering back through the curtain of time. Finally he gives a curt nod. \"Yes. The populace broke in here and slaughtered the acolytes. But this is not where the high priest and his adepts dwelled. That lies deeper in the catacombs, and there we shall find the Shrine of the Heart.\" He swivels in the air and glides rapidly back to the antechamber, calling over his shoulder: \"Come.\"||You and Boche exchange a glance, then follow. The baron is inspecting the two passages, but his psychic senses cannot tell which is better. \"You choose,\" he says.">
+<CONSTANT CHOICES242 <LTABLE "go right" "left">>
 
 <ROOM STORY242
 	(DESC "242")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT242)
+	(CHOICES CHOICES242)
+	(DESTINATIONS <LTABLE STORY128 STORY003>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT243 "Passing under a broken arch, you enter the central plaza. This is a broad area of snow-covered flagstones, roughly three hundred metres across, enclosed by  ruined palaces that gleam like lead in the white haze.||There are several campfires built up against a fallen colonnade. As you get closer you see antique furniture and splintered doors crackling in the flames: plunder from the once great city of Du-En, list art treasures beyond price. In this desolate place, their only value is the warmth they give.||A man steps forward from the fireside and pulls off his glove to shake hands. \"Greetings. I am Janus Gaunt.\"||While Boche makes the introductions, you take stock of Gaunt. He is younger than his grey hair would suggest, with an open friendly manner. His servants stumble along behind him in the snow, but they wear only thin clothes and you guess they are past feeling the cold. Gaunt sees you looking at them and nods. \"These are my xoms -- reanimated cadavers, loyal and tireless.\"||Others are now emerging from their tents along the colonnade. A wizened old man with no legs who comes drifting through the air like a ghost is introduced as Baron Siriasis, a psionic from Bezant. Next comes a woman who walks with long feline strides, eyes glittering like jade in the wan afternoon light. She gives you a single guarded look and then turns away. \"That is Thadra Bey of al-Lat,\" says Gaunt. \"An here is Commander Chaim Golgoth, an agent of United States Intelligence. The two strapping bronzed ladies behind him are Gargan XIII and Gargan XIV, sole survivors of a clone superwarrior group.\"||Golgoth smiles and shakes hands. The Gargan twins watch you with a glare like Medusa's sisters. \"There's also Vajra Singh,\" adds Golgoth, nodding towards a large scarlet-and-black pavilion across the plaza. \"You'll meet him soon enough, I'll warrant.\"">
 
 <ROOM STORY243
 	(DESC "243")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT243)
+	(PRECHOICE STORY243-PRECHOICE)
+	(CONTINUE STORY111)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY243-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-SCYTHE>
+		<DELETE-CODEWORD ,CODEWORD-SCYTHE>
+		<STORY-JUMP ,STORY089>
+	)>>
+
+<CONSTANT TEXT244 "The Hotel Paradise proves to be a converted temple overlooked by a high bell-tower. You stand looking up at the inside of the splendid domes. Once, centuries ago, this vast hall must have rung with orisons to the forgotten deity of that age. Now it echoes instead to the grunt and clamour of people eating in the refectory or clattering up and down the wooden stairway to their rooms.">
 
 <ROOM STORY244
 	(DESC "244")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT244)
+	(CONTINUE STORY329)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT245 "You eventually find a man who can do what you want: a fat sweaty fellow with a profusion of ancient tools and devices strewn around his shop. Guiding his laser by hand, he makes a few deft changes to the image on the card until it could pass for your own likeness. \"Five scads,\" he says, holding it out to you.||\"Five?\" You scowl.||\"Membership of the prestigious Compass Society is usually much more expensive than that,\" he says with a shrug.||You consider snatching the card back, but the fat man cannily anticipates you and holds it close to the laser beam until you pay. If you refuse to pay, he destroys the ID card.">
 
 <ROOM STORY245
 	(DESC "245")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT245)
+	(PRECHOICE STORY245-PRECHOICE)
+	(CONTINUE STORY025)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY245-PRECHOICE ()
+	<COND (<G? ,MONEY 4>
+		<CRLF>
+		<TELL "Agree to his terms (5 scads)?">
+		<COND (<YES?>
+			<CHARGE-MONEY 5>
+			<GAIN-CODEWORD ,CODEWORD-PROTEUS>
+			<RETURN>
+		)>
+	)>
+	<EMPHASIZE "He destroys the ID card.">
+	<LOSE-ITEM ,ID-CARD>>
+
+<CONSTANT TEXT246 "After fifteen minutes, a pale green light flashes through the murk out to sea. The assembled travellers start to rise and gather their belongings as the ferry comes sweeping in towards the dock. A massive hovercraft of the tree tiered decks surmounted by a high conning-tower, the ferry glides up the frosty foreshore and settles on its metal skirt. Workers immediately rush out with planks to assemble a boardwlk, and you go aboard with the others.||There is a delay while supplies are loaded. You find a couch on the middle deck and gaze out to sea. A polarizing tint in the glass adds to the gloominess of the scene, with tall iron-black clouds pile high above a sea of grey swell and ice floes.||Eventually the craft raises itself and you are under way. Stewards come round and lunch is served at long curved tables in the central lounge. You chew at the stodgy gruel formulated from sea algae, washed down with spiced tea.||You take a promenade of outside deck, but the chill of the afternoon soon drives you back inside. Some of the other passengers started card games. As the daylight fades, a gap in the louring cloud reveals a handful of diamond-bright stars. The bar is opened and the atmosphere aboard gradually acquires a current of bonhomie, but you remain aloof and troubled. Most of these people have no further destination in mind than Kahira, no ambition beyond a small profit and a frisson of petty adventure. But your own goal is directly remote: the lost ruins of Du-En, in the far hinterland of the Saharan Ice Wastes. It seems impossible to believe, but here in Du-En you will either grasp the ultimate power -- or perish.">
 
 <ROOM STORY246
 	(DESC "246")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT246)
+	(CONTINUE STORY010)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT247 "You travel upriver until Kahira comes in sight through the veils of sparkling river-mist. It straddles the river on huge concrete buttresses, a city built on many levels, with gleaming towers stretching towards the darkening sky. Steering the sky-car towards the gate set into one of the colossal buttresses, you cast your eyes west across the Sahara. The pyramids of Giza are half-hidden by dusk and mist. Beyond lies the implacable desert of ice which you must cross to reach your goal.">
 
 <ROOM STORY247
 	(DESC "247")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT247)
+	(PRECHOICE STORY247-PRECHOICE)
+	(CONTINUE STORY229)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY247-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-DIAMOND> <STORY-JUMP ,STORY251>)>>
+
+<CONSTANT TEXT248 "The Fijian is strong and well-trained, but you have the advantage of suppleness. His foot lashes out. You dodge to one side, catch the ankle, and twist him off balance. Rather than allow you to dislocate his knee, he falls back, braces his arms on the ground, and delivers a thrust with both legs that sends you slamming back against the wall.">
+<CONSTANT TEXT248-CONTINUED "The impact leaves you stunned, giving your opponent time to get to his feet. He charges towards you bellowing. You steady yourself to meet the attack, and by luck a wall-mounted extinguisher comes to hand. You feel no compunction at using it; any weapon is fair in such a fight. A spray of foam to the eyes blinds the Fijian long enough for you to swing the canister in a solid clout to the side of his head. He falls like a sack of bricks.||You stoop and check his pulse, relieved to discover he is still alive. You had better get well away before he comes round.">
 
 <ROOM STORY248
 	(DESC "248")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT248)
+	(PRECHOICE STORY248-PRECHOICE)
+	(CONTINUE STORY311)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY248-PRECHOICE ()
+	<TEST-MORTALITY 2 ,DIED-IN-COMBAT ,STORY248 ,SKILL-CLOSE-COMBAT>
+	<IF-ALIVE ,TEXT248-CONTINUED>>
+
+<CONSTANT TEXT249 "The third bodyguard, Goro, is found only fifty metres from the ice cave where you took shelter. He is frozen on his hands and knees, having died crawling in the merciless fury of the blizzard. Snow is piled around the body.||The other two, who may be his brothers for all you know, betray no emotion at the sight. Of course, they must have known he could not have survived. \"Shall we bury him, boss?\" says one.||Shandor looks at the sky. Dusk is already descending along the edge of the valley, shadows creeping like blots of soot across the crisp white snow. He considers, then gives you a curt nod back towards the crevasse. \"Toss the body down into the cave -- it's as good a tomb as any. I want to be off this glacier by nightfall.\"||Your journey continues for another week. Hungry and beset by chilling winds, you feel drained of strength. The unbroken glower of grey cloud across the sky leaves you dispirited. By the time you reach the eastern foothills, your fingers are tingling with the first stages of frostbite.">
+<CONSTANT TEXT249-CONTINUED "Outside Venis, Shandor tells you he is detouring north to meet some friends who live in an isolated manor house.">
 
 <ROOM STORY249
 	(DESC "249")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT249)
+	(PRECHOICE STORY249-PRECHOICE)
+	(CONTINUE STORY438)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY249-PRECHOICE ("AUX" (DAMAGE 2))
+	<COND (<CHECK-SKILL ,SKILL-SURVIVAL> <SET DAMAGE 1>)>
+	<TEST-MORTALITY .DAMAGE ,DIED-FROM-COLD ,STORY249>
+	<IF-ALIVE ,TEXT249-CONTINUED>
+	<COND (<OR <CHECK-SKILL ,SKILL-STREETWISE> <CHECK-ITEM ,VADE-MECUM>> <STORY-JUMP ,STORY117>)>>
+
+<CONSTANT TEXT250 "Crashing through a thicket of glossy green fronds, you are brought up short by an astounding sight. A majestic ruined city spreads off into the jungle in front of you, seeming to shimmer in the haze of eternal tree-filtered sunlight. Some of the buildings have been choked by vegetation, grappled to destruction by cables of vine, walls uprooted by inexorable growth and carpeted with moss. But other towers still stand gleaming, bright glass and polished steel glorious in the dappled green-gold light. Those must be the buildings still cleaned and maintained by careteks, the diligent robot janitors left by the ancients.||You skirt the perimeter of the city, stumbling and staggering as much from sheer awe as from your throbbing wound. It can only be the remnants of old Marsay, the mythic place lost to the sight of man for two centuries.||A bee as big as a child's fist goes careering cumbersomely past your ear, legs sprawling like a helicopter's skids, to disappear into a vast buzzing hive in the eaves of a crumbled house. Birds sit pecking at lichen-stained girders, sparing you only a disdainful glance. You feel like an intruder here.||A barren patch of ground lies ahead, about fifty paces across, forming an avenue towards the intact area of the city.">
+<CONSTANT CHOICES250 <LTABLE "follow it" "press on into the jungle">>
 
 <ROOM STORY250
 	(DESC "250")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT250)
+	(CHOICES CHOICES250)
+	(DESTINATIONS <LTABLE STORY271 STORY184>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY251
