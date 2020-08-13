@@ -34,6 +34,7 @@
 	<SET-DESTINATION ,STORY182 1 ,STORY138>
 	<SET-DESTINATION ,STORY199 1 ,STORY286>
 	<SET-DESTINATION ,STORY259 1 ,STORY242>
+	<SET-DESTINATION ,STORY296 1 ,STORY360>
 	<PUTP ,STORY004 ,P?DEATH T>
 	<PUTP ,STORY013 ,P?DEATH T>
 	<PUTP ,STORY019 ,P?DEATH T>
@@ -78,6 +79,7 @@
 	<PUTP ,STORY277 ,P?DEATH T>
 	<PUTP ,STORY280 ,P?DEATH T>
 	<PUTP ,STORY285 ,P?DEATH T>
+	<PUTP ,STORY294 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -4351,175 +4353,137 @@
 	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT291 "You are woken by the touch of fingers on your face. They feel like icicles. You look up, and in the silver lustre of the moonlight you see a man bending over you. You open your mouth to scream, but the only sound you can muster is a stifled croak of dread. It is the same man you saw frozen inside the glacier!||You press back against the rock and get your legs under you, slowly sliding to a standing position. The man watches you with an uncanny expression of capricious menace, like a cat confronted with an odd-looking canary.||A severed arm lies by your feet in the snow. A head, half buried a short distance off, stares with glazed eyes. You look around in mounting horror. Shandor and his men have been brutally murdered while you slept. The strange man smiles, but not in a human way. He looks like a living shadow. Amazing that he doesn't freeze to death in those thin overalls. His hand comes up, a flicker of ivory in the the darkness. \"The sword,\" he murmurs. \"My sword. Return it to me.\"">
+<CONSTANT CHOICES291 <LTABLE "attack" "use a psionic focus" "shoot" "otherwise">>
+
 <ROOM STORY291
 	(DESC "291")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT291)
+	(CHOICES CHOICES291)
+	(DESTINATIONS <LTABLE STORY398 STORY377 STORY355 STORY419>)
+	(REQUIREMENTS <LTABLE SKILL-CLOSE-COMBAT SKILL-PARADOXING SKILL-SHOOTING NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT292 "Day and night have no meaning in Lyonesse, forever drenched in its own block of humid sunshine. You find a place to rest, awaking to find the golden beams at a low slant. A tangible darkness hovers between the thick fleshy leaves. Insects scurry and swarm. You have been bitten by gnats while you slept, which causes you to scratch furiously as you make ready to seat out. The itching of insect-bites is an unfamiliar sensation in the latterday Ice Age. So is the lassitude brought on by the heat. You are now almost eager to leave the hot jungle region behind.">
 
 <ROOM STORY292
 	(DESC "292")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT292)
+	(CONTINUE STORY420)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT293 "The gondo meets you early the next day outside your hotel and leads you east out of town. Leaving the narrow understreets and the elegant crumbling mansions on their high stone platforms, you pass first through the warren of wooden buildings lining the outskirts of the town. The road becomes a hard slippery tract of frozen mud. Now you are surrounded by the ramshackle dwellings of Venice's slums: crude hovels with roofs of moss and scavenged fiberglass. The inhabitants are crippled beggars you peer out in fear as you pass.||As you leave the city behind, the temperature drops severely. A harsh wind howls into your face, scattering drifting veils of snow off the rolling terrain ahead. You trudge on, hood pulled tight across your face, following the gondo and wondering whether you would not have done better to stay by the fireside at your hotel.||The gondo stops and points at a white hump on the landscape. You see a wide door of black metal in the hillside. Advancing, you realize that the hillock is probably a building buried deep under snow and ice. The door intrigues you, since it must be heated internally to be clear of ice itself. You try pushing, soon discovering that it rolls up on smooth bearings. Dim green light shines out from inside.||The gondo refuses to come in with you. \"It's haunted,\" he tells you again. \"That's why even the wild animals don't shelter by the door, despite the warmth.\"||Scowling at him for his timidity, you step inside. You are in a corridor lit by green lights in the ceiling. The walls and floor are black.||A metallic ringing noise comes out of the gloom. Your nerves are instantly on edge. Something is scuttling through the shadows at the far end of the corridor.">
+<CONSTANT CHOICES293 <LTABLE "fire at it" "retreat from here and return to town" "advance for a closer look">>
 
 <ROOM STORY293
 	(DESC "293")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT293)
+	(CHOICES CHOICES293)
+	(DESTINATIONS <LTABLE STORY373 STORY395 STORY416>)
+	(REQUIREMENTS <LTABLE SKILL-SHOOTING NONE NONE>)
+	(TYPES <LTABLE R-SKILL R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT294 "You stand outside the inn in the grey predawn, waiting for the Gargan twins. They join you as the sun exudes a wash of white gold in the eastern sky. Clouds seep across the heavens like clots of iron filings. The warmth of the geysers attracts swarms of tiny midges which dance in the air as fine as siftings of dust.||Gargan XIII comes over. \"We are ready to set out. You, like us, are bound for the Sahara?\" As she speaks, she absent-mindedly plucks a scatter of midges out of the air and rolls them to death between her palms.||There is no point in pretending. These two are sharp enough to guess the truth. \"We're all bound for Du-En, I believe. Presumably for the same purpose.\"||\"Our goals may not accord as closely as you imagine,\" says Gargan XIV as she joins you. \"Still, for the time being we are allies.\"||You set out. The way rises first into foothills, then through the brooding hulks of the Atlas Mountains. Long shoulders of rock lie bare to the sky. The sad carcass of old Earth is gaunt under its shroud of snow. Crags scrape up past you on all sides, stern and daunting, like pillars supporting a canopy of snow-dark cloud. As you walk, you ponder the uneasy alliance between yourself and the Gargan twins. They may be figuring that it is useful to have a third person in their party, since the Saharan Wastes are direly inhospitable. On the other hand, maybe they just intend to slay you when you are off guard.||Your suspicions are settled on the morning of the third day, when you wake to discover them gone -- along with most of your supplies. They have left only your money and clothing.">
+<CONSTANT TEXT294-FORAGE "It will be hard to forage in this desolate wilderness.">
 
 <ROOM STORY294
 	(DESC "294")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT294)
+	(PRECHOICE STORY294-PRECHOICE)
+	(CONTINUE STORY393)
+	(CODEWORD CODEWORD-SCYTHE)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY294-PRECHOICE ()
+	<RESET-POSSESSIONS>
+	<MOVE ,ALL-MONEY ,PLAYER>
+	<COND (<CHECK-SKILL ,SKILL-SURVIVAL>
+		<PREVENT-DEATH ,STORY294>
+	)(ELSE
+		<TEST-MORTALITY 1 ,DIED-OF-HUNGER ,STORY294>
+		<IF-ALIVE ,TEXT294-FORAGE>
+	)>>
+
+<CONSTANT TEXT295 "\"The goddess Gaia!\" you cry in a voice of rapture. \"Blessed is she, exalted above all others. Give praise to Gaia!\"||\"Praise be to Gaia!\" they reply like robots.||The priestess fixes you with a gimlet stare. \"What do you know of our goddess?\"||You return a beatific smile. \"She has given me a holy mission. That is why I have come to Kahira, and if she had not guided me on every step of the journey I would never have survived. It is a miracle indeed!\"||One of the others is indignant to hear you say this. \"Such lies!\" he fumes. \"It is blasphemy! You must be punished for your blasphemy, unbeliever --\"||He starts forward to kick you, but the priestess hold up her hand. She is watching you with a faraway look. \"No... I sense it is the truth.\"||You stifle a sigh or relief. Either it's your honest face, or she has some telepathic ability. You give them a broad grin. \"It's perfectly true. Leave me in peace, or Gaia will curse you. Better yet, give donations to help me in my holy cause.\"||With peevish ill-grace they hand over some cash, then shuffle off in search of someone else to victimize. At dawn you set off to the bazaar whistling a jaunty tune.">
 
 <ROOM STORY295
 	(DESC "295")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT295)
+	(PRECHOICE STORY295-PRECHOICE)
+	(CONTINUE STORY333)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY295-PRECHOICE ()
+	<GAIN-MONEY 10>>
+
+<CONSTANT TEXT296 "You round on him in shock. \"And the Earth will be left to die?\"||\"It is not our concern,\" he replies with a shrug. \"We are an independent state. The people of Earth must solve their own problems.\"||You give a hollow laugh. \"You are human! How can you abandon the planet that gave you life? Too look on uncaring as she expires under shrouds of ice is inexcusable. If there were a disaster which made al-Lat uninhabitable, would you go once the Earth is dead? Your indifference is short-sighted and stupid. You people are like survivors of a shipwreck, clinging to broken timbers in a stormy sea, gawping impassively while your ship sinks.\"||He thinks for a long moment, then slowly nods. \"Your arguments are passionate indeed.\" He goes off and returns with a metal box-shaped device the size of a book. \"This is my pet project. I call it Little Gaia. It is a miniature artificial brain programmed with Gaia's original personality, when she was still sane.\" He presses it into your hands. \"Take it. It is the only aid I can give you, except to  wish you luck. Now I must go to find Captain Baihaqi, who should be ready to take you home.">
+<CONSTANT CHOICES296 <LTABLE "use the computer to contact Gaia" "just wait until Riza al-Baihaqi comes for you">>
 
 <ROOM STORY296
 	(DESC "296")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT296)
+	(PRECHOICE STORY296-PRECHOICE)
+	(CHOICES CHOICES296)
+	(DESTINATIONS <LTABLE STORY360 STORY382>)
+	(TYPES TWO-NONES)
+	(ITEM LITTLE-GAIA)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY296-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-CYBERNETICS>
+		<SET-DESTINATION ,STORY296 1 ,STORY339>
+	)(ELSE
+		<SET-DESTINATION ,STORY296 1 ,STORY360>
+	)>>
+
+<CONSTANT TEXT297 "\"The Global Artificial Intelligence Project is conducted on the research level directly above,\" replies the voice. \"Current status: on hold. Please step onto the stratum disk.\"||In awe of the science that could build a device capable of answering with such intelligence, you do as you are told. The platform ascends to the next level.">
 
 <ROOM STORY297
 	(DESC "297")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT297)
+	(CONTINUE STORY276)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT298 "The next day, with snow glittering like diamond dust under pale gold sunshine, you see a shimmering haze in the middle distance. Approaching, at first you think the oasis ahead is a trick of your imagination. Dwarf conifers surround a steaming pool fringed with moss-covered rocks. Long-beaked birds peck at the ground for grubs. Then you catch a sulphuric tang on the air and realize that the warm updraught here must be rising from fissures deep underground. It feels as unreal as a dream when you pass between the foliage and settle yourself on a slab of rock, pulling off your clothing to enjoy your first experience of warmth in many days.">
+<CONSTANT CHOICES298 <LTABLE "rest here to recover your strength" "press on without delay">>
 
 <ROOM STORY298
 	(DESC "298")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT298)
+	(CHOICES CHOICES298)
+	(DESTINATIONS <LTABLE STORY405 STORY426>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT299 "Gaunt glances at your automaton bodyguard. \"Perhaps you're right,\" he says wistfully. Without another word, he turns and wanders back towards the camp, the xoms dutifully following like silent sleepwalkers.||You watch the constellations wheel imperceptibly overhead. Half an hour passes and you begin to notice the cold It is late. Trudging back to the main square, you see Golgoth checking his weaponry for tomorrow's adventure. Boche waves to you from beside the fire, where he has brewed up some tea.">
+<CONSTANT CHOICES299 <LTABLE "join Golgoth" "Boche" "just go off to bed">>
 
 <ROOM STORY299
 	(DESC "299")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT299)
+	(CHOICES CHOICES299)
+	(DESTINATIONS <LTABLE STORY126 STORY104 STORY192>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT300 "Vajra Singh stands like a demon in the snow, a great slab of a man with a darkly saturnine face and eyes like a lion's. His silver anti-laser armour gleams in the weak sunshine. He watches you all for a moment, scanning you as he might size up a pack of hyenas. Then he raises his huge hand-cannon and touches the fire button. The air is riven by a sound like a volcano erupting as a torrent of blistering white plasma streams from the cannon, juddering across the walls above the and scattering chunks of smouldering masonry far out into the square. Everyone dives for cover. Still unleashing the barrage of crackling energy, Vajra Singh turns and directs it at the foundations of a building across the square. The heavy stone walls burst apart, and slowly the whole facade collapses to leave only a burnt-out shell.||Vajra Singh touches a button on the side of the cannon and the blast cuts out. The roar dies to a low hum. You notice a small red light start to glow as the cannon powers down. \"That weapon is the mantramukta,\" Janus Gaunt whispers in your ear.||\"This squabbling must cease!\" snarls Vajra Singh as the others come out from hiding. \"We must work together in the short term or we stand little chance of penetrating as far as the Heart. Is that clear?\"||On the side of the mantramukta cannon, a green light winks on. Now you know that it takes a few seconds to rebuild its power after each blast. You see that Chaim Golgoth has noticed this too.||Seeing that the only reply is sullen silence, Vajra Singh goes on, \"Here in the main square we shall remain in a state of truce. While exploring beneath the ruins, this truce is not in force. Also, no underlings or servants are to be taken on expeditions. This is a contest to see which of us deserves the ultimate power, not who is able to hire the most bodyguards.\"||Janus Gaunt glances from face to face, then takes it on himself to answer. \"We agree to these terms.\"||With a swirl of his majestic robes, Vajra Singh turns and strides off to his tent, where his three servants stand waiting.">
 
 <ROOM STORY300
 	(DESC "300")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT300)
+	(PRECHOICE STORY300-PRECHOICE)
+	(CONTINUE STORY278)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY300-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-HOURGLASS>
+		<STORY-JUMP ,STORY235>
+	)(<OR <CHECK-VEHICLE ,MANTA-SKY-CAR> <CHECK-ITEM ,MEDICAL-KIT>>
+		<STORY-JUMP ,STORY257>
+	)>>
 
 <ROOM STORY301
 	(DESC "301")
