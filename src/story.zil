@@ -454,7 +454,7 @@
 						<TELL "You bought " T .VIRUS ,PERIOD-CR>
 						<PUTP .VIRUS ,P?PURCHASED T>
 						<COND (.JUMP
-							<STORY-JUMP .JUMP>
+							<STORY-JUMP <GETP .VIRUS ,P?STORY>>
 							<RETURN>
 						)>
 						<APPLY .ACTIVATE>
