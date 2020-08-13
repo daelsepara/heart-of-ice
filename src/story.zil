@@ -74,6 +74,8 @@
 	<PUTP ,STORY249 ,P?DEATH T>
 	<PUTP ,STORY260 ,P?DEATH T>
 	<PUTP ,STORY262 ,P?DEATH T>
+	<PUTP ,STORY273 ,P?DEATH T>
+	<PUTP ,STORY277 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -4060,107 +4062,89 @@
 	<TELL ,TEXT274>
 	<TELL ,PERIOD-CR>>
 
+<CONSTANT TEXT275 "Riza conducts you along a passage which leads out into what seems at first like open air. Seeing you look around in amazement, he laughs and points across a lawn towards a group of buildings. You now see that the horizon seems to rise upwards and the further you look, curving over into the sky until it is lost behind a haze of light directly overhead. To either side of you, only a few hundred metres away, unimaginably vast slabs of cliff reach off into the sky.||\"Did you expect a cramped space-station in the ancient style?\" says Riza. \"We have enlarged al-Lat over the centuries until it is what you see today: a cylinder some two kilometres wide and half a kilometre long. Rotation provides us with gravity, the sun's rays with light and heat.\"||You have to admit that it is more comfortable than Earth is these days. Riza takes you to his flyer, and soon you are dropping towards Earth's atmosphere. You descend just ahead of the dawn, touching down on the shore of the Sea of Reeds at a fishing village called Sudan. You bid Riza farewell and stand watching as the flyer climbs back up into the early morning sky.">
+<CONSTANT CHOICES275 <LTABLE "do some shopping" "set out for Du-En without delay">>
+
 <ROOM STORY275
 	(DESC "275")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT275)
+	(CHOICES CHOICES275)
+	(DESTINATIONS <LTABLE STORY101 STORY234>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT276 "The hovering platform conveys you to a circular landing marked \"Research Level.\" You step off and conduct a quick exploration of the rooms on this floor. In a long hall you find lockers containing cold-weather clothing, food packs and medical kits -- many more than any one person would ever need. You rip open one of the food packs. The contents are still fresh.">
 
 <ROOM STORY276
 	(DESC "276")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT276)
+	(PRECHOICE STORY276-PRECHOICE)
+	(CONTINUE STORY036)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY276-PRECHOICE ()
+	<TAKE-FOOD-PACKS 8>
+	<SELECT-FROM-LIST <LTABLE COLD-WEATHER-SUIT MEDICAL-KIT> 2 2>
+	<COND (<CHECK-ITEM ,LITTLE-GAIA> <STORY-JUMP ,STORY014>)>>
+
+<CONSTANT TEXT277 "The bometh sits like a sphinx atop the rise, head lifted to the star-filled sky. Wisps of breath escape its nostrils. It seems oblivious of your approach as you slowly work your way around and then stalk closer from downwind. But as you close the last few metres and leap from hiding, it rises with a languid growl and turns into long scything fangs to slash at you. Only now, as it rears to grapple, do you get a sense of the bometh's size and power. It is enough to make your knees go weak. The beast must weigh half a tonne!||The battle is ferocious and bloody.">
+<CONSTANT TEXT277-END "You did not stand a chance: the bometh sinks its teeth deep into your chest and proceeds to rip out your lungs">
 
 <ROOM STORY277
 	(DESC "277")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT277)
+	(PRECHOICE STORY277-PRECHOICE)
+	(CONTINUE STORY341)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY277-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-CLOSE-COMBAT>
+		<TEST-MORTALITY 5 ,DIED-IN-COMBAT ,STORY277 ,SKILL-CLOSE-COMBAT>
+		<COND (<IS-ALIVE> <RETURN>)>
+	)>
+	<CRLF>
+	<TELL ,TEXT277-END>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT278 "The sun lurches into view above the city walls -- a disk as pale as watered milk. Out in the main square, the others are preparing to set off into the ruins. You see Golgoth clipping on his weapon-belt as he chats to the Gargan sisters, Apparently they have agreed to explore as a team. Surprisingly, Gaunt and Thadra Bey have also formed a group. Baron Siriasis and Vajra Singh both opt to search for the Heart alone.||Vajra Singh oversees the drawing of lots. \"We shall set off into the ruins at fifteen-minute intervals determined by the lots,\" he tells others. \"You can explore individually or in groups, as you prefer. Remember that the truce applies only here in the open. If groups encounter each other while in the catacombs below the city, they must negotiate or else do battle.\"">
+<CONSTANT CHOICES278 <LTABLE "descend into the catacombs" "rest for a day">>
 
 <ROOM STORY278
 	(DESC "278")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT278)
+	(CHOICES CHOICES278)
+	(DESTINATIONS <LTABLE STORY385 STORY363>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT279 "\"You don't have what it takes, Gaunt,\" you as you gaze up at the constellations. \"You're too reflective, too prone to see all sides of an issue. You lack that heart of ice that makes a ruthless man successful.\"">
 
 <ROOM STORY279
 	(DESC "279")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT279)
+	(PRECHOICE STORY279-PRECHOICE)
+	(CONTINUE STORY321)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY279-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-ENKIDU> <STORY-JUMP ,STORY299>)>>
+
+<CONSTANT TEXT280 "The elevator door slides open. You are confronted by one of the hover-droids, which immediately open fire. Although you twist to one side, the blast rips through your arm, burning you to the bone.">
+<CONSTANT TEXT280-CONTINUED "You stab desperately at the button. As the door closes, you see Thadra Bey die in a hail of laser-blasts. If you cannot figure out the answers that the computer wants to hear, you will be next.">
 
 <ROOM STORY280
 	(DESC "280")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT280)
+	(PRECHOICE STORY280-PRECHOICE)
+	(CONTINUE STORY301)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY280-PRECHOICE ("AUX" (DAMAGE 6))
+	<COND (<CHECK-ITEM ,SPECULUM-JACKET> <SET DAMAGE 4>)>
+	<TEST-MORTALITY .DAMAGE ,DIED-FROM-INJURIES ,STORY280>
+	<IF-ALIVE ,TEXT280-CONTINUED>>
 
 <ROOM STORY281
 	(DESC "281")
