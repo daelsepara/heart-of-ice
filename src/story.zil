@@ -322,6 +322,13 @@
 	)>
 	<RETURN .RETURN-VALUE>>
 
+<ROUTINE HAS-FOOD ("AUX" (QUANTITY 0))
+	<COND (<CHECK-ITEM ,FOOD-PACK>
+		<SET QUANTITY <GETP ,FOOD-PACK ,P?QUANTITY>>
+		<COND (<G? .QUANTITY 0> <RTRUE>)>
+	)>
+	<RFALSE>>
+
 <ROUTINE TAKE-QUANTITIES (OBJECT PLURAL MESSAGE "OPT" AMOUNT)
 	<CRLF>
 	<TELL "Take the " .PLURAL "?">
@@ -3948,73 +3955,108 @@
 <ROUTINE STORY270-PRECHOICE ()
 	<COND (<CHECK-ITEM ,SHORTSWORD> <STORY-JUMP ,STORY291>)>>
 
+<CONSTANT TEXT271 "A man emerges from a low building and stands in a wary posture as he watches you approach. He licks his lips nervously and shifts his grip on the shovel he is holding, but your impression is that he is nervous rather than hostile. When you smile and hold out your hand, he relaxes with a shrug and tosses the shovel aside, introducing himself as Portrin Fax. He is a loose-limbed fellow, slender as a starved mantis, with fretfully pursed lips and wet blinking eyes.||His dwelling is paved with umber and grey tiles and show signs of having once been a transit terminal of some kind. The air is cool. Panels along the side wall shed a brisk white light. The only items of furniture are rickety frameworks of wood with ragged furs stretched over them. Fax waves you to what he describes as a chair and pours drinks. You take the mug he offers, wincing at the powerful fumes. \"My own liquor,\" he explains. \"I brew it by mixing herbs into a tank of cleaning fluid.\"||You pour the drink away when he isn't looking. \"You live alone here?\"||He sits, folds his arms, only to leap up and stride around the room. Company clearly makes him nervous. \"A hermit, that's old Fax,\" he says. \"In the outside world I was a misfit, but here I live like the Sun King. The city has generators which supply light and keep the air cooled.\" He giggles. \"Who would dream, in this time of the fimbulwinter, that a man might wish for a cool breath of air? But here in Lyonesse it is necessary.\"">
+
 <ROOM STORY271
 	(DESC "271")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT271)
+	(PRECHOICE STORY271-PRECHOICE)
+	(CONTINUE STORY356)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY271-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-LORE> <STORY-JUMP ,STORY313>)>>
+
+<CONSTANT TEXT272 "You are held at gunpoint while your arms are wrenched behind your back and securely tied. You test the bonds, but these are men who have learned not to be careless. One of them rummages through your belongings, then jerks his thumb contemptuously towards you. \"Are we keeping an extra mouth to feed, then, Snarvo?\"||The man with the knife sneers. \"Not unless you want yourself a pet, mate.\"||\"Just get on with it, Snarvo,\" mutters the third man, tucking the gun back into his belt. \"And don't get blood on the rug.\"||Snarvo steps forward, an unpleasant grin creasing his weather-hardened features, and his knife brings your life to a sticky end.">
 
 <ROOM STORY272
 	(DESC "272")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT272)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT273 "The sun shows itself as a golden blur in the east, smoky and cheerless under an overhang of sullen cloud. The air grows colder as you walk, the warm geysers of the pass soon lost to view in the overcast.||The way rises into foothills, then the brooding hulks of the Atlas Mountains. Long shoulders of rock lie bare to the sky: the carcass of old Earth, gaunt under its pall of snow. Crags scrape up past you on all sides, stern and daunting, like pillars supporting a canopy of snow-bloated clouds.||A frosty halitus hangs over the high hills. You find the landscape both magnificent and dispiriting and are glad when, after another two days, you begin to descend towards a broad windswept plain.">
+<CONSTANT TEXT273-RODENTS "You manage to locate a few rodents in their burrows; once wind-dried, the meat is hard but acceptable">
+<CONSTANT TEXT273-CONTINUED "The only other people you spy are a group of Hamadan ascetics on their shaggy camels. They pay no attention to you, as their creed insists that they disdain all outsiders.||Adjusting their white-and-tan turbans with cold contempt, they go bounding off across the lone and level snows.">
 
 <ROOM STORY273
 	(DESC "273")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT273)
+	(PRECHOICE STORY273-PRECHOICE)
+	(CONTINUE STORY393)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY273-PRECHOICE ()
+	<COND (<OR <CHECK-SKILL ,SKILL-SURVIVAL> <HAS-FOOD>>
+		<PREVENT-DEATH ,STORY273>
+		<COND (<CHECK-SKILL ,SKILL-SURVIVAL>
+			<CRLF>
+			<TELL ,TEXT273-RODENTS>
+			<TELL ,PERIOD-CR>
+		)(ELSE
+			<CONSUME-FOOD 1>
+		)>
+	)(ELSE
+		<TEST-MORTALITY 1 ,DIED-OF-HUNGER ,STORY273>
+	)>
+	<IF-ALIVE ,TEXT273-CONTINUED>>
+
+<CONSTANT TEXT274 "With broad witless smiles, the priestess and her followers accept your donation. \"Thank you pilgrim,\" says the priestess. \"The goddess will watch over you.\"||\"May she bring you as much good fortune as I believe you deserve,\" you reply ambiguously. \"Now, if you'll excuse me, I'd like to get some sleep.\"||You settle down among the litter, finding sleep hard to come by now that you are seething with fury at having been robbed. As daylight begins to show as a pearly gleam beyond the city spires, you rouse yourself and head towards the bazaar">
 
 <ROOM STORY274
 	(DESC "274")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(PRECHOICE STORY274-PRECHOICE)
+	(CONTINUE STORY333)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY274-PRECHOICE ("AUX" ITEM ITEMS (TO-DONATE 0) (COUNT 2) (QUANTITY 0) (DONATED 0) (RESULT -1) (GIVE-LIST NONE))
+	<SET GIVE-LIST <LTABLE NONE NONE NONE NONE NONE NONE NONE NONE>>
+	<SET ITEMS <COUNT-POSSESSIONS>>
+	<COND (<OR <G? ,MONEY 0> <G? .ITEMS 1>>
+		<COND (<G? ,MONEY 0>
+			<CHARGE-MONEY ,MONEY>
+		)(ELSE
+			<EMPHASIZE "You must donate 2 of your possessions!">
+			<COND (<HAS-FOOD>
+				<SET QUANTITY <GETP ,FOOD-PACK ,P?QUANTITY>>
+				<COND (<G? .QUANTITY 2> <SET QUANTITY 2>)>
+				<SET DONATED <GET-NUMBER "Donate food packs?" 0 .QUANTITY>>
+				<PUTP ,FOOD-PACK ,P?QUANTITY <- <GETP ,FOOD-PACK ,P?QUANTITY> .DONATED>>
+				<SET COUNT <- .COUNT .DONATED>>
+			)>
+			<COND (<G? .COUNT 0>
+				<RESET-GIVEBAG>
+				<DO (I 1 .ITEMS)
+					<SET ITEM <GET-ITEM .I>>
+					<COND (<AND .ITEM <N=? .ITEM ,FOOD-PACK>>
+						<SET TO-DONATE <+ .TO-DONATE 1>>
+						<PUT .GIVE-LIST .TO-DONATE .ITEM>
+					)>
+				>
+				<COND (<G? .TO-DONATE 1>
+					<PUT .GIVE-LIST 0 .TO-DONATE>
+					<REPEAT ()
+						<TRANSFER-CONTAINER ,GIVEBAG ,PLAYER>
+						<RESET-GIVEBAG>
+						<SET RESULT <GIVE-FROM-LIST .GIVE-LIST ,UNABLE-TO-PART ,UNWILLING-TO-PART .COUNT>>
+						<COND (<EQUAL? .RESULT ,GIVE-GIVEN>
+							<RETURN>
+						)(ELSE
+							<EMPHASIZE "But they insist!">
+						)>
+					>
+				)(<EQUAL? .TO-DONATE 1>
+					<LOSE-ITEM <GET .GIVE-LIST 1>>
+				)(<HAS-FOOD>
+					<DO (I 1 .COUNT) <LOSE-ITEM ,FOOD-PACK>>
+				)>
+			)>
+		)>
+	)>
+	<CRLF>
+	<TELL ,TEXT274>
+	<TELL ,PERIOD-CR>>
 
 <ROOM STORY275
 	(DESC "275")
