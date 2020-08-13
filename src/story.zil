@@ -80,6 +80,8 @@
 	<PUTP ,STORY280 ,P?DEATH T>
 	<PUTP ,STORY285 ,P?DEATH T>
 	<PUTP ,STORY294 ,P?DEATH T>
+	<PUTP ,STORY305 ,P?DEATH T>
+	<PUTP ,STORY310 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -91,6 +93,8 @@
 
 <CONSTANT CHARGE-BARYSAL-KEY !\b>
 <CONSTANT CHARGE-BARYSAL-KEY-CAPS !\B>
+
+<CONSTANT MAX-BARYSAL 6>
 
 <GLOBAL PRACTICED-SHORTSWORD F>
 
@@ -178,16 +182,8 @@
 		<PUTP .STORY ,P?DEATH F>
 	)>>
 
-<ROUTINE FIRE-BARYSAL ("OPT" AMOUNT "AUX" (CHARGES 0))
-	<COND (<NOT .AMOUNT> <SET AMOUNT 1>)>
-	<SET CHARGES <GETP ,BARYSAL-GUN ,P?CHARGES>>
-	<COND (<G? .CHARGES 0>
-		<SET CHARGES <- .CHARGES .AMOUNT>>
-		<COND (<L? .CHARGES 1> <SET CHARGES 0>)>
-		<PUTP ,BARYSAL-GUN ,P?CHARGES .CHARGES>
-	)>>
-
-<CONSTANT MAX-BARYSAL 6>
+<ROUTINE FIRE-BARYSAL ("OPT" AMOUNT)
+	<DISCHARGE-ITEM ,BARYSAL-GUN .AMOUNT>>
 
 <ROUTINE CHARGE-BARYSAL ("OPT" AMOUNT "AUX" CHARGES)
 	<COND (<NOT .AMOUNT> <SET AMOUNT 1>)>
@@ -4485,175 +4481,127 @@
 		<STORY-JUMP ,STORY257>
 	)>>
 
+<CONSTANT TEXT301 "\"What is the Truth?\" asks the computer enigmatically.">
+
 <ROOM STORY301
 	(DESC "301")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT301)
+	(PRECHOICE STORY301-PRECHOICE)
+	(CONTINUE STORY061)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY301-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-LUNAR> <STORY-JUMP ,STORY322>)>>
+
+<CONSTANT TEXT302 "You hear a scuttling of many insectoid legs and the a giant black centipede bursts from the cloisters, mandibles churning like oiled blades. It was expecting you to stand helpless as it attacked, but you surprise it by evading its charge and racing off along the gallery, dragging Boche behind you. The baron is guided by his psychic senses, but you see it bite a bloody swathe in his flesh before he breaks away. The three of you hurtle through the iron-bound door, slamming it behind you. A moment later the monster slams against the door, buckling it inwards on its hinges, but the bolt holds.||\"That was a close call,\" breathes Boche, wiping a trickle of cold sweat out of his eyes.">
 
 <ROOM STORY302
 	(DESC "302")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT302)
+	(CONTINUE STORY281)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT303 "Vajra Singh stabs at the trigger of his cannot and swings it round towards Golgoth. But the USI agent is not taken by surprise. He grabs Boche and throws him forward to take the brunt of the blast. Boche dies instantly, and at the same moment Golgoth drops a canister that releases a thick cloud of white smoke.||Singh looms like a ghost in the spreading cloud. Holding the cannon ready, he peers through the smoke for any sign of movement. You've lost sight of Golgoth.">
+<CONSTANT CHOICES303 <LTABLE "attack Singh with a barysal gun" "or" "or move in closer to give him back/up" "step away and wait to see what happens">>
 
 <ROOM STORY303
 	(DESC "303")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT303)
+	(CHOICES CHOICES303)
+	(DESTINATIONS <LTABLE STORY020 STORY020 STORY042 STORY262>)
+	(REQUIREMENTS <LTABLE BARYSAL-GUN STUN-GRENADE NONE NONE>)
+	(TYPES <LTABLE R-DISCHARGE R-LOSE-ITEM R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT304 "Golgoth has no time to reload the crossbow. Drawing a knife, he charges forward, but he is to late to stop you from firing. The shot catches him in the chest and he falls dead at your feet.">
 
 <ROOM STORY304
 	(DESC "304")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT304)
+	(PRECHOICE STORY304-PRECHOICE)
+	(CONTINUE STORY072)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY304-PRECHOICE ()
+	<FIRE-BARYSAL 1>>
+
+<CONSTANT TEXT305 "Vajra Singh is a Sikh warlord, and a man of unyielding honour. Since you have no gun, he does not deign to use his own, but instead leaps forward to settle the matter with his bare hands. You see at once that he is a powerful fighter. His punch chops through the air, and even though you manage to twist aside you can almost feel the shockwave. A single blow from such a warrior could smash through stone.||You skip back on the balls of your feet, trying to make best use of your speed against his naked strength. A punch hammers into your stomach, and Singh follows it up with a great leonine roar as his foot crunches against your breastbone. You feel ribs crack, but you dive in with a gasp and launch a rapid series of strikes at his face.">
+<CONSTANT TEXT305-CONTINUED "You finally manage to defeat this titanic foe.">
 
 <ROOM STORY305
 	(DESC "305")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT305)
+	(PRECHOICE STORY305-PRECHOICE)
+	(CONTINUE STORY415)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY305-PRECHOICE ("AUX" (DAMAGE 9))
+	<COND (<CHECK-SKILL ,SKILL-CLOSE-COMBAT> <SET DAMAGE 5>)>
+	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY305 ,SKILL-CLOSE-COMBAT>
+	<IF-ALIVE ,TEXT305-CONTINUED>>
+
+<CONSTANT TEXT306 "Boche shudders as he looks along the row of dead white faces. There are at least ten corpses here in the pass, some on this ledge and others are perched further along among the rocks. \"The must have climbed up onto the ledge to get away from wolves,\" says Boche.||He's wrong. There are no wolves up here in the mountains. And these people were not cowering from predators when they died. In every case they are frozen in postures that suggest curiosity: poised peering out from the ledge, lines of amazement stamped on their faces, icicles across their wide eyes. Death did not surround them with shivering jaws, but stole up softly like a thief in the night.||The sky is fading from grey to black. If you press on now, you will have to spend the night in open country, unprotected from the bitter wind.">
+<CONSTANT CHOICES306 <LTABLE "do that" "shelter he in the pass">>
 
 <ROOM STORY306
 	(DESC "306")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT306)
+	(CHOICES CHOICES306)
+	(DESTINATIONS <LTABLE STORY285 STORY349>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT307 "You give Thadra Bey a contact who should be able to put her in touch with Malengin. \"This will save me considerable effort,\" she murmurs, glancing at the name and address you have written out for her. As she carefully burns the paper over a candle flame, she adds: \"On al-Lat we adhere to a principle of equity in business. I must pay you for this information.\"||You wave your hand expansively. \"It's not necessary.\"||\"But it is.\" She speaks firmly. \"I do not wish to be in your debt.\" She gives you a packet of antidote pills. \"We take these while on Earth to protect us from the toxins in the air. They are effective against most diseases and poisons. Keep them. I have more in my room.\"||She gets up and sweeps out of the bar.">
 
 <ROOM STORY307
 	(DESC "307")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT307)
+	(CONTINUE STORY329)
+	(ITEM ANTIDOTE-PILLS)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT308 "This retrovirus toughens your skin so that you gain 5 Life points -- even above your initial score. However, there is a drawback: it also slows your reflexes so that you must lose the AGILITY skill if you have it.">
 
 <ROOM STORY308
 	(DESC "308")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT308)
+	(PRECHOICE EXALTED-ENHANCER-F)
+	(CONTINUE STORY434)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT309 "You get talking to members of the relief crew who are waiting on the quayside for the ferry to arrive. After a brief discussion of general matters, you turn the conversation onto the specifics of your profession. \"I hear that the ferry is a Bauer Turbo-400 hovercraft,\" you say. \"Such a machine handles well, particularly in the turbulent waters around the Isis Delta, but you must take care to power down slowly and maintain it at a reasonable temperature. Cooling too quickly risks damage to the skirt and can cause cracks in the jet housings.\"||\"You are a pilot or shipmaster?\" asks a thin-whiskered man who introduces himself as the captain.||\"I have often navigated the Inland Sea -- usually skirting the coast in a mud-skimmer to avoid pirates, though I have handled a Bauer once or twice.\"||The captain points the stem of his pipe at you and nods thoughtfully. \"How would you be fixed for a trip to Kahira?\"||\"As it happens, that is precisely where I wish to go,\" you say, shouldering your pack.||\"Well, if you're not afraid of hard work then I think I can find a job for you aboard.\"||He goes on to discuss the details of employment. In addition to earning your passage to Kahira, you will be paid a further twenty scads.">
 
 <ROOM STORY309
 	(DESC "309")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT309)
+	(PRECHOICE STORY309-PRECHOICE)
+	(CONTINUE STORY246)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY309-PRECHOICE ()
+	<GAIN-MONEY 20>>
+
+<CONSTANT TEXT310 "Sheltered from the freezing blast of the night wind by the craggy walls of the pass, you huddle down and snatch a few hours of fitful sleep. In this you take turns, one of you trudging up and down to stay warm while the other dozes. Even your best efforts cannot keep the deathly chill out of your bones.">
+<CONSTANT TEXT310-CONTINUED "Morning pushes crooked fingers of wan silver light through the thick clouds. Rising and rubbing the circulation back into your weary limbs, you gather your things together and set off towards Venis.">
 
 <ROOM STORY310
 	(DESC "310")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
+	(STORY TEXT310)
+	(PRECHOICE STORY310-PRECHOICE)
+	(CONTINUE STORY199)
+	(DEATH T)
 	(VICTORY F)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY310-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-SURVIVAL>
+		<EMPHASIZE ,NATURAL-HARDINESS>
+		<PREVENT-DEATH ,STORY310>
+	)(ELSE
+		<TEST-MORTALITY 1 ,DIED-FROM-COLD ,STORY310>
+	)>
+	<IF-ALIVE ,TEXT310-CONTINUED>>
 
 <ROOM STORY311
 	(DESC "311")
