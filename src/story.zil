@@ -76,6 +76,8 @@
 	<PUTP ,STORY262 ,P?DEATH T>
 	<PUTP ,STORY273 ,P?DEATH T>
 	<PUTP ,STORY277 ,P?DEATH T>
+	<PUTP ,STORY280 ,P?DEATH T>
+	<PUTP ,STORY285 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -166,7 +168,7 @@
 			,PRACTICED-SHORTSWORD 
 		>
 		<EMPHASIZE "The shortsword prevented 1 damage">
-		<SET DAMAGE <- .DAMAGE 1>>
+		<DEC .DAMAGE>
 	)>
 	<COND (<G? .DAMAGE 0>
 		<LOSE-LIFE .DAMAGE .MESSAGE .STORY>
@@ -387,15 +389,15 @@
 	<PUTP ,MASK-OF-OCCULTATION ,P?PURCHASED F>
 	<PUTP ,PEERLESS-PERCEPTIVATE ,P?PURCHASED F>>
 
-<ROUTINE MALENGIN-BUSINESS ("AUX" KEY ITEMS ITEM VIRUS PRICE ACTIVATE)
+<ROUTINE MALENGIN-BUSINESS ("OPT" (JUMP F) "AUX" KEY ITEMS ITEM VIRUS PRICE ACTIVATE)
 	<RESET-CONTAINER ,LOST-SKILLS>
 	<REPEAT ()
 		<RESET-TEMP-LIST>
 		<SET ITEMS 0>
-		<COND (<NOT <GETP ,VIRID-MYSTERY ,P?PURCHASED>> <SET ITEMS <+ .ITEMS 1>> <PUT ,TEMP-LIST .ITEMS ,VIRID-MYSTERY>)>
-		<COND (<NOT <GETP ,EXALTED-ENHANCER ,P?PURCHASED>> <SET ITEMS <+ .ITEMS 1>> <PUT ,TEMP-LIST .ITEMS ,EXALTED-ENHANCER>)>
-		<COND (<NOT <GETP ,MASK-OF-OCCULTATION ,P?PURCHASED>> <SET ITEMS <+ .ITEMS 1>> <PUT ,TEMP-LIST .ITEMS ,MASK-OF-OCCULTATION>)>
-		<COND (<NOT <GETP ,PEERLESS-PERCEPTIVATE ,P?PURCHASED>> <SET ITEMS <+ .ITEMS 1>> <PUT ,TEMP-LIST .ITEMS ,PEERLESS-PERCEPTIVATE>)>
+		<COND (<NOT <GETP ,VIRID-MYSTERY ,P?PURCHASED>> <INC .ITEMS> <PUT ,TEMP-LIST .ITEMS ,VIRID-MYSTERY>)>
+		<COND (<NOT <GETP ,EXALTED-ENHANCER ,P?PURCHASED>> <INC .ITEMS> <PUT ,TEMP-LIST .ITEMS ,EXALTED-ENHANCER>)>
+		<COND (<NOT <GETP ,MASK-OF-OCCULTATION ,P?PURCHASED>> <INC .ITEMS> <PUT ,TEMP-LIST .ITEMS ,MASK-OF-OCCULTATION>)>
+		<COND (<NOT <GETP ,PEERLESS-PERCEPTIVATE ,P?PURCHASED>> <INC .ITEMS> <PUT ,TEMP-LIST .ITEMS ,PEERLESS-PERCEPTIVATE>)>
 		<COND (<AND <G? .ITEMS 0> <G? ,MONEY 3>>
 			<CRLF>
 			<HLIGHT ,H-BOLD>
@@ -426,7 +428,7 @@
 				<COND (
 					<OR
 						<AND <G=? .KEY !\1> <L=? .KEY !\9> <L=? <- .KEY !\0> .ITEMS>>
-						<AND ,CHARACTERS-ENABLED <OR <EQUAL? .KEY !\c !\C> <EQUAL? .KEY !\i !\I>>>
+						<AND ,CHARACTERS-ENABLED <EQUAL? .KEY !\c !\C>>
 						<EQUAL? .KEY !\G !\g !\h !\H !\? !\0>
 					>
 					<RETURN>
@@ -451,6 +453,10 @@
 						<SETG MONEY <- ,MONEY .PRICE>>
 						<TELL "You bought " T .VIRUS ,PERIOD-CR>
 						<PUTP .VIRUS ,P?PURCHASED T>
+						<COND (.JUMP
+							<STORY-JUMP .JUMP>
+							<RETURN>
+						)>
 						<APPLY .ACTIVATE>
 						<PRESS-A-KEY>
 					)>
@@ -671,7 +677,7 @@
 
 <ROUTINE STORY013-PRECHOICE ("AUX" (HAS-BURREK F) (DAMAGE 3))
 	<COND (<CHECK-ITEM ,BURREK> <SET DAMAGE 2> <SET HAS-BURREK T>)>
-	<COND (<AND <NOT <CHECK-ITEM ,FUR-COAT>> <NOT <CHECK-ITEM ,COLD-WEATHER-SUIT>>> <SET DAMAGE <+ .DAMAGE 1>>)>
+	<COND (<AND <NOT <CHECK-ITEM ,FUR-COAT>> <NOT <CHECK-ITEM ,COLD-WEATHER-SUIT>>> <INC .DAMAGE>)>
 	<TEST-MORTALITY .DAMAGE ,DIED-FROM-COLD ,STORY013>
 	<COND (<IS-ALIVE>
 		<CRLF>
@@ -1196,7 +1202,7 @@
 
 <ROUTINE STORY056-PRECHOICE ("AUX" (SURVIVOR F) (BURREK F) (DAMAGE 4))
 	<COND (<CHECK-SKILL ,SKILL-SURVIVAL> <SET DAMAGE 2> <SET SURVIVOR T>)>
-	<COND (<CHECK-ITEM ,BURREK> <SET DAMAGE <- .DAMAGE 1>> <SET BURREK T>)>
+	<COND (<CHECK-ITEM ,BURREK> <DEC .DAMAGE> <SET BURREK T>)>
 	<TEST-MORTALITY .DAMAGE ,DIED-GREW-WEAKER ,STORY056>
 	<COND (<IS-ALIVE>
 		<COND (.SURVIVOR
@@ -2847,7 +2853,7 @@
 			)>
 			<PUTP ,BATTERY-UNIT ,P?CHARGES .CHARGES>
 		)>
-		<SET COUNT <- .COUNT 1>>
+		<DEC .COUNT>
 	)>
 	<SELECT-FROM-LIST <LTABLE ID-CARD FLASHLIGHT POLARIZED-GOGGLES> 3 .COUNT>
 	<CRLF>
@@ -3036,10 +3042,10 @@
 	<COND (<CHECK-VEHICLE ,MANTA-SKY-CAR>
 		<SET LIFE 2>
 	)(ELSE
-		<COND (<CONSUME-FOOD 1> <SET LIFE <+ .LIFE 1>>)>
-		<COND (<CHECK-ITEM ,MEDICAL-KIT> <SET LIFE <+ .LIFE 1>>)>
+		<COND (<CONSUME-FOOD 1> <INC .LIFE>)>
+		<COND (<CHECK-ITEM ,MEDICAL-KIT> <INC .LIFE>)>
 	)>
-	<COND (<CHECK-CODEWORD ,CODEWORD-HOURGLASS> <SET LIFE <- .LIFE 1>>)>
+	<COND (<CHECK-CODEWORD ,CODEWORD-HOURGLASS> <INC .LIFE>)>
 	<COND (<G=? .LIFE 0>
 		<GAIN-LIFE .LIFE>
 		<PREVENT-DEATH ,STORY192>
@@ -3776,7 +3782,7 @@
 	(TYPES FOUR-NONES)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT256 "A hunter who makes a habit of tangling with bomeths will not live very long. Instead of grand heroics, you decide to track the beast to its lair. Crouching motionless until the moon rises, you see the bometh rouse itself and go loping away across the undulating hillocks of snow. You follow until you see it disappear into a snowdrift, whereupon you drop low and compose yourself for a long wait. Two or three hours go by. At last it emerges from the lair, sniffs the wind, and lumbers off in search of prey.|\Once it is out of sight, you scramble over the snowdrift, pushing along a tunnel into a hollowed-out cavity where there are three small bomeths on a nest of moulted fur. Ignoring them, you turn your attention to the closely packed walls of the lair: the bometh's larder, where the beast has stored remains of previous kills. You dig out the carcass of a large fowl, which the icy cold has preserved well. Wrapping the flesh carefully, you make two food packs.">
+<CONSTANT TEXT256 "A hunter who makes a habit of tangling with bomeths will not live very long. Instead of grand heroics, you decide to track the beast to its lair. Crouching motionless until the moon rises, you see the bometh rouse itself and go loping away across the undulating hillocks of snow. You follow until you see it disappear into a snowdrift, whereupon you drop low and compose yourself for a long wait. Two or three hours go by. At last it emerges from the lair, sniffs the wind, and lumbers off in search of prey.||Once it is out of sight, you scramble over the snowdrift, pushing along a tunnel into a hollowed-out cavity where there are three small bomeths on a nest of moulted fur. Ignoring them, you turn your attention to the closely packed walls of the lair: the bometh's larder, where the beast has stored remains of previous kills. You dig out the carcass of a large fowl, which the icy cold has preserved well. Wrapping the flesh carefully, you make two food packs.">
 <CONSTANT TEXT256-CONTINUED "One of the young bomeths nips at your ankle. The teeth do not penetrate your boot, but it is a timely reminder that the parent might return any time. You squirm back to the open and hurry away">
 
 <ROOM STORY256
@@ -3844,7 +3850,7 @@
 
 <ROUTINE STORY260-PRECHOICE ("AUX" (DAMAGE 6))
 	<COND (<CHECK-SKILL ,SKILL-CLOSE-COMBAT> <SET DAMAGE 4>)>
-	<COND (<CHECK-CODEWORD ,CODEWORD-TALOS> <SET DAMAGE <- .DAMAGE 1>>)>
+	<COND (<CHECK-CODEWORD ,CODEWORD-TALOS> <DEC .DAMAGE>)>
 	<TEST-MORTALITY .DAMAGE ,DIED-FROM-INJURIES ,STORY260 ,SKILL-CLOSE-COMBAT>
 	<IF-ALIVE ,TEXT260-CONTINUED>>
 
@@ -4034,7 +4040,7 @@
 				<DO (I 1 .ITEMS)
 					<SET ITEM <GET-ITEM .I>>
 					<COND (<AND .ITEM <N=? .ITEM ,FOOD-PACK>>
-						<SET TO-DONATE <+ .TO-DONATE 1>>
+						<INC .TO-DONATE>
 						<PUT .GIVE-LIST .TO-DONATE .ITEM>
 					)>
 				>
@@ -4146,174 +4152,203 @@
 	<TEST-MORTALITY .DAMAGE ,DIED-FROM-INJURIES ,STORY280>
 	<IF-ALIVE ,TEXT280-CONTINUED>>
 
+<CONSTANT TEXT281 "You enter a lofty room plunged in gloom. Boche flicks his torchlight around and it falls on a curious sight. The light seems to spill slowly, like a puddle of oil, through a zone several metres across. In the the middle stands a man in old-fashioned military dress. Beside him on the floor lies a metal globe about the size of an egg, covered with glowing studs.||\"It is a stasis bomb, I believe,\" announces the baron in his stern clipped tones. \"Watch.\"||He glides off, skirting the zone where the torch beam slowed down. You see him drifting around the far perimeter. But then suddenly he comes back into view around the edge of the zone, even though you can still see his image moving beyond it.||\"The stasis bomb slows down time in a two-mere radius,\" explains the baron. \"Like takes several seconds to cross the zone, which is why you can still see my image floating on the other side.\"||As you watch, the image moves around the zone, disappearing like a ghost as it reaches the edge. \"How long has that man been frozen there?\" wonders Boche.||\"Probably since the fall of Du-En. Almost two hundred years. That period will have seemed to him like only a few seconds.\"">
+<CONSTANT CHOICES281 <LTABLE "try to free the man using either a charged" "or psionic focus" "leave him frozen and continue on your way">>
+
 <ROOM STORY281
 	(DESC "281")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT281)
+	(PRECHOICE STORY281-PRECHOICE)
+	(CHOICES CHOICES281)
+	(DESTINATIONS <LTABLE STORY345 STORY366 STORY388>)
+	(REQUIREMENTS <LTABLE BARYSAL-GUN SKILL-PARADOXING NONE>)
+	(TYPES <LTABLE R-ITEM R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY281-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-LORE> <STORY-JUMP ,STORY323>)>>
+
+<CONSTANT TEXT282 "You take a step back and shoot again as the baron's brain swoops closer. This time you use your own psionic power to break through the force field. The blast strikes the brain dead centre. There is a horrible psychic shriek as it falls to the floor and shrivels. You press your hands to your ears, but you cannot shut out those death-cries -- cries that will haunt your dreams forevermore.">
 
 <ROOM STORY282
 	(DESC "282")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT282)
+	(PRECHOICE STORY282-PRECHOICE)
+	(CONTINUE STORY261)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY282-PRECHOICE ()
+	<FIRE-BARYSAL 1>>
+
+<CONSTANT TEXT283 "A merchant takes you to a vault tunnelled into the block of one of the great piazzas. Passing through a door guarded by two burly men with iron batons, you wait in a short corridor lit by a flickering light panel. At last a steel door opens at the far end and you walk through into the merchant's storeroom. Here he shows you what he has for sale:">
+<CONSTANT TEXT283-CONTINUED "\"I will also buy such items,\" the merchant tells you, \"at half the price I've quoted for sale.\"||\"Why should I wish to sell?\"||His lips curls in an inscrutable half-smile. \"You have come to Venis for the ferry, I presume. You'll need money for your ticket.\"">
 
 <ROOM STORY283
 	(DESC "283")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT283)
+	(PRECHOICE STORY283-PRECHOICE)
+	(CONTINUE STORY025)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT STORY283-WARES <LTABLE PSIONIC-FOCUS POLARIZED-GOGGLES FLASHLIGHT GAS-MASK STUN-GRENADE KNIFE>>
+<CONSTANT STORY283-BUY <LTABLE 18 8 10 10 8 4>>
+<CONSTANT STORY283-SELL <LTABLE 9 4 5 5 4 2>>
+<CONSTANT STORY283-ITEMS 6>
+
+<ROUTINE STORY283-PRECHOICE ("AUX" (BUY-LIST NONE) (BUY-PRICE NONE) (SELL-LIST NONE) (SELL-PRICE NONE) (BUY 0) (SELL 0))
+	<SET BUY-LIST <LTABLE NONE NONE NONE NONE NONE NONE NONE>>
+	<SET SELL-LIST <LTABLE NONE NONE NONE NONE NONE NONE NONE>>
+	<SET BUY-PRICE <LTABLE 0 0 0 0 0 0 0>>
+	<SET SELL-PRICE <LTABLE 0 0 0 0 0 0 0>>
+	<COND (<CHECK-ITEM ,BARYSAL-GUN>
+		<COND (<AND <L? <GETP ,BARYSAL-GUN ,P?CHARGES> 6> <G=? ,MONEY 16>>
+			<CRLF>
+			<TELL "Recharge your barysal gun to full capacity (6 charges) for 16 scads?">
+			<COND (<YES?>
+				<CHARGE-BARYSAL 6>
+				<SETG MONEY <- ,MONEY 16>>
+			)>
+		)>
+		<INC .SELL>
+		<PUT .SELL-LIST .SELL ,BARYSAL-GUN>
+		<PUT .SELL-PRICE .SELL 8>
+	)(ELSE
+		<INC .BUY>
+		<CHARGE-BARYSAL 6>
+		<PUT .BUY-LIST .BUY ,BARYSAL-GUN>
+		<PUT .BUY-PRICE .BUY 16>
+	)>
+	<UPDATE-STATUS-LINE>
+	<DO (I 1 ,STORY283-ITEMS)
+		<COND (<NOT <CHECK-ITEM <GET ,STORY283-WARES .I>>>
+			<INC .BUY>
+			<COND (<EQUAL? <GETP <GET ,STORY283-WARES .I> ,P?QUANTITY> 0>
+			<PUTP <GET ,STORY283-WARES .I> ,P?QUANTITY 1>)>
+			<PUT .BUY-LIST .BUY <GET ,STORY283-WARES .I>>
+			<PUT .BUY-PRICE .BUY <GET ,STORY283-BUY .I>>
+		)>
+	>
+	<COND (<AND <G? .BUY 0> <G=? ,MONEY 4>>
+		<PUT .BUY-LIST 0 .BUY>
+		<PUT .BUY-PRICE 0 .BUY>	
+		<MERCHANT .BUY-LIST .BUY-PRICE ,PLAYER F>
+	)>
+	<CRLF>
+	<TELL ,TEXT283-CONTINUED>
+	<CRLF>
+	<DO (I 1 ,STORY283-ITEMS)
+		<COND (<CHECK-ITEM <GET ,STORY283-WARES .I>>
+			<INC .SELL>
+			<PUT .SELL-LIST .SELL <GET ,STORY283-WARES .I>>
+			<PUT .SELL-PRICE .SELL <GET ,STORY283-SELL .I>>
+		)>
+	>
+	<COND (<G? .SELL 0>
+		<PUT .SELL-LIST 0 .SELL>
+		<PUT .SELL-PRICE 0 .SELL>
+		<MERCHANT .SELL-LIST .SELL-PRICE ,PLAYER T>
+	)>
+	<COND (<OR <CHECK-SKILL ,SKILL-STREETWISE> <CHECK-ITEM ,VADE-MECUM>> <STORY-JUMP ,STORY414>)>>
+
+<CONSTANT TEXT284 "You both draw your guns at the same time.">
+<CONSTANT CHOICES284 <LTABLE "aim at his chest" "his throat" "between his eyes">>
 
 <ROOM STORY284
 	(DESC "284")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT284)
+	(PRECHOICE STORY284-PRECHOICE)
+	(CHOICES CHOICES284)
+	(DESTINATIONS <LTABLE STORY348 STORY369 STORY391>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY284-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-SHOOTING> <STORY-JUMP ,STORY327>)>>
+
+<CONSTANT TEXT285 "Night overtakes you on the slope of the mountain. You have to scoop snow to make a rudimentary shelter, and even so the wind numbs you to the core of your bones.">
+<CONSTANT TEXT285-SHELTER "You were able to construct an effective shelter.">
+<CONSTANT TEXT285-CONTINUED "Morning comes as a sullen grey intrusion of light across the cloud draped-sky. Stamping the circulation back into your weary limbs, you set off towards Venis.">
 
 <ROOM STORY285
 	(DESC "285")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT285)
+	(PRECHOICE STORY285-PRECHOICE)
+	(CONTINUE STORY199)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY285-PRECHOICE ("AUX" (SHELTER F) (DAMAGE 2))
+	<COND (<CHECK-SKILL ,SKILL-SURVIVAL>
+		<SET SHELTER T>
+		<SET DAMAGE 1>
+	)>
+	<TEST-MORTALITY .DAMAGE ,DIED-FROM-COLD ,STORY285>
+	<COND (<IS-ALIVE>
+		<COND (.SHELTER <EMPHASIZE ,TEXT285-SHELTER>)>
+		<IF-ALIVE ,TEXT285-CONTINUED>
+	)>>
+
+<CONSTANT TEXT286 "In the hotel bar, you strike up conversation with a tall sloe-eyed woman called Thadra Bey. Her accent tells you she is a native of al-Lat, the huge space colony in Earth-Moon orbit. \"I hear that conditions on al-Lat are vastly better than on Earth,\" you remark over a glass of synthash. \"But perhaps you are down on business?\"||She sips at her drink. \"What I seek is only available here. ON al-Lat, the science of genetic engineering cannot be practised for fear of infecting the colony with a deadly plague. Consequently, the only improvements that can be made to the human body are by mechanical means.\"||\"Your own body appears not to need any improvement,\" you put in politely.||She continues as though you had not spoken. \"A friend of mine had an implant along her optic nerve so that she could tell the time merely by blinking. The device became stuck permanently on, so that she could not sleep because of seeing lighted numerals in front of her eyes. Worse, it was three minutes fast.\" She finishes her drink, waving away the waiter who tries to refill it. \"Here on Earth the body can be enhanced more efficiently using genetic retroviruses. Specifically, I seek a man called Malengin who is said to trade in such things.\"">
+<CONSTANT CHOICES286 <LTABLE "help her" "consult a" "not">>
 
 <ROOM STORY286
 	(DESC "286")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT286)
+	(CHOICES CHOICES286)
+	(DESTINATIONS <LTABLE STORY307 STORY307 STORY329>)
+	(REQUIREMENTS <LTABLE SKILL-STREETWISE VADE-MECUM NONE>)
+	(TYPES <LTABLE R-SKILL R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT287 "This retrovirus confers the ability to see in almost total darkness.">
 
 <ROOM STORY287
 	(DESC "287")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT287)
+	(PRECHOICE PEERLESS-PERCEPTIVATE-F)
+	(CONTINUE STORY434)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT288 "Perhaps one of your skills could help you secure a place on the ferry.">
+<CONSTANT CHOICES288 <LTABLE "make use of" "rely on" "resort to" "otherwise">>
 
 <ROOM STORY288
 	(DESC "288")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT288)
+	(PRECHOICE STORY288-PRECHOICE)
+	(CHOICES CHOICES288)
+	(DESTINATIONS <LTABLE STORY309 STORY331 STORY226 STORY352>)
+	(REQUIREMENTS <LTABLE SKILL-PILOTING SKILL-ROGUERY SKILL-CUNNING NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY288-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-DIAMOND> <DELETE-CODEWORD ,CODEWORD-DIAMOND>)>>
+
+<CONSTANT TEXT289 "From a cruising height of thirty metres, the Ice Wastes resemble a sea of luminous snow broken by islands of exposed black rock. The wind shrieks across the land without respite, driving swathes of powdery snow that has carved strange shapes from the surrounding cliffs. You see few signs of life. This is one of the most desolate regions of Earth. The daylight is bleakly pale, the dusk as blue as smoke, and the night sky is filled with a thousand stars scintillating in the gaps between colossal crags of cloud.||Days pass like a blur. And then at last, glowering on the horizon, you see the grim black walls of a ruined city, You have arrived at Du-En.">
 
 <ROOM STORY289
 	(DESC "289")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT289)
+	(PRECHOICE STORY289-PRECHOICE)
+	(CONTINUE STORY213)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY289-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-DIAMOND>
+		<DELETE-CODEWORD ,CODEWORD-DIAMOND>
+		<STORY-JUMP ,STORY191>
+	)>>
+
+<CONSTANT TEXT290 "You dive into the elevator and jab the button. The Fijian comes charging towards you. \"Stop! Imposter!\" he bellows. You are relieved that the doors close before he can get to you.||Just as you are about to take the elevator down to the ground level, it occurs to you that he might call ahead to the lobby and have you intercepted by security guards.">
+<CONSTANT CHOICES290 <LTABLE "risk it" "go up to the roof instead">>
 
 <ROOM STORY290
 	(DESC "290")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT290)
+	(CHOICES CHOICES290)
+	(DESTINATIONS <LTABLE STORY453 STORY376>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY291

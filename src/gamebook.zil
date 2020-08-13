@@ -117,6 +117,7 @@
         <RESET-SELECTIONS>
         <RESET-STORY>
         <CHOOSE-CHARACTER>
+        <PUTP ,BARYSAL-GUN ,P?CHARGES 2>
     )>
     <SETG HERE ,STARTING-POINT>
     <UPDATE-STATUS-LINE>
@@ -685,7 +686,7 @@
         <TELL T .ITEM>
     )(ELSE
         <COND (<G? .QUANTITY 0>
-            <SET .QUANTITY <- .QUANTITY 1>>
+            <DEC .QUANTITY>
             <COND (<G? .QUANTITY 0>
                 <PUTP .ITEM ,P?QUANTITY .QUANTITY>
             )(ELSE
@@ -762,7 +763,7 @@
                 <PUTP .ITEM ,P?QUANTITY 1>
                 <SET REMOVE .ITEM>
             )(ELSE
-                <SET COUNT <+ .COUNT 1>>
+                <INC .COUNT>
             )>
         )>
         <SET ITEM <NEXT? .ITEM>>
@@ -783,7 +784,7 @@
             <REPEAT ()
                 <COND (<NOT .ITEM> <RETURN>)>
                 <COND (<NOT <FSET? .ITEM ,NDESCBIT>>
-                    <SET COUNT <+ .COUNT 1>>
+                    <INC .COUNT>
                     <HLIGHT ,H-BOLD>
                     <TELL N .COUNT>
                     <HLIGHT 0>
@@ -823,7 +824,7 @@
                             <COND (<NOT <EQUAL? .ITEM .OBJ>>
                                 <SET QUANTITY <GETP .ITEM ,P?QUANTITY>>
                                 <COND (<G? .QUANTITY 0>
-                                    <SET QUANTITY <- .QUANTITY 1>>
+                                    <DEC .QUANTITY>
                                     <COND (<G? .QUANTITY 0>
                                         <PUTP .ITEM ,P?QUANTITY .QUANTITY>
                                     )(ELSE
@@ -872,7 +873,7 @@
         <REPEAT ()
             <COND (.ITEMS
                 <COND (<NOT <FSET? .ITEMS ,NDESCBIT>>
-                    <SET COUNT <+ .COUNT 1>>
+                    <INC .COUNT>
                     <COND (<EQUAL? .COUNT .ITEM> <RETURN>)>
                 )>
             )(ELSE
@@ -891,7 +892,7 @@
     <SET COUNT 0>
     <DO (I 1 .ITEMS)
         <COND (<AND <GET .LIST .I> <IN? <GET .LIST .I> .CONTAINER>>
-            <SET COUNT <+ .COUNT 1>>
+            <INC .COUNT>
             <COND (<L=? .COUNT <GET TEMP-LIST 0>>
                 <PUT TEMP-LIST .COUNT <GET .LIST .I>>
             )>
@@ -1030,7 +1031,7 @@
             <COND (<L=? .CHOICE .ITEMS>
                 <COND (<INTBL? <GET .LIST .CHOICE> SELECT-CHOICES 10>
                     <PUT SELECT-CHOICES <GET-INDEX SELECT-CHOICES <GET .LIST .CHOICE>> NONE>
-                    <SET COUNT <- .COUNT 1>>
+                    <DEC .COUNT>
                 )(ELSE
                     <COND (<EQUAL? .COUNT .MAX>
                         <CRLF>
@@ -1038,7 +1039,7 @@
                         <TELL "You have already selected " N .MAX " " .DESC "s" ,EXCLAMATION-CR>
                         <HLIGHT 0>
                     )(ELSE
-                        <SET COUNT <+ .COUNT 1>>
+                        <INC .COUNT>
                         <PUT SELECT-CHOICES <GET-INDEX SELECT-CHOICES NONE> <GET .LIST .CHOICE>>
                     )>
                 )>
@@ -1067,13 +1068,13 @@
     <SET SKILLS <FIRST? ,SKILLS>>
     <REPEAT ()
         <COND (<NOT .SKILLS> <RETURN>)>
-        <SET COUNT <+ .COUNT 1>>
+        <INC .COUNT>
         <PUT .MY-SKILLS .COUNT .SKILLS>
         <SET SKILLS <NEXT? .SKILLS>>
     >
     <DO (I 1 .ITEMS)
         <COND (<NOT <INTBL? <GET .LIST .I> .MY-SKILLS 9>>
-            <SET COUNT <+ .COUNT 1>>
+            <INC .COUNT>
             <PUT .MY-SKILLS .COUNT <GET .LIST .I>>
         )>
     >
@@ -1109,19 +1110,32 @@
 
 ; "Story - Merchant routines (display)"
 ; ---------------------------------------------------------------------------------------------
-<ROUTINE MERCHANT (WARES PRICELIST "OPT" CONTAINER "AUX" ITEM ITEMS KEY)
+<ROUTINE MERCHANT (WARES PRICELIST "OPT" CONTAINER (SELL F) "AUX" ITEM ITEMS KEY)
     <COND (<NOT .CONTAINER> <SET CONTAINER ,PLAYER>)>
     <COND (<OR <NOT .WARES> <NOT .PRICELIST>> <RETURN>)>
     <SET ITEMS <GET .WARES 0>>
     <REPEAT ()
         <CRLF>
-        <TELL "You can buy anything you have money for:" CR>
+        <COND (<NOT .SELL>
+            <TELL "You can buy anything you have money for:">
+        )(ELSE
+            <TELL "You can sell these items at these prices if you have them:">
+        )>
+        <CRLF>
         <DO (I 1 .ITEMS)
             <HLIGHT ,H-BOLD>
             <TELL N .I>
             <HLIGHT 0>
             <TELL " - " D <GET .WARES .I> " (" N <GET .PRICELIST .I> " " D ,CURRENCY ")" CR>
         >
+        <HLIGHT ,H-BOLD>
+        <TELL "C">
+        <HLIGHT 0>
+        <TELL " - View your character (" D ,CURRENT-CHARACTER ")" CR>
+        <HLIGHT ,H-BOLD>
+        <TELL "I">
+        <HLIGHT 0>
+        <TELL " - Display inventory" CR>
         <HLIGHT ,H-BOLD>
         <TELL "0">
         <HLIGHT 0>
@@ -1145,29 +1159,47 @@
         <COND (<AND <G? .KEY 48> <L? .KEY <+ .ITEMS 49>>>
             <SET ITEM <- .KEY 48>>
             <CRLF>
-            <TELL "Purchase " D <GET .WARES .ITEM> " (" N <GET .PRICELIST .ITEM> " " D ,CURRENCY ")?">
+            <COND (<NOT .SELL>
+                <TELL "Purchase " D <GET .WARES .ITEM> " (" N <GET .PRICELIST .ITEM> " " D ,CURRENCY ")?">
+            )(ELSE
+                <TELL "Sell " D <GET .WARES .ITEM> " (" N <GET .PRICELIST .ITEM> " " D ,CURRENCY ")?">
+            )>
             <COND (<YES?>
-                <CRLF>
                 <HLIGHT ,H-BOLD>
-                <COND (<L? ,MONEY <GET .PRICELIST .ITEM>>
-                    <TELL "You can't afford " T <GET .WARES .ITEM> ,EXCLAMATION-CR>
-                )(ELSE
-                    <COND (<FSET? <GET .WARES .ITEM> ,TAKEBIT>
-                        <COND (<IN? <GET .WARES .ITEM> .CONTAINER>
-                            <TELL "You already have " T <GET .WARES .ITEM> ,EXCLAMATION-CR>
+                <COND (<NOT .SELL>
+                    <CRLF>
+                    <COND (<L? ,MONEY <GET .PRICELIST .ITEM>>
+                        <TELL "You can't afford " T <GET .WARES .ITEM> ,EXCLAMATION-CR>
+                    )(ELSE
+                        <COND (<L? ,MONEY <GET .PRICELIST .ITEM>>
+                            <TELL "You can't afford " T <GET .WARES .ITEM> ,EXCLAMATION-CR>
                         )(ELSE
-                            <SETG MONEY <- ,MONEY <GET .PRICELIST .ITEM>>>
-                            <TELL "You bought " T <GET .WARES .ITEM> CR>
-                            <COND (<AND <EQUAL? .CONTAINER ,PLAYER> <EQUAL? <COUNT-POSSESSIONS> LIMIT-POSSESSIONS> <NOT <IN? <GET .WARES .ITEM> .CONTAINER>>>
-                                <CRLF>
-                                <TELL "You are carrying too many items." CR>
-                                <DROP-REPLACE-ITEM <GET .WARES .ITEM>>
+                            <COND (<FSET? <GET .WARES .ITEM> ,TAKEBIT>
+                                <COND (<IN? <GET .WARES .ITEM> .CONTAINER>
+                                    <TELL "You already have " T <GET .WARES .ITEM> ,EXCLAMATION-CR>
+                                )(ELSE
+                                    <SETG MONEY <- ,MONEY <GET .PRICELIST .ITEM>>>
+                                    <TELL "You bought " T <GET .WARES .ITEM> CR>
+                                    <COND (<AND <EQUAL? .CONTAINER ,PLAYER> <EQUAL? <COUNT-POSSESSIONS> LIMIT-POSSESSIONS> <NOT <IN? <GET .WARES .ITEM> .CONTAINER>>>
+                                        <CRLF>
+                                        <TELL "You are carrying too many items." CR>
+                                        <DROP-REPLACE-ITEM <GET .WARES .ITEM>>
+                                    )(ELSE
+                                        <MOVE <GET .WARES .ITEM> .CONTAINER>
+                                    )>
+                                )>
                             )(ELSE
-                                <MOVE <GET .WARES .ITEM> .CONTAINER>
+                                <TELL "You can't have that" ,EXCLAMATION-CR>
                             )>
                         )>
+                    )>
+                )(ELSE
+                    <COND (<CHECK-ITEM <GET .WARES .ITEM>>
+                        <REMOVE-ITEM <GET .WARES .ITEM> "sold">
+                        <SETG MONEY <+ ,MONEY <GET .PRICELIST .ITEM>>>
                     )(ELSE
-                        <TELL "You can't have that" ,EXCLAMATION-CR>
+                        <CRLF>
+                        <TELL "You do not have any " D  <GET .WARES .ITEM> ,EXCLAMATION-CR>
                     )>
                 )>
                 <HLIGHT 0>
@@ -1177,7 +1209,7 @@
         <COND (<EQUAL? .KEY !\0>
             <CRLF>
             <TELL "Are you sure?">
-            <COND (<YES?> <RTRUE>)>            
+            <COND (<YES?> <RTRUE>)>
         )>
     >>
 
@@ -1294,7 +1326,7 @@
                     <COND (<AND <FSET? .ITEMS ,WEARBIT> <FSET? .ITEMS ,WORNBIT>>
                         <TELL " (worn)">
                     )>
-                    <SET COUNT <+ .COUNT 1>>
+                    <INC .COUNT>
                 )>
             )(ELSE
                 <RETURN>
