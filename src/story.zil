@@ -82,6 +82,8 @@
 	<PUTP ,STORY294 ,P?DEATH T>
 	<PUTP ,STORY305 ,P?DEATH T>
 	<PUTP ,STORY310 ,P?DEATH T>
+	<PUTP ,STORY314 ,P?DEATH T>
+	<PUTP ,STORY316 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -4603,175 +4605,135 @@
 	)>
 	<IF-ALIVE ,TEXT310-CONTINUED>>
 
+<CONSTANT TEXT311 "The hour is late. It is time you found somewhere to pass the night. The Ossiman Hotel is still open, and charges 5 scads for a bed.">
+<CONSTANT CHOICES311 <LTABLE "take a room there" "save money by sleeping rough on the streets">>
+
 <ROOM STORY311
 	(DESC "311")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT311)
+	(CHOICES CHOICES311)
+	(DESTINATIONS <LTABLE STORY333 STORY165>)
+	(REQUIREMENTS <LTABLE 5 NONE>)
+	(TYPES <LTABLE R-MONEY R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT312 "You awaken and look around, then give a sob of horror and leap half to your feet, scrambling back against the rock. The others are dead, their bodies ripped apart and scattered far across the fresh white snow. When you see there is no immediate threat, your pounding heartbeat starts to return to normal and you venture over to a headless torso which you identify as Hal Shandor. Strange to see a man so vital and full of strength, now a broken shell as lifeless as clay.||And as bloodless. You can the snow, puzzled. Despite the dreadful carnage, there is hardly a drop of blood to be seen.||You do not know what animal could have torn Shandor and his hulking bodyguards limb from limb in total silence. Nor do you want to find out. You make a cursory search of the shreds of clothing you can see, finding an ID card, a flashlight, and a barysal gun with one remaining charge.">
 
 <ROOM STORY312
 	(DESC "312")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT312)
+	(PRECHOICE STORY312-PRECHOICE)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY312-PRECHOICE ()
+	<TAKE-OR-CHARGE 1 T>
+	<SELECT-FROM-LIST <LTABLE ID-CARD FLASHLIGHT> 2 2>>
+
+<CONSTANT TEXT313 "Electric lighting is rare enough in this age, and is usually arranged by means of a coal- or oil-fuelled generator. For there still to be electricity here, when Marsay has been abandoned for nearly two centuries, there must be a nuclear power source. Presumably such a power source would have to be regulated by computers, which means the possibility of a link to Gaia.">
 
 <ROOM STORY313
 	(DESC "313")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT313)
+	(PRECHOICE STORY313-PRECHOICE)
+	(CONTINUE STORY356)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY313-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-CYBERNETICS> <STORY-JUMP ,STORY335>)>>
+
+<CONSTANT TEXT314 "You stumble on through the snow with a howling wind at your back. The air is so cold that each breath rasps in your throat, and your limbs are soon weary and numb. You are on the point of collapse when you find a rocky outcropping that gives partial shelter from the blizzard. You huddle down behind it and wait for daybreak.">
+<CONSTANT TEXT314-IMPROVISE "You improvise a scooped shell of snow for better protection from the wind chill">
 
 <ROOM STORY314
 	(DESC "314")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT314)
+	(PRECHOICE STORY314-PRECHOICE)
+	(CONTINUE STORY393)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY314-PRECHOICE ("AUX" (IMPROVISE F) (DAMAGE 2))
+	<COND (<CHECK-SKILL ,SKILL-SURVIVAL>
+		<SET IMPROVISE T>
+		<SET DAMAGE 1>
+	)>
+	<TEST-MORTALITY .DAMAGE ,DIED-FROM-COLD ,STORY314>
+	<COND (<AND <IS-ALIVE> .IMPROVISE>
+		<CRLF>
+		<TELL ,TEXT314-IMPROVISE>
+		<TELL ,PERIOD-CR>
+	)>>
+
+<CONSTANT TEXT315 "A look of keen enthusiasm crackles behind his tranquil gaze and for a moment you feel you've glimpsed the true Chaim Golgoth. \"The barysal gun is a potent weapon,\" he admits, \"but it is limited by charges and is prone to malfunction. This can lead to inconvenience. The crossbow also has its limitations, of course, but against the unarmoured human opponents I find it quite reliable.\"||\"Golgoth is a stickler for efficiency,\" remarks Boche with a smile of undisguised dislike. \"Efficiency, in his case, is usually measured in terms of deaths per minute.\"||Golgoth shrugs, apparently not bothered by Boche's views. \"By that criterion, the efficient agent just needs to equip himself with a few plutonium bombs. If only my superiors weren't so stingy with expenses.\"">
 
 <ROOM STORY315
 	(DESC "315")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT315)
+	(CONTINUE STORY358)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT316 "The alley is too narrow for you to have space to use a gun, even if you are carrying one. Launching yourself at the fanatics with a roar of rage, you lash out with fists and feet. Somebody grabs your arm, but you twist free and shove him back into the priestess. A punch spins you round, but you keep your wits enough to drop low to avoid a follow-up, then straighten and drive your shoulder into your attacker's belly. He slumps with a groan.">
+<CONSTANT TEXT316-CONTINUED "You manage to fight free of them and run off, taking shelter in a boarded-up doorway as they clatter past in angry pursuit. You listen to them recede into the fog. Hobbling painfully from your wounds, you go in search of a safer place to spend the rest of the night.">
 
 <ROOM STORY316
 	(DESC "316")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT316)
+	(PRECHOICE STORY316-PRECHOICE)
+	(CONTINUE STORY253)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY316-PRECHOICE ("AUX" (DAMAGE 4))
+	<COND (<CHECK-SKILL ,SKILL-CLOSE-COMBAT> <SET DAMAGE 2>)>
+	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY316 ,SKILL-CLOSE-COMBAT>
+	<IF-ALIVE ,TEXT316-CONTINUED>>
+
+<CONSTANT TEXT317 "He gives you a dubious sidelong look. \"It is not so simple as all that. Our way of life here on al-Lat is governed by a complex creed, of which you know nothing. We are a society which is closed to outsiders.\"||The door of the laboratory slides open at this point and Riza Baihaqi comes in. \"I'm about to take a flyer back down to Earth, so I can drop you at Sudan,\" he says bluffly. \"Have you been learning about our work here? I hope it will prove useful in your venture.\"">
 
 <ROOM STORY317
 	(DESC "317")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT317)
+	(CONTINUE STORY275)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY318
 	(DESC "318")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(EVENTS STORY318-EVENTS)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY318-EVENTS ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-ENKIDU> <RETURN ,STORY340>)>
+	<RETURN ,STORY425>>
+
+<CONSTANT TEXT319 "The bometh moves off and the binoculars enable you to follow at a safe distance. You watch it slinking between the furrows of snow, a blot of shadow flowing in the moonlight. Seeing it disappear into a snowdrift, you move closer and compose yourself for a long wait. Two or three hours go by. At last it emerges, sniffs at the air, and lopes off in search of prey.||Once it is out of sight, you scramble over to the snowdrift, pushing along a tunnel into a hollowed-out cavity where there are three small bomeths on a nest of moulted fur. Ignoring them, you turn your attention to the closely packed walls of the lair -- the bometh's larder, where the beast has stored remains of previous kills. You dig out what looks like the carcass of a large fowl. The icy cold has preserved it well. Wrapping the flesh carefully, you make two food packs.">
+<CONSTANT TEXT319-CONTINUED "One of the young bomeths nips at your ankle. The teeth do not penetrate your boot, but it is a timely reminder that the parent might return at any time. You squirm back to the open and hurry away">
 
 <ROOM STORY319
 	(DESC "319")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT319)
+	(PRECHOICE STORY319-PRECHOICE)
+	(CONTINUE STORY298)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY319-PRECHOICE ()
+	<TAKE-FOOD-PACKS 2>
+	<CRLF>
+	<TELL ,TEXT319-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT320 "You swallow the pills and soon begin to feel much better. Even so, the sleepless night has left you exhausted. Out in the main square, the others are preparing for another day's exploration of the ruins. With submerged tension forever threatening to boil over into open warfare, you know that you need all your wits about you. Your rivals are unlikely to find the Heart today -- better that you rest now, and gather your strength for what lies ahead.">
 
 <ROOM STORY320
 	(DESC "320")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT320)
+	(PRECHOICE STORY320-PRECHOICE)
+	(CONTINUE STORY363)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY320-PRECHOICE ()
+	<COND (<OR <CHECK-VEHICLE ,MANTA-SKY-CAR> <CHECK-ITEM ,MEDICAL-KIT>>
+		<GAIN-LIFE 1>
+	)>>
 
 <ROOM STORY321
 	(DESC "321")
