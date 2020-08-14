@@ -84,6 +84,7 @@
 	<PUTP ,STORY310 ,P?DEATH T>
 	<PUTP ,STORY314 ,P?DEATH T>
 	<PUTP ,STORY316 ,P?DEATH T>
+	<PUTP ,STORY326 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -175,7 +176,7 @@
 			<CHECK-ITEM ,SHORTSWORD>
 			,PRACTICED-SHORTSWORD 
 		>
-		<EMPHASIZE "The shortsword prevented 1 damage">
+		<EMPHASIZE "The shortsword prevented 1 damage.">
 		<DEC .DAMAGE>
 	)>
 	<COND (<G? .DAMAGE 0>
@@ -389,15 +390,33 @@
 	<PUTP ,MASK-OF-OCCULTATION ,P?PURCHASED F>
 	<PUTP ,PEERLESS-PERCEPTIVATE ,P?PURCHASED F>>
 
+<ROUTINE NOT-PURCHASED (VIRUS)
+	<RETURN <NOT <GETP .VIRUS ,P?PURCHASED>>>>
+
+<ROUTINE LIST-VIRUS (VIRUS INDEX)
+	<PUT ,TEMP-LIST .INDEX .VIRUS>>
+
 <ROUTINE MALENGIN-BUSINESS ("OPT" (JUMP F) "AUX" KEY ITEMS ITEM VIRUS PRICE ACTIVATE)
-	<RESET-CONTAINER ,LOST-SKILLS>
 	<REPEAT ()
+		<COND (<NOT-PURCHASED ,EXALTED-ENHANCER> <RESET-CONTAINER ,LOST-SKILLS>)>
 		<RESET-TEMP-LIST>
 		<SET ITEMS 0>
-		<COND (<NOT <GETP ,VIRID-MYSTERY ,P?PURCHASED>> <INC .ITEMS> <PUT ,TEMP-LIST .ITEMS ,VIRID-MYSTERY>)>
-		<COND (<NOT <GETP ,EXALTED-ENHANCER ,P?PURCHASED>> <INC .ITEMS> <PUT ,TEMP-LIST .ITEMS ,EXALTED-ENHANCER>)>
-		<COND (<NOT <GETP ,MASK-OF-OCCULTATION ,P?PURCHASED>> <INC .ITEMS> <PUT ,TEMP-LIST .ITEMS ,MASK-OF-OCCULTATION>)>
-		<COND (<NOT <GETP ,PEERLESS-PERCEPTIVATE ,P?PURCHASED>> <INC .ITEMS> <PUT ,TEMP-LIST .ITEMS ,PEERLESS-PERCEPTIVATE>)>
+		<COND (<NOT-PURCHASED ,VIRID-MYSTERY>
+			<INC .ITEMS>
+			<LIST-VIRUS ,VIRID-MYSTERY .ITEMS>
+		)>
+		<COND (<NOT-PURCHASED ,EXALTED-ENHANCER>
+			<INC .ITEMS>
+			<LIST-VIRUS ,EXALTED-ENHANCER .ITEMS>
+		)>
+		<COND (<NOT-PURCHASED ,MASK-OF-OCCULTATION>
+			<INC .ITEMS>
+			<LIST-VIRUS ,MASK-OF-OCCULTATION .ITEMS>
+		)>
+		<COND (<NOT-PURCHASED ,PEERLESS-PERCEPTIVATE>
+			<INC .ITEMS>
+			<LIST-VIRUS ,PEERLESS-PERCEPTIVATE .ITEMS>
+		)>
 		<COND (<AND <G? .ITEMS 0> <G? ,MONEY 3>>
 			<CRLF>
 			<HLIGHT ,H-BOLD>
@@ -4731,178 +4750,124 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY320-PRECHOICE ()
-	<COND (<OR <CHECK-VEHICLE ,MANTA-SKY-CAR> <CHECK-ITEM ,MEDICAL-KIT>>
-		<GAIN-LIFE 1>
-	)>>
+	<COND (<OR <CHECK-VEHICLE ,MANTA-SKY-CAR> <CHECK-ITEM ,MEDICAL-KIT>> <GAIN-LIFE 1>)>
+	<DELETE-CODEWORD ,CODEWORD-HOURGLASS>>
+
+<CONSTANT TEXT321 "\"I shall always think of you as having been a friend,\" says Gaunt after a long pause.||Something in the words makes them sound like an epitaph. You look round to see the xoms facing you with long crystal knives.||\"What's going on?\"||In the dulled light of the glow-lamps, Gaunt himself looks like a pale phantom. You see the gleam of his teeth as he smiles. \"I must find the key to my own ruthless nature, or tomorrow I shall die,\" he murmurs. \"Do you know that the desire for power and change is the desire for one's own death? By expunging you, whom I admire, I expunge that weakness in myself. For you see, come what may, I shall have the Heart.\"||\"You're completely mad.\"||He nods. \"I must be. It is not sane to covet the role of God.\" He gestures and the xoms shuffle forward, jabbing their knives towards your chest.||A shot rings out and one of the xoms falls, flames spouting from a blast hole through its torso. Gaunt whirls in time to see a small man in combat fatigues who rushes out of the darkness and tackles him to the ground.||Vajra Singh steps into the light with his two other guards behind him. They are Brits -- small men with pallid pinched faces, thuggish but famed for their loyalty. The one standing over Gaunt presses a gun to his head and glances at Singh. \"Shall I kill 'im, sah?\" he barks. Singh nods. A blast of plasma scrambles Gaunt's brains into the snow. The xoms jerk back and their arms drop listlessly to their sides.||You breathe a sigh. \"A timely intervention. You saved my life.\"||Vajra Singh hardly looks at you. \"Gaunt broke the terms of the truce. He would have died tomorrow, in any case. He was a weak man.\" He turns and strides off with his guards following.">
+<CONSTANT CHOICES321 <LTABLE "tell Singh what you know" "return to the main square and either converse with Kyle Boche" "Chaim Golgoth" "else get some sleep">>
 
 <ROOM STORY321
 	(DESC "321")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT321)
+	(CHOICES CHOICES321)
+	(DESTINATIONS <LTABLE STORY343 STORY104 STORY126 STORY192>)
+	(REQUIREMENTS <LTABLE <LTABLE CODEWORD-NEMESIS> NONE NONE NONE>)
+	(TYPES <LTABLE R-CODEWORD R-NONE R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT322 "You remember the catechism that Eleazar Picard kept reciting after the fall of Du-En. What better code for the high priests to use than the most basic tenets of their faith? If only you can recall the precise wording...">
 
 <ROOM STORY322
 	(DESC "322")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT322)
+	(CONTINUE STORY018)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT323 "He is wearing the red-and-violet uniform of the Monitor Corps, personal troops of Eleazar Picard, the Volentine high priest. Perhaps he was fighting to defend him when the populace of the city rebelled. If you want to free him, it might be possible.">
+<CONSTANT CHOICES323 <LTABLE "destroy the stasis bomb" "cancel the time distortion effect" "continue deeper into the catacombs">>
 
 <ROOM STORY323
 	(DESC "323")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT323)
+	(CHOICES CHOICES323)
+	(DESTINATIONS <LTABLE STORY345 STORY366 STORY388>)
+	(REQUIREMENTS <LTABLE BARYSAL-GUN SKILL-PARADOXING NONE>)
+	(TYPES <LTABLE R-ITEM R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT324 "Boche suddenly yells: \"Let's get him, Golgoth!\"||Vajra Singh, whirling, makes a split-second decision as to who is his most dangerous adversary. Pressing the power button on the mantramukta, he directs a blistering torrent of raw energy at Golgoth. Golgoth reacts by flinging himself into a sideways roll, firing a continuous barrage at Singh as he moves. Both blasts find their target at the same time. Singh falls with a pencil-thin barysal burn through his eye-socket. Golgoth is engulfed and blown to cinders.||It has all taken place in seconds. Now only you and Boche are left. He smiles and winks at you. You start to smile back, but it freezes on your face as he turns to show you the barysal gun he has trained on you.||\"Well, Boche,\" you say, \"is this post-hypnotic treachery, or the regular kind?\"||\"I knew you'd turn on me if I didn't act first,\" he replies with a shrug. \"Only one can have the Heart.\"||It is not pleasant to stare down the barrel of a gun. You had better decide what to do.">
+<CONSTANT CHOICES324 <LTABLE "shoot him" "use a psionic focus" "throw a knife at him" "otherwise">>
 
 <ROOM STORY324
 	(DESC "324")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT324)
+	(CHOICES CHOICES324)
+	(DESTINATIONS <LTABLE STORY347 STORY390 STORY368 STORY411>)
+	(REQUIREMENTS <LTABLE SKILL-SHOOTING SKILL-PARADOXING KNIFE NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT325 "You spend an hour or so exploring the area, which turns out to be a range of storerooms and living quarters. \"Obviously it's one of the bomb shelters built in the last days of Du-En.\" says Golgoth, shining his torch into a dusty hospital ward. He bangs the map box against the wall to encourage it to give a clearer picture. \"That being the case, I'm not so sure we'll find a route through to the temple area. The society's leaders would have had more luxurious shelters than this.\"||\"You want luxury?\" calls Gargan XIV from down the corridor. \"We got your luxury right here.\"||Joining the sisters, you enter an auditorium with banks of seats facing a curtain. Cold silver light flickers from plates of frosted glass set into the ceiling. The light gives a strobe effect, so that you all seem to be moving like figures in a jerky freeze-frame video. Gargan XIII pulls the curtain aside. In the flashes of light and dark, you see a stage where a dozen puppets stand in elegant postures.||You follow Golgoth up onto the sage. The puppets, about a metre tall, are suspended by thin copper wires from high in the grid above the stage. Each is robed like warrior of ancient times and has a scimitar in his hand. You reach out and feel one. It is sharp enough to prick your finger.||Then, in the space between one flicker of light and the next, something changes. At first you cannot tell what, then it hits you: the puppets are moving. Gargan XIII gives a grunt of pain and you see the livid streak of a wound on her forearm. \"They're alive!\" she cries. \"Let's get out of here!\"">
 
 <ROOM STORY325
 	(DESC "325")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT325)
+	(PRECHOICE STORY325-PRECHOICE)
+	(CONTINUE STORY066)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY325-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-ENKIDU>
+		<STORY-JUMP ,STORY132>
+	)(<CHECK-SKILL ,SKILL-AGILITY>
+		<STORY-JUMP ,STORY022>
+	)>>
+
+<CONSTANT TEXT326 "Golgoth wastes no time reloading the crossbow. Throwing it aside, he draws a knife and dives at you. You block his first thrust but take  gash on your forearm, countering with a leg sweep which leaves him off balance.||The fight is short and brutal. Golgoth is a master of lethal killing techniques.">
+<CONSTANT TEXT326-CONTINUE "You manage to twist the knife around and impale him.">
 
 <ROOM STORY326
 	(DESC "326")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT326)
+	(PRECHOICE STORY326-PRECHOICE)
+	(CONTINUE STORY072)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY326-PRECHOICE ("AUX" (DAMAGE 5))
+	<COND (<CHECK-SKILL ,SKILL-CLOSE-COMBAT> <SET DAMAGE 3>)>
+	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY326 ,SKILL-CLOSE-COMBAT>
+	<IF-ALIVE ,TEXT326-CONTINUE>>
+
+<CONSTANT TEXT327 "Singh is more used to his cannon than the light pistol, and you are just a fraction faster. Your barysal beam splits the air and he falls without a sound. It is only as you go over to inspect the body that you realize he had a chance of hitting you with a dying shot. He chose not to take that shot. Why?||Because it would have been petty to deprive you of victory when you had beaten him fairly? You can think of no better explanation. Sing died as he had lived: a man of uncompromising honour.">
 
 <ROOM STORY327
 	(DESC "327")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT327)
+	(CONTINUE STORY415)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT328 "Boche is not only interested in food. While he extracts a parcel of rations from the corpse's pocket, his other hand adroitly filches a money token out of its wallet. He slips into his boot without telling you. A casual observer would never have noticed. Not to be outdone, you deftly remove the token while Boche is checking another of the bodies. Touching it to your own money token, you transfer the sum of 60 scads and then replace the token before Boche is any wiser.">
 
 <ROOM STORY328
 	(DESC "328")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT328)
+	(PRECHOICE STORY328-PRECHOICE)
+	(CONTINUE STORY306)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY328-PRECHOICE ()
+	<GAIN-MONEY 60>
+	<COND (<CHECK-SKILL ,SKILL-PARADOXING> <STORY-JUMP ,STORY370>)>>
+
+<CONSTANT TEXT329 "With a day or two to wait until the ferry to Kahira arrives, you have time to make preparations for the adventure ahead. You take a stroll along the esplanade overlooking the gambling rooms of the notorious Hazard Strip. Below you, in the deep alley that was once the grandest of the canals glaring neon lights and raucous music intrude on the wistful grandeur of Venis by night.||You consider your options.">
+<CONSTANT CHOICES329 <LTABLE "try to communicate with Gaia" "discover more about the Heart of Volent" "enquire after travellers who have gone missing on their way to Venis recently" "go look for gossip about Kyle Boche" "find some special purchases for the trip">>
 
 <ROOM STORY329
 	(DESC "329")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT329)
+	(CHOICES CHOICES329)
+	(DESTINATIONS <LTABLE STORY351 STORY091 STORY451 STORY179 STORY350>)
+	(TYPES FIVE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT330 "The Virid Mystery cancels any retroviruses you have taken already.">
 
 <ROOM STORY330
 	(DESC "330")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT330)
+	(PRECHOICE VIRID-MYSTERY-F)
+	(CONTINUE STORY434)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY331
