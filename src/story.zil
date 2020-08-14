@@ -39,6 +39,7 @@
 	<SET-DESTINATION ,STORY334 1 ,STORY286>
 	<SET-DESTINATION ,STORY381 2 ,STORY393>
 	<SET-DESTINATION ,STORY385 2 ,STORY016>
+	<SET-DESTINATION ,STORY394 3 ,STORY025>
 	<PUTP ,STORY004 ,P?DEATH T>
 	<PUTP ,STORY013 ,P?DEATH T>
 	<PUTP ,STORY019 ,P?DEATH T>
@@ -94,6 +95,8 @@
 	<PUTP ,STORY386 ,P?DEATH T>
 	<PUTP ,STORY389 ,P?DEATH T>
 	<PUTP ,STORY390 ,P?DEATH T>
+	<PUTP ,STORY391 ,P?DEATH T>
+	<PUTP ,STORY393 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -107,6 +110,9 @@
 <CONSTANT CHARGE-BARYSAL-KEY-CAPS !\B>
 
 <CONSTANT MAX-BARYSAL 6>
+
+<CONSTANT FACILITIES <LTABLE "go to the library" "the medical lounge" "the gymnasium" "the armoury" "the canteen">>
+<CONSTANT FACILITIES-DESTINATIONS <LTABLE STORY006 STORY028 STORY051 STORY447 STORY094>>
 
 <GLOBAL PRACTICED-SHORTSWORD F>
 
@@ -5427,13 +5433,12 @@
 	<FIRE-BARYSAL 1>>
 
 <CONSTANT TEXT374 "You stride confidently into the lobby. The receptionist, a prim-looking man with pursed lips, sits at a desk. Behind him on the wall is displayed the Society's symbol: a triangle enclosing a circle and central dot. To one side, a bronze-coloured elevator door is set into the black marble wall.||The receptionist looks up, blinks. \"Good evening. How may I help you?\"||Unsure of protocol, you hand him your card. He slides it into a slot in the desk, consults a screen, then hands the card back. His blank expression has become an unctuous smile as he says, \"Our facilities are here at your disposal. There are no other members in residence at the moment, so you'll have the building to yourself.\"||The elevator door opens. You mutter a gruff thank-you and walk past. Inside the elevator, you study the panel and decide which floor to go to.">
-<CONSTANT CHOICES374 <LTABLE "go to the library" "the medical lounge" "the gymnasium" "the armoury" "the canteen">>
 
 <ROOM STORY374
 	(DESC "374")
 	(STORY TEXT374)
-	(CHOICES CHOICES374)
-	(DESTINATIONS <LTABLE STORY006 STORY028 STORY051 STORY447 STORY094>)
+	(CHOICES FACILITIES)
+	(DESTINATIONS FACILITIES-DESTINATIONS)
 	(TYPES FIVE-NONES)
 	(FLAGS LIGHTBIT)>
 
@@ -5661,175 +5666,164 @@
 <ROUTINE STORY390-PRECHOICE ()
 	<TEST-MORTALITY 2 ,DIED-FROM-INJURIES ,STORY390>>
 
+<CONSTANT TEXT391 "Your beam strikes Singh's headband. How could you have known that the jewels on it were no mere baubles, but retroflec crystals? The force of the blast is deflected back the way it came, exploding the barysal gun in your hands. You cry out in pain as you are burned to the bone.">
+
 <ROOM STORY391
 	(DESC "391")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT391)
+	(PRECHOICE STORY391-PRECHOICE)
+	(CONTINUE STORY305)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY391-PRECHOICE ()
+	<TEST-MORTALITY 2 ,DIED-FROM-INJURIES ,STORY391>
+	<COND (<IS-ALIVE> <LOSE-ITEM ,BARYSAL-GUN>)>>
+
+<CONSTANT TEXT392 "Boche looks over at you. \"You heard it too?\"||\"Be quiet.\"||Focusing your concentration, you reach out to probe the mind of whoever -- or whatever -- is approaching. Your mind is flooded with cold dark alien thoughts. You have the fleeting impression of something with sharp predatory intelligence. It is coming to kill you.||You break off your mental probe and jump up into a crouch, tense and ready for action.">
 
 <ROOM STORY392
 	(DESC "392")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT392)
+	(CONTINUE STORY433)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT393 "A fierce wind with teeth of ice thunders relentlessly across the land, pushing billows of powdery snow ahead of it. You hunch behind each step as though pushing a heavy cart, at times having to crouch down to avoid being blown off your feet. By day you are surrounded by a painful white glare. At night, moonlight turns the snowscape into a scene of unearthly mystery. You trudge wearily on, feet numb with cold, eyebrows bristling with icicles.">
 
 <ROOM STORY393
 	(DESC "393")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT393)
+	(PRECHOICE STORY393-PRECHOICE)
+	(CONTINUE STORY013)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY393-PRECHOICE ("AUX" (DAMAGE 2))
+	<COND (<OR <CHECK-ITEM ,FUR-COAT> <CHECK-ITEM ,COLD-WEATHER-SUIT>>
+		<DEC .DAMAGE>
+		<COND (<CHECK-SKILL ,SKILL-SURVIVAL> <DEC .DAMAGE>)>
+	)>
+	<COND (<CHECK-VEHICLE ,BURREK> <DEC .DAMAGE>)>
+	<COND (<L=? .DAMAGE 0>
+		<PREVENT-DEATH ,STORY393>
+	)(ELSE
+		<TEST-MORTALITY .DAMAGE ,DIED-FROM-COLD ,STORY393>
+	)>
+	<COND (<IS-ALIVE>
+		<COND (<CHECK-ITEM ,POLARIZED-GOGGLES>
+			<STORY-JUMP ,STORY403>
+		)(<CHECK-SKILL ,SKILL-SURVIVAL>
+			<STORY-JUMP ,STORY443>
+		)>
+	)>>
+
+<CONSTANT TEXT394 "Inspecting a range of items laid out on the market stalls, you haggle until the following prices are agreed:">
+<CONSTANT CHOICES394 <LTABLE "buy or sell weaponry or other unusual items" "pay for genetic enhancement" "you are finished with your shopping">>
 
 <ROOM STORY394
 	(DESC "394")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT394)
+	(PRECHOICE STORY394-PRECHOICE)
+	(CHOICES CHOICES394)
+	(DESTINATIONS <LTABLE STORY283 STORY434 STORY025>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY394-PRECHOICE ()
+	<COND (,RUN-ONCE
+		<BUY-FOOD-PACK 2>
+		<MERCHANT <LTABLE ROPE LANTERN MEDICAL-KIT> <2 3 12>>
+	)>
+	<COND (<OR <CHECK-SKILL ,SKILL-STREETWISE> <CHECK-ITEM ,VADE-MECUM>>
+		<SET-DESTINATION ,STORY394 3 ,STORY414>
+	)(ELSE
+		<SET-DESTINATION ,STORY394 3 ,STORY025>
+	)>>
+
+<CONSTANT TEXT395 "You hurry outside to where the gondo is waiting, shivering inside his black coat like a forlorn crow. \"So, have you finished here?\" he asks hopefully.||You nod. \"Let's go back to town.\"||The sun shows briefly in the west, flaring like a red searchlight in the colourless swirl of grey and white. By the time you return to Venis, night is falling and a deeper chill closes on the narrow streets. You are grateful for the fire in the common-room of your hotel. Tomorrow the ferry is due to arrive.">
 
 <ROOM STORY395
 	(DESC "395")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT395)
+	(CONTINUE STORY025)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT396 "Earlier you took the precaution of disguising yourself to look like the face shown on the card. You are aware that your disguise is not perfect, since the holographic picture does not tell you the height, build and mannerisms of the card's original owner. But the Society of the Compass is a far-flung organization, and it is unlikely that the receptionist would personally recognize any given member.||This assumption seems to be correct, for the receptionist barely glances at the card before running it through a slot and returning it to you. His thin face puts on an ingratiating smile as he indicates the elevator at the back of the lobby and says, \"No other members are currently in residence. You will have uninterrupted use of the facilities here.\"||Nodding in thanks, you step into the elevator and consult the panel.">
 
 <ROOM STORY396
 	(DESC "396")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT396)
+	(CHOICES FACILITIES)
+	(DESTINATIONS FACILITIES-DESTINATIONS)
+	(TYPES FIVE-NONES)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY397
 	(DESC "397")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(EVENTS STORY397-EVENTS)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY397-EVENTS ()
+	<COND (<CHECK-SKILL ,SKILL-AGILITY> <RETURN ,STORY196>)>
+	<RETURN ,STORY173>>
+
+<CONSTANT TEXT398 "A gaze of grey agate fixes you. The stranger has a predator's cold, scrutinizing stare. He knows that you will not hand over the sword willingly. As you draw it from your belt, he flings up his arms and rushes soundlessly forward, his mouth gaping open to reveal long bloodsucking fangs.||You take a half step backwards and swing the sword in a backhanded arc. It slices cleanly through the stranger's neck. His head falls with a crunch into the snow. The body remains upright, fingers still groping blindly towards you. Almost numb with horror, you plunge the sword into your foe's heart. The body crumples, shrivelling like a dry husk. There is no blood.||Grimacing, you roll the head over with your foot and peer down at it in the moonlight. Gone are the clear gaze and perfect marble features. Now it is an ancient brown skull with leathery face and a few wisps of cobwebby hair. It was a porphyr -- one of the undead. It may have lived for centuries, sustaining itself on the lifeblood of its victims. Only now you have slain it can you see it as it truly was.||There is nothing you can do for Shandor and his men. They were ripped apart while they slept. You make a cursory search of the shreds of clothing you can see, finding an ID card, a flashlight, and a barysal gun with one remaining charge.">
 
 <ROOM STORY398
 	(DESC "398")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT398)
+	(PRECHOICE STORY398-PRECHOICE)
+	(CONTINUE STORY161)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY398-PRECHOICE ()
+	<TAKE-OR-CHARGE 1 T>
+	<SELECT-FROM-LIST <LTABLE ID-CARD FLASHLIGHT> 2 2>>
+
+<CONSTANT TEXT399 "Instead of answering, he rummages in a locker and brings forth a metal canister. Taking this outside, he approaches a thin stalk of ferns sprouting form the ground beside the barren area and spray it with a chemical. It almost instantly withers. \"I found a storehouse full of the stuff,\" he cries gleefully, brandishing the canister. \"It's well to keep the surrounding area free of plant life, you see. The sanguivores travel rapidly through the trees, but they will not venture onto barren ground, where they are as clumsy as waterlogged tents flapping in a breeze.\"||He presses the cannister into your hand and urges you to keep it. You are on the point of commenting that the liquor he offered you is probably almost as toxic, but you decide not to offend him.">
+<CONSTANT CHOICES399 <LTABLE "ask him if he has any food" "say good-bye and go on your way">>
 
 <ROOM STORY399
 	(DESC "399")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT399)
+	(CHOICES CHOICES399)
+	(DESTINATIONS <LTABLE STORY378 STORY420>)
+	(TYPES TWO-NONES)
+	(ITEM VINE-KILLER)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT400 "In the following weeks you lose all memory of the brief spell of warmth you enjoyed in the jungle of Lyonesse. The deep chill has soon settle back in your bones.">
+<CONSTANT TEXT400-CONTINUED "Surveying the landscape, you see only a dazzling expanse of snow under a sky of merciless metallic blue. The few other people you catch sight of are hunched anonymous figures in the distance. You do not call out to them. In these grim and desperate times, a lone traveller is well advised not to seek out company.||The quaintly named Jib-and-Halter Pass shows itself under a gritty haze. The air takes on a sulphurous tang as you approach. Here the rocks lie under only a light dusting of snow. You throw back your hood. It does not seem quite so cold here. Volcanic vents in the ground release hot mud in geysers to the west. Bog moss thrives in the fertile mud, allowing a small settlement to survive here.||You arrive at the settlement, a collection of tottering huts around the long looming bulk of the ancient Jib-and-Halter Inn. The sun dips low in the sky, sending amber shafts of light through the thin air. You blow out a plume of breath. You are looking forward to a fire, a hot bath and a good meal.||The interior of the inn is a place of lantern light and low black rafters. Dozens of faces glowering as you enter. Several people sweep their hands irritably in your direction, a common twenty-third century gesture to urge haste on someone who is sluggish in closing a door.||As you cross over to the bar, you begin to sense something is amiss. None of the others here are eating or drinking. Each person sits sullenly silent. Then, as you move around a squat beam, you come in sight of two women standing at the bar. To judge from the stack of glasses in front of them, they  have drunk enough vodka to kill a fair-sized rhino, but the only sign they might even be slightly drunk is their loud haughty bray of laughter on seeing you. You size them up at a glance. They are identical twins, both over six feet tall and with taut Olympian physiques, brimming with vitality, their eyes and closed-cropped hair the colour of sunrise. Each twin has a tattoo on her arm: a number in Roman numerals.||\"Sit there and stay silent,\" commands one of the twins.||\"We insist on drinking undisturbed,\" says her sister">
+<CONSTANT CHOICES400 <LTABLE "take exception to their manners and do something about it" "meekly do as you are told">>
 
 <ROOM STORY400
 	(DESC "400")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT400)
+	(PRECHOICE STORY400-PRECHOICE)
+	(CHOICES CHOICES400)
+	(DESTINATIONS <LTABLE STORY032 STORY054>)
+	(TYPES TWO-NONES)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY400-PRECHOICE ("AUX" (DAMAGE 3))
+	<COND (<CHECK-SKILL ,SKILL-SURVIVAL> <SET DAMAGE <- .DAMAGE 2>>)>
+	<COND (<CONSUME-FOOD 1> <SET DAMAGE <- .DAMAGE 1>>)>
+	<COND (<L=? .DAMAGE 0>
+		<PREVENT-DEATH ,STORY400>
+	)(ELSE
+		<TEST-MORTALITY .DAMAGE ,DIED-OF-HUNGER ,STORY400>
+	)>
+	<COND (<IS-ALIVE>
+		<CRLF>
+		<TELL ,TEXT400-CONTINUED>
+		<TELL ,PERIOD-CR>
+		<COND (<CHECK-SKILL ,SKILL-LORE>
+			<STORY-JUMP ,STORY379>
+		)(<CHECK-SKILL ,SKILL-ESP>
+			<STORY-JUMP ,STORY421>
+		)>
+	)>>
 
 <ROOM STORY401
 	(DESC "401")
