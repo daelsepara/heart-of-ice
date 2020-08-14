@@ -5385,175 +5385,125 @@
 	(CONTINUE STORY306)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT371 "The grandly-named Doge's Inn proves to be a group of iron-roofed shacks clustered along one of the town's seedier alleyways. The innkeeper is a thin dark-skinned man who is busy polishing the counter with a grimy rag. When you ask him how the inn got its name, he fixes you with an odd look, then casually removes his glass eye and wipes it with the rag before replacing it. You steady yourself against the counter, feeling slightly weak at the knees.||\"The Doge was the ruler of Venis in ancient times,\" he explains. \"His attendants and courtiers were know as scarlatti. My own name is Scarlatti.\"||\"So it's sort of a joke?\" You peer dubiously towards the sleeping quarters. A rat scuttles through a gap in the wall.||\"Yeah, sort of.\"||You pay over the three scads and find yourself a bed in the dormitory, then go to the showers to wash off the sweat of your travels. The showers are located at the back of the building: a cold gloomy hall lined with the cracked tiles, lit only by a single oil lamp by the door. At the far end is a small steam room. You strip off your belongings and step inside. Noe one else is here. Twisting the nozzle of the shower, you flinch from the jet of boiling hot water that spurts out. Incredible that after all these centuries nobody has yet invented a shower that can be set to a comfortable temperature.||But that is the least of your worries now. A shadow moves in the doorway and you glance back to see two men behind you. Since they have not undressed, you guess that they have not come here to take a shower. The knives they are holding confirm it. They intend to kill you.">
+<CONSTANT CHOICES371 <LTABLE "run to the steam room" "fight" "try to get past them and escape">>
+
 <ROOM STORY371
 	(DESC "371")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT371)
+	(CHOICES CHOICES371)
+	(DESTINATIONS <LTABLE STORY004 STORY026 STORY070>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT372 "You are accosted by one of the black-coated local guides known as gondos. \"I heard you speak Gaia, friend. On the outskirts of town is an old treasure vault with many computers and other devices of the past. Deserted now. People say it's haunted. I'll take you there for a scad or two.\"||This seemingly offhand reference to payment turns out after a short bargaining session to mean precisely 3 scads.">
+<CONSTANT CHOICES372 <LTABLE "pay the gondo that much" "not">>
 
 <ROOM STORY372
 	(DESC "372")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT372)
+	(CHOICES CHOICES372)
+	(DESTINATIONS <LTABLE STORY293 STORY414>)
+	(REQUIREMENTS <LTABLE 3 NONE>)
+	(TYPES <LTABLE R-MONEY R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT373 "A lambent ray streams off along the corridor, splitting the air with an ultrasonic screech. You hear the hiss of molten metal and something erupts in a fountain of sparks. Advancing, you discover a caretek, feebly twitching on its back like a crushed metal cockroach. You were in no danger. It was patrolling the complex looking for things to repair, just as it must have been doing for centuries.||Annoyed at yourself for panicking and so wasting as hot, you press on deeper into the gloomy warren of tunnels.">
 
 <ROOM STORY373
 	(DESC "373")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT373)
+	(PRECHOICE STORY373-PRECHOICE)
+	(CONTINUE STORY435)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY373-PRECHOICE ()
+	<FIRE-BARYSAL 1>>
+
+<CONSTANT TEXT374 "You stride confidently into the lobby. The receptionist, a prim-looking man with pursed lips, sits at a desk. Behind him on the wall is displayed the Society's symbol: a triangle enclosing a circle and central dot. To one side, a bronze-coloured elevator door is set into the black marble wall.||The receptionist looks up, blinks. \"Good evening. How may I help you?\"||Unsure of protocol, you hand him your card. He slides it into a slot in the desk, consults a screen, then hands the card back. His blank expression has become an unctuous smile as he says, \"Our facilities are here at your disposal. There are no other members in residence at the moment, so you'll have the building to yourself.\"||The elevator door opens. You mutter a gruff thank-you and walk past. Inside the elevator, you study the panel and decide which floor to go to.">
+<CONSTANT CHOICES374 <LTABLE "go to the library" "the medical lounge" "the gymnasium" "the armoury" "the canteen">>
 
 <ROOM STORY374
 	(DESC "374")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT374)
+	(CHOICES CHOICES374)
+	(DESTINATIONS <LTABLE STORY006 STORY028 STORY051 STORY447 STORY094>)
+	(TYPES FIVE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT375 "You step out of the carriage and set off along a deserted tunnel which soon brings you to a staircase. You climb until you can see a shaft of daylight filtering between toppled blocks of masonry. There is not much room, but you manage to squeeze through, emerging onto a broad expanse of tarmac with a few single-storey buildings nearby. The air is crisply cool but there is no snow here. To the south, outlined against a china blue sky, you can see a cluster of ancient spires surrounding a high stone fortress wall.||A whine of jets begins to grow across the tarmac. Turning, you see a narrow-hulled flyer a few hundred metres away. On the stilts of its landing gear, gleaming in the past sunlight, it reminds you of an insect poised for flight. The nozzles of the flyer's vertical jets are beginning to glow. It is about to take off.">
+<CONSTANT CHOICES375 <LTABLE "hurry over and try to attract the pilot's attention" "shelter in the subway entrance and watch the flyer leave">>
 
 <ROOM STORY375
 	(DESC "375")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT375)
+	(CHOICES CHOICES375)
+	(DESTINATIONS <LTABLE STORY102 STORY078>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT376 "You arrive at the roof and step out into the cold night air. Mist rising from the river far below reaches up here as no more than a faint sparkling blur. Directly above, the stars shine as hard as diamonds. You glance around, gratified to see a Manta sky-car parked on the rooftop helipad. If only you can get it started.||The Fijian anticipated what you'd do. He comes clattering breathlessly up the fire escape steps and fixes you with a look of dangerous rage. \"Last warning. Stop right there.\"||He doesn't seem to have a gun, although form the look of him he could break you apart with his bare hands.">
+<CONSTANT CHOICES376 <LTABLE "try leaping across to the roof of the next building -- a distance of about eight metres." "take off in the sky car" "stand and fight">>
 
 <ROOM STORY376
 	(DESC "376")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT376)
+	(CHOICES CHOICES376)
+	(DESTINATIONS <LTABLE STORY397 STORY418 STORY437>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT377 "Even while reaching to your belt for the sword, pretending to comply, you are inwardly straining to exert your psychic power. The stranger does not notice as you enclose the pair of you in a time vortex, leaving the world outside to continue at its normal rate while each heartbeat within the vortex takes an hour to complete.||Your fingers detach the shortsword from your belt. The night rushes on headlong towards dawn. As you are lifting the sword to hand it to the stranger, sunrise begins to show as a wan yellow blaze along the eastern hills. It reflects in golden glints from the sword blade. The stranger, seeing this, narrows his pale eyes in a frown, then whirls to stare in shock at the sun. A thin screech wells up from deep in his throat as he takes a step back. Then it is as though he is swept away, evaporated like a snowflake by the feeble heat of the sun.||You guessed right. He was a creature of the night, a bloodsucker who had good cause to shun the daylight. You cancel the psychic vortex and the flow of time returns to normal. There is nothing you can do for Shandor and his men: they were ripped apart while they slept. You make a cursory search of the shreds of clothing you can see, finding an ID card, a flashlight, and a barysal gun with one remaining charge.">
 
 <ROOM STORY377
 	(DESC "377")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT377)
+	(PRECHOICE STORY377-PRECHOICE)
+	(CONTINUE STORY161)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY377-PRECHOICE ()
+	<TAKE-OR-CHARGE 1 T>
+	<SELECT-FROM-LIST <LTABLE ID-CARD FLASHLIGHT> 2 2>>
+
+<CONSTANT TEXT378 "Fax leads you down the stairway. At the bottom lies a wide circular hall with various tunnels leading off it. A sign above each tunnel proclaims the destinations available. You read them with a feeling of melancholy: New York, Moscow, Edinburgh... Most of these places are now buried under a kilometre of ice.||Fax shows you a food machine set into the wall. \"Most of the buttons no longer work, but the 'Skudge Bar' is nutritious.\" He presses a button, the machine hums, and a moment later a foil-wrapped block drops out of a slot. Unwrapping it, you find a chewy fudge which surprises you in having a savoury taste.">
+<CONSTANT CHOICES378 <LTABLE "explore the tunnels" "bid Fax farewell and continue on your journey now">>
 
 <ROOM STORY378
 	(DESC "378")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT378)
+	(PRECHOICE STORY378-PRECHOICE)
+	(CHOICES CHOICES378)
+	(DESTINATIONS <LTABLE STORY439 STORY420>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY378-PRECHOICE ()
+	<COND (,RUN-ONCE <TAKE-FOOD-PACKS 8>)>
+	<COND (<CHECK-SKILL ,SKILL-CYBERNETICS> <STORY-JUMP ,STORY009>)>>
+
+<CONSTANT TEXT379 "The numbers tattooed on their shoulders give you the clue: they can only be members of the Gargan clone-group. These were specially bred superbings employed by the Chikusa Corporation for tasks such as mining in the asteroid belt, where ordinary humans would find the work too strenuous. They were later used as enforcers when the corporation moved into criminal affairs. There was a rumour that the entire clone-group had been ambushed and killed in Bangkok, but it seems that at least these two survived.||They are very dangerous people.">
+<CONSTANT CHOICES379 <LTABLE "start something" "swallow your pride and sit in silence while they drink">>
 
 <ROOM STORY379
 	(DESC "379")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT379)
+	(CHOICES CHOICES379)
+	(DESTINATIONS <LTABLE STORY032 STORY054>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT380 "A street vendor offers books, pamphlets and disks containing a vast wealth of chaotic information. You search through shelves and old boxes until you learn everything you need. Gilgamesh was the name of a military project centuries ago. The idea was to construct a battle-droid which was immune to paradoxing, in the hope that an army of such warriors could overwhelm Du-En. But then Du-En fell of its own accord, and the project was apparently abandoned.||You check the location of the Gilgamesh research base. It was at Giza, just outside Kahira.">
 
 <ROOM STORY380
 	(DESC "380")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT380)
+	(PRECHOICE STORY380-PRECHOICE)
+	(CONTINUE STORY311)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY380-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-LORE> <STORY-JUMP ,STORY095>)>>
 
 <ROOM STORY381
 	(DESC "381")
