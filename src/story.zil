@@ -4997,174 +4997,119 @@
 	(CONTINUE STORY361)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT341 "You look down at the huge carcass stretched out in the pale moonlight.">
+<CONSTANT CHOICES341 <LTABLE "cut it up" "use" "otherwise">>
+
 <ROOM STORY341
 	(DESC "341")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT341)
+	(CHOICES CHOICES341)
+	(DESTINATIONS <LTABLE STORY362 STORY384 STORY298>)
+	(REQUIREMENTS <LTABLE <LTABLE KNIFE SHORTSWORD> SKILL-CUNNING NONE>)
+	(TYPES <LTABLE R-ANY R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT342 "The truth dawns on you with chilling horror: you have a wasting disease. It will spread, gnawing away at you from inside. Now the race for the Heart takes on a vivid new importance, as it is only by obtaining its power that you can cure your body of the sickness.">
 
 <ROOM STORY342
 	(DESC "342")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT342)
+	(PRECHOICE STORY342-PRECHOICE)
+	(CONTINUE STORY278)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY342-PRECHOICE ()
+	<COND (<OR <CHECK-ITEM ,MEDICAL-KIT> <CHECK-VEHICLE ,MANTA-SKY-CAR>> <STORY-JUMP ,STORY257>)>>
+
+<CONSTANT TEXT343 "You hurry to catch up with Singh and tell him about Gaia's warnings. At first he seems barely interested, but gradually your words get through. He comes to a halt and turns to stare into your face. \"You  propose an alliance,\" he says. \"his is wise. If we are allies, we are virtually certain to prevail against all others and reach the Heart. Tomorrow, you go with Baron Siriasis and I shall team up with Golgoth. They are our most dangerous adversaries. If the opportunity arises, we must slay them.\"||\"What if your group finds the Heart first? Or my group, for that matter?\"||\"I swear I shall not take its power until only you and I are left. Then together wee can discuss the future of the cosmos.\"||You watch him march back to his tent. You feel sure Singh will keep his oath of alliance. If only you didn't have a sneaking suspicion that you've just tied yourself to the lion's tail.">
 
 <ROOM STORY343
 	(DESC "343")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT343)
+	(CONTINUE STORY192)
+	(CODEWORD CODEWORD-RED)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT344 "Through the glass door you can see that Golgoth's elevator is starting to descend. Hastily you reach out and scan his mind to find out what he said. You learn that the code takes the form of a question-and-answer formula central to the Volentine faith. Golgoth found it when he watched the tapes showing the interrogation of Eleazar Picard, the high priest of the cult who escaped when Du-En fell.||It worked for Golgoth. Now you can see if it will work for you.">
 
 <ROOM STORY344
 	(DESC "344")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT344)
+	(CONTINUE STORY018)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT345 "It is strange to witness the barysal beam slowing down as it enters the time-distortion zone, like watching a white-hot needle pressing through ice. As it strikes the stasis bomb, there is a muffled explosion and the bomb splits into molten fragments. At the same instant, the man takes half a step forward and then jerks back in surprise as he sees the three of you standing around him.">
 
 <ROOM STORY345
 	(DESC "345")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT345)
+	(PRECHOICE STORY345-PRECHOICE)
+	(CONTINUE STORY409)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY345-PRECHOICE ()
+	<FIRE-BARYSAL 1>>
+
+<CONSTANT TEXT346 "Golgoth suddenly explodes into action. Seizing Boche around the neck and pressing his gun to his temple, he orders him to shoot Singh unless he wants to die at once. Boche raises his own gun and fires at Singh is turning to act. As Singh staggers back, his armour breastplate charred by the blast, Golgoth coolly shoots Boche through the head, holding the body up as a shield.||Singh is fumbling for the trigger of his mantramukta cannon. \"Get him now!\" Golgoth shouts to you. \"Before he recovers!\"">
+<CONSTANT CHOICES346 <LTABLE "attack with a" "or a" "decide not to act">>
 
 <ROOM STORY346
 	(DESC "346")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT346)
+	(CHOICES CHOICES346)
+	(DESTINATIONS <LTABLE STORY389 STORY389 STORY410>)
+	(REQUIREMENTS <LTABLE BARYSAL-GUN STUN-GRENADE NONE>)
+	(TYPES <LTABLE R-DISCHARGE R-LOSE-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT347 "Your gun is in your hand before Boche can react. The shot lashes through the air, catching him directly between the eyes. He dies without even realizing what has happened. Now nothing stands between you and the Heart of Volent.">
 
 <ROOM STORY347
 	(DESC "347")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT347)
+	(PRECHOICE STORY347-PRECHOICE)
+	(CONTINUE STORY415)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY347-PRECHOICE ()
+	<FIRE-BARYSAL 1>>
+
+<CONSTANT TEXT348 "The barysal beam cleaves through Singh's armour, but his own shot slays you at once. You die knowing that victory was almost within your grasp.">
 
 <ROOM STORY348
 	(DESC "348")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT348)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT349 "Finding another ledge where there are no corpses, you sweep it clear of snow and settle down for the night. Boche casts a wry gaze along the rock face. \"A bit like sleeping in a graveyard,\" he remarks.||You can only shrug. \"Try not to think about it. At least here we're out of the wind.\"||\"And safe from predators.\"||\"Are we?\" You wonder.||As the feeble daylight gives way to night, snow comes in fast flurries on the wind coursing through the pass. The sound is like a banshee's wailing. Huddled in your jacket, you try to get to sleep. Then you hear the unmistakable tread of footsteps in the snow. Someone is coming.">
+<CONSTANT CHOICES349 <LTABLE "leap out and attack" "wait where you are">>
 
 <ROOM STORY349
 	(DESC "349")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT349)
+	(PRECHOICE STORY349-PRECHOICE)
+	(CHOICES CHOICES349)
+	(DESTINATIONS <LTABLE STORY433 STORY002>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY349-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-ESP>
+		<STORY-JUMP ,STORY392>
+	)(<CHECK-SKILL ,SKILL-LORE>
+		<STORY-JUMP ,STORY413>
+	)>>
+
+<CONSTANT TEXT350 "The main market of Venis is located inside a lavish three-decked gallery perched incongruously amid the muddy lower streets. Here, on benches where rowers once plied gilded oars, merchants sit and call out their trade. When a customer shows interest, he is led off to the merchant's storehouse in one of the neighbouring side streets.">
+<CONSTANT CHOICES350 <LTABLE "look for ordinary goods" "weaponry and other devices" "undergo genetic enhancement">>
 
 <ROOM STORY350
 	(DESC "350")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT350)
+	(CHOICES CHOICES350)
+	(DESTINATIONS <LTABLE STORY394 STORY283 STORY434>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY351
