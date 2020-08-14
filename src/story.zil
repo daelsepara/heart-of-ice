@@ -947,7 +947,7 @@
 <ROUTINE STORY031-PRECHOICE ()
 	<COND (<CHECK-SKILL ,SKILL-ESP> <STORY-JUMP , STORY141>)>>
 
-<CONSTANT CHOICES032 <LTABLE "fight with" "draw a barysal gun on them" "resort to" "you really would be better off not tangling with them">>
+<CONSTANT CHOICES032 <LTABLE "fight with" "draw a" "resort to" "you really would be better off not tangling with them">>
 
 <ROOM STORY032
 	(DESC "032")
@@ -1208,7 +1208,7 @@
 	(DEATH T)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT053 "A rustling in the leaf canopy directly overhead warns you of danger. You open your eyes in time to see a narrow wedge/shaped head shaking down from the branches, its wide pink mouth lined with teeth like needles.||You react instantly, flipping backwards over the log an instant before the jaws strike. The creature roars back, spitting out soil and twigs, head bobbing on a long grey cable of neck, and lunges again. You slip aside, snatch up your belonging, and race off through the trees.">
+<CONSTANT TEXT053 "A rustling in the leaf canopy directly overhead warns you of danger. You open your eyes in time to see a narrow wedge-shaped head shaking down from the branches, its wide pink mouth lined with teeth like needles.||You react instantly, flipping backwards over the log an instant before the jaws strike. The creature roars back, spitting out soil and twigs, head bobbing on a long grey cable of neck, and lunges again. You slip aside, snatch up your belonging, and race off through the trees.">
 
 <ROOM STORY053
 	(DESC "053")
@@ -1830,7 +1830,7 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT100 "You continue on, watching the sun slide dankly down into the west. A silvery afterglow rims the skyline. Pale humps of snow extend to the murky horizon, divided by hollows brimming with violet shadow. Catching a movement out of the corner of your eye you freeze, slowly turning to see a huge sabre-fanged bometh standing on a rise not fifty metres away. You slink back behind an ice boulder, not certain if the creature saw you.">
-<CONSTANT CHOICES100 <LTABLE "attack the bometh with a charged barysal gun" "or with a stun grenade" "close with it" "track it" "creep off before it spots you">>
+<CONSTANT CHOICES100 <LTABLE "shoot at the bometh" "use a" "close with it" "track it" "creep off before it spots you">>
 
 <ROOM STORY100
 	(DESC "100")
@@ -1873,7 +1873,7 @@
 	<TELL ,TEXT101-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
-<CONSTANT TEXT102 "You are halfway across the tarmac when you realize your mistake. The pilot of the flyer has already engaged the boosters. You see him at the cockpit window, his face contorting in surprise and shock at the sight of you racing towards the craft. Your last image is of him jabbing desperately at the controls, but he is too late to abort the booster ignition. An instant later, a blast of white/hot gas bursts from the landing jets and billows up to press a wave of solid heat into your face. Blinding light burns into your retinas, followed by darkness and oblivion.">
+<CONSTANT TEXT102 "You are halfway across the tarmac when you realize your mistake. The pilot of the flyer has already engaged the boosters. You see him at the cockpit window, his face contorting in surprise and shock at the sight of you racing towards the craft. Your last image is of him jabbing desperately at the controls, but he is too late to abort the booster ignition. An instant later, a blast of white-hot gas bursts from the landing jets and billows up to press a wave of solid heat into your face. Blinding light burns into your retinas, followed by darkness and oblivion.">
 
 <ROOM STORY102
 	(DESC "102")
@@ -1886,7 +1886,7 @@
 <ROUTINE STORY102-PRECHOICE ()
 	<TEST-MORTALITY 5 ,DIED-FROM-INJURIES ,STORY102>>
 
-<CONSTANT TEXT103 "You build a lean/to beside the bubbling pool in the shelter of dwarf conifers. You soon discover that the water of the pool is tainted with volcanic gases, but when you need to drink it is easy enough to collect snow from beyond the edge of the oasis and bring it back to camp to melt.||Food is more difficult to come by. The birds you saw when you first arrived prove to be very timid, and canny enough not to let you catch them. If someone had told you even two weeks ago that you would be eagerly chewing grubs and insects for sustenance, you would have laughed them to scorn. At least the hot gases rising from clefts in the rocks mean that you can bake the insects before eating them.">
+<CONSTANT TEXT103 "You build a lean-to beside the bubbling pool in the shelter of dwarf conifers. You soon discover that the water of the pool is tainted with volcanic gases, but when you need to drink it is easy enough to collect snow from beyond the edge of the oasis and bring it back to camp to melt.||Food is more difficult to come by. The birds you saw when you first arrived prove to be very timid, and canny enough not to let you catch them. If someone had told you even two weeks ago that you would be eagerly chewing grubs and insects for sustenance, you would have laughed them to scorn. At least the hot gases rising from clefts in the rocks mean that you can bake the insects before eating them.">
 <CONSTANT TEXT103-CONTINUED "On the morning of your second day at the oasis, you notice a slight feeling of nausea, and begin to wonder whether the sulphur-tinged air is affecting your health">
 <CONSTANT CHOICES103 <LTABLE "leave the oasis and head on" "stay for a few days more">>
 
@@ -2160,7 +2160,7 @@
 	(CODEWORD CODEWORD-TALOS)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT123 "\"Target identification: bometh,\" grates Gilgamesh. \"Mutant wolf/bear hybrid. Predator. It presents a danger. Immediate elimination is called for.\"||He raises his arm, ejecting a crackling blast of energy that turns the dusk to day. The swirling snowflakes hiss into steam. On the crest of the rise, the giant beast shudders and falls, rolling down into the deep snow. With Gilgamesh clanking along behind, you hurry over to make sure the bometh is dead, as you would not want a wounded predator stalking you through the night.">
+<CONSTANT TEXT123 "\"Target identification: bometh,\" grates Gilgamesh. \"Mutant wolf-bear hybrid. Predator. It presents a danger. Immediate elimination is called for.\"||He raises his arm, ejecting a crackling blast of energy that turns the dusk to day. The swirling snowflakes hiss into steam. On the crest of the rise, the giant beast shudders and falls, rolling down into the deep snow. With Gilgamesh clanking along behind, you hurry over to make sure the bometh is dead, as you would not want a wounded predator stalking you through the night.">
 
 <ROOM STORY123
 	(DESC "123")
@@ -2532,7 +2532,7 @@
 	(CONTINUE STORY261)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT152 "Who is the most trustworthy person here? You can rely on your psychic sense to guide you. Vajra Singh is an honourable man, but you cannot believe he would ever relinquish the chance for ultimate power. Chaim Golgoth is motivated by duty to his nation -- at least on the surface. Thadra Bey would never ally herself with others; she is as proud and independent as a cat. Janus Gaunt strikes you as free of malice; a reflective man, he could even be virtuous if he were of stronger character. Kyle Boche is vain, pompous and self/serving. And as for Baron Siriasis -- his mind is closed to you entirely.||Perhaps you would be better to ask yourself who is least untrustworthy.">
+<CONSTANT TEXT152 "Who is the most trustworthy person here? You can rely on your psychic sense to guide you. Vajra Singh is an honourable man, but you cannot believe he would ever relinquish the chance for ultimate power. Chaim Golgoth is motivated by duty to his nation -- at least on the surface. Thadra Bey would never ally herself with others; she is as proud and independent as a cat. Janus Gaunt strikes you as free of malice; a reflective man, he could even be virtuous if he were of stronger character. Kyle Boche is vain, pompous and self-serving. And as for Baron Siriasis -- his mind is closed to you entirely.||Perhaps you would be better to ask yourself who is least untrustworthy.">
 
 <ROOM STORY152
 	(DESC "152")
@@ -3223,7 +3223,7 @@
 	)>
 	<TELL ,PERIOD-CR>>
 
-<CONSTANT TEXT202 "The queue shuffles along slowly and at last you reach the ticket office. A bored official in the livery of a Venisian merchant guild peers at you through a screen of wire/meshed glass. \"The cost of passage as far as Kahira is ten scads,\" he tells you.">
+<CONSTANT TEXT202 "The queue shuffles along slowly and at last you reach the ticket office. A bored official in the livery of a Venisian merchant guild peers at you through a screen of wire-meshed glass. \"The cost of passage as far as Kahira is ten scads,\" he tells you.">
 <CONSTANT CHOICES202 <LTABLE "pay this sum" "not">>
 
 <ROOM STORY202
@@ -3265,7 +3265,7 @@
 	<KEEP-ITEM ,SHORTSWORD>
 	<COND (<CHECK-SKILL ,SKILL-LORE> <STORY-JUMP ,STORY183>)>>
 
-<CONSTANT TEXT206 "The creature that attacked you is a sanguivore. A species of tree/dwelling lizard which is halfway to evolving flight, this is just one of the hallucinatory by-products of the Paradox War. From the way your wound is pouring blood, you suspect the sanguivore's saliva contained an anti-clotting agent. That alone would not explain your increasing dizziness, though, which suggests its bite also injected a drug. No wonder it's in no hurry to catch up with you -- easier by far to track you through the woods and wait until you collapse. Well, you are not as helpless as the wild animals on which the sanguivore normally preys. Tearing the lining of your jacket into strips, you bind the wound to prevent further blood loss.||The only thing you can do about the drug is stay on the move until you find shelter. If you were to lie down now you would never get up again.">
+<CONSTANT TEXT206 "The creature that attacked you is a sanguivore. A species of tree-dwelling lizard which is halfway to evolving flight, this is just one of the hallucinatory by-products of the Paradox War. From the way your wound is pouring blood, you suspect the sanguivore's saliva contained an anti-clotting agent. That alone would not explain your increasing dizziness, though, which suggests its bite also injected a drug. No wonder it's in no hurry to catch up with you -- easier by far to track you through the woods and wait until you collapse. Well, you are not as helpless as the wild animals on which the sanguivore normally preys. Tearing the lining of your jacket into strips, you bind the wound to prevent further blood loss.||The only thing you can do about the drug is stay on the move until you find shelter. If you were to lie down now you would never get up again.">
 
 <ROOM STORY206
 	(DESC "206")
@@ -4552,7 +4552,7 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT303 "Vajra Singh stabs at the trigger of his cannot and swings it round towards Golgoth. But the USI agent is not taken by surprise. He grabs Boche and throws him forward to take the brunt of the blast. Boche dies instantly, and at the same moment Golgoth drops a canister that releases a thick cloud of white smoke.||Singh looms like a ghost in the spreading cloud. Holding the cannon ready, he peers through the smoke for any sign of movement. You've lost sight of Golgoth.">
-<CONSTANT CHOICES303 <LTABLE "attack Singh with a barysal gun" "or" "or move in closer to give him back/up" "step away and wait to see what happens">>
+<CONSTANT CHOICES303 <LTABLE "attack Singh with a" "or" "or move in closer to give him back-up" "step away and wait to see what happens">>
 
 <ROOM STORY303
 	(DESC "303")
@@ -5221,7 +5221,7 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT357 "The panel bends inward, then gives with a crack. You push through past a blanket which had been hanging against the wall. A fire crackles in the centre of the foyer, which is so badly dilapidated that it is little more than a cave. A rug hangs across the entrance, sealing out a keening blizzard. The chamber is warm, with a sweaty reek from its three occupants. You take them to be trappers, judging by the animal skins hung around the walls.||The three jump to their feet. Their surprise at your sudden appearance soon turns to open hostility. Two draw weapons.. One has a long knife, while the man nearest to the fire has a barysal gun.">
-<CONSTANT CHOICES357 <LTABLE "use" "or a charged barysal gun" "fall back on" "try" "rely on" "otherwise">>
+<CONSTANT CHOICES357 <LTABLE "use" "a charged barysal gun" "fall back on" "try" "rely on" "otherwise">>
 
 <ROOM STORY357
 	(DESC "357")
@@ -5262,89 +5262,72 @@
 	(DEATH T)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT361 "You return down the ramp. The feeble low-slanting rays of the sun make the day feel colder than if it were night.">
+
 <ROOM STORY361
 	(DESC "361")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT361)
+	(PRECHOICE STORY361-PRECHOICE)
+	(CONTINUE STORY393)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY361-PRECHOICE ()
+	<COND (<CHECK-VEHICLE ,MANTA-SKY-CAR> <STORY-JUMP ,STORY289>)>>
+
+<CONSTANT TEXT362 "You hack through the lardy skin to the meat, which is easily parcelled into food packs.">
 
 <ROOM STORY362
 	(DESC "362")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT362)
+	(PRECHOICE STORY362-PRECHOICE)
+	(CONTINUE STORY298)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY362-PRECHOICE ()
+	<TAKE-FOOD-PACKS 6>
+	<COND (<NOT <CHECK-ITEM ,FUR-COAT>>
+		<CRLF>
+		<TELL "Strip of the pelt to make a " ,FUR-COAT "?">
+		<COND (<YES?> <TAKE-ITEM ,FUR-COAT>)>
+	)>>
+
+<CONSTANT TEXT363 "You rest throughout the morning.">
+<CONSTANT TEXT363-CONTINUED "The others start to return around midday, beginning with Janus Gaunt and Thadra Bey. They explored a warren of tunnels under the plaza but found no clue as to the location of the Heart. Next comes Chaim Golgoth, emerging from a military bunker which he investigated in company with the Gargan twins. There is no sign of the twins, and when you ask Golgoth about them he merely replies with a wink.||The ruins are bathed in the long light of sunset by the time Vajra Singh and the baron reappear. You soon learn that they met up underground, and are obviously excited by what they discovered. \"We have identified the temple precincts,\" announces Vajra Singh, gesturing to a cluster of buildings cross the square. \"The Heart of Volent lies somewhere below. Tomorrow may be the last day of the search.\"">
 
 <ROOM STORY363
 	(DESC "363")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT363)
+	(PRECHOICE STORY363-PRECHOICE)
+	(CONTINUE STORY038)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY363-PRECHOICE ()
+	<COND (<NOT <CHECK-CODEWORD ,CODEWORD-HOURGLASS>>
+		<GAIN-LIFE 1>
+	)(ELSE
+		<CRLF>
+		<TELL "You feel feverish" ,PERIOD-CR>
+	)>
+	<CRLF>
+	<TELL ,TEXT363-CONTINUED>
+	<CRLF>>
+
+<CONSTANT CHOICES364 <LTABLE "delve into the baron's mind" "sneak closer using chameleon skin" "or" "record what the baron says" "retire for the night" "talk to one of the others: Boche" "Golgoth" "Gaunt">>
 
 <ROOM STORY364
 	(DESC "364")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(CHOICES CHOICES364)
+	(DESTINATIONS <LTABLE STORY407 STORY428 STORY428 STORY446 STORY192 STORY104 STORY126 STORY148>)
+	(REQUIREMENTS <LTABLE SKILL-ESP <LTABLE CODEWORD-CAMOUFLAGE> SKILL-ROGUERY LITTLE-GAIA NONE NONE NONE NONE>)
+	(TYPES <LTABLE R-SKILL R-CODEWORD R-SKILL R-ITEM R-NONE R-NONE R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT365 "Through the glass door you see Boche pull out a scrap of paper and recite from it. The computer is obviously satisfied with his response, because his elevator starts to descend. Having read his lips, you know the words he used. Now to find out if they will also work for you.">
 
 <ROOM STORY365
 	(DESC "365")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT365)
+	(CONTINUE STORY018)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY366
