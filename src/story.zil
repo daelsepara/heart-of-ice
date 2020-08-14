@@ -35,6 +35,7 @@
 	<SET-DESTINATION ,STORY199 1 ,STORY286>
 	<SET-DESTINATION ,STORY259 1 ,STORY242>
 	<SET-DESTINATION ,STORY296 1 ,STORY360>
+	<SET-DESTINATION ,STORY334 1 ,STORY286>
 	<PUTP ,STORY004 ,P?DEATH T>
 	<PUTP ,STORY013 ,P?DEATH T>
 	<PUTP ,STORY019 ,P?DEATH T>
@@ -695,7 +696,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY013-PRECHOICE ("AUX" (HAS-BURREK F) (DAMAGE 3))
-	<COND (<CHECK-ITEM ,BURREK> <SET DAMAGE 2> <SET HAS-BURREK T>)>
+	<COND (<CHECK-VEHICLE ,BURREK> <SET DAMAGE 2> <SET HAS-BURREK T>)>
 	<COND (<AND <NOT <CHECK-ITEM ,FUR-COAT>> <NOT <CHECK-ITEM ,COLD-WEATHER-SUIT>>> <INC .DAMAGE>)>
 	<TEST-MORTALITY .DAMAGE ,DIED-FROM-COLD ,STORY013>
 	<COND (<IS-ALIVE>
@@ -1219,16 +1220,16 @@
 	(DEATH T)
 	(FLAGS LIGHTBIT)>
 
-<ROUTINE STORY056-PRECHOICE ("AUX" (SURVIVOR F) (BURREK F) (DAMAGE 4))
+<ROUTINE STORY056-PRECHOICE ("AUX" (SURVIVOR F) (HAS-BURREK F) (DAMAGE 4))
 	<COND (<CHECK-SKILL ,SKILL-SURVIVAL> <SET DAMAGE 2> <SET SURVIVOR T>)>
-	<COND (<CHECK-ITEM ,BURREK> <DEC .DAMAGE> <SET BURREK T>)>
+	<COND (<CHECK-VEHICLE ,BURREK> <DEC .DAMAGE> <SET HAS-BURREK T>)>
 	<TEST-MORTALITY .DAMAGE ,DIED-GREW-WEAKER ,STORY056>
 	<COND (<IS-ALIVE>
 		<COND (.SURVIVOR
 			<CRLF>
 			<TELL ,TEXT056-SURVIVOR>
 		)>
-		<COND (.BURREK
+		<COND (.HAS-BURREK
 			<COND (<NOT .SURVIVOR> <CRLF>)(ELSE <TELL " ">)>
 			<TELL ,TEXT056-BURREK>
 			<TELL ,PERIOD-CR>
@@ -2446,13 +2447,13 @@
 
 <ROUTINE STORY147-PRECHOICE ("AUX" (DAMAGE 4) (MEAT F))
 	<COND (<CHECK-SKILL ,SKILL-SURVIVAL> <SET DAMAGE 3>)>
-	<COND (<CHECK-ITEM ,BURREK> <SET MEAT T> <SET DAMAGE <- .DAMAGE 2>>)>
+	<COND (<CHECK-VEHICLE ,BURREK> <SET MEAT T> <SET DAMAGE <- .DAMAGE 2>>)>
 	<TEST-MORTALITY .DAMAGE ,DIED-GREW-WEAKER ,STORY147>
 	<COND (<AND <IS-ALIVE> .MEAT>
 		<CRLF>
 		<TELL ,TEXT147-BURREK>
 		<TELL ,PERIOD-CR>
-		<LOSE-ITEM ,BURREK>
+		<LOSE-VEHICLE ,BURREK>
 	)>>
 
 <CONSTANT TEXT148 "Gaunt walks with you to the outskirts of Du-En to show you the night sky. His undead xoms stalk silently alongside bearing glow-lamps. At the city gates, they dim the lamps and you are left with the light of ten thousand glittering stars. The snows of the Sahara are swallowed by darkness, but you get the impression of standing at the hub of infinity.||For a long period neither of you speaks. Then Gaunt recites softly, \"Some say the world will end in fire, some say in ice. From what I've tasted of desire, I hold with those who favour fire. But if it had to perish twice, I think I know enough of hate to say that ice is also great, and would suffice.\"||\"What's that?\"||\"The words of a poet long ago.\" He gazes to the north. \"My home city lies under a shield of ice a kilometre thick. Soon the world will slip into a coma, like a man frozen at the point of death. The polar caps will meet and everything will end.\"||\"Unless we find the Heart and use its power to set things right.\"||He turns with a smile almost of delight. \"Is that why you've come here? I fear you'll be disappointed. The Heart must inevitably fall into the hands of one who is most ruthless. To seize true power, a man must have a heart of ice. When the powerful do good deeds -- I speak of Caesar, Alexander, Napoleon, Mao -- they do so inadvertently. The good and honest of the world are always the most impotent.||It suddenly occurs to you that Gaunt hasn't a chance of surviving here. He is too intellectual to vie with the others for the Heart.">
@@ -4870,174 +4871,130 @@
 	(CONTINUE STORY434)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT331 "Sidling up beside a man in a fur-trimmed cape of scarlet silk, you gesture out to sea. \"Is that the ferry?\"||He glances around, peers out through the icy haze swathing the coastline and then turns to regard you with a withering stare. \"It was a seagull. The ferry is not due for half an hour at least.\" With a flourish of his cape he stalks away, unaware that you have picked his pocket while he was distracted.||You now have a ticket for the ferry.">
+
 <ROOM STORY331
 	(DESC "331")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT331)
+	(CONTINUE STORY246)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT332 "There is nothing for it but to set out on foot, skirting the Inland Sea so as to reach Kahira by way of Bezant.||You are destined never to reach your goal. As you cross the hills south-east of Bezant that rise to form the Anatolian Plateau, there is a flare of light that spreads rapidly across the sky from the west. It seems as though titanic shockwaves are resounding over the world from a terrible explosion. You turn to run, but space and time flow around you like water. You fall and, looking up, you imagine a colossal face staring from the far horizon.||\"I am Vajra Singh,\" says a voice inside your head. \"Now the Heart of Volent is mine, and I shall use it to remake all creation in my own image.\"||The world is swept away. Because you delayed too long, the power of the Heart fell into another's hand. The whole cosmos ends here.">
 
 <ROOM STORY332
 	(DESC "332")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT332)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT333 "Early morning sunlight drives away the wisps of mist, but there is still a nip in the air as you walk along the narrow streets. Even in this impoverished age, the bazaar of Kahira retains the quaint and colourful air for which it is famous. The alleyways are barely wide enough for one man to pass another without intimacy. Shutters of dark wood open onto shops which display artwork of ancient times: carpets and tapestries, silks, ivory carvings, gold and silver filigree, amulets, spices, wines, dyes and sultry perfumes. A thousand scents mingle in the hazy morning air, wafting from the food stalls where coffee bubbles in tall kettles and pancakes sizzle on the stoves. You pass a man with along clay pipe. No doubt his ancestors looked out from that very stall with the same brown high-cheekboned features. Mistaking your thoughtful expression, he beckons you over. \"See my fine goods. I have thick furs to keep out the cold.\"">
+<CONSTANT TEXT333-CONTINUED "When the stall-holder learns you are undertaking a journey, he insists that you follow him to a courtyard wedged between the narrow buildings where his cousin sells animals and slaves">
+<CONSTANT CHOICES333 <LTABLE "go with him" "look around the rest of the bazaar">>
 
 <ROOM STORY333
 	(DESC "333")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT333)
+	(PRECHOICE STORY333-PRECHOICE)
+	(CHOICES CHOICES333)
+	(DESTINATIONS <LTABLE STORY338 STORY359>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY333-PRECHOICE ()
+	<COND (,RUN-ONCE <MERCHANT <LTABLE FUR-COAT> <LTABLE 3>>)>
+	<CRLF>
+	<TELL ,TEXT333-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT334 "Dusk is falling by the time you reach the ancient city of Venis. It shimmers with a thousand lights under a sky like dull green bronze. Hungry and cold, you quicken your pace through the outlying streets. You pass the temporary shacks where hunters and traders dwell, then the slums of corrugated iron and plastic filling the narrow, sunken streets that some say were once canals. Above them loom the blocks of ancient plazas, where the rich and powerful of the city reside in palatial buildings shored up with wooden scaffolding to support them from the ravages of time.||You soon learn that the ferry to Kahira is not due for a couple of days. While waiting, you have a choice of where to take lodging. The lavish Marco Polo Hotel will charge 12 scads for two nights; the Hotel Paradise will charge 6 scads; the disreputable Doge's Inn will cost only 3 scads.">
+<CONSTANT CHOICES334 <LTABLE "choose Marco Polo" "opt for Paradise" "check in at the Doge's Inn">>
 
 <ROOM STORY334
 	(DESC "334")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT334)
+	(PRECHOICE STORY334-PRECHOICE)
+	(CHOICES CHOICES334)
+	(DESTINATIONS <LTABLE STORY286 STORY244 STORY371>)
+	(REQUIREMENTS <LTABLE 12 6 3>)
+	(TYPES <LTABLE R-MONEY R-MONEY R-MONEY>)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY334-PRECHOICE ()
+	<COND (<CHECK-ITEM ,ID-CARD>
+		<SET-DESTINATION ,STORY334 1 ,STORY222>
+	)(ELSE
+		<SET-DESTINATION ,STORY334 1 ,STORY286>
+	)>>
+
+<CONSTANT TEXT335 "Although the computers monitoring and maintaining the power supply must still be functioning, it is obvious that they are not connected to Gaia. Gaia is too erratic to have kept up such a task for two centuries. However, if you can get access to the computers here in the city then you might be able to set up a link with Gaia.">
 
 <ROOM STORY335
 	(DESC "335")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT335)
+	(CONTINUE STORY356)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT336 "\"Possibly you overestimate Gaia's powers; she does not control the sun,\" you reply with a scornful laugh. The screen flickers and a blue globe logo appears announcing access to Gaia. Quickly you type: \"GAIA. ARE YOU THERE?\"||\"WHERE IS THERE? THERE IS EVERYWHERE.\"||Unfortunately Gaia is in one of her confused phases. You try again: \"HOW MUST I REACH DU-EN?\"||\"GIZA FIRST. THE PYRAMID.\" You seem to sense in the juddering way the type appears on the screen, a great struggle going on inside Gaia's mind. \"YOU CAN FIND A FRIEND IN GILGAMESH. ENTER HUMBABA...\"||The message degenerates into gibberish. You break the link then, after pausing to reflect, you order the local computer to shut down. There is a chance it became afflicted with Gaia's viruses during the link, and it would not do to have a nuclear reactor go critical somewhere nearby.||\"I'm afraid you'll lose electricity soon,\" you tell Fax. \"There's probably enough power in the storage cells for a day or two, then you'll have to make other arrangements for your lighting and so forth.\"||His jaw drops. \"What have you done? You have wreck my little paradise, all for the sake of a word with your precious Gaia!\"||You shrug. \"Those few words might mean the salvation of mankind -- if I can work out what they mean.\"">
+<CONSTANT CHOICES336 <LTABLE "try one of the tunnels" "else say goodbye to Fax and continue your journey west">>
 
 <ROOM STORY336
 	(DESC "336")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT336)
+	(CHOICES CHOICES336)
+	(DESTINATIONS <LTABLE STORY439 STORY420>)
+	(TYPES TWO-NONES)
+	(CODEWORD CODEWORD-HUMBABA)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT337 "His gaze narrows just for an instant as he listens to the question. \"Giza was a military base a few klicks west. Long before that, I'm told it was an ancient burial ground. It's deserted now anyway. And off limits. I recommend you steer well clear of the place.\"||Boche takes your arm. \"Excuse us,\" he says to Golgoth, \"but we have business in Kahira and I don't care to have my throat slit beforehand.\"||\"Golgoth grins. \"Boche, you slit your throat every time you open your mouth.\"">
 
 <ROOM STORY337
 	(DESC "337")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT337)
+	(CONTINUE STORY358)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT338 "You are shown a burrek -- a hulking, thick-shouldered animal with shaggy white fur and a lugubrious snout. \"The nomads use such creatures when they wish to cross the Ice Wastes,\" the trader tells you. \"They huddle beside the beast in blizzards, and when hungry they tap its veins to make a blood pudding.\"||\"What a sickening though.\"||He nods sagely. \"Indeed, it is probably only just preferable to dying of starvation. Still, if you intend to cross the Sahara you cannot do without a burrek. This stout animal is for sale at the generous price of thirty scads.||After some haggling, the price drops to 10 scads.">
+<CONSTANT TEXT338-BURREK "There was no point in buying a burrek, as it would not fit inside the Manta sky-car">
 
 <ROOM STORY338
 	(DESC "338")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT338)
+	(PRECHOICE STORY338-PRECHOICE)
+	(CONTINUE STORY359)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY338-PRECHOICE ()
+	<COND (<CHECK-VEHICLE ,MANTA-SKY-CAR>
+		<CRLF>
+		<TELL ,TEXT338-BURREK>
+		<TELL ,PERIOD-CR>
+	)(<G? ,MONEY 9>
+		<CRLF>
+		<TELL "Buy the burrek for 10 scads?">
+		<COND (<YES?>
+			<CHARGE-MONEY 10>
+			<TAKE-VEHICLE ,BURREK>
+		)>
+	)(ELSE
+		<EMPHASIZE "You could not afford a burrek so you moved on">
+	)>>
+
+<CONSTANT TEXT339 "Your fingers fly across the keyboard, bringing up a rapid sequence of access codes, file menus and options. Safety systems are in place to prevent accidental communication with Gaia. You override them, opening a channel via one of the al-Lat station's external radio dishes which connects you to an Earth weather satellite. In less than thirty seconds you are through to Gaia herself. You flip the link to \"Display Only\" so that no one overhears you. Glancing nervously at the door, you quickly bring Gaia up to date with what has been happening.||The screen fills with a torrent of glowing words: ACTIVATION OF THE HEART WILL CREATE A NEW UNIVERSE. THE PRESENT UNIVERSE WILL BE DESTROYED IN THE PROCESS. I RECOMMEND DESTRUCTION OF THE HEART. ACCOMPLISH THIS USING TWO BARYSAL BEAMS ALIGNED AT RIGHT ANGLES: THE CRYSTALLINE LATTICE OF THE HEART WILL BE DISRUPTED.||Startling news. You are anxious to question Gaia further while she is in a communicative mood, but someone might come in and find you at any minute. You break the link, turning from the screen just in time to see the door open and Riza Baihaqi come back in.">
 
 <ROOM STORY339
 	(DESC "339")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT339)
+	(CONTINUE STORY382)
+	(CODEWORD CODEWORD-NEMESIS)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT340 "You walk through to the adjacent chamber, Gilgamesh following with clanking strides. \"The podium is empty.\" Are there others like you?\" you ask him. \"Where can I find them?\"||There is the briefest of pauses as his artificial mind assimilates the question. \"I am the prototype,\" he responds. \"I was created to guard against danger from the Volentine sect. I know of no others.\"||You glance at him, a huge armoured automaton thrumming with power. The way that he stands so immobile, inexorably measuring each remark in the depths of his nonhuman brain, makes for an eerie and unnerving scene. You remind yourself that he is your servant -- dangerous to your foes, not to you. \"Come with me,\" you tell him. \"We are leaving.\"">
 
 <ROOM STORY340
 	(DESC "340")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT340)
+	(CONTINUE STORY361)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY341

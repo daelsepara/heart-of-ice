@@ -38,11 +38,6 @@
     (ADJECTIVE PAIR)
     (FLAGS TAKEBIT)>
 
-<OBJECT BURREK
-    (DESC "burrek")
-    (SYNONYM BURREK)
-    (FLAGS TAKEBIT)>
-
 <OBJECT COLD-WEATHER-SUIT
     (DESC "cold weather suit")
     (SYNONYM SUIT)
@@ -158,7 +153,12 @@
     (DESC "Manta sky-car")
     (SYNONYM CAR)
     (ADJECTIVE MANTA SKY)
-    (FLAGS TAKEBIT)>
+    (FLAGS VEHICLEBIT)>
+
+<OBJECT BURREK
+    (DESC "burrek")
+    (SYNONYM BURREK)
+    (FLAGS VEHICLEBIT)>
 
 ;Retroviruses
 
