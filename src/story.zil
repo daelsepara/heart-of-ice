@@ -37,6 +37,8 @@
 	<SET-DESTINATION ,STORY259 1 ,STORY242>
 	<SET-DESTINATION ,STORY296 1 ,STORY360>
 	<SET-DESTINATION ,STORY334 1 ,STORY286>
+	<SET-DESTINATION ,STORY381 2 ,STORY393>
+	<SET-DESTINATION ,STORY385 2 ,STORY016>
 	<PUTP ,STORY004 ,P?DEATH T>
 	<PUTP ,STORY013 ,P?DEATH T>
 	<PUTP ,STORY019 ,P?DEATH T>
@@ -88,6 +90,10 @@
 	<PUTP ,STORY316 ,P?DEATH T>
 	<PUTP ,STORY326 ,P?DEATH T>
 	<PUTP ,STORY368 ,P?DEATH T>
+	<PUTP ,STORY383 ,P?DEATH T>
+	<PUTP ,STORY386 ,P?DEATH T>
+	<PUTP ,STORY389 ,P?DEATH T>
+	<PUTP ,STORY390 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -5505,175 +5511,155 @@
 <ROUTINE STORY380-PRECHOICE ()
 	<COND (<CHECK-SKILL ,SKILL-LORE> <STORY-JUMP ,STORY095>)>>
 
+<CONSTANT TEXT381 "By the time you have finished your shopping it is mid-morning. Crossing the street at the entrance of the bazaar, you see Kyle Boche lounging at a pavement table in front of the Empty Quarter Cafe. \"Where were you earlier?\" you ask him. \"We were supposed to meet at sunrise.\"||\"I don't know what you mean. I was here. You must have missed me. In fact, I was just about to give up and leave.\"||Glancing beyond the awning of the cafe, you see that the place cannot have been open for more than a few minutes. You sigh. Boche is the sort of person who will never admit he is in the wrong. \"Come on, then,\" you say to him, swinging your pack onto your shoulder and setting off at a brisk stride towards the city gate. The lift carries you down to ground level, where you emerge into a raw wind. Pockets of mist swirl above the river. West lies the gleaming white expanse of snow that is the Sahara Desert.">
+<CONSTANT CHOICES381 <LTABLE "take a detour to the pyramids at Giza" "head straight out across the Sahara towards Du-En">>
+
 <ROOM STORY381
 	(DESC "381")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT381)
+	(PRECHOICE STORY381-PRECHOICE)
+	(CHOICES CHOICES381)
+	(DESTINATIONS <LTABLE STORY423 STORY393>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY381-PRECHOICE ()
+	<COND (<CHECK-VEHICLE ,MANTA-SKY-CAR>
+		<SET-DESTINATION ,STORY381 2 ,STORY289>
+	)(ELSE
+		<SET-DESTINATION ,STORY381 2 ,STORY393>
+	)>>
+
+<CONSTANT TEXT382 "Riza explains your options for returning to Earth. \"I'm going back to Maka quite soon, and I could drop you at Sudan. Of course, you'd have along walk from there to Du-En.\"||\"Can't you drop me any closer?\"||\"We can't risk our flyers. There might be automated defences at Du-En which would shoot them down. If you know how to pilot it, I could lend you a one-man flyer which you could take down within eight hundred kilometres of Du-En. That's the closest we can land you without risking the loss of a vehicle.\"||\"Not quite,\" puts in one of the technicians standing nearby. \"There's away you could be delivered straight into the city itself. We have an experimental matter transporter.\"||Riza glares at the technician, then turns to you. \"I wouldn't recommend that. It's only been used on mice so far, and over quite short distances.\"">
+<CONSTANT CHOICES382 <LTABLE "go with Riza to Sudan" "risk the matter transporter" "take the one-man flyer">>
 
 <ROOM STORY382
 	(DESC "382")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT382)
+	(CHOICES CHOICES382)
+	(DESTINATIONS <LTABLE STORY275 STORY424 STORY442>)
+	(REQUIREMENTS <LTABLE NONE NONE SKILL-PILOTING>)
+	(TYPES <LTABLE R-NONE R-NONE R-SKILL>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT383 "A door slides open and you step through, only to whirl as it clangs shut behind you. You are trapped inside a small cubicle. As you pound at the door, the synthetic voice speaks again: \"The facility you requested is not on record. Please wait here while the matter is investigated. Security teams will arrive in due course.\"||Security teams? There hasn't been a living soul here in over a hundred years!">
+<CONSTANT TEXT383-END "You are trapped and your remains will languish here for ever as the ice shield slips further and further south and finally chokes of all life on earth">
 
 <ROOM STORY383
 	(DESC "383")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT383)
+	(PRECHOICE STORY383-PRECHOICE)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY383-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-ROGUERY>
+		<PREVENT-DEATH ,STORY383>
+		<STORY-JUMP ,STORY404>
+	)(ELSE
+		<CRLF>
+		<TELL ,TEXT383-END>
+		<TELL ,PERIOD-CR>
+	)>>
+
+<CONSTANT TEXT384 "Working one of the giant sabre-teeth loose from the jaw, you use it to cut through the thick leather hide so that you can disjoint the bometh's carcass. You need only string the haunches of meat across your backpack -- they will keep fresh enough in this wintry clime.">
 
 <ROOM STORY384
 	(DESC "384")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT384)
+	(PRECHOICE STORY384-PRECHOICE)
+	(CONTINUE STORY298)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY384-PRECHOICE ()
+	<TAKE-FOOD-PACKS 8>>
+
+<CONSTANT TEXT385 "At first there is no sign of Kyle Boche, until you notice him snoozing in his bedroll beside the remains of last night's fire. \"They'll find no sign of the Heart today,\" he reckons. \"It's wiser to rest for now and build our strength. When that lot finds the Heart there's going to be a battle royal. We'll need to be ready for that moment when it comes.\"||You see Chaim Golgoth waving to you and stroll over to where he is standing with the Gargan clones. \"Are you planning to go exploring today?\" he asks. \"You're welcome to join our group, if so.\" The Gargan twins glower at this, but do not dispute it.">
+<CONSTANT CHOICES385 <LTABLE "back out and spend the day resting" "accept Golgoth's invitation">>
 
 <ROOM STORY385
 	(DESC "385")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT385)
+	(PRECHOICE STORY385-PRECHOICE)
+	(CHOICES CHOICES385)
+	(DESTINATIONS <LTABLE STORY363 STORY016>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY385-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-ENKIDU>
+		<SET-DESTINATION ,STORY385 2 ,STORY406>
+	)(ELSE
+		<SET-DESTINATION ,STORY385 2 ,STORY016>
+	)>>
+
+<CONSTANT TEXT386 "Baron Siriasis is outraged by your intrusion. Supported by the immense force of his mind, he hovers eerily towards you, paralysing you with a bolt of psychic force. You are left rooted to the spot, unable to move a muscle as he drifts around you like a ghastly rag doll hanging on invisible strings. \"The paralysis will wear off in a few hours,\" he hisses. \"I shall leave you to contemplate your folly.\"||He returns to his tent and closes the flap.">
+<CONSTANT CHOICES386 <LTABLE "go talk to Boche" "Golgoth" "Gaunt">>
 
 <ROOM STORY386
 	(DESC "386")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT386)
+	(PRECHOICE STORY386-PRECHOICE)
+	(CHOICES CHOICES386)
+	(DESTINATIONS <LTABLE STORY104 STORY126 STORY148>)
+	(TYPES THREE-NONES)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY386-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-PARADOXING>
+		<PREVENT-DEATH ,STORY386>
+		<EMPHASIZE "You were able to break free of his mental paralysis.">
+	)(ELSE
+		<EMPHASIZE "You were immobile in the snow for hours.">
+		<TEST-MORTALITY 1 ,DIED-FROM-COLD ,STORY386>
+		<COND (<IS-ALIVE> <STORY-JUMP ,STORY192>)>
+	)>>
+
+<CONSTANT TEXT387 "The computer is looking for a specific set of responses: the code that will convince it to start the elevator instead of opening the door and allowing the hover-droids to blast you away. Something strikes a chord in your memory, and you hastily think back over what you know of the Volentine cult. There was something that Eleazar, founder of the cult, repeated over and over after he escaped from the fall of Du-En. At the time you assumed it was just a catechism of his faith. But it is worth a try...">
 
 <ROOM STORY387
 	(DESC "387")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT387)
+	(CONTINUE STORY018)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT388 "You make your way along a wide passage where your footsteps echo stonily on hard tiles. As elsewhere in the catacombs, light comes from a row of globes along the ceiling. Some have dimmed over the years, but most still burn brightly. When you wonder aloud what the power source is, the baron is in o doubt: \"The Heart itself. The tiniest fraction of its power is enough to illuminate all the cities of the world.\"||At last you arrive at a domed hall. Beyond lies a network of tunnels. \"Scout ahead,\" the baron tells you. \"One of those tunnels must lead to the Shrine of the Heart.\"">
+<CONSTANT CHOICES388 <LTABLE "do as he says" "bridle at being ordered about">>
 
 <ROOM STORY388
 	(DESC "388")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT388)
+	(CHOICES CHOICES388)
+	(DESTINATIONS <LTABLE STORY430 STORY450>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT389 "Singh falters under the onslaught of your combined attacks. The mantramukta is blasted out of his hands, but he manages to draw his pistol as he falls. Golgoth's next shot sears through his breastplate and pierces his heart, but even as he dies his finger constricts on the trigger. The shot strikes you painfully through the leg.">
 
 <ROOM STORY389
 	(DESC "389")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT389)
+	(PRECHOICE STORY389-PRECHOICE)
+	(CONTINUE STORY431)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY389-PRECHOICE ()
+	<TEST-MORTALITY 3 ,DIED-FROM-INJURIES ,STORY389>>
+
+<CONSTANT TEXT390 "Barysal guns sometimes misfire. It is a slim chance but, with your psychic powers to alter the odds, a slim chance is all you need. As Boche squeezes the trigger, the gun explodes in his hands. He is killed instantly. But you do not come off entirely unscathed -- a flying fragment of shrapnel slices through your thigh, inflicting some damage.">
 
 <ROOM STORY390
 	(DESC "390")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT390)
+	(PRECHOICE STORY390-PRECHOICE)
+	(CONTINUE STORY415)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY390-PRECHOICE ()
+	<TEST-MORTALITY 2 ,DIED-FROM-INJURIES ,STORY390>>
 
 <ROOM STORY391
 	(DESC "391")
