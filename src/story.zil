@@ -87,6 +87,7 @@
 	<PUTP ,STORY314 ,P?DEATH T>
 	<PUTP ,STORY316 ,P?DEATH T>
 	<PUTP ,STORY326 ,P?DEATH T>
+	<PUTP ,STORY368 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -5330,89 +5331,58 @@
 	(CONTINUE STORY018)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT366 "Using the sheer force of your mind, you reach into the time distortion zone and deactivate the stasis bomb. As the flow of time returns to normal, the man stares at you in surprise and takes a hesitant step forward. He has no idea that that step has taken him two centuries to complete.">
+
 <ROOM STORY366
 	(DESC "366")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT366)
+	(PRECHOICE STORY366-PRECHOICE)
+	(CONTINUE STORY409)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY366-PRECHOICE ()
+	<KEEP-ITEM ,STASIS-BOMB>>
+
+<CONSTANT TEXT367 "This is the moment of truth. Four powerful adventurers all stand within reach of ultimate power. Only one can have the heart.">
+<CONSTANT CHOICES367 <LTABLE "use a" "a" "a charged" "otherwise">>
 
 <ROOM STORY367
 	(DESC "367")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT367)
+	(CHOICES CHOICES367)
+	(DESTINATIONS <LTABLE STORY432 STORY448 STORY021 STORY324>)
+	(REQUIREMENTS <LTABLE STUN-GRENADE STASIS-BOMB BARYSAL-GUN NONE>)
+	(TYPES <LTABLE R-ITEM R-ITEM R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT368 "You snatch the knife from your belt and send it spinning across the space between you and Boche. It impales him though the throat, but a he slumps dying to he floor he has time for a single shot. It is wide of the mark. He was aiming at your heart, but instead sears through your shoulders.">
 
 <ROOM STORY368
 	(DESC "368")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT368)
+	(PRECHOICE STORY368-PRECHOICE)
+	(CONTINUE STORY415)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY368-PRECHOICE ("AUX" (DAMAGE 3))
+	<COND (<CHECK-ITEM ,SPECULUM-JACKET> <SET DAMAGE 2>)>
+	<TEST-MORTALITY .DAMAGE ,DIED-FROM-INJURIES ,STORY368>>
+
+<CONSTANT TEXT369 "Singh is more used to his cannon than the pistol, and your reflexes are just a fraction quicker. The barysal beam cracks through the air and Singh falls without a sound. It is only as you go over to inspect the body that you realize he had a chance of hitting you with a dying shot. He chose not to take that shot. Was that because it would have been spiteful to deprive you of victory when you had beaten him fairly? No one could have called Vajra a spiteful man. He died as he lived: with honour.">
 
 <ROOM STORY369
 	(DESC "369")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT369)
+	(CONTINUE STORY415)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT370 "No thoughts remain in the dead minds of these unfortunates. No ordinary psychic could glean anything from them now, but with your special talent you might be able to reconstruct the last thing they saw. Touching your fingers to the icy brow of the nearest corpse, you mentally strain to gather the last frozen wisps of memory from the lifeless brain inside the skull...||The next thing you know, Boche is shaking you by the arm. You feel as though you've just woken from a long drowsy torpor in which your dreams were dominated by a glowing golden eye. \"You went into a trance,\" Boche tells you. \"It was like you were hypnotized.\"||You gaze into the dead man's eyes, sightless under their cataracts of frost. What was the last thing he saw before dying? he glowing eye? Or was that just your own hallucination?">
 
 <ROOM STORY370
 	(DESC "370")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT370)
+	(CONTINUE STORY306)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY371

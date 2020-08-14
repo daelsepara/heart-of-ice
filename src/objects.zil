@@ -126,7 +126,7 @@
     (FLAGS TAKEBIT)>
 
 <OBJECT STASIS-BOMB
-    (DESC "statis bomb")
+    (DESC "stasis bomb")
     (SYNONYM BOMB)
     (ADJECTIVE STASIS)
     (FLAGS TAKEBIT)>
@@ -149,6 +149,7 @@
     (FLAGS TAKEBIT)>
 
 ; Vehicles
+
 <OBJECT MANTA-SKY-CAR
     (DESC "Manta sky-car")
     (SYNONYM CAR)
