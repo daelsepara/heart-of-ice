@@ -8,6 +8,7 @@
 <CONSTANT DESTINY-GODHOOD "You are immortal and all-powerful now. Your adventure has culminated in godhood.|">
 <CONSTANT DESTINY-SENTINEL "The stasis bomb activates, turning you into an undying sentinel for all time.|">
 <CONSTANT DESTINY-SACRIFICE "In this chamber deep blow the ruins of Du-En, the two of you give your lives for the sake of the whole world.|">
+<CONSTANT DESTINY-UNKNOWN "But then, who does?|">
 
 <OBJECT CURRENCY (DESC "scads")>
 <OBJECT VEHICLE (DESC "car")>
@@ -290,6 +291,33 @@
 					<RETURN>
 				)>
 			>
+		)>
+	)>>
+
+<ROUTINE SELL-FOOD-PACK (PRICE "AUX" (FOOD-SOLD 0) (QUANTITY 0))
+	<COND (<HAS-FOOD>
+		<SET QUANTITY <GETP ,FOOD-PACK ,P?QUANTITY>>
+		<CRLF>
+		<TELL "Sell food packs at " N .PRICE " " D ,CURRENCY " each?">
+		<COND (<YES?>
+			<SET FOOD-SOLD <GET-NUMBER "How many food packs will you sell" 0 .QUANTITY>>
+			<COND (<G? .FOOD-SOLD 0>
+				<SETG ,MONEY <+ ,MONEY <* .FOOD-SOLD .PRICE>>>
+				<SET .QUANTITY <- .QUANTITY .FOOD-SOLD>>
+				<CRLF>
+				<TELL "You sold ">
+				<HLIGHT ,H-BOLD>
+				<TELL N .FOOD-SOLD " food pack">
+				<COND (<G? .FOOD-SOLD 1> <TELL "s">)>
+				<HLIGHT 0>
+				<TELL ,PERIOD-CR>
+				<COND (<G? .QUANTITY 0>
+					<PUTP ,FOOD-PACK ,P?QUANTITY .QUANTITY>
+				)(ELSE
+					<PUTP ,FOOD-PACK ,P?QUANTITY 1>
+					<REMOVE ,FOOD-PACK>
+				)>
+			)>
 		)>
 	)>>
 
@@ -2326,7 +2354,7 @@
 		<LOSE-VEHICLE ,MANTA-SKY-CAR>
 	)>>
 
-<CONSTANT TEXT138 "You seek out the librarian, a plump sour-faced man who sits at his desk amid the stacks like a spider in its web. He is barely able to disguise his irritation when you explain what you want. \"A link to Gaia? That is most irregular. Very few of our members make such requests.\"||He will deter you if you let him, if only to spare himself inconvenience. Recalling the status of the typical Society member, you adopt an uncompromising attitude and say, \"It was not a request, but a command. You will now establish a link so that I can talk to Gaia.\"||\"Talk?\" He spreads his hands imploringly. \"What will you talk about? Gaia is mad!\" Seeing you will not be put off, he grumbles under his breath and pushes a slip of paper across the desk. \"Write your query there and it will be broadcast to Gaia. The reply will be brought back to you.\"||\"I prefer a direct two-way communication.\"||\"Impossible!\" he cries. \"That is against Society policy, as nay link to Gaia must be stringently monitored to prevent arrogation of our computer network.\"|||You see he will not be swayed on this point. You write out your message and wait for half an hour until the librarian comes back. \"Here is your reply from Gaia,\" he says, his tone of surprise showing that he did not expect anything but gibberish. He reads from the paper in his hand; \"go and meet with Gilgamesh under the pyramid. Humbaba will give you access.\"||\"Is that all?\"||He nods. \"Gaia then began to transmit random references to Babylonian history followed by a digression into architectural feats of history, and the link was terminated.\"">
+<CONSTANT TEXT138 "You seek out the librarian, a plump sour-faced man who sits at his desk amid the stacks like a spider in its web. He is barely able to disguise his irritation when you explain what you want. \"A link to Gaia? That is most irregular. Very few of our members make such requests.\"||He will deter you if you let him, if only to spare himself inconvenience. Recalling the status of the typical Society member, you adopt an uncompromising attitude and say, \"It was not a request, but a command. You will now establish a link so that I can talk to Gaia.\"||\"Talk?\" He spreads his hands imploringly. \"What will you talk about? Gaia is mad!\" Seeing you will not be put off, he grumbles under his breath and pushes a slip of paper across the desk. \"Write your query there and it will be broadcast to Gaia. The reply will be brought back to you.\"||\"I prefer a direct two-way communication.\"||\"Impossible!\" he cries. \"That is against Society policy, as nay link to Gaia must be stringently monitored to prevent arrogation of our computer network.\"||You see he will not be swayed on this point. You write out your message and wait for half an hour until the librarian comes back. \"Here is your reply from Gaia,\" he says, his tone of surprise showing that he did not expect anything but gibberish. He reads from the paper in his hand; \"go and meet with Gilgamesh under the pyramid. Humbaba will give you access.\"||\"Is that all?\"||He nods. \"Gaia then began to transmit random references to Babylonian history followed by a digression into architectural feats of history, and the link was terminated.\"">
 <CONSTANT CHOICES138 <LTABLE "consult the archives for information about the Heart of Volent" "you are finished in the library">>
 
 <ROOM STORY138
@@ -4437,7 +4465,7 @@
 <ROUTINE STORY295-PRECHOICE ()
 	<GAIN-MONEY 10>>
 
-<CONSTANT TEXT296 "You round on him in shock. \"And the Earth will be left to die?\"||\"It is not our concern,\" he replies with a shrug. \"We are an independent state. The people of Earth must solve their own problems.\"||You give a hollow laugh. \"You are human! How can you abandon the planet that gave you life? Too look on uncaring as she expires under shrouds of ice is inexcusable. If there were a disaster which made al-Lat uninhabitable, would you go once the Earth is dead? Your indifference is short-sighted and stupid. You people are like survivors of a shipwreck, clinging to broken timbers in a stormy sea, gawping impassively while your ship sinks.\"||He thinks for a long moment, then slowly nods. \"Your arguments are passionate indeed.\" He goes off and returns with a metal box-shaped device the size of a book. \"This is my pet project. I call it Little Gaia. It is a miniature artificial brain programmed with Gaia's original personality, when she was still sane.\" He presses it into your hands. \"Take it. It is the only aid I can give you, except to  wish you luck. Now I must go to find Captain Baihaqi, who should be ready to take you home.">
+<CONSTANT TEXT296 "You round on him in shock. \"And the Earth will be left to die?\"||\"It is not our concern,\" he replies with a shrug. \"We are an independent state. The people of Earth must solve their own problems.\"||You give a hollow laugh. \"You are human! How can you abandon the planet that gave you life? Too look on uncaring as she expires under shrouds of ice is inexcusable. If there were a disaster which made al-Lat uninhabitable, would you go once the Earth is dead? Your indifference is short-sighted and stupid. You people are like survivors of a shipwreck, clinging to broken timbers in a stormy sea, gawping impassively while your ship sinks.\"||He thinks for a long moment, then slowly nods. \"Your arguments are passionate indeed.\" He goes off and returns with a metal box-shaped device the size of a book. \"This is my pet project. I call it Little Gaia. It is a miniature artificial brain programmed with Gaia's original personality, when she was still sane.\" He presses it into your hands. \"Take it. It is the only aid I can give you, except to wish you luck. Now I must go to find Captain Baihaqi, who should be ready to take you home.">
 <CONSTANT CHOICES296 <LTABLE "use the computer to contact Gaia" "just wait until Riza al-Baihaqi comes for you">>
 
 <ROOM STORY296
@@ -4814,7 +4842,7 @@
 		<STORY-JUMP ,STORY022>
 	)>>
 
-<CONSTANT TEXT326 "Golgoth wastes no time reloading the crossbow. Throwing it aside, he draws a knife and dives at you. You block his first thrust but take  gash on your forearm, countering with a leg sweep which leaves him off balance.||The fight is short and brutal. Golgoth is a master of lethal killing techniques.">
+<CONSTANT TEXT326 "Golgoth wastes no time reloading the crossbow. Throwing it aside, he draws a knife and dives at you. You block his first thrust but take gash on your forearm, countering with a leg sweep which leaves him off balance.||The fight is short and brutal. Golgoth is a master of lethal killing techniques.">
 <CONSTANT TEXT326-CONTINUE "You manage to twist the knife around and impale him.">
 
 <ROOM STORY326
@@ -5021,7 +5049,7 @@
 <ROUTINE STORY342-PRECHOICE ()
 	<COND (<OR <CHECK-ITEM ,MEDICAL-KIT> <CHECK-VEHICLE ,MANTA-SKY-CAR>> <STORY-JUMP ,STORY257>)>>
 
-<CONSTANT TEXT343 "You hurry to catch up with Singh and tell him about Gaia's warnings. At first he seems barely interested, but gradually your words get through. He comes to a halt and turns to stare into your face. \"You  propose an alliance,\" he says. \"his is wise. If we are allies, we are virtually certain to prevail against all others and reach the Heart. Tomorrow, you go with Baron Siriasis and I shall team up with Golgoth. They are our most dangerous adversaries. If the opportunity arises, we must slay them.\"||\"What if your group finds the Heart first? Or my group, for that matter?\"||\"I swear I shall not take its power until only you and I are left. Then together wee can discuss the future of the cosmos.\"||You watch him march back to his tent. You feel sure Singh will keep his oath of alliance. If only you didn't have a sneaking suspicion that you've just tied yourself to the lion's tail.">
+<CONSTANT TEXT343 "You hurry to catch up with Singh and tell him about Gaia's warnings. At first he seems barely interested, but gradually your words get through. He comes to a halt and turns to stare into your face. \"You propose an alliance,\" he says. \"his is wise. If we are allies, we are virtually certain to prevail against all others and reach the Heart. Tomorrow, you go with Baron Siriasis and I shall team up with Golgoth. They are our most dangerous adversaries. If the opportunity arises, we must slay them.\"||\"What if your group finds the Heart first? Or my group, for that matter?\"||\"I swear I shall not take its power until only you and I are left. Then together wee can discuss the future of the cosmos.\"||You watch him march back to his tent. You feel sure Singh will keep his oath of alliance. If only you didn't have a sneaking suspicion that you've just tied yourself to the lion's tail.">
 
 <ROOM STORY343
 	(DESC "343")
@@ -5112,174 +5140,126 @@
 	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT351 "You pass a street-corner scribe who has two antique laptop computers. When you ask about using these to make contact with Gaia, he turns on a bland smile. Flicking one of the laptops to life, he gestures at the lines of dimly glowing green text that appear on the screen.||\"My business is letters and contracts, not computers. I use the computer simply as a tools of the trade -- just as my forerunners used clay tablets, sheets of papyrus and quill pens.\"||You examine the equipment. \"There must be peripherals for linking these into the global computer net. Isn't this a modem socket?\"||The scribe whistles between his teeth. \"No doubt. However, I heard of a man who linked his computer to Gaia and forever afterward it would do nothing except iterate between prime numbers. I would as soon infect myself with the yellow pox!">
+
 <ROOM STORY351
 	(DESC "351")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT351)
+	(PRECHOICE STORY351-PRECHOICE)
+	(CONTINUE STORY372)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY351-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-CYBERNETICS> <STORY-JUMP ,STORY265>)>>
+
+<CONSTANT TEXT352 "All you can do is sell some possessions in order to raise the money for a ticket. You reluctantly go looking for a street pedlar, knowing that the need to make a quick sale will lose you money. At least you find a buyer without delay -- or rather, he finds you. He is a gimlet-eyed man with a shock of pink-dyed hair, loitering at the quayside gate with the obvious intent of preying on people like yourself. \"A ferry ticket costs a bit more than you thought, doesn't it?\" he says patronizingly. \"Now then, let's see what you've got to sell.\"">
 
 <ROOM STORY352
 	(DESC "352")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT352)
+	(PRECHOICE STORY352-PRECHOICE)
+	(CONTINUE STORY332)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY352-PRECHOICE ()
+	<COUNT-POSSESSIONS>
+	<SELL-FOOD-PACK 1>
+	<COND (<G=? ,MONEY 10>
+		<STORY-JUMP ,STORY246>
+	)(ELSE
+		<MERCHANT <LTABLE BARYSAL-GUN FLASHLIGHT MEDICAL-KIT POLARIZED-GOGGLES ID-CARD> <LTABLE 5 5 5 2 10> ,PLAYER T>
+		<COND (<G=? ,MONEY 10> <STORY-JUMP ,STORY246>)>
+	)>>
+
+<CONSTANT TEXT353 "The card identifies its owner as a member of the Society of the Compass, a secretive and select organization with considerable resources worldwide. The society has a building here in Kahira. You stand on the other side of the street and look up at the tower of steel and glass rising off into the dank evening mist. In the colourless fluorescent glow of the lobby you can see a receptionist sitting at the front desk.">
+<CONSTANT CHOICES353 <LTABLE "enter and try to bluff your way past the receptionist" "give up any hope of entering the building">>
 
 <ROOM STORY353
 	(DESC "353")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT353)
+	(PRECHOICE STORY353-PRECHOICE)
+	(CHOICES CHOICES353)
+	(DESTINATIONS <LTABLE STORY436 STORY311>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY353-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-PROTEUS>
+		<DELETE-CODEWORD ,CODEWORD-PROTEUS>
+		<STORY-JUMP ,STORY374>
+	)(<OR <CHECK-SKILL ,SKILL-ROGUERY> <CHECK-CODEWORD ,CODEWORD-CAMOUFLAGE>>
+		<STORY-JUMP ,STORY396>
+	)(<CHECK-SKILL ,SKILL-PARADOXING>
+		<STORY-JUMP ,STORY417>
+	)>>
+
+<CONSTANT TEXT354 "At the elevator door, you turn to look back at the others locked in stasis. They will outlive this frigid dying world. Perhaps even outlive the universe, forever just out of arm's reach of the power they coveted.||If the hover-droids are still waiting above then you will have a hard fight returning to the surface. And even if you survive the Ice Wastes, the Earth's time is running out. You don't know how long you have left.">
 
 <ROOM STORY354
 	(DESC "354")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT354)
+	(VICTORY DESTINY-UNKNOWN)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT355 "The scintillant beam of deadly radiation stabs out, striking the mysterious figure full in the chest. His smile does not waver. Although his clothing is burned away, his smooth pale skin is completely unscathed by the blast. Your arm drops limply to your side as you stare in disbelief. You have never seen anyone survive a direct hit from a barysal gun, unless protected by body armour.||The look in those silvery eyes confirms what you have guessed already. This is not a living man you are facing. It is a blood-drinking predator, one of the vampires of ancient myth.">
 
 <ROOM STORY355
 	(DESC "355")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT355)
+	(CONTINUE STORY419)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT356 "Portrin Fax provides you with a makeshift couch and you drift gratefully off to sleep, being weary after your long trek through the steaming swamplands.||It seems only a moment later that he is shaking awake. As you open your eyes, he jumps back and gives a jittery laugh. \"Morning.\" he says.||You yawn and stretch. The air inside the building feels almost chill in comparison to the sweltering heat outside. \"Morning?\" How can you tell?\"||Fax points to a clock on the wall, above an archway leading to a staircase that descends underground. \"There is one indicator. Also, although the sun never sets here, it does not move across the sky. Indeed, at times I have thought to see two suns.\"||\"No doubt the 'second sun' is an orbiting mirror aligned so as to focus the sunlight on this region.\"">
+<CONSTANT CHOICES356 <LTABLE "ask Fax to show you where he gets his food" "ask first about the barren patch of ground you discovered leading to his dwelling" "leave now and press on westwards">>
 
 <ROOM STORY356
 	(DESC "356")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT356)
+	(CHOICES CHOICES356)
+	(DESTINATIONS <LTABLE STORY378 STORY399 STORY420>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT357 "The panel bends inward, then gives with a crack. You push through past a blanket which had been hanging against the wall. A fire crackles in the centre of the foyer, which is so badly dilapidated that it is little more than a cave. A rug hangs across the entrance, sealing out a keening blizzard. The chamber is warm, with a sweaty reek from its three occupants. You take them to be trappers, judging by the animal skins hung around the walls.||The three jump to their feet. Their surprise at your sudden appearance soon turns to open hostility. Two draw weapons.. One has a long knife, while the man nearest to the fire has a barysal gun.">
+<CONSTANT CHOICES357 <LTABLE "use" "or a charged barysal gun" "fall back on" "try" "rely on" "otherwise">>
 
 <ROOM STORY357
 	(DESC "357")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT357)
+	(CHOICES CHOICES357)
+	(DESTINATIONS <LTABLE STORY097 STORY119 STORY185 STORY163 STORY207 STORY272>)
+	(REQUIREMENTS <LTABLE SKILL-CLOSE-COMBAT SKILL-SHOOTING SKILL-CUNNING SKILL-ROGUERY SKILL-AGILITY NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-SKILL R-SKILL R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT358 "Boche pulls you away, expelling a hiss of breath between his teeth as he glances back at Golgoth through the fog. \"A stroke of bad luck, running into that one,\" he mutters.||\"Why should a USI agent be interested in us?\"||Boche scowls. \"Golgoth is a loose cannon. He wouldn't wait to ask what his superiors thought about something. Did you hear about the hijack of the warship Illustrious by the Seventh Seal Cult a couple of years ago? The Vice President was aboard and a ransom was being negotiated until USI stepped in.\"||You cast your mind back across the sketchy rumours and news reports that stretched across the Atlantic. \"I seem to remember that the Seventh Seal Cult was al but eradicated -- at least eighty people dead. Don't tell me Golgoth was in charge of that operation.\"||\"In charge? He was the operation -- one-man death squad. He went in alone under disguise and variously stabbed, poisoned, shot or blew up every terrorist aboard.\"||\"Well, it seems pretty impressive...\" you venture.||Boche shakes his head grimly. \"He's a psychopath; he relishes killing. His USI badge just give him carte blanche to indulge his depravities. Such people are evil no matter how noble a mask they wear.\" Boche's mood brightens as he changes the subject: \"Now I have a few things to take care of. I'll meet you tomorrow morning at the Empty Quarter Cafe, next to the bazaar.\"||Boche hurries off into the swirling fog. You are left alone on the street.">
 
 <ROOM STORY358
 	(DESC "358")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT358)
+	(CONTINUE STORY095)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT359 "Strolling through the bazaar, you find the following items for sale:">
 
 <ROOM STORY359
 	(DESC "359")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT359)
+	(PRECHOICE STORY359-PRECHOICE)
+	(CONTINUE STORY402)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY359-PRECHOICE ()
+	<BUY-FOOD-PACK 2>
+	<MERCHANT <LTABLE GAS-MASK FLASHLIGHT MEDICAL-KIT POLARIZED-GOGGLES ROPE> <LTABLE 15 8 8 6 3>>
+	<COND (<CHECK-CODEWORD ,CODEWORD-DIAMOND> <STORY-JUMP ,STORY381>)>>
+
+<CONSTANT TEXT360 "Your fingers fly across the keyboard, brining up a rapid sequence of access codes, file menus and options. You set up a link to Gaia via an Earth weather satellite. Folding your fingers behind your head, you lean back in the chair and wait for the screen message that will tell you you are into Gaia. Your satisfaction evaporates as the screen flashes a red warning signal, accompanied by the chime of an alarm.||The door bursts open and Riza runs in with several technicians. \"Close down this system immediately!\" he calls to them. \"Purge all active files. Prepare for a full diagnostic.\"||You start to rise, intending to slip away in the confusion, but Riza has a gun aimed at the bridge of your nose. \"You stay where you are,\" he tells you. \"Don't you know that Gaia is riddled with viruses? In one thoughtless act you have put the entire computer system of al-Lat in jeopardy.\"||\"I'll try to be more careful next time.\"||He shakes his head sadly. \"I'm sorry, but it's too late for that. Tampering with the computer systems here is a serious crime, punishable by death.\"||Less than an hour later, you are forced into a pressure suit and ejected into space. They have given you air for just one hour, so that you can contemplate your crimes as you drift into the void waiting for the end.">
 
 <ROOM STORY360
 	(DESC "360")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT360)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY361
