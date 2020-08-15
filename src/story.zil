@@ -40,6 +40,7 @@
 	<SET-DESTINATION ,STORY381 2 ,STORY393>
 	<SET-DESTINATION ,STORY385 2 ,STORY016>
 	<SET-DESTINATION ,STORY394 3 ,STORY025>
+	<SET-DESTINATION ,STORY402 2 ,STORY393>	
 	<PUTP ,STORY004 ,P?DEATH T>
 	<PUTP ,STORY013 ,P?DEATH T>
 	<PUTP ,STORY019 ,P?DEATH T>
@@ -356,7 +357,7 @@
 	<COND (<NOT .AMOUNT> <SET AMOUNT 1>)>
 	<COND (<CHECK-ITEM ,FOOD-PACK>
 		<SET QUANTITY <GETP ,FOOD-PACK ,P?QUANTITY>>
-		<COND (<G? .QUANTITY 0>
+		<COND (<G=? .QUANTITY .AMOUNT>
 			<SET QUANTITY <- .QUANTITY .AMOUNT>>
 			<PUTP ,FOOD-PACK ,P?QUANTITY .QUANTITY>
 			<COND (<G=? .QUANTITY 1>
@@ -377,10 +378,10 @@
 	)>
 	<RETURN .RETURN-VALUE>>
 
-<ROUTINE HAS-FOOD ("AUX" (QUANTITY 0))
+<ROUTINE HAS-FOOD ("OPT" (THRESHOLD 0) "AUX" (QUANTITY 0))
 	<COND (<CHECK-ITEM ,FOOD-PACK>
 		<SET QUANTITY <GETP ,FOOD-PACK ,P?QUANTITY>>
-		<COND (<G? .QUANTITY 0> <RTRUE>)>
+		<COND (<G? .QUANTITY .THRESHOLD> <RTRUE>)>
 	)>
 	<RFALSE>>
 
@@ -5825,174 +5826,126 @@
 		)>
 	)>>
 
+<CONSTANT TEXT401 "A row of coffee stalls line the side of the plaza. There you discover that Baron Siriasis is a frequent visitor to Kahira.||\"The one with no legs?\" says a man bearing the cape and baton of the city militia. \"Yes, he is a member of the Compass Society. I have heard that he is one of the psi-lords of Bezant.\"||Bezant -- formerly Istanbul ++ suffered heavy bombardment of exotic radiation during the Paradox War. When the fallout stabilized and the city once again became habitable, it was discovered that psionic forces worked there to an enhanced degree. Those with psionic powers soon made themselves the hereditary overlords of Bezant -- a group characterized by arrogance and disdain for the common herd of mankind. Baron Siriasis is one of these.">
+
 <ROOM STORY401
 	(DESC "401")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT401)
+	(PRECHOICE STORY401-PRECHOICE)
+	(CONTINUE STORY311)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY401-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-STREETWISE> <STORY-JUMP ,STORY095>)>>
+
+<CONSTANT TEXT402 "The time has come. You are as ready as you will ever be. Swinging your pack onto your shoulder, you set off at a brisk pace towards the city gate. The lift carries you down to ground level, where you emerge from the shelter of the concrete buttress into a raw wind. Pockets of mist swirl like smoke above the turbid river. Westwards lies the gleaming white expanse of snow that is the Sahara Desert.">
+<CONSTANT CHOICES402 <LTABLE "take a detour to the pyramids at Giza" "head strait out across the Sahara towards Du-En">>
 
 <ROOM STORY402
 	(DESC "402")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT402)
+	(PRECHOICE STORY402-PRECHOICE)
+	(CHOICES CHOICES402)
+	(DESTINATIONS <LTABLE STORY423 STORY393>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY402-PRECHOICE ()
+	<COND (<CHECK-VEHICLE ,MANTA-SKY-CAR>
+		<SET-DESTINATION ,STORY402 2 ,STORY289>
+	)(ELSE
+		<SET-DESTINATION ,STORY402 2 ,STORY393>	
+	)>>
+
+<CONSTANT TEXT403 "You pass on through a plain of ice tors -- baroque crags which glint with a metallic sheen against the delicate blue sky. The wind, blasting between the tors, makes a desolate keening sound. You see no signs of life. Cold gnaws at you from outside, hunger from within.">
 
 <ROOM STORY403
 	(DESC "403")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT403)
+	(PRECHOICE STORY403-PRECHOICE)
+	(CONTINUE STORY056)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY403-PRECHOICE ()
+	<COND (<HAS-FOOD 1>
+		<CONSUME-FOOD 2 ,STORY100>
+	)(<HAS-FOOD>
+		<CONSUME-FOOD 1 ,STORY035>
+	)>>
+
+<CONSTANT TEXT404 "There is a small brass plate next to the door. Obviously there was originally a control for opening the door, but by replacing the button with a blank plate it was converted into a gaol cell. Using your belt buckle, you prise the plate free of the ball. It takes several hours of laborious work, by the end of which time your fingers are bleeding, but at last you tear it lose. A stack of wires are exposed, and you soon identify the connections you need in order to work the door.||As the door opens, an alarm starts to sound throughout the base, a softly insistent tone accompanied by an automatic message: \"Intruder alert. All security personnel, report to your stations.\"||There is no one to heart the alarm, of course, but all the same you had better not hang around. There might be an automatic sequence that locks the outer door. You jump on the elevator and ascend to the exit.">
 
 <ROOM STORY404
 	(DESC "404")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT404)
+	(CONTINUE STORY361)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY405
 	(DESC "405")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(EVENTS STORY405-EVENTS)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY405-EVENTS ()
+	<COND (<CHECK-SKILL ,SKILL-SURVIVAL>
+		<RETURN ,STORY058>
+	)(<CHECK-CODEWORD ,CODEWORD-ENKIDU>
+		<RETURN ,STORY081>
+	)>
+	<RETURN ,STORY103>>
+
+<CONSTANT TEXT406 "\"You heard Vajra Singh's stipulation,\" growls Gargan XIV, jabbing a finger against Gilgamesh's chest-plate. \"Hirelings and servants are not allowed to join an expedition into the catacombs.\"||You protest. \"Gilgamesh is hardly a servant. He'll be like an invaluable member of our team.\"||She shakes her head doggedly. \"You cannot bring your automaton along. That is final.\"">
+<CONSTANT CHOICES406 <LTABLE "look for Vajra Singh to ask his opinion" "insist that Gilgamesh accompanies the party" "agree to leave him behind">>
 
 <ROOM STORY406
 	(DESC "406")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT406)
+	(CHOICES CHOICES406)
+	(DESTINATIONS <LTABLE STORY445 STORY427 STORY406-CODEWORDS>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROOM STORY406-CODEWORDS
+	(DESC "406")
+	(EVENTS STORY406-EVENTS)
+	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY406-EVENTS ()
+	<DELETE-CODEWORD ,CODEWORD-ENKIDU>
+	<GAIN-CODEWORD ,CODEWORD-URUK>
+	<RETURN ,STORY016>>
+
+<CONSTANT TEXT407 "You made an error of judgement. Baron Siriasis instantly detects your mind-probe. Throwing up a mental shield, he drifts into the air on strands of telekinetic force and comes out hurtling out of the tent to confront you.">
 
 <ROOM STORY407
 	(DESC "407")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT407)
+	(CONTINUE STORY386)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT408 "You are in no mood to play guessing games with a two-hundred-year-old computer. Luckily you do not have to. Any computer that can understand speech can also be reprogrammed in the same way. It might take hours or even days if you were to do that, but Little Gaia is able to transmit instructions, she produces a burst of coded bleeps that override the computer's existing program and give it the command to start the elevator. You are on your way to the Sanctum of the Heart.">
 
 <ROOM STORY408
 	(DESC "408")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT408)
+	(CONTINUE STORY150)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT409 "The man tells you that he is Captain Casimir Novak, commander of the High Priest's personal guard. \"The populace became crazed,\" he says indignantly. \"They stormed the temple. I was escorting the High Priest to safety when a group burst in here and hurled that stasis bomb. It is the last thing I remember.\"||\"It was all a long time ago,\" you say.||\"One thing I must know. Did the High Priest get away?\"||You spare Novak the details. Let him have the satisfaction of having succeeded in his duty. \"Picard? He got away. No one else did.\"||Boche and Baron Siriasis are both looking at him guardedly. You can guess what they're thinking. How will Novak react when he learns you have come here to take the Heart -- the sacred object of his faith?||\"Let us worry about explanations later,\" says the baron, reading your mind. \"For now, we must hurry or the others will reach our goal ahead of us.\"">
 
 <ROOM STORY409
 	(DESC "409")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT409)
+	(CONTINUE STORY388)
+	(CODEWORD CODEWORD-MALLET)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT410 "Despite Golgoth's searing volley of barysal shots, Singh manages to raise his canon. There is a deep thrumming as the power kicks in, sending a blast of incandescent energy streaming through the air. As you dive for cover inside one of the elevator tubes, you can see that Singh is already dead on his feet. But Golgoth has no defence against the raw power of the cannon, and he too is blown to pieces.||You emerge slowly and step through the carnage. Vajra looks up at you weakly and your muscles go tense. His cannon's power will take time to build up, but he could still shoot you down with his pistol.||But he is nobler than that. \"There's no chance for me now,\" he groans. \"The the power. Use it wisely...\"||He slumps and his eyes roll up. You are the only one left.">
 
 <ROOM STORY410
 	(DESC "410")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT410)
+	(CONTINUE STORY415)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY411
