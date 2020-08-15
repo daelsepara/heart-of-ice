@@ -40,7 +40,8 @@
 	<SET-DESTINATION ,STORY381 2 ,STORY393>
 	<SET-DESTINATION ,STORY385 2 ,STORY016>
 	<SET-DESTINATION ,STORY394 3 ,STORY025>
-	<SET-DESTINATION ,STORY402 2 ,STORY393>	
+	<SET-DESTINATION ,STORY402 2 ,STORY393>
+	<PUTP ,STORY002 ,P?DEATH T>
 	<PUTP ,STORY004 ,P?DEATH T>
 	<PUTP ,STORY013 ,P?DEATH T>
 	<PUTP ,STORY019 ,P?DEATH T>
@@ -840,7 +841,7 @@
 	(DESC "021")
 	(CHOICES CHOICES021)
 	(DESTINATIONS <LTABLE STORY109 STORY087 STORY131>)
-	(TYPES <LTABLE THREE-NONES>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT022 "Grabbing the stage curtain, you haul yourself up hand over hand until you reach the machinery that moves the puppets' wires. Swinging out, you gather up the wires and snag them into the rotating cogs. Down on the stage, the puppets are jerked off their feet and lifted up as their wires snarl inside the machinery.||You see your companions look around in surprise, then Golgoth thinks to look up. Seeing you, his smile flashes in the strobing light. \"There's our deus ex machina,\" he says. \"You can come down now. And thanks.\"">
