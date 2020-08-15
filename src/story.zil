@@ -5975,7 +5975,7 @@
 	(ITEM KNIFE)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT413 "Peering along the pass, you catch sight of a hunched shambling figure in the snow-clouded darkness. It is thin, with a large hooded head. It is still too far away for you to get a clear view of its face, but something about it stirs atavistic fears at the back of your mind.||You glance suddenly at the rigid corpses on the other ledge. All were entranced, turned to hypnotized statues before they froze to death.||\"By Gaia!\" You seize Boche's arm. \"Weøre in the larder of the Gorgon!\"">
+<CONSTANT TEXT413 "Peering along the pass, you catch sight of a hunched shambling figure in the snow-clouded darkness. It is thin, with a large hooded head. It is still too far away for you to get a clear view of its face, but something about it stirs atavistic fears at the back of your mind.||You glance suddenly at the rigid corpses on the other ledge. All were entranced, turned to hypnotized statues before they froze to death.||\"By Gaia!\" You seize Boche's arm. \"We're in the larder of the Gorgon!\"">
 
 <ROOM STORY413
 	(DESC "413")
