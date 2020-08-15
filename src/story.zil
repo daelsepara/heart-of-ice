@@ -6165,173 +6165,123 @@
 
 <ROOM STORY431
 	(DESC "431")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(EVENTS STORY431-EVENTS)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY431-EVENTS ()
+	<COND (<AND <CHECK-ITEM ,BARYSAL-GUN> <CHECK-CHARGES ,BARYSAL-GUN>> <RETURN ,STORY219>)>
+	<RETURN ,STORY241>>
+
+<CONSTANT TEXT432 "As your companions set off along the ramp towards the Heart, each keeping a weather eye on the others, you roll the grenade into their midst. The detonation knocks Golgoth and Boche off their feet, but Vajra Singh merely rocks like a great pillar and turns. Because of his armour he is just dazed. He sees at a glance that he can now finish off the other two at his leisure. You are the immediate threat. Levelling the mantramukta cannon, he unleashes a roaring blast of plasma that chars you to a lifeless husk in less than a second.">
 
 <ROOM STORY432
 	(DESC "432")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT432)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT CHOICES433 <LTABLE "use" "use" "resort to" "otherwise">>
 
 <ROOM STORY433
 	(DESC "433")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(CHOICES CHOICES433)
+	(DESTINATIONS <LTABLE STORY068 STORY024 STORY046 STORY002>)
+	(REQUIREMENTS <LTABLE SKILL-SHOOTING SKILL-ROGUERY SKILL-CUNNING NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT434 "A man called Malengin offers retroviruses -- concoctions that alter your DNA, resulting in permanent changes in body structure. You see a selection laid out on a tray that Malengin carries with him. It occurs to you that he is like a sorcerer in one of the old fairytales, an alchemist peddling dubious potions.">
+<CONSTANT TEXT434-UNKNOWN "You can't identify the retroviruses and must accept Malengin's own fanciful description of his wares.||\"I give no guarantees,\" he reminds you, \"but balance this against my very reasonable prices.\"||He has one of each of the following retroviruses:">
+<CONSTANT TEXT434-END "Your business with Malengin is finished. You then leave">
 
 <ROOM STORY434
 	(DESC "434")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT434)
+	(PRECHOICE STORY344-PRECHOICE)
+	(CONTINUE STORY025)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY344-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-LORE>
+		<STORY-JUMP ,STORY266>
+	)(ELSE
+		<CRLF>
+		<TELL ,TEXT434-UNKNOWN>
+		<CRLF>
+		<MALENGIN-BUSINESS T>
+		<CRLF>
+		<TELL ,TEXT434-END>
+		<TELL ,PERIOD-CR>
+		<COND (<OR <CHECK-SKILL ,SKILL-STREETWISE> <CHECK-ITEM ,VADE-MECUM>> <STORY-JUMP ,STORY414>)>
+	)>>
+
+<CONSTANT TEXT435 "You arrive at a large circular room. In the centre rests a Manta sky-car, its burnished black chassis reflecting emerald droplets of light. As you step towards it, you notice a caretek unfold its articulated metal body and move slowly around the base of the sky-car, now and then probing with its diagnostic antenna. This is cause for hope. If the sky-car has been regularly serviced by a caretek, it might still be functional.||A voice calls out. Startled, you glance at the archway leading to another room behind this one. It seems well lit. \"Come here,\" calls the voice again. \"At once!\"">
+<CONSTANT CHOICES435 <LTABLE "probe ahead for danger" "go through to the other room and investigate" "take a closer look at the sky-car" "leave">>
 
 <ROOM STORY435
 	(DESC "435")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT435)
+	(CHOICES CHOICES435)
+	(DESTINATIONS <LTABLE STORY027 STORY005 STORY049 STORY395>)
+	(REQUIREMENTS <LTABLE SKILL-ESP NONE NONE NONE>)
+	(TYPES <LTABLE R-SKILL R-NONE R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT436 "A few tendrils of mist drift into the lobby behind you through the glass double-doors. The receptionist is a fussy-looking man who is dwarfed by his huge desk and the looming Society logo etched in silver on the black marble wall behind him. He peers up at you with suspicion in his eyes. \"Yes? can I help you?\"||You hand him the ID card. \"I am a member of the Society,\" you say, remembering to keep a lacing of disdain in your voice. Society members are rich, powerful and privileged.||He runs the card through a slot, punches buttons on the console in front of him, consults a flickering screen. You see him frown.||\"Something is wrong?\"||He gives a quick nervous smile and hands your card back. \"No, all is in order.\"||Suddenly the sound of tramping feet echoes from a doorway at the back of the lobby. You whirl, but you are too late to get away. Security guards are fanning out to surround you, rifles pointed at your chest. The chief of security is a man whose type you recognize. In earlier eras he might have herded people into gas chambers or ordered them into trenches. Now he snatches the card from your hand. His eyes are like pebbles of dirty ice, \"So, you killed a Society member and stole this,\" he says.||You start to protest, but he does not listen. He steps back and snaps his fingers, and you are torn apart in a hail of gunfire.">
 
 <ROOM STORY436
 	(DESC "436")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT436)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT437 "You aim a kick at his head. He blocks it with his forearm it feels as though someone has whacked a baseball bat across your shin. You do not even see his huge fist lash out, crunching into the bridge of your nose --||You come to your senses a few moments later. You are dimly aware that you're no longer on your feet. The Fijian has hoisted you over his head. You crane your neck and find yourself staring down eighty metres at the mist-shrouded streetlamps.||\"You shouldn't have murdered my boss,\" mutters the Fijian. And he tosses you down to your doom.">
 
 <ROOM STORY437
 	(DESC "437")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT437)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT438 "You shake Shandor's hand, then turn to do the same to his bodyguards. They stand nonplussed for a moment and Shandor grins. Each in turn takes your hand in his own massive grip, forcing smiles despite their constant wariness. \"Don't mind Vatu and Suva,\" says Shandor. \"They don't trust anybody they haven't got drunk with.\"||At this, the two bodyguards erupt into broad beaming grins. You turn and gaze out across the windswept landscape. Venis is just visible in the far distance, towers and domes older than the millennium breaking the drab grey skyline.||\"Farewell, Hal Shandor,\" you say. \"I suppose we'll not meet again.\"||\"Wait.\" He takes an object out of his pocket and hands it to you. \"I've had this for years, but I know it all by heart now. It'll be more use to you.\"||It is a box of black plastic about as big as your hand, with a small video screen and speaker on the side. Lettering on the side reads: Guide to Venis.||\"What is it?\"||\"A vade-mecum,\" he says. \"It'll tell you almost anything you need to know about the town -- street plan, the best hostelries, areas to avoid, that sort of thing.\" ||(As long as you possess it, you can use options for STREETWISE even though you do not have that skill. However, this applies only while you remain in Venis; it does not work in any other city.)||Leaving Shandor and his men to seek their friends, you head on into Venis.">
 
 <ROOM STORY438
 	(DESC "438")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT438)
+	(PRECHOICE STORY438-PRECHOICE)
+	(CONTINUE STORY334)
+	(ITEM VADE-MECUM)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY438-PRECHOICE ()
+	<COND (<AND <CHECK-ITEM ,SHORTSWORD> <CHECK-SKILL ,SKILL-CLOSE-COMBAT>> <STORY-JUMP ,STORY008>)>>
+
+<CONSTANT TEXT439 "The tunnel echoes stonily to your footsteps. At the far end it widens into a long foyer with open doors at the intervals long the opposite wall. You step through into a cylindrical chamber with a glass window at one end. The chamber is lined with seats. It takes you a moment before you realize you are inside a subway carriage. Fax watches from the door, wringing his hands in agitation as you explore the carriage. The motilator, encased inside a brass cylinder at the front, senses your approach and activates, speaking in a chiming voice: \"Please specify your required destination.\"||Questioning the motilator, you consult a map which projects onto the front window of the carriage. The subway has an intercontinental range, but most of the terminuses are now either inactive or destroyed. Nevertheless there are several destinations which are still marked as in service, and nay of them would bring you closer to your goal.">
+<CONSTANT CHOICES439 <LTABLE "travel by subway" "return to the surface and continue your journey on foot">>
 
 <ROOM STORY439
 	(DESC "439")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT439)
+	(CHOICES CHOICES439)
+	(DESTINATIONS <LTABLE STORY212 STORY420>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT440 "Greatest of all the monuments here is the Pyramid of Cheops, a structure of smooth black stone a hundred and fifty metres high, with a long ramp leading up to a door set two-thirds of the way up the east face. You make the long climb, your breath steaming in the cold air. Finally you reach the heavy steel door. A symbol is etched into the metal. The emblem of a long-forgotten cause, it means nothing you. The wind howls dolorously around the pyramid's peak.">
+<CONSTANT CHOICES440 <LTABLE "use" "psionic focus" "otherwise">>
 
 <ROOM STORY440
 	(DESC "440")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT440)
+	(PRECHOICE STORY440-PRECHOICE)
+	(CHOICES CHOICES440)
+	(DESTINATIONS <LTABLE STORY211 STORY189 STORY361>)
+	(REQUIREMENTS <LTABLE SKILL-ROGUERY SKILL-PARADOXING NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY440-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-HUMBABA> <STORY-JUMP ,STORY167>)>>
 
 <ROOM STORY441
 	(DESC "441")
