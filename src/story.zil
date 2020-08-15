@@ -98,6 +98,7 @@
 	<PUTP ,STORY390 ,P?DEATH T>
 	<PUTP ,STORY391 ,P?DEATH T>
 	<PUTP ,STORY393 ,P?DEATH T>
+	<PUTP ,STORY400 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -5948,174 +5949,104 @@
 	(CONTINUE STORY415)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT411 "Boche waves you along beside him, keeping the gun trained on you. \"I could kill you now,\" he says, \"but I want someone to be alive to witness this. After all, I'm about to become a god.\"||Reaching the Heart, he kneels and embraces it. You think this is your chance to act, but even as you rush forward you see you are too late. Coruscating bands of energy blaze from the depths of the unearthly gem, swathing Boche in an aura of blinding violet light. The fabric of reality is ripped apart. You feel weightless. A vortex spins up through the dome, sweeping away rock and air rising up into space, out past the moon and planets. In what seems like seconds you have been hurled like a ghost through all of creation. You witness the birth of a new cosmos -- a cosmos fashioned by Boche's whims. He is everywhere and all-powerful, while you are but a spark that swiftly vanishes into eternity.">
+
 <ROOM STORY411
 	(DESC "411")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT411)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT412 "After fifteen minutes of careful searching, you find a secret compartment under one of the pallets in a side room. It slides open at your touch to reveal an ornamental knife. You have no idea why the knife's owner went to such lengths to hide it. \"The Volentines were all barmy,\" is Boche's dismissive opinion. \"If you'd been High Priest, would you have allowed them to keep sharp implements?\"||Baron Siriasis drifts across the broken furniture and glances at the knife. \"Probably the acolytes were not supposed to have any personal possessions,\" he says. \"The idea of them all living together here would be to focus their spiritual identity. Now, if you have quite finished looking for mementoes, let us be on our way.\"||Returning to the antechamber, you decide what to to next.">
+<CONSTANT CHOICES412 <LTABLE "take the left-hand passage" "the right-hand one">>
 
 <ROOM STORY412
 	(DESC "412")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT412)
+	(CHOICES CHOICES412)
+	(DESTINATIONS <LTABLE STORY003 STORY128>)
+	(TYPES TWO-NONES)
+	(ITEM KNIFE)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT413 "Peering along the pass, you catch sight of a hunched shambling figure in the snow-clouded darkness. It is thin, with a large hooded head. It is still too far away for you to get a clear view of its face, but something about it stirs atavistic fears at the back of your mind.||You glance suddenly at the rigid corpses on the other ledge. All were entranced, turned to hypnotized statues before they froze to death.||\"By Gaia!\" You seize Boche's arm. \"Weøre in the larder of the Gorgon!\"">
 
 <ROOM STORY413
 	(DESC "413")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT413)
+	(CONTINUE STORY433)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT CHOICES414 <LTABLE "attempt to make contact with Gaia" "research the legend of the Heart of Volent" "buy supplies for your adventure" "investigate the background of Kyle Boche" "find out if any travellers have recently gone missing in the Apennine Mountains" "you have completed all your business here and are ready to leave">>
 
 <ROOM STORY414
 	(DESC "414")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(CHOICES CHOICES414)
+	(DESTINATIONS <LTABLE STORY351 STORY091 STORY350 STORY179 STORY451 STORY025>)
+	(TYPES SIX-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT415 "Squinting in the flux of radiation from the Heart, you approach it with a sense of wonder. This is the artifact created in the Big Bang, the key to infinite power. Many people gave their lives for the chance to possess it. Now it lies within your grasp.">
 
 <ROOM STORY415
 	(DESC "415")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT415)
+	(PRECHOICE STORY415-PRECHOICE)
+	(CONTINUE STORY174)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY415-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-NEMESIS> <STORY-JUMP ,STORY153>)>>
+
+<CONSTANT TEXT416 "A robotic caretek scurries past your foot and continues on, gliding up the wall until it settles over an access panel which it begins to probe. It must have been diagnosing repairing faults here for centuries. You smile. Obviously the gondo's stories of ghosts have left you jittery, if you are jumping at the sight of a harmless caretek.||The corridor ahead is wide, oval in cross-section. The green light gleams off the polished curve of the walls. Seeing a chamber at the end, you press on.">
 
 <ROOM STORY416
 	(DESC "416")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT416)
+	(CONTINUE STORY435)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT417 "Under the ochre-tinged gleam of a streetlamp, you scrutinize the face shown on the card, impressing it into your mind. Your eyes close. The face remains hovering before you, mentally you rotate it so that in your mind's eye you are looking from behind those unfamiliar features. You make them your own, drawing the face over yours like a mask.||If anyone were nearby, they would have seen your own face swim and alter in the dim light: the nose narrowing, brows drawing closer over eyes of altered colour. You turn and peer at your reflection in a grimy windowpane. The illusion is good enough to satisfy a casual glance, and should last at least as long as you'll need to get past the receptionist.">
 
 <ROOM STORY417
 	(DESC "417")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT417)
+	(CONTINUE STORY374)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT418-ENGAGED "You engage the thrusters and soar up from the helipad in a blaze of white jet-light">
+<CONSTANT TEXT418-GROUNDED "You cannot get the sky-car airborne in time before the Fijian grabs you">
 
 <ROOM STORY418
 	(DESC "418")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(PRECHOICE STORY418-PRECHOICE)
+	(CONTINUE STORY437)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY418-PRECHOICE ()
+	<CRLF>
+	<COND (<CHECK-SKILL ,SKILL-PILOTING>
+		<STORY-JUMP ,STORY218>
+		<TELL ,TEXT418-ENGAGED>
+	)(ELSE
+		<TELL ,TEXT418-GROUNDED>
+	)>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT419 "A terrifying howl erupts from the stranger's throat, rooting you to the spot. You hardly see him move as he closes in and locks his bloodless fingers around your windpipe. You try to wrestle free, but your muscles are slack with fear and you can only kick feebly as he lifts you clear of the ground and snaps your neck like a farmer killing a chicken. Your lifeblood will nourish the unnatural creature that has slain you.">
 
 <ROOM STORY419
 	(DESC "419")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT419)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT420 "The ruined city is soon left far behind. You slog through the dense undergrowth, slowly making progress to the fringes of Lyonesse. Here, where the heat is less stifling, a few ramshackle communities farm the valleys. You collect some provisions to sustain you on your journey, knowing that you will soon pass beyond the oasis of sunlit warmth.||Two days later finds you on the lip of a glacier. Lyonesse is now visible only as a distant aurora in the eastern sky at night. Your boots make a hard crumping sound as you trudge through the snow. Shortly after dawn, the thick clouds suddenly lift, revealing majestic mountains sweeping up against the sky to your right. You stand and gaze at the long streamers of snow that are curling out from the highest peaks, stripped from the mountain flanks by a titanic wind. You feel a sense of uncanny isolation. There is no trace of a breeze where you are standing, and the only sound is a far-off whistling and yet that wind is strong enough to blast the hard-packed snow to powder. The power of the elements is awesome. You are no more than a speck in Nature's eye. And yet the power that awaits you in Du-En is enough to blind that eye -- power to reshape the world. At this moment, as you stare up at the soaring mountains, it all seems unreal.||You turn to look south. You cannot waste time here, idly indulging your fancies. Ahead lies your goal: the power to make your dreams real.">
 
 <ROOM STORY420
 	(DESC "420")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT420)
+	(CONTINUE STORY400)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY421
