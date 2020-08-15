@@ -99,6 +99,7 @@
 	<PUTP ,STORY391 ,P?DEATH T>
 	<PUTP ,STORY393 ,P?DEATH T>
 	<PUTP ,STORY400 ,P?DEATH T>
+	<PUTP ,STORY426 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -5795,7 +5796,7 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT400 "In the following weeks you lose all memory of the brief spell of warmth you enjoyed in the jungle of Lyonesse. The deep chill has soon settle back in your bones.">
-<CONSTANT TEXT400-CONTINUED "Surveying the landscape, you see only a dazzling expanse of snow under a sky of merciless metallic blue. The few other people you catch sight of are hunched anonymous figures in the distance. You do not call out to them. In these grim and desperate times, a lone traveller is well advised not to seek out company.||The quaintly named Jib-and-Halter Pass shows itself under a gritty haze. The air takes on a sulphurous tang as you approach. Here the rocks lie under only a light dusting of snow. You throw back your hood. It does not seem quite so cold here. Volcanic vents in the ground release hot mud in geysers to the west. Bog moss thrives in the fertile mud, allowing a small settlement to survive here.||You arrive at the settlement, a collection of tottering huts around the long looming bulk of the ancient Jib-and-Halter Inn. The sun dips low in the sky, sending amber shafts of light through the thin air. You blow out a plume of breath. You are looking forward to a fire, a hot bath and a good meal.||The interior of the inn is a place of lantern light and low black rafters. Dozens of faces glowering as you enter. Several people sweep their hands irritably in your direction, a common twenty-third century gesture to urge haste on someone who is sluggish in closing a door.||As you cross over to the bar, you begin to sense something is amiss. None of the others here are eating or drinking. Each person sits sullenly silent. Then, as you move around a squat beam, you come in sight of two women standing at the bar. To judge from the stack of glasses in front of them, they  have drunk enough vodka to kill a fair-sized rhino, but the only sign they might even be slightly drunk is their loud haughty bray of laughter on seeing you. You size them up at a glance. They are identical twins, both over six feet tall and with taut Olympian physiques, brimming with vitality, their eyes and closed-cropped hair the colour of sunrise. Each twin has a tattoo on her arm: a number in Roman numerals.||\"Sit there and stay silent,\" commands one of the twins.||\"We insist on drinking undisturbed,\" says her sister">
+<CONSTANT TEXT400-CONTINUED "Surveying the landscape, you see only a dazzling expanse of snow under a sky of merciless metallic blue. The few other people you catch sight of are hunched anonymous figures in the distance. You do not call out to them. In these grim and desperate times, a lone traveller is well advised not to seek out company.||The quaintly named Jib-and-Halter Pass shows itself under a gritty haze. The air takes on a sulphurous tang as you approach. Here the rocks lie under only a light dusting of snow. You throw back your hood. It does not seem quite so cold here. Volcanic vents in the ground release hot mud in geysers to the west. Bog moss thrives in the fertile mud, allowing a small settlement to survive here.||You arrive at the settlement, a collection of tottering huts around the long looming bulk of the ancient Jib-and-Halter Inn. The sun dips low in the sky, sending amber shafts of light through the thin air. You blow out a plume of breath. You are looking forward to a fire, a hot bath and a good meal.||The interior of the inn is a place of lantern light and low black rafters. Dozens of faces glowering as you enter. Several people sweep their hands irritably in your direction, a common twenty-third century gesture to urge haste on someone who is sluggish in closing a door.||As you cross over to the bar, you begin to sense something is amiss. None of the others here are eating or drinking. Each person sits sullenly silent. Then, as you move around a squat beam, you come in sight of two women standing at the bar. To judge from the stack of glasses in front of them, they have drunk enough vodka to kill a fair-sized rhino, but the only sign they might even be slightly drunk is their loud haughty bray of laughter on seeing you. You size them up at a glance. They are identical twins, both over six feet tall and with taut Olympian physiques, brimming with vitality, their eyes and closed-cropped hair the colour of sunrise. Each twin has a tattoo on her arm: a number in Roman numerals.||\"Sit there and stay silent,\" commands one of the twins.||\"We insist on drinking undisturbed,\" says her sister">
 <CONSTANT CHOICES400 <LTABLE "take exception to their manners and do something about it" "meekly do as you are told">>
 
 <ROOM STORY400
@@ -6049,175 +6050,118 @@
 	(CONTINUE STORY400)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT421 "Curious... their memories and thought patterns are almost identical. Both are proud, uncompromising, certain of their superiority to the common herd of mankind. You scan deeper, uncovering images of murder and stark savagery. They once had twelve sisters, all identical -- obviously clones. You suspect a military or criminal past. Reading still deeper, you find a memory of Gaia. They also heard the broadcast. They, like you, are bound for Du-En.||You weigh up your options. It might be reckless to start anything before you know more about them, but it would be equally dangerous to leave the first move to them.">
+<CONSTANT CHOICES421 <LTABLE "attack them" "try to outwit them" "simply sit quietly and wait">>
+
 <ROOM STORY421
 	(DESC "421")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT421)
+	(CHOICES CHOICES421)
+	(DESTINATIONS <LTABLE STORY076 STORY120 STORY054>)
+	(REQUIREMENTS <LTABLE SKILL-CLOSE-COMBAT SKILL-CUNNING NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT422 "In a dingy smoke-filled gambling hall, you find a man who takes you to the table of Harek Asfar, the chief of the city's criminals. Asfar is a dapper man in a suit of shimmering black cloth, with a gold-tinted band shielding his eyes. A cigarette in an enamelled holder sends lazy curls of smoke up in front of tall mirror against the wall. Its chipped surface speaks poignantly of faded grandeur. \"You want to know about Chaim Golgoth,\" says Asfar.||You nod and wait. Asfar considers, then gives an indulgent click of his tongue and motions for you to sit. He raises his glass and sips, but does not offer you a drink. \"Commander Chaim Golgoth, an agent -- I should say assassin and saboteur -- for United States Intelligence. Seconded from the military, he bears the codename 'Vector'. A thorn in my side.\"||\"Why should a US operative concern himself with affairs in Kahira?\"||Asfar gives a soft laugh, like a puff of escaping gas. \"You have not heard? The President has arrogated to himself police authority over the entire world, on the specious premise that the United States now constitutes the majority of the human population. Golgoth has disrupted several of my activities on this basis.\"||\"Why not kill him? You have an air of ruthless ability about you, if you don't mind me saying.\"||\"I take that as compliment,\" says Asfar. \"In fact I did formulate a plan. A retired US colonel lived at a hunting lodge near Karthag. I had him murdered and installed my fifteen best men in the lodge, then lured Golgoth there with a fake message.\"||\"And what happened?\"||Asfar pauses, blows out a stream of cigarette smoke, frowns. \"I lost my fifteen best men.\"||He signals that your brief discussion is at an end, and a bodyguard leads you from the table.">
 
 <ROOM STORY422
 	(DESC "422")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT422)
+	(PRECHOICE STORY422-PRECHOICE)
+	(CONTINUE STORY311)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY422-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-STREETWISE> <STORY-JUMP ,STORY095>)>>
+
+<CONSTANT TEXT423 "The landscape stretches on, a sea of white broken by islands of bare black rock. Rays of sunlight, skimming from the horizon behind you, make the snow flash like ground glass. Soon you can see man-made hills that jut up against the drab skyline. These are the pyramids, one of the seven wonders of the ancient world. And in front of them reclines the Sphinx, its inscrutable gaze fixed on Kahira, which is outlined by the rising sun. According to superstition, the Sphinx watches over Kahira and keeps it safe from the desert's threat. You are not so sure. Doesn't a watchdog face out from the place it is guarding? It looks to you as if the Sphinx carries in its proud impassive face a clear warning about the Sahara. You are reminded of the words written over the gates of Hell: Lasciate ogni speranza, voi ch'entrate -- abandon hope, you who venture here.">
 
 <ROOM STORY423
 	(DESC "423")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT423)
+	(CONTINUE STORY440)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT424 "Riza leads the way to the transporter bay. You step onto the platform and a heavy glass partition closes behind you. There is no turning back now. Through the glass, you see Riza giving orders to the technicians, but no sound reaches your ears. Lights come on, bathing you in a dazzling glow, and you feel a wrenching sensation deep inside.||The light fades. Your first impression is of an icy wind that tears the breath from your lungs. A rolling snowscape stretches off in all directions as far as the eye can see. You are back on Earth, in the middle of the Saharan Ice Wastes. If Riza set the coordinates properly, you should be only a few kilometres form Du-En.">
 
 <ROOM STORY424
 	(DESC "424")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT424)
+	(CONTINUE STORY125)
+	(CODEWORD CODEWORD-HOURGLASS)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT425 "A door opens, admitting you to a short passage that gives onto a dimly lit room. On a podium in the centre stands a bulky humanoid figure whose violet-and-black armoured body gleams with a dull lustre. At your approach, the eye-slit of the figure's visor illuminates, and for an instant you falter as you sense the scrutiny of an unhuman intelligence. Then the figure speaks in resonant mechanical tones: \"I am Gilgamesh. Identify yourself.\"||\"Gaia has sent me for you,\" you answer. \"We are to voyage to Du-En.\"||Despite your uncertainty, the automaton seems to accept this. With clanking steps he descends from the podium. Your every instinct is to turn and run, but you force yourself to wait calmly as you watch Gilgamesh approach. The heavy armoured plates of his body leave you in no doubt he was designed for battle. Along the back of his forearm is a blaster tube connected by cables to a power pack across his wide shoulders.||He stops a metre away, staring into space above your head. \"I am ready to serve you,\" comes the harsh electronic voice.||\"Then come,\" you tell him.">
+<CONSTANT CHOICES425 <LTABLE "ascend to the next level" "leave the pyramid">>
 
 <ROOM STORY425
 	(DESC "425")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT425)
+	(CHOICES CHOICES425)
+	(DESTINATIONS <LTABLE STORY276 STORY361>)
+	(TYPES TWO-NONES)
+	(CODEWORD CODEWORD-ENKIDU)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT426 "Surrounded by a limitless expanse of snow, you slog wearily towards your goal. The sun slides low in the sky, wavering like a blob of flame-orange oil against a sky of swirling violet. As it disappears in a scud of cloud lying along the horizon, you feel the dreary chill of day begin to yield to the frigid tyranny of night.">
 
 <ROOM STORY426
 	(DESC "426")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT426)
+	(PRECHOICE STORY426-PRECHOICE)
+	(CONTINUE STORY444)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY426-PRECHOICE ("AUX" (DAMAGE 4))
+	<COND (<OR <CHECK-ITEM ,FUR-COAT> <CHECK-ITEM ,COLD-WEATHER-SUIT>> <SET DAMAGE 2>)>
+	<COND (<CHECK-SKILL ,SKILL-SURVIVAL> <DEC .DAMAGE>)>
+	<COND (<CHECK-VEHICLE ,BURREK> <DEC .DAMAGE>)>
+	<COND (<L=? .DAMAGE 0>
+		<PREVENT-DEATH ,STORY426>
+	)(ELSE
+		<TEST-MORTALITY .DAMAGE ,DIED-FROM-COLD ,STORY426>
+	)>>
+
+<CONSTANT TEXT427 "There is a brief shouting match, but the Gargan twins see that you will not be swayed. Finally Golgoth, who has stayed aloof from the argument, settles it by saying to them, \"I agree that the automaton is intelligent and therefore counts as a group member. You can abide by that, or leave our group.\"||Gilgamesh stands by immobile while all this is going on. \"Is he really intelligent, or does our discussion mean nothing to him?\" you wonder aloud.||Golgoth shrugs. \"Who cares? I only said that to settle the dispute so we could get under way.\"">
 
 <ROOM STORY427
 	(DESC "427")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT427)
+	(CONTINUE STORY016)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT428 "No one observes you creeping behind the tent, where you conceal yourself in a snowdrift and listen to what the baron is saying.||\"You say the Heart must be destroyed?\" comes his reedy voice.||Someone else answers from the video screen: \"The 'ultimate power' it confers entails the remaking of the whole universe. This world would cease to exist.\"||\"And how could it be destroyed?\"||\"Twin barysal beams at right angles. They would excite the crystal matrix and cause it to blow apart.\"||\"So the world would cease to be...\" muses the baron. Seeming to reach a decision, he says in a forceful tone, \"Very well, then. I shall sweep aside this universe and fashion a new one in my image. I shall be god of a new cosmos.\"||\"Everything will be destroyed,\" protests the other voice.||\"Except me!\" screeches the baron. \"Did you really think I would give up the chance for such power? The chance to be whole and young again? The chance for immortality? Gaia, you are mad.\"||He snaps off the communicator. So he has spoken to Gaia -- and she counsels him that the Heart be destroyed. This is food for thought.">
+<CONSTANT CHOICES428 <LTABLE "go and talk to Golgoth" "Boche" "Gaunt">>
 
 <ROOM STORY428
 	(DESC "428")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT428)
+	(CHOICES CHOICES428)
+	(DESTINATIONS <LTABLE STORY126 STORY104 STORY148>)
+	(TYPES THREE-NONES)
+	(CODEWORD CODEWORD-NEMESIS)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT429 "You hesitate too long over your response. The elevator door opens and locks. Several of the hover-droid swivel in midair and come floating towards you. Behind them, you see the smouldering corpse that seconds ago was Thadra Bey. Boche and the others seem to have got away.||The red beams of the droids' aiming-lights appear on your chest. You take a step forward. Lasers blister the air. With a single cry, you slump to the floor.">
 
 <ROOM STORY429
 	(DESC "429")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT429)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT430 "You have gone no further than thirty metres along the first tunnel when there is the roar of an explosion from behind you. Running back towards the hall where you left the others, you see a cloud of smoke swirling in the air. In the rubble-strewn hall beyond someone gives a feeble cough. The force of the blast has cracked the stone lintel above the tunnel, and rock dust is trickling to the floor. It looks as though the tunnel could cave in at any moment.">
 
 <ROOM STORY430
 	(DESC "430")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT430)
+	(PRECHOICE STORY430-PRECHOICE)
+	(CONTINUE STORY041)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY430-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-MALLET> <STORY-JUMP ,STORY019>)>>
 
 <ROOM STORY431
 	(DESC "431")
