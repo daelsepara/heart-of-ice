@@ -824,14 +824,14 @@
 	<COND (<IS-ALIVE> <DELETE-CODEWORD ,CODEWORD-MALLET>)>>
 
 <CONSTANT TEXT020 "Singh was so intent on watching for Golgoth that he did not expect an attack from you. Caught unawares, he is flung to the ground. Rushing in, you snatch up the cannon and finish him with a blast from his own weapon.||The smoke begins to disperse. At first you see no sign of Golgoth, then he emerges from one of the elevator tubes. He had attached his gun to the wall magnetically and set it for remote fire. Retrieving it, he casts a wary glance at the cannon and then smiles. \"Ultimate power can be quite a temptation,\" he says, glancing significantly from the cannon to the gun in his own hand.">
-<CONSTANT CHOICES020 <LTABLE "blast him" "trust him not to shoot">>
+<CONSTANT CHOICES020 <LTABLE "blast him with the mantramukta cannon" "trust him not to shoot">>
 
 <ROOM STORY020
 	(DESC "020")
 	(STORY TEXT020)
 	(CHOICES CHOICES020)
 	(DESTINATIONS <LTABLE STORY043 STORY431>)
-	(REQUIREMENTS <LTABLE MANTRAMUKTA-CANNON NONE>)
+	(REQUIREMENTS <LTABLE NONE NONE>)
 	(TYPES <LTABLE R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
 
@@ -1245,8 +1245,8 @@
 	(STORY TEXT054)
 	(CHOICES CHOICES054)
 	(DESTINATIONS <LTABLE STORY208 STORY230 STORY120 STORY098 STORY252>)
-	(REQUIREMENTS <LTABLE SKILL-ROGUERY SKILL-ESP SKILL-CUNNING BARYSAL-GUN NONE>)
-	(TYPES <LTABLE R-SKILL R-SKILL R-SKILL R-ITEM R-NONE>)
+	(REQUIREMENTS <LTABLE SKILL-ROGUERY SKILL-ESP SKILL-CUNNING <LTABLE BARYSAL-GUN> NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-SKILL R-ALL R-NONE>)
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT055 "The computer locks you out. You try rebooting, to no avail. With a shrug, you turn to exploring the rest of the pyramid idly wondering what Gaia was up to when she entered the stream of inexplicable commands into the computer system here.||The answer comes so suddenly that you never know it. Gaia was in the throes of her periodic madness when you contacted her this time. She located the nuclear reactor supplying power to the pyramid and ordered it to go critical. Without warning a blossom of plasma erupts from the earth. For a brief incandescent second it is as though time has turned back to before the Ice Age, and the Pyramid of Cheops once more sits on hot sands in blazing light. Then the blast spreads -- sweeping away the pyramids that have stood here for fifty centuries, vaporizing the snow and ice covering the desert, turning the rock to lava and the river to steam, and making of Kahira a cinderous ruin. In the midst of such a holocaust, your own death goes unnoticed.">
@@ -1315,7 +1315,7 @@
 	<COND (<OR <CHECK-ITEM ,GAS-MASK> <CHECK-CODEWORD ,CODEWORD-TALOS>> <STORY-JUMP ,STORY169>)>>
 
 <CONSTANT TEXT059 "He holds up his finger. \"Ah, it is a very ancient place, not very far to the west. There, in ancient times, were buried the royalty of Egypt. Later, men came from the distant corners of the globe with a great warrior they called Gilgamesh, who had skin of iron and eyes of fire. They told him to watch across the snows for stirrings of life in the ruins of Du-En and, if any threat arose from there, he was to take up his sword and venture forth.\" Bador sees the look on your face. \"It is true, all true!\"">
-<CONSTANT CHOICES059 <LTABLE "ask for advice about the Sahara" "about Kahira itself" "where to stay in the city" "you can dismiss him">>
+<CONSTANT CHOICES059 <LTABLE "ask for advice about the Sahara" "about Kahira itself" "where to stay in the city" "dismiss him">>
 
 <ROOM STORY059
 	(DESC "059")
@@ -1579,7 +1579,7 @@
 
 <CONSTANT TEXT078 "The flyer slowly drifts into the air on streamers of lambent gas. As the main thrusters engage, it picks up speed and goes roaring up into the heavens. A flash of sunlight glances off the hull as it veers towards the east. You watch until it is lost in the soft blue haze.||You set out on foot until you come to a shore of white sand, which you follow north to a ferry building. A group of men emerge and appraise you with suspicious glances before showing you to the ferry boat, a single-masted schooner that has seen better days. Two or three other passengers are already aboard, and on seeing you one of them says, \"Good! Now the ferry is full, we can set sail for Port Sudan.\"">
 <CONSTANT TEXT078-CONTINUED "Moonlight is making such a creamy track in the water by the time you reach Sudan, a village of wooden huts huddled within the vast shell of an abandoned city wall. The boat sweeps in across the harbour, guided by a flaring beacon, and moors at a jetty reeking of fish. The streets are empty , and it is obviously too late to find a hostelry for the night, so you decide to sleep on the boat. The ferrymen are averse to this, insisting they should be paid more for providing you with accommodation as well as transport, but the other passengers are encouraged by your lead. \"You were happy enough to keep us waiting two days until you had enough passengers for the journey,\" snaps one.||At last the ferrymen sullenly agree. You sleep until dawn tinges the sky with the colour of a candle flame.">
-<CONSTANT CHOICES078 <LTABLE "do some shopping in Sudan" "you are eager to set out for Du-En">>
+<CONSTANT CHOICES078 <LTABLE "do some shopping in Sudan" "set out for Du-En">>
 
 <ROOM STORY078
 	(DESC "078")
@@ -1641,7 +1641,7 @@
 	<COND (<CHECK-ITEM ,GAS-MASK> <STORY-JUMP ,STORY169>)>>
 
 <CONSTANT TEXT082 "The moon rises, wreathed in a haze of frost. In the crisp cold light, the ancient halls and towers look more than half unreal. You watch the others huddled by their campfires. No one else has much to say. Each of them is absorbed in private hopes, dreams and fears of what tomorrow will bring. When the Heart is found it will be every man for himself. Who would expect anything else, when the prize at stake is nothing less than the power of a god?||Vajra Singh and Thadra Bey have retreated to their respective tents and scarcely seem to invite conversation.">
-<CONSTANT CHOICES082 <LTABLE "talk to one of the others -- either Chaim Golgoth" "Kyle Boche" "Janus Gaunt" "Baron Siriasis" "alternatively you could just turn in for the night">>
+<CONSTANT CHOICES082 <LTABLE "talk to one of the others -- either Chaim Golgoth" "Kyle Boche" "Janus Gaunt" "Baron Siriasis" "you could just turn in for the night">>
 
 <ROOM STORY082
 	(DESC "082")
@@ -1793,14 +1793,14 @@
 <ROUTINE STORY094-PRECHOICE ()
 	<COND (,RUN-ONCE <TAKE-FOOD-PACKS 8>)>>
 
-<CONSTANT CHOICES095 <LTABLE "make use of an" "try to find out about Baron Siriasis" "Chaim Golgoth" "Gilgamesh" "the Sphinx" "you are ready to get some rest">>
+<CONSTANT CHOICES095 <LTABLE "make use of an" "try to find out about Baron Siriasis" "Chaim Golgoth" "Gilgamesh" "the Sphinx" "get some rest">>
 
 <ROOM STORY095
 	(DESC "095")
 	(CHOICES CHOICES095)
-	(DESTINATIONS <LTABLE STORY401 STORY422 STORY380 STORY011 STORY311>)
-	(REQUIREMENTS <LTABLE ID-CARD NONE NONE NONE NONE>)
-	(TYPES <LTABLE R-ITEM R-NONE R-NONE R-NONE R-NONE>)
+	(DESTINATIONS <LTABLE STORY353 STORY401 STORY422 STORY380 STORY011 STORY311>)
+	(REQUIREMENTS <LTABLE ID-CARD NONE NONE NONE NONE NONE>)
+	(TYPES <LTABLE R-ITEM R-NONE R-NONE R-NONE R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT096 "The blast hisses in the dank steamy air. Blue plasma-fire burns through the creature's neck. It utters a bleak wail of distress and falls crashing to the ground, where you finish off the twitching carcass with a heavy stone.||The wound in your shoulder is beginning to throb. You clean it with some leaves, then tear strips from the lining of your jacket to make a bandage. Lying back against the log, you feel slightly giddy, but this is no place to rest. There might be more of those creatures about. Hauling yourself to your feet, you lumber off in search of a safer place to hole up.">
@@ -1840,7 +1840,7 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT099 "He is emphatic that you should on no account sleep in Claustral Park. \"It is unsafe after nightfall,\" he says, wagging his finger. \"The claustrals are barely deterred from entering the streets as it is.\"||\"What are claustrals?\"||He jerks back in exaggerated surprise. \"Do you truly not know? They are rank fiends -- creatures that are the reverse of men. They flourish in the darkness, cold and filth; they abjure sunlight and goodness. Their food is the decaying remains of the dead.\" His fat jowls shudder with fright.||\"Decaying flesh? So why would they hunt a living person? Possibly the claustrals are simply figments of a fairy tale.\"||He looks at you sadly, as though at a person who had lost their wits. \"Do not allow your cynicism to tempt you into the park,\" he maintains.||\"So where should I stay?\"||\"The Ossiman Hotel is best. If you cannot afford a hotel, avoid the backstreets, where muggers lurk. If you must, sleep by the gratings on Fishermonger Plaza. It is well lit, warm, and there are plenty of folk around all through the night.\"">
-<CONSTANT CHOICES099 <LTABLE "ask his advice about the Sahara" "about Giza" "or about Kahira itself" "you can dismiss him">>
+<CONSTANT CHOICES099 <LTABLE "ask his advice about the Sahara" "about Giza" "about Kahira itself" "dismiss him">>
 
 <ROOM STORY099
 	(DESC "099")
@@ -2159,7 +2159,7 @@
 	<KEEP-ITEM ,MEDICAL-KIT>>
 
 <CONSTANT TEXT121 "Golgoth must have a keen interest in lurid fiction, because his thoughts are filled with images of carnage, explosions, gunfire, and violent death. Then you realize that these are not scenes from films or books -- they are Golgoth's actual memories. He has successfully eliminated dozens of the United States' enemies around the world, mainly by dint of trickery, cunning and a quite unabashed level of viciousness. Viewing these memories from his mind, at the same time as you return that placid smiling gaze, sends a shiver along your spine.">
-<CONSTANT CHOICES121 <LTABLE "ask Golgoth what he knows about Giza" "question his reason for carrying a crossbow" "allow Boche to lead you away from this hardened killer">>
+<CONSTANT CHOICES121 <LTABLE "ask Golgoth what he knows about Giza" "his reason for carrying a crossbow" "allow Boche to lead you away from this hardened killer">>
 
 <ROOM STORY121
 	(DESC "121")
@@ -2170,7 +2170,7 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT122 "Awareness returns slowly, the details of your surroundings emerging out of a blur. There is a white ceiling above you and soft fabric at your back. The air carries a faint smell of antiseptic. You can make out the low whine of air conditioning.||\"You're able to hear me?\" booms a voice.||You wince, focussing on a face that looms above yours. The colours seem harsh, garish. Sounds come to your ears with a rasping undertone, as though filtered by electronics.||Another face comes into view, slender and handsome with a high forehead capped by a green circlet. He has a lopsided but not unfriendly smile. \"How are you feeling?\" he asks.||\"I've got pins and needles,\" you say in a voice still slurred by anaesthetic. Reaching across to rub your left arm, you feel the unyielding hardness of metal in place of flesh. You sit bolt upright with a thrill of horror, throwing off the sheets. You can only stare at what they have made of you: a being half of robotics, half of living tissue. A cyborg.||\"It was all we could do to save your life,\" explains the man wearing the green circlet. \"You were caught in the jets as my flyer took off. I brought you up here. It was touch and go for a couple of weeks, but you should be all right now.\"||\"What's left of me, that is,\" you say bitterly. Turning to the window, you see a surprising profusion of stars in a black void. \"Where are we, anyhow?\"||The other man, the doctor, takes you by your still-living right arm and leads you to the window. A vast crescent globe of swirling grey and white hangs in space below you.||\"That's the Earth,\" he says. \"You're on al-Lat.\"||The pilot joins you. \"I know you are still shaken, but I must ask you some questions. You should not have been in Maka. How did you get there, and why?\"">
-<CONSTANT CHOICES122 <LTABLE "tell him the truth" "you prefer to invent a convincing story">>
+<CONSTANT CHOICES122 <LTABLE "tell him the truth" "invent a convincing story">>
 
 <ROOM STORY122
 	(DESC "122")
@@ -2311,7 +2311,7 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT133 "\"You won't regret it,\" he says emphatically.||You look to the east, where the morning sun is hidden under a shelf of heavy grey cloud. A link of black posts protrude from the snow, marking the road to Venis. The other direction would take you through the swamplands of Lyonesse -- the one region of Europe not afflicted by ice sheets and arctic blizzards. But Lyonesse has dangers of its own.">
-<CONSTANT CHOICES133 <LTABLE "head east, towards Venis" "go west through Lyonesse">>
+<CONSTANT CHOICES133 <LTABLE "head east towards Venis" "go west through Lyonesse">>
 
 <ROOM STORY133
 	(DESC "133")
@@ -2396,7 +2396,7 @@
 	)>>
 
 <CONSTANT TEXT139 "You ascend into the mountains across stark rocky ridges like the broken backs of colossal dinosaurs. The sun shines as feebly as a flashlight seen through a thick pane of ice. When the wind gusts into your face, it is so cold that you can hardly draw breath.||On the second day you come upon four figures also trudging eastwards. They are several hundred metres ahead on the surface of a glacier. As you hurry to catch up, you see patches where the snow has swirled away to reveal the sky surface of the glacier reflecting glints of feeble daylight.||The leader of the group is a short broad-shouldered man whose dark sparkling eyes display an easy authority. The other three, apparently his bodyguards, are hulking men whom you take to be of South Pacific origin. It is hard to be sure with the fur hoods drawn so tightly around their faces.||The short hand man shakes hands and introduces himself as Hal Shandor. \"Our sky-car crashed in the hills back there,\" he explains. \"We're going on to Venis. Travel with us if you want.\"">
-<CONSTANT CHOICES139 <LTABLE "join their group" "you prefer to journey alone">>
+<CONSTANT CHOICES139 <LTABLE "join their group" "journey alone">>
 
 <ROOM STORY139
 	(DESC "139")
@@ -2473,7 +2473,7 @@
 	<LOSE-ITEM ,STUN-GRENADE>>
 
 <CONSTANT TEXT146 "You explore the corridors leading off the platform, but all are blocked by rubble. There is no way of reaching the surface from here. As you return to the carriage, though, you notice a small partition in the wall. It is labelled as an air vent. You remove the grating and peer up the darkened shaft. A waft of rich loamy air drifts down. The shaft is intended for careteks servicing the ventilation ducts, but at a pinch you might be able to squeeze up it -- if you're not bothered by claustrophobia.">
-<CONSTANT CHOICES146 <LTABLE "venture up the shaft" "otherwise you must take the subway back to Marsay, from where you can proceed to Kahira" "to Tarabul" "or to Giza" "resume your journey on foot">>
+<CONSTANT CHOICES146 <LTABLE "venture up the shaft" "take the subway back to Marsay, from where you can proceed to Kahira" "to Tarabul" "or to Giza" "resume your journey on foot">>
 
 <ROOM STORY146
 	(DESC "146")
@@ -2506,14 +2506,14 @@
 	)>>
 
 <CONSTANT TEXT148 "Gaunt walks with you to the outskirts of Du-En to show you the night sky. His undead xoms stalk silently alongside bearing glow-lamps. At the city gates, they dim the lamps and you are left with the light of ten thousand glittering stars. The snows of the Sahara are swallowed by darkness, but you get the impression of standing at the hub of infinity.||For a long period neither of you speaks. Then Gaunt recites softly, \"Some say the world will end in fire, some say in ice. From what I've tasted of desire, I hold with those who favour fire. But if it had to perish twice, I think I know enough of hate to say that ice is also great, and would suffice.\"||\"What's that?\"||\"The words of a poet long ago.\" He gazes to the north. \"My home city lies under a shield of ice a kilometre thick. Soon the world will slip into a coma, like a man frozen at the point of death. The polar caps will meet and everything will end.\"||\"Unless we find the Heart and use its power to set things right.\"||He turns with a smile almost of delight. \"Is that why you've come here? I fear you'll be disappointed. The Heart must inevitably fall into the hands of one who is most ruthless. To seize true power, a man must have a heart of ice. When the powerful do good deeds -- I speak of Caesar, Alexander, Napoleon, Mao -- they do so inadvertently. The good and honest of the world are always the most impotent.||It suddenly occurs to you that Gaunt hasn't a chance of surviving here. He is too intellectual to vie with the others for the Heart.">
-<CONSTANT CHOICES148 <LTABLE "tell him that" "ask what he thinks of the others" "otherwise, you can return to the main square and seek out Kyle Boche" "turn in for the night">>
+<CONSTANT CHOICES148 <LTABLE "tell him that" "ask what he thinks of the others" "return to the main square and seek out Kyle Boche" "turn in for the night">>
 
 <ROOM STORY148
 	(DESC "148")
 	(STORY TEXT148)
 	(CHOICES CHOICES148)
 	(DESTINATIONS <LTABLE STORY279 STORY258 STORY104 STORY192>)
-	(TYPES FIVE-NONES)
+	(TYPES FOUR-NONES)
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT149 "Slowly the chill leaves your bodies. \"Curious,\" mutters the baron, floating over to peer into the chasm. \"It seemed to be a genuine ghost, so far as I could tell. I could not read its mind, at any rate.\"||\"Just as long as it's gone now,\" grunts Boche. He gestures at a narrow stone bridge spanning the chasm. On the far side, an archway opens onto a tiled hall. \"Who wants to go first?\"||The baron gives him a scornful look and hovers out across the drop. As you watch him drift to a halt on the far side, it occurs to you that he looks a rather ghostly figure himself.||Boche glances at you, shrugs and strides rapidly across the bridge. \"It's not too bad as long as you don't look down,\" he calls over his shoulder.||They are waiting for you to cross. As you step onto the bridge, you find your gaze drawn downwards in spite of Boche's advice. The walls of the chasm plunge dizzyingly into feculent darkness. Then you notice something else. Set into the rock walls, about five metres below the level of the bridge, are a row of metal grilles.">
@@ -2562,7 +2562,7 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT153 "If you touch the Heart, you will attune its power and create a new universe in which you wield the power of a god. But in doing so you would wipe out this universe and everything in it. You stand and gaze into the flickering facets. You can feel the palpable power within it. Can you resist its lure?">
-<CONSTANT CHOICES153 <LTABLE "release the Heart's power" "prevent the Heart ever falling into anyone's hands" "otherwise your only option is to reject the chance for power">>
+<CONSTANT CHOICES153 <LTABLE "release the Heart's power" "prevent the Heart ever falling into anyone's hands" "reject the chance for power">>
 
 <ROOM STORY153
 	(DESC "153")
@@ -2599,7 +2599,7 @@
 	)>>
 
 <CONSTANT TEXT155 "\"Why won't you see sense?\" asks Boche in an affable tone. \"Two can travel more safely than one. The road is plagued by robbers.\"||You find Boche's sincerity to be as false as a serpent's smile, and you have no desire to wake up one morning to find he has made off with your money and provisions. \"For all I know, you are the robber,\" you tell him to his face.||Before he can come up with an answer to this, you slog off through the snow. Now you must decide your route.">
-<CONSTANT CHOICES155 <LTABLE "head east to Venis, where you might be able to get passage to Kahira" "you can follow the innkeeper's advice and go west through the Lyonesse jungle">>
+<CONSTANT CHOICES155 <LTABLE "head east to Venis, where you might be able to get passage to Kahira" "follow the innkeeper's advice and go west through the Lyonesse jungle">>
 
 <ROOM STORY155
 	(DESC "155")
@@ -2697,7 +2697,7 @@
 
 <CONSTANT TEXT162 "With each step you take you are getting weaker.">
 <CONSTANT TEXT162-CONTINUED "The blood is still pouring freely from the jagged rip in your shoulder, and you realize that the creature must have injected an anti-clotting agent. Hurriedly tearing the lining of your jacket into strips, you bind the wound to prevent further blood loss.||Looking back, you see no sign of your pursuer. Perhaps it lost interest after having a taste of your flesh.">
-<CONSTANT CHOICES162 <LTABLE "rest hear" "press on further into the jungle">>
+<CONSTANT CHOICES162 <LTABLE "rest Here" "press on further into the jungle">>
 
 <ROOM STORY162
 	(DESC "162")
@@ -2732,7 +2732,7 @@
 
 <CONSTANT TEXT164 "Gargan XIII heartily shakes your hand, Gargan XIV sets up the glasses and pours each of you a shot of vodka. You take the glass and sip, only to wince as the alcohol sears into your cut gums. A mist of blood tinges the vodka. The Gargan sisters down their own drinks without a murmur. \"You are a fine warrior!\" declares XIV with approval.||Despite their declarations of friendship, you are careful not to drink much. It's possible that, having realized you are too tough to beat in a straight fight, they hope to ply you with vodka until you are helpless. Turning to the innkeeper, you ask, \"I'll take food and a room for the night. How much do I owe you?\"||Eyes rolling in fright at the two Amazons, he flaps a hand limply in the air and replies in a strained voice: \"No charge, since you are a friend of these fine ladies.\"||You recover a bit after a night's rest.">
 <CONSTANT TEXT164-CONTINUED "In the morning, the innkeeper provides you with a food pack for the journey">
-<CONSTANT CHOICES164 <LTABLE "travel with the Gargan sisters" "you can delay setting out until they have moved on">>
+<CONSTANT CHOICES164 <LTABLE "travel with the Gargan sisters" "delay setting out until they have moved on">>
 
 <ROOM STORY164
 	(DESC "164")
@@ -2884,7 +2884,7 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT177 "Boche is not enthusiastic. \"The Lyonesse region is infested with malefactors and noctambules,\" he avers. \"We would be at great risk. Also, the Atlas Mountains are a daunting obstacle. As your partner in this venture, I strongly urge you to reconsider.\"||He is obviously not willing to accompany you if you insist on heading west.">
-<CONSTANT CHOICES177 <LTABLE "do so anyway" "you can change your mind and take the road to Venis">>
+<CONSTANT CHOICES177 <LTABLE "do so anyway" "change your mind and take the road to Venis">>
 
 <ROOM STORY177
 	(DESC "177")
@@ -3549,7 +3549,7 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT231 "You find a deserted alley where you slump down behind a stack of cardboard boxes.||You have no sense of how long has passed when you feel a boot nudge you in the ribs. You open your eyes. Half a dozen figures stand over you in the dim mist-filtered moonlight. \"Get up,\" says a voice.||You start to rise, but the nearest figure sweeps out his leg and sends you sprawling back against the wall. You steady yourself against the damp brickwork and glare back at them.||A woman steps forward and speaks in a brittle zealous voice. \"We are of the Church of Gaia. Give of your belongings that Gaia may bring salvation to the world.\"||You have heard of this cult -- just one of hundreds that have sprung up in the latter days of the world, as people turn in their desperation to strange beliefs. The Church is founded on a particularly deranged creed. Instead of thinking Gaia to be a sophisticated computer, they believe she is the creator goddess.">
-<CONSTANT CHOICES231 <LTABLE "give the your money" "use" "fight">>
+<CONSTANT CHOICES231 <LTABLE "give them your money" "use" "fight">>
 
 <ROOM STORY231
 	(DESC "231")
@@ -3573,7 +3573,7 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT233 "A tunnel beyond the doorway is lit by luminant strips close to the floor, which bathe you in a sinister blue glow as you advance towards the centre of the pyramid. You reach a room whose walls are covered with video screens. A partial projection of the world's surface stretches across the ceiling, reduced to a chequerboard of black patches where the scanning satellites have gone offline over the years.||In the centre of the room is a shaft that descends into the depths of the pyramid. A circular steel plate hovers at the top, beside a row of buttons. You guest it is a sort of elevator, although a much more sophisticated design than any in existence nowadays. Studying the buttons, you discount the levels given over to dormitories and recreation. That leaves the research and military levels, located furthest down in the building.">
-<CONSTANT CHOICES233 <LTABLE "risk taking the strange elevator going to the research level" "the military level at the very bottom of the shaft" "you think it would be wiser to leave the way you came">>
+<CONSTANT CHOICES233 <LTABLE "risk taking the strange elevator going to the research level" "the military level at the very bottom of the shaft" "leave the way you came">>
 
 <ROOM STORY233
 	(DESC "233")
@@ -4222,7 +4222,7 @@
 	<IF-ALIVE ,TEXT280-CONTINUED>>
 
 <CONSTANT TEXT281 "You enter a lofty room plunged in gloom. Boche flicks his torchlight around and it falls on a curious sight. The light seems to spill slowly, like a puddle of oil, through a zone several metres across. In the the middle stands a man in old-fashioned military dress. Beside him on the floor lies a metal globe about the size of an egg, covered with glowing studs.||\"It is a stasis bomb, I believe,\" announces the baron in his stern clipped tones. \"Watch.\"||He glides off, skirting the zone where the torch beam slowed down. You see him drifting around the far perimeter. But then suddenly he comes back into view around the edge of the zone, even though you can still see his image moving beyond it.||\"The stasis bomb slows down time in a two-mere radius,\" explains the baron. \"Like takes several seconds to cross the zone, which is why you can still see my image floating on the other side.\"||As you watch, the image moves around the zone, disappearing like a ghost as it reaches the edge. \"How long has that man been frozen there?\" wonders Boche.||\"Probably since the fall of Du-En. Almost two hundred years. That period will have seemed to him like only a few seconds.\"">
-<CONSTANT CHOICES281 <LTABLE "try to free the man using either a charged" "or psionic focus" "leave him frozen and continue on your way">>
+<CONSTANT CHOICES281 <LTABLE "try to free the man using either a charged" "or a psionic focus" "leave him frozen and continue on your way">>
 
 <ROOM STORY281
 	(DESC "281")
@@ -4487,7 +4487,7 @@
 	<GAIN-MONEY 10>>
 
 <CONSTANT TEXT296 "You round on him in shock. \"And the Earth will be left to die?\"||\"It is not our concern,\" he replies with a shrug. \"We are an independent state. The people of Earth must solve their own problems.\"||You give a hollow laugh. \"You are human! How can you abandon the planet that gave you life? Too look on uncaring as she expires under shrouds of ice is inexcusable. If there were a disaster which made al-Lat uninhabitable, would you go once the Earth is dead? Your indifference is short-sighted and stupid. You people are like survivors of a shipwreck, clinging to broken timbers in a stormy sea, gawping impassively while your ship sinks.\"||He thinks for a long moment, then slowly nods. \"Your arguments are passionate indeed.\" He goes off and returns with a metal box-shaped device the size of a book. \"This is my pet project. I call it Little Gaia. It is a miniature artificial brain programmed with Gaia's original personality, when she was still sane.\" He presses it into your hands. \"Take it. It is the only aid I can give you, except to wish you luck. Now I must go to find Captain Baihaqi, who should be ready to take you home.">
-<CONSTANT CHOICES296 <LTABLE "use the computer to contact Gaia" "just wait until Riza al-Baihaqi comes for you">>
+<CONSTANT CHOICES296 <LTABLE "use the computer to contact Gaia" "wait until Riza al-Baihaqi comes for you">>
 
 <ROOM STORY296
 	(DESC "296")
@@ -4526,7 +4526,7 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT299 "Gaunt glances at your automaton bodyguard. \"Perhaps you're right,\" he says wistfully. Without another word, he turns and wanders back towards the camp, the xoms dutifully following like silent sleepwalkers.||You watch the constellations wheel imperceptibly overhead. Half an hour passes and you begin to notice the cold It is late. Trudging back to the main square, you see Golgoth checking his weaponry for tomorrow's adventure. Boche waves to you from beside the fire, where he has brewed up some tea.">
-<CONSTANT CHOICES299 <LTABLE "join Golgoth" "Boche" "just go off to bed">>
+<CONSTANT CHOICES299 <LTABLE "join Golgoth" "Boche" "go off to bed">>
 
 <ROOM STORY299
 	(DESC "299")
@@ -4573,7 +4573,7 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT303 "Vajra Singh stabs at the trigger of his cannot and swings it round towards Golgoth. But the USI agent is not taken by surprise. He grabs Boche and throws him forward to take the brunt of the blast. Boche dies instantly, and at the same moment Golgoth drops a canister that releases a thick cloud of white smoke.||Singh looms like a ghost in the spreading cloud. Holding the cannon ready, he peers through the smoke for any sign of movement. You've lost sight of Golgoth.">
-<CONSTANT CHOICES303 <LTABLE "attack Singh with a" "or" "or move in closer to give him back-up" "step away and wait to see what happens">>
+<CONSTANT CHOICES303 <LTABLE "attack Singh with a" "or a" "or move in closer to give him back-up" "step away and wait to see what happens">>
 
 <ROOM STORY303
 	(DESC "303")
@@ -4613,7 +4613,7 @@
 	<IF-ALIVE ,TEXT305-CONTINUED>>
 
 <CONSTANT TEXT306 "Boche shudders as he looks along the row of dead white faces. There are at least ten corpses here in the pass, some on this ledge and others are perched further along among the rocks. \"The must have climbed up onto the ledge to get away from wolves,\" says Boche.||He's wrong. There are no wolves up here in the mountains. And these people were not cowering from predators when they died. In every case they are frozen in postures that suggest curiosity: poised peering out from the ledge, lines of amazement stamped on their faces, icicles across their wide eyes. Death did not surround them with shivering jaws, but stole up softly like a thief in the night.||The sky is fading from grey to black. If you press on now, you will have to spend the night in open country, unprotected from the bitter wind.">
-<CONSTANT CHOICES306 <LTABLE "do that" "shelter he in the pass">>
+<CONSTANT CHOICES306 <LTABLE "do that" "shelter here in the pass">>
 
 <ROOM STORY306
 	(DESC "306")
@@ -5238,7 +5238,7 @@
 	(STORY TEXT356)
 	(CHOICES CHOICES356)
 	(DESTINATIONS <LTABLE STORY378 STORY399 STORY420>)
-	(TYPES TWO-NONES)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT357 "The panel bends inward, then gives with a crack. You push through past a blanket which had been hanging against the wall. A fire crackles in the centre of the foyer, which is so badly dilapidated that it is little more than a cave. A rug hangs across the entrance, sealing out a keening blizzard. The chamber is warm, with a sweaty reek from its three occupants. You take them to be trappers, judging by the animal skins hung around the walls.||The three jump to their feet. Their surprise at your sudden appearance soon turns to open hostility. Two draw weapons.. One has a long knife, while the man nearest to the fire has a barysal gun.">
@@ -5308,7 +5308,7 @@
 	<TAKE-FOOD-PACKS 6>
 	<COND (<NOT <CHECK-ITEM ,FUR-COAT>>
 		<CRLF>
-		<TELL "Strip of the pelt to make a " ,FUR-COAT "?">
+		<TELL "Strip of the pelt to make a " D ,FUR-COAT "?">
 		<COND (<YES?> <TAKE-ITEM ,FUR-COAT>)>
 	)>>
 
@@ -5846,7 +5846,7 @@
 	<COND (<CHECK-SKILL ,SKILL-STREETWISE> <STORY-JUMP ,STORY095>)>>
 
 <CONSTANT TEXT402 "The time has come. You are as ready as you will ever be. Swinging your pack onto your shoulder, you set off at a brisk pace towards the city gate. The lift carries you down to ground level, where you emerge from the shelter of the concrete buttress into a raw wind. Pockets of mist swirl like smoke above the turbid river. Westwards lies the gleaming white expanse of snow that is the Sahara Desert.">
-<CONSTANT CHOICES402 <LTABLE "take a detour to the pyramids at Giza" "head strait out across the Sahara towards Du-En">>
+<CONSTANT CHOICES402 <LTABLE "take a detour to the pyramids at Giza" "head straight out across the Sahara towards Du-En">>
 
 <ROOM STORY402
 	(DESC "402")
@@ -5902,7 +5902,7 @@
 	<RETURN ,STORY103>>
 
 <CONSTANT TEXT406 "\"You heard Vajra Singh's stipulation,\" growls Gargan XIV, jabbing a finger against Gilgamesh's chest-plate. \"Hirelings and servants are not allowed to join an expedition into the catacombs.\"||You protest. \"Gilgamesh is hardly a servant. He'll be like an invaluable member of our team.\"||She shakes her head doggedly. \"You cannot bring your automaton along. That is final.\"">
-<CONSTANT CHOICES406 <LTABLE "look for Vajra Singh to ask his opinion" "insist that Gilgamesh accompanies the party" "agree to leave him behind">>
+<CONSTANT CHOICES406 <LTABLE "look for Vajra Singh to ask his opinion" "insist that Gilgamesh accompanies the party" "leave him behind">>
 
 <ROOM STORY406
 	(DESC "406")
@@ -6273,7 +6273,7 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT440 "Greatest of all the monuments here is the Pyramid of Cheops, a structure of smooth black stone a hundred and fifty metres high, with a long ramp leading up to a door set two-thirds of the way up the east face. You make the long climb, your breath steaming in the cold air. Finally you reach the heavy steel door. A symbol is etched into the metal. The emblem of a long-forgotten cause, it means nothing you. The wind howls dolorously around the pyramid's peak.">
-<CONSTANT CHOICES440 <LTABLE "use" "psionic focus" "otherwise">>
+<CONSTANT CHOICES440 <LTABLE "use" "a psionic focus" "otherwise">>
 
 <ROOM STORY440
 	(DESC "440")
@@ -6344,12 +6344,11 @@
 	<DELETE-CODEWORD ,CODEWORD-ENKIDU>>
 
 <CONSTANT TEXT446 "You stroll casually past the tent and drop Little Gaia in the snow. A few minutes later you come back past. The baron's servants glance at you without curiosity. Retrieving Little Gaia, you take her off to a secluded corner of the square and ask her what she overheard.||\"Baron Siriasis has a communication link to Gaia,\" she says. They discussed the Heart of Volent.\"||\"What did she tell him?\"||\"Gaia advised him that the Heart is unstable. It will give its user ultimate power, but only by sweeping away our universe and creating a new universe in its place.\"||\"And the baron's reply to this?\"||\"He does not care. He is bitter because he is old and crippled. He would be happy to rule over a new universe.\"||Little Gaia goes on to tell how the Heart could be destroyed: by bombarding it with two barysal beams at right angles, causing a resonance in the crystal lattice that would split it apart.">
-<CONSTANT CHOICES446 TALK-CHOICES>
 
 <ROOM STORY446
 	(DESC "446")
 	(STORY TEXT446)
-	(CHOICES CHOICES446)
+	(CHOICES TALK-CHOICES)
 	(DESTINATIONS TALK-DESTINATIONS)
 	(TYPES THREE-NONES)
 	(CODEWORD CODEWORD-NEMESIS)
@@ -6395,7 +6394,7 @@
 <CONSTANT TEXT450-CONTINUED "You slowly shake your head to clear it, looking around to discover that one of the pillars has toppled. Rock dust sifts through the cracks in the dome above. Hearing a cough, you realize Boche is alive but stunned. The blast threw him right across the hall. Closer, under a block of shattered masonry, lies a ripped and bloody tangle of human remains.||You get unsteadily to your feet and approach, grimacing in revulsion as you stumble across a severed arm.||Your heart skips a beat at the sound of stone sliding on stone. You stare in paralysis of fear as the masonry block shifts, rising of its own accord. What remains underneath is unrecognizable. Even worse is the thing that hovers up into the air: a gory human brain dangling a torn stump of spinal column, a few flecks of bone still embedded in it from the explosion.">
 <CONSTANT TEXT450-MESSAGE "While the power of thought remains to me, I can still act. Come closer, my friend. I have a use for that healthy young body..">
 <CONSTANT TEXT450-END "It is the baron -- or what's left of him">
-<CONSTANT CHOICES450 <LTABLE "retreat the way you came" "open fire" "stand your ground" "dodge past to the tunnels beyond">>
+<CONSTANT CHOICES450 <LTABLE "retreat" "open fire" "stand your ground" "dodge past to the tunnels beyond">>
 
 <ROOM STORY450
 	(DESC "450")
