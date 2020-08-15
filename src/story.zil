@@ -100,6 +100,7 @@
 	<PUTP ,STORY393 ,P?DEATH T>
 	<PUTP ,STORY400 ,P?DEATH T>
 	<PUTP ,STORY426 ,P?DEATH T>
+	<PUTP ,STORY450 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -116,6 +117,9 @@
 
 <CONSTANT FACILITIES <LTABLE "go to the library" "the medical lounge" "the gymnasium" "the armoury" "the canteen">>
 <CONSTANT FACILITIES-DESTINATIONS <LTABLE STORY006 STORY028 STORY051 STORY447 STORY094>>
+
+<CONSTANT TALK-CHOICES <LTABLE "go and talk to Golgoth" "Boche" "Gaunt">>
+<CONSTANT TALK-DESTINATIONS <LTABLE STORY126 STORY104 STORY148>>
 
 <GLOBAL PRACTICED-SHORTSWORD F>
 
@@ -6132,13 +6136,13 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT428 "No one observes you creeping behind the tent, where you conceal yourself in a snowdrift and listen to what the baron is saying.||\"You say the Heart must be destroyed?\" comes his reedy voice.||Someone else answers from the video screen: \"The 'ultimate power' it confers entails the remaking of the whole universe. This world would cease to exist.\"||\"And how could it be destroyed?\"||\"Twin barysal beams at right angles. They would excite the crystal matrix and cause it to blow apart.\"||\"So the world would cease to be...\" muses the baron. Seeming to reach a decision, he says in a forceful tone, \"Very well, then. I shall sweep aside this universe and fashion a new one in my image. I shall be god of a new cosmos.\"||\"Everything will be destroyed,\" protests the other voice.||\"Except me!\" screeches the baron. \"Did you really think I would give up the chance for such power? The chance to be whole and young again? The chance for immortality? Gaia, you are mad.\"||He snaps off the communicator. So he has spoken to Gaia -- and she counsels him that the Heart be destroyed. This is food for thought.">
-<CONSTANT CHOICES428 <LTABLE "go and talk to Golgoth" "Boche" "Gaunt">>
+<CONSTANT CHOICES428 TALK-CHOICES>
 
 <ROOM STORY428
 	(DESC "428")
 	(STORY TEXT428)
 	(CHOICES CHOICES428)
-	(DESTINATIONS <LTABLE STORY126 STORY104 STORY148>)
+	(DESTINATIONS TALK-DESTINATIONS)
 	(TYPES THREE-NONES)
 	(CODEWORD CODEWORD-NEMESIS)
 	(FLAGS LIGHTBIT)>
@@ -6283,240 +6287,178 @@
 <ROUTINE STORY440-PRECHOICE ()
 	<COND (<CHECK-CODEWORD ,CODEWORD-HUMBABA> <STORY-JUMP ,STORY167>)>>
 
+<CONSTANT TEXT441 "\"Du-En surveillance is carried out in the War Room on level one,\" answers the voice. \"Limited activity is reported. Current human population of Du-En is estimated at four individuals, based on surface scan only.\"||That's curious. You thought Du-En was entirely deserted. Who could be there now?? There is only one answer, you realize grimly: others who seek the Heart of Volent. You must hurry if you hope to reach Du-En in Time.">
+<CONSTANT CHOICES441 <LTABLE "ask the voice to tell you about Gaia" "Gilgamesh" "Heart of Volent" "ascend to the Research level just above" "it is time you were on your way">>
+
 <ROOM STORY441
 	(DESC "441")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT441)
+	(CHOICES CHOICES441)
+	(DESTINATIONS <LTABLE STORY297 STORY318 STORY383 STORY276 STORY361>)
+	(TYPES FIVE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT442 "Riza takes you outside the building. It is like being in the open air. There is even a breeze. Seeing you look around in amazement, he laughs and points across the lawn towards the horizon. It seems to rise upwards and the further you look, curving over into the sky until it is lost behind a haze of light directly overhead. To either side of you, only a few hundred metres away, vast skyscrapers like like circular plugs across the sky.||\"Did you expect a cramped space station in the ancient style?\" says Riza. \"We have enlarged al-Lat over the centuries, until it is what you see today: a cylinder some two kilometres wide and half a kilometre long. Rotation provides us with gravity, the sun's rays with light and heat.\"||He takes you to a flyer, and soon al-Lat is dropping away to port as you steer a course towards Earth's atmosphere. Chasing the night, you set down in the Saharan Ice Wastes about eight hundred kilometres due east of Du-En. Streaks of pale gold light furrow the sky behind you as you open the cockpit seals and jump down to the snow. Riza's voice crackles from the radio: \"We'll bring the flyer back by autopilot. Good luck.\"||You make sure to stand well clear this time as the flyer goes blazing up into the cold morning sky. The screech of its jets recedes into the distance. You are alone.">
 
 <ROOM STORY442
 	(DESC "442")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT442)
+	(CONTINUE STORY298)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT443 "You need protection against the harsh glare of daylight thrown up off the snow. Tearing two thin strips from the lining of your sleeves, you time them above and blow your eyes, leaving only a narrow slit to look through. That should protect you from snow blindness. If only the other perils of the Sahara were so easy to deal with.">
 
 <ROOM STORY443
 	(DESC "443")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT443)
+	(CONTINUE STORY403)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT444 "Hunger is a knot of ice inside your belly; weariness turns your feet to lead weights. Each daybreak you find it harder to shrug off the lassitude of sleep. Every effort costs intense concentration.||How do your rations stand?">
 
 <ROOM STORY444
 	(DESC "444")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT444)
+	(PRECHOICE STORY444-PRECHOICE)
+	(CONTINUE STORY147)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY444-PRECHOICE ()
+	<COND (<HAS-FOOD 1>
+		<CONSUME-FOOD 2 ,STORY125>
+	)(<HAS-FOOD>
+		<CONSUME-FOOD 1 ,STORY037>
+	)>>
+
+<CONSTANT TEXT445 "You find Vajra Singh outside his tent, preparing for his foray into the catacombs. He listens without interest to your complaints while checking the power pack on his mantramukta canon. \"This is no concern of mine,\" he says. \"You must settle your own disputes.\"||Abruptly there is the crump of an explosion that echoes from the other side of the square. Racing back to where you left Gilgamesh, you see a plume of black smoke rising from the broken shell of his head. Sparks hiss and fizz behind his visor as he stands swaying, helpless as a puppet. \"Gilgamesh!\" you shout, but although he gives a twitch of his fingers he does not reply. His brain case has been split open by an armour-piercing grenade.||You round on the Gargan sisters in rage. \"You did this! You destroyed my automaton!\"||They glare at Golgoth, who is whistling as he polishes his sheath-knife. \"What difference does it make who did it?\" says Gargan XIV with a sneer. \"At least now we can get on.\"">
 
 <ROOM STORY445
 	(DESC "445")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT445)
+	(PRECHOICE STORY445-PRECHOICE)
+	(CONTINUE STORY016)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY445-PRECHOICE ()
+	<DELETE-CODEWORD ,CODEWORD-ENKIDU>>
+
+<CONSTANT TEXT446 "You stroll casually past the tent and drop Little Gaia in the snow. A few minutes later you come back past. The baron's servants glance at you without curiosity. Retrieving Little Gaia, you take her off to a secluded corner of the square and ask her what she overheard.||\"Baron Siriasis has a communication link to Gaia,\" she says. They discussed the Heart of Volent.\"||\"What did she tell him?\"||\"Gaia advised him that the Heart is unstable. It will give its user ultimate power, but only by sweeping away our universe and creating a new universe in its place.\"||\"And the baron's reply to this?\"||\"He does not care. He is bitter because he is old and crippled. He would be happy to rule over a new universe.\"||Little Gaia goes on to tell how the Heart could be destroyed: by bombarding it with two barysal beams at right angles, causing a resonance in the crystal lattice that would split it apart.">
+<CONSTANT CHOICES446 TALK-CHOICES>
 
 <ROOM STORY446
 	(DESC "446")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT446)
+	(CHOICES CHOICES446)
+	(DESTINATIONS TALK-DESTINATIONS)
+	(TYPES THREE-NONES)
+	(CODEWORD CODEWORD-NEMESIS)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT447 "The armoury is a small but well-stocked room in the sub-basement. A gaunt man in white overalls comes over to you, heels clicking on the grey-tiled floor, and asks your requirements. It seems that Society members can take out weapons as long as a payment chit is signed. Since the chits are drawn on the account of the ID card's previous owner, who has no use for money now, you may as well select whatever you like.||The armourer shows you a drawer full of barysal guns. \"We also have crossbows, for those who prefer simplicity in a weapon rather than sheer force.\"">
 
 <ROOM STORY447
 	(DESC "447")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT447)
+	(PRECHOICE STORY447-PRECHOICE)
+	(CONTINUE STORY073)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY447-PRECHOICE ()
+	<TAKE-OR-CHARGE 6 T>
+	<SELECT-FROM-LIST <LTABLE KNIFE CROSSBOW STUN-GRENADE> 3 3>>
+
+<CONSTANT TEXT448 "As your companions set off along the ramp towards the Heart, each keeping a weather eye on the others, you roll the stasis bomb into their midst. It activates before they have time to run, rooting them to the spot like statues. You move around them. Of all the adventurers who set out for Du-En, you are now the only one left.">
 
 <ROOM STORY448
 	(DESC "448")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT448)
+	(PRECHOICE STORY448-PRECHOICE)
+	(CONTINUE STORY415)
+	(CODEWORD CODEWORD-FOCUS)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY448-PRECHOICE ()
+	<LOSE-ITEM ,STASIS-BOMB>>
+
+<CONSTANT TEXT449 "This retrovirus gives you the ability to alter your appearance and colouring at a whim.">
 
 <ROOM STORY449
 	(DESC "449")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT449)
+	(PRECHOICE MASK-OF-OCCULTATION-F)
+	(CONTINUE STORY434)
+	(CODEWORD CODEWORD-CAMOUFLAGE)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT450 "\"I'm not your servant, Baron. We're allies, remember?\"||He rotates in midair, turning a look of imperious anger on you. It suddenly occurs to you that he is about to use his psychic powers. So this is the showdown, you have time to think as you back away.||There is a sudden flash and an explosion which shakes the thick stone walls and sends dust and smoke flying in all directions. You are thrown to the floor.">
+<CONSTANT TEXT450-CONTINUED "You slowly shake your head to clear it, looking around to discover that one of the pillars has toppled. Rock dust sifts through the cracks in the dome above. Hearing a cough, you realize Boche is alive but stunned. The blast threw him right across the hall. Closer, under a block of shattered masonry, lies a ripped and bloody tangle of human remains.||You get unsteadily to your feet and approach, grimacing in revulsion as you stumble across a severed arm.||Your heart skips a beat at the sound of stone sliding on stone. You stare in paralysis of fear as the masonry block shifts, rising of its own accord. What remains underneath is unrecognizable. Even worse is the thing that hovers up into the air: a gory human brain dangling a torn stump of spinal column, a few flecks of bone still embedded in it from the explosion.">
+<CONSTANT TEXT450-MESSAGE "While the power of thought remains to me, I can still act. Come closer, my friend. I have a use for that healthy young body..">
+<CONSTANT TEXT450-END "It is the baron -- or what's left of him">
+<CONSTANT CHOICES450 <LTABLE "retreat the way you came" "open fire" "stand your ground" "dodge past to the tunnels beyond">>
 
 <ROOM STORY450
 	(DESC "450")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT450)
+	(PRECHOICE STORY450-PRECHOICE)
+	(CHOICES CHOICES450)
+	(DESTINATIONS <LTABLE STORY107 STORY063 STORY085 STORY129>)
+	(REQUIREMENTS <LTABLE NONE BARYSAL-GUN NONE NONE>)
+	(TYPES <LTABLE R-NONE R-ITEM R-NONE R-NONE>)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY450-PRECHOICE ()
+	<TEST-MORTALITY 1 ,DIED-FROM-INJURIES ,STORY450>
+	<COND (<IS-ALIVE>
+		<IF-ALIVE ,TEXT450-CONTINUED>
+		<TELL CR "A telepathic message stabs into your mind: ">
+		<HLIGHT ,H-ITALIC>
+		<TELL ,TEXT450-MESSAGE>
+		<HLIGHT 0>
+		<CRLF>
+		<CRLF>
+		<TELL ,TEXT450-END>
+		<TELL ,PERIOD-CR>
+	)>>
+
+<CONSTANT TEXT451 "In a tavern you overhear a drunk loudly telling the barman that he will pay his outstanding bill as soon as his boss gets to town. Joining the conversation, you learn that the man has been waiting for several weeks for the arrival of his prospective employer, a wealthy member of the Compass Society.||\"He's a very influential man,\" mutters the drunk, glaring at the barman. \"I'll do all right once I'm working for him.\"||\"What could have happened to delay him?\" you wonder.||The barman chips in. \"If he came across the Appennines, he may have been delayed permanently. There are dangerous mutants up there in the hills.\"||\"Pah!\" The drunk scoffs at this. \"He's got three Fijian bodyguards. Really big guys.\"||\"The mutants won't be going hungry this winter, then,\" remarks the barman sardonically.">
 
 <ROOM STORY451
 	(DESC "451")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT451)
+	(PRECHOICE STORY451-PRECHOICE)
+	(CONTINUE STORY414)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY451-PRECHOICE ()
+	<COND (<OR <CHECK-SKILL ,SKILL-STREETWISE> <CHECK-ITEM ,VADE-MECUM>>
+		<STORY-JUMP ,STORY047>
+	)(<CHECK-ITEM ,ID-CARD>
+		<STORY-JUMP ,STORY069>
+	)>>
+
+<CONSTANT TEXT452 "With your shady talents it should be easy to disguise yourself to look like the card's original owner. You can take care of that later.">
 
 <ROOM STORY452
 	(DESC "452")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT452)
+	(CONTINUE STORY414)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT CHOICES453 <LTABLE "resort to" "or" "rely on" "otherwise">>
 
 <ROOM STORY453
 	(DESC "453")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(CHOICES CHOICES453)
+	(DESTINATIONS <LTABLE STORY007 STORY007 STORY029 STORY052>)
+	(REQUIREMENTS <LTABLE SKILL-CUNNING SKILL-ROGUERY SKILL-PARADOXING NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT454 "Picking up the mantramukta cannon, you return to the elevators. If the hover-droids are still waiting above then you will have a hard fight returning to the surface. Even so, it is better than ending your days here in this grim place. You look back at the bodies littering the Shrine of the Heart. The thirst for power claimed so many lives -- a senseless waste, when all of them might instead have channelled their efforts into saving this frigid dying world. Perhaps that is your destiny now.||You step into the elevator, and the door closes behind you.">
 
 <ROOM STORY454
 	(DESC "454")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT454)
+	(VICTORY T)
 	(FLAGS LIGHTBIT)>

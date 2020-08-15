@@ -10,6 +10,11 @@
     (CHARGES 6)
     (FLAGS TAKEBIT)>
 
+<OBJECT CROSSBOW
+    (DESC "crossbow")
+    (SYNONYM CROSSBOW)
+    (FLAGS TAKEBIT)>
+
 <OBJECT PSIONIC-FOCUS
     (DESC "psionic focus")
     (SYNONYM FOCUS)
