@@ -5833,7 +5833,7 @@
 		)>
 	)>>
 
-<CONSTANT TEXT401 "A row of coffee stalls line the side of the plaza. There you discover that Baron Siriasis is a frequent visitor to Kahira.||\"The one with no legs?\" says a man bearing the cape and baton of the city militia. \"Yes, he is a member of the Compass Society. I have heard that he is one of the psi-lords of Bezant.\"||Bezant -- formerly Istanbul ++ suffered heavy bombardment of exotic radiation during the Paradox War. When the fallout stabilized and the city once again became habitable, it was discovered that psionic forces worked there to an enhanced degree. Those with psionic powers soon made themselves the hereditary overlords of Bezant -- a group characterized by arrogance and disdain for the common herd of mankind. Baron Siriasis is one of these.">
+<CONSTANT TEXT401 "A row of coffee stalls line the side of the plaza. There you discover that Baron Siriasis is a frequent visitor to Kahira.||\"The one with no legs?\" says a man bearing the cape and baton of the city militia. \"Yes, he is a member of the Compass Society. I have heard that he is one of the psi-lords of Bezant.\"||Bezant -- formerly Istanbul -- suffered heavy bombardment of exotic radiation during the Paradox War. When the fallout stabilized and the city once again became habitable, it was discovered that psionic forces worked there to an enhanced degree. Those with psionic powers soon made themselves the hereditary overlords of Bezant -- a group characterized by arrogance and disdain for the common herd of mankind. Baron Siriasis is one of these.">
 
 <ROOM STORY401
 	(DESC "401")
