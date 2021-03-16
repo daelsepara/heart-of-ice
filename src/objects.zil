@@ -142,7 +142,7 @@
     (FLAGS TAKEBIT)>
 
 <OBJECT VINE-KILLER
-    (DESC "vade-mecum")
+    (DESC "vine killer")
     (SYNONYM KILLER)
     (ADJECTIVE VINE)
     (FLAGS TAKEBIT)>
