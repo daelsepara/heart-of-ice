@@ -11,7 +11,7 @@
 
 <OBJECT SKILL-CUNNING
     (DESC "CUNNING")
-    (LDESC "The ability to think on your feet and devise celver ploys for getting out of trouble. Useful in countless situations")>
+    (LDESC "The ability to think on your feet and devise clever ploys for getting out of trouble. Useful in countless situations")>
 
 <OBJECT SKILL-CYBERNETICS
     (DESC "CYBERNETICS")
@@ -46,7 +46,7 @@
 
 <OBJECT SKILL-STREETWISE
     (DESC "STREETWISE")
-    (LDESC "With this skill you are never at a loss in cities. What others see as the squalor and meance of narrow neon-lit streets is opportunity to you")>
+    (LDESC "With this skill you are never at a loss in cities. What others see as the squalor and menace of narrow neon-lit streets is opportunity to you")>
 
 <OBJECT SKILL-SURVIVAL
     (DESC "SURVIVAL")
