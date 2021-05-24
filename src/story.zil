@@ -1105,7 +1105,7 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT042 "A barysal beam stabs blindly through the smoke, narrowly missing you. Singh turns and squints in the direction of the shot. \"I still can't see him,\" he mutters grimly.">
-<CONSTANT CHOICES042 <LTABLE "return fire" "advance under the cover of the smoke towards where the shot came from" "back off out of the smoke and look around">>
+<CONSTANT CHOICES042 <LTABLE "return fire" "advance under the cover of the smoke towards him where the shot came from" "back off out of the smoke and look around">>
 
 <ROOM STORY042
 	(DESC "042")
@@ -1191,7 +1191,7 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT049 "You touch a dial on the dashboard. The liquid crystal display shows that the sky-car's power unit is still working. None of the other instruments show damage. The caretek has maintained the sky-car well. There is not even a trace of dust on the vehicle's smooth black finish.||In a storage locker behind the seat you find food, medical supplies and a variety of other items. Stored in the vacuum packs, they should still be usable despite having been left here since before the Ice Age.">
-<CONSTANT CHOICES049 <LTABLE "try powering up the sky-car and flying it out of the complex" "you would rather just loot the storage locker of useful goods and then leave">>
+<CONSTANT CHOICES049 <LTABLE "powering up th sky-car and flying it out of the complex" "you would rather just loot the storage locker of useful goods and then leave">>
 
 <ROOM STORY049
 	(DESC "049")
@@ -1201,7 +1201,7 @@
 	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT050 "You sit at the front of the carriage and stare through the window at hurtling darkness. There is no way to tell how fast you are travelling, but you estimate from the long smooth acceleration at the start of the journey that it could be around four hundred kilometres an hour. The carriage never gives the slightest jolt.||Hours pass before you see the glimmer of lights along the tunnel. The carriage glides to a halt and the doors open with a whir. You emerge and set off along a tunnel very different form the one in Marsay. This subway station has not been maintained by careteks, and dust and rubble cover the tiled walkways.||Climbing a staircase, you find the entrance blocked by fallen masonry and you have to labour for over an hour before there is a gap large enough to squeeze through. You find yourself on an ice-hard plain under the descending chill of dusk. A sprinkling of snow drifts down out of the sky. A few kilometres away, Kahira straddles the River Isis on its thick buttresses, a grey concrete lobster winking with a thousand eyes of light through the haze of mist. You set out at a brisk pace, anxious to reach the gates before curfew.">
+<CONSTANT TEXT050 "You sit at the front of the carriage and stare through the window at hurtling darkness. There is no way to tell how fast you are travelling, but you estimate from the long smooth acceleration at the start of the journey that it could be around four hundred kilometres an hour. The carriage never gives the slightest jolt.||Hours pass before you see the glimmer of lights along the tunnel. The carriage glides to a halt and the doors open with a whir. You emerge and set off along a tunnel very different form the one in Marsay. This subway station has not been maintained by careteks, and dust and rubble cover the tiled walkways.||Climbing a staircase, you find the entrance blocked by fallen masonry and you have to labour for over an hour before there is a gap large enough to squeeze through. You find yourself on an ice-hard plain under the descending chill of dusk. A sprinkling of snow drifts down out of the sky. A few kilometres away, Kahira straddles the River Isis on its thick buttresses, a grey concrete lobster winking with a thousand eyes o flight through the haze of mist. You set out at a brisk pace, anxious to reach the gates before curfew.">
 
 <ROOM STORY050
 	(DESC "050")
@@ -1245,8 +1245,8 @@
 	(STORY TEXT054)
 	(CHOICES CHOICES054)
 	(DESTINATIONS <LTABLE STORY208 STORY230 STORY120 STORY098 STORY252>)
-	(REQUIREMENTS <LTABLE SKILL-ROGUERY SKILL-ESP SKILL-CUNNING <LTABLE BARYSAL-GUN> NONE>)
-	(TYPES <LTABLE R-SKILL R-SKILL R-SKILL R-ALL R-NONE>)
+	(REQUIREMENTS <LTABLE SKILL-ROGUERY SKILL-ESP SKILL-CUNNING BARYSAL-GUN NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-SKILL R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT055 "The computer locks you out. You try rebooting, to no avail. With a shrug, you turn to exploring the rest of the pyramid idly wondering what Gaia was up to when she entered the stream of inexplicable commands into the computer system here.||The answer comes so suddenly that you never know it. Gaia was in the throes of her periodic madness when you contacted her this time. She located the nuclear reactor supplying power to the pyramid and ordered it to go critical. Without warning a blossom of plasma erupts from the earth. For a brief incandescent second it is as though time has turned back to before the Ice Age, and the Pyramid of Cheops once more sits on hot sands in blazing light. Then the blast spreads -- sweeping away the pyramids that have stood here for fifty centuries, vaporizing the snow and ice covering the desert, turning the rock to lava and the river to steam, and making of Kahira a cinderous ruin. In the midst of such a holocaust, your own death goes unnoticed.">
