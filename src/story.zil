@@ -1626,7 +1626,7 @@
 		<SELECT-FROM-LIST <LTABLE FLASHLIGHT BINOCULARS POLARIZED-GOGGLES> 3 3>
 	)>>
 
-<CONSTANT TEXT081 "Gilgamesh stands rock-still beside you. You hear the soft whirr of a fan sucking air into his chest-plate. Then he announces that the air here is toxic.||\"How toxic? The trees seem to survive well enough.\" You brush midges away from your face. \"And insects.\"||\"They are adapted to the conditions here,\" replies Gilgamesh in his abrupt mechanical voice. \"Trace elements may cause cancer in higher life forms.\"||\"After how long?\"||\"Unknown. Even one day's exposure is potentially hazardous. Recommend you take precautions to filter your air supply or leave the vicinity">
+<CONSTANT TEXT081 "Gilgamesh stands rock-still beside you. You hear the soft whirr of a fan sucking air into his chest-plate. Then he announces that the air here is toxic.||\"How toxic? The trees seem to survive well enough.\" You brush midges away from your face. \"And insects.\"||\"They are adapted to the conditions here,\" replies Gilgamesh in his abrupt mechanical voice. \"Trace elements may cause cancer in higher life forms.\"||\"After how long?\"||\"Unknown. Even one day's exposure is potentially hazardous. Recommend you take precautions to filter your air supply or leave the vicinity\"">
 <CONSTANT CHOICES081 <LTABLE "stay and rest for a few days" "depart as Gilgamesh suggests">>
 
 <ROOM STORY081
