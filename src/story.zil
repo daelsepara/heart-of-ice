@@ -2191,7 +2191,7 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT124 "The carriage rushes on into the darkness of the tunnel. You wait for almost two hours, and then you start to feel the carriage slowing down. It enters a station and glides to a halt, but there is a delay before the doors open. \"Karthag station is damaged,\" explains the motilator's calm electronic voice. \"You are recommended to select an alternative destination.\"||Through the window, you can see that the station has caved in. Huge chunks of shattered concrete litter the platform, with twisted metal cables extending from them like torn arteries from a heart. It is sheer luck that the tunnel itself was not blocked, otherwise you would have ended your journey with a sever jolt, to say the least.||What now?">
-<CONSTANT CHOICES124 <LTABLE "disembark here" "take the subway back to Marsay, and from there head on to Kahira" "to Tarabul" "to Giza" " resume your journey on foot">>
+<CONSTANT CHOICES124 <LTABLE "disembark here" "take the subway back to Marsay, and from there head on to Kahira" "to Tarabul" "to Giza" "resume your journey on foot">>
 
 <ROOM STORY124
 	(DESC "124")
@@ -2216,7 +2216,7 @@
 		<STORY-JUMP ,STORY191>
 	)>>
 
-<CONSTANT TEXT126 "You find Golgoth squatting by torchlight at the end of the colonnade, where he has laid out all his weapons o the flagstones. As he checks each, he slips it into its concealed sheath: a garrotte wire under his belt, along with a flexible steel blade; poison darts in a bandolier inside his jacket; guns at hip, ankle and wrist; small flat grenades clipped along his sabretache. You watch him aghast for a few minutes.||\"Quite the professional killer, aren't you, Golgoth?\"||\"Don't get far if you only make t a hobby.\"||You heave a sigh. \"Does human life mean anything to you?\"||He buckles on his barysal gun, gets up, and gives you a long thoughtful look in the torchlight. \"Not the life of scum like this.\" He gestures along the colonnade. \"I've happily sent hundreds like them to an early grave. Who do you think my USI bosses should've sent -- a pack of boy-scout Marines?\"||\"So you're here as a USI agent?\"||He nods. \"Of course. The power of the Heart cannot be allowed to fall into hostile hands. In order of priority, I will either take it to the States, get the power myself, or destroy it.\"">
+<CONSTANT TEXT126 "You find Golgoth squatting by torchlight at the end of the colonnade, where he has laid out all his weapons o the flagstones. As he checks each, he slips it into its concealed sheath: a garrotte wire under his belt, along with a flexible steel blade; poison darts in a bandolier inside his jacket; guns at hip, ankle and wrist; small flat grenades clipped along his sabretache. You watch him aghast for a few minutes.||\"Quite the professional killer, aren't you, Golgoth?\"||\"Don't get far if you only make it a hobby.\"||You heave a sigh. \"Does human life mean anything to you?\"||He buckles on his barysal gun, gets up, and gives you a long thoughtful look in the torchlight. \"Not the life of scum like this.\" He gestures along the colonnade. \"I've happily sent hundreds like them to an early grave. Who do you think my USI bosses should've sent -- a pack of boy-scout Marines?\"||\"So you're here as a USI agent?\"||He nods. \"Of course. The power of the Heart cannot be allowed to fall into hostile hands. In order of priority, I will either take it to the States, get the power myself, or destroy it.\"">
 <CONSTANT CHOICES126 <LTABLE "propose an alliance" "go and talk to Kyle Boche" "get some sleep">>
 
 <ROOM STORY126
