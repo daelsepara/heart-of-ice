@@ -2676,7 +2676,7 @@
 	)>>
 
 <CONSTANT TEXT161 "You trek wearily onwards, often plunging almost to your waist through fine powdery banks of snow. The sun pokes feeble rays of light across the bleak sky like an old man clutching for his pills. Quicksilver ribbons lie across the landscape, marking out the course of glaciers through the ridges of rock. Night descends like a sheath of hoarfrost. For days your ordeal continues as you cross the rugged mountain slops and finally begin your descent towards the foothills.">
-<CONSTANT TEXT161-CONTINUED "You give a hoarse grunt of relief through frost-numbed limbs when the towers and cupolas Venis finally appear against the skyline">
+<CONSTANT TEXT161-CONTINUED "You give a hoarse grunt of relief through frost-numbed limbs when the towers and cupolas of Venis finally appear against the skyline">
 
 <ROOM STORY161
 	(DESC "161")
@@ -2745,7 +2745,10 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY164-PRECHOICE ()
-	<COND (,RUN-ONCE <GAIN-LIFE 1>)>
+	<COND (,RUN-ONCE
+		<GAIN-LIFE 1>
+		<ADD-FOOD-PACK 1>
+	)>
 	<CRLF>
 	<TELL ,TEXT164-CONTINUED>
 	<TELL ,PERIOD-CR>>
