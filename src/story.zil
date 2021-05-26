@@ -3298,7 +3298,7 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT207 "You start to move forwards, begin a lunge towards the man with the gun, the jump adroitly aside as he discharges a blast. The blue-white flash snaps through the air and explodes against the knife-wielder's arm. He drops with a whimper. The third hunter runs in, arms spread wide to grab you, but you duck under his clumsy tackle and dart towards the rug covering the door. Another shot crackles from the gun, and again you veer away, but this time it glances across your hip, burning the clothing away and inflicting a painful burn.">
-<CONSTANT TEXT207-CONTINUED "You are luck to be alive. Wasting no more time, you throw yourself through the opening and limp off into the blizzard. The hunters do not give chase.">
+<CONSTANT TEXT207-CONTINUED "You are lucky to be alive. Wasting no more time, you throw yourself through the opening and limp off into the blizzard. The hunters do not give chase.">
 
 <ROOM STORY207
 	(DESC "207")
