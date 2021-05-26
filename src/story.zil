@@ -3871,7 +3871,7 @@
 	<TELL ,TEXT256-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
-<CONSTANT TEXT257 "Your fingers show signs of frostbite and you have dozen small bruises. You does yourself with antibiotics and apply ointments and dressings from the medical kit.">
+<CONSTANT TEXT257 "Your fingers show signs of frostbite and you have dozen small bruises. You dose yourself with antibiotics and apply ointments and dressings from the medical kit.">
 
 <ROOM STORY257
 	(DESC "257")
