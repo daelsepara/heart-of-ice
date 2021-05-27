@@ -4999,7 +4999,7 @@
 	(CODEWORD CODEWORD-HUMBABA)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT337 "His gaze narrows just for an instant as he listens to the question. \"Giza was a military base a few klicks west. Long before that, I'm told it was an ancient burial ground. It's deserted now anyway. And off limits. I recommend you steer well clear of the place.\"||Boche takes your arm. \"Excuse us,\" he says to Golgoth, \"but we have business in Kahira and I don't care to have my throat slit beforehand.\"||\"Golgoth grins. \"Boche, you slit your throat every time you open your mouth.\"">
+<CONSTANT TEXT337 "His gaze narrows just for an instant as he listens to the question. \"Giza was a military base a few klicks west. Long before that, I'm told it was an ancient burial ground. It's deserted now anyway. And off limits. I recommend you steer well clear of the place.\"||Boche takes your arm. \"Excuse us,\" he says to Golgoth, \"but we have business in Kahira and I don't care to have my throat slit beforehand.\"||Golgoth grins. \"Boche, you slit your throat every time you open your mouth.\"">
 
 <ROOM STORY337
 	(DESC "337")
