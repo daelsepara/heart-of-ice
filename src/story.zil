@@ -1502,7 +1502,7 @@
 	(DESC "072")
 	(STORY TEXT072)
 	(CHOICES CHOICES072)
-	(DESTINATIONS <LTABLE STORY283 STORY305>)
+	(DESTINATIONS <LTABLE STORY284 STORY305>)
 	(REQUIREMENTS <LTABLE BARYSAL-GUN NONE>)
 	(TYPES <LTABLE R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
@@ -3223,7 +3223,7 @@
 	(DESC "200")
 	(STORY TEXT200)
 	(CHOICES CHOICES200)
-	(DESTINATIONS <LTABLE STORY265 STORY285>)
+	(DESTINATIONS <LTABLE STORY264 STORY285>)
 	(TYPES TWO-NONES)
 	(CODEWORD CODEWORD-DIAMOND)
 	(FLAGS LIGHTBIT)>
@@ -3793,7 +3793,7 @@
 	<COND (<CHECK-SKILL ,SKILL-SURVIVAL> <SET DAMAGE 1>)>
 	<TEST-MORTALITY .DAMAGE ,DIED-FROM-COLD ,STORY249>
 	<IF-ALIVE ,TEXT249-CONTINUED>
-	<COND (<OR <CHECK-SKILL ,SKILL-STREETWISE> <CHECK-ITEM ,VADE-MECUM>> <STORY-JUMP ,STORY117>)>>
+	<COND (<AND <IS-ALIVE> <CHECK-SKILL ,SKILL-STREETWISE>> <STORY-JUMP ,STORY117>)>>
 
 <CONSTANT TEXT250 "Crashing through a thicket of glossy green fronds, you are brought up short by an astounding sight. A majestic ruined city spreads off into the jungle in front of you, seeming to shimmer in the haze of eternal tree-filtered sunlight. Some of the buildings have been choked by vegetation, grappled to destruction by cables of vine, walls uprooted by inexorable growth and carpeted with moss. But other towers still stand gleaming, bright glass and polished steel glorious in the dappled green-gold light. Those must be the buildings still cleaned and maintained by careteks, the diligent robot janitors left by the ancients.||You skirt the perimeter of the city, stumbling and staggering as much from sheer awe as from your throbbing wound. It can only be the remnants of old Marsay, the mythic place lost to the sight of man for two centuries.||A bee as big as a child's fist goes careering cumbersomely past your ear, legs sprawling like a helicopter's skids, to disappear into a vast buzzing hive in the eaves of a crumbled house. Birds sit pecking at lichen-stained girders, sparing you only a disdainful glance. You feel like an intruder here.||A barren patch of ground lies ahead, about fifty paces across, forming an avenue towards the intact area of the city.">
 <CONSTANT CHOICES250 <LTABLE "follow it" "press on into the jungle">>
