@@ -12,7 +12,7 @@ This is a ZIL Implementation of Heart of Ice game book (Virtual Reality Adventur
 | |**Map of Zone 18347 (North Africa and Europe)**|
 | |![Map](/images/map-of-zone-18347.jpg)<br>**From: [Museum of Computer Adventure Game History](https://mocagh.org/loadpage.php?getcompany=otherbook)|
 
-## Additional Copyright Information 
+## Additional Copyright Information
 
 ```
 Published 1994 by Mammoth an imprint of Reed Consumer Books Limited
@@ -29,7 +29,7 @@ ISBN 0 7497 1674 6
 
 - No in-game illustrations or graphics (also excludes map from the book)
 - Character selection and inventory of items and codewords are implemented
-- Some changes to the text were made: spelling errors/consistency, some were rephrased to fit the "digital" format or the implemented mechanisms 
+- Some changes to the text were made: spelling errors/consistency, some were rephrased to fit the "digital" format or the implemented mechanisms
 - Select an action by pressing the number keys that correspond to the option (**1** - **9**).
 - In some situations, if there are more than 9 options, items 10-15 map to the keys **A** (or **a**) - **F** (or **f**)
 - Press **q** or **Q** to quit or terminate the program
@@ -38,7 +38,7 @@ ISBN 0 7497 1674 6
 - Press **g** or **G** to view skills glossary
 - Press **r** or **R** to restore progress from a save file
 - Press **s** or **S** to save current progress to a file
-- Press **h** or **H** or **?** lists the commands **G**/**C**/**I**/**S**/**R**/**Q** and what each does 
+- Press **h** or **H** or **?** lists the commands **G**/**C**/**I**/**S**/**R**/**Q** and what each does
 
 ## Additional Notes
 

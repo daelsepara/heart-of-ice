@@ -197,7 +197,7 @@
 			<EQUAL? .SKILL ,SKILL-CLOSE-COMBAT>
 			<CHECK-SKILL .SKILL>
 			<CHECK-ITEM ,SHORTSWORD>
-			,PRACTICED-SHORTSWORD 
+			,PRACTICED-SHORTSWORD
 		>
 		<EMPHASIZE "The shortsword prevented 1 damage.">
 		<DEC .DAMAGE>
@@ -4303,7 +4303,7 @@
 	>
 	<COND (<AND <G? .BUY 0> <G=? ,MONEY 4>>
 		<PUT .BUY-LIST 0 .BUY>
-		<PUT .BUY-PRICE 0 .BUY>	
+		<PUT .BUY-PRICE 0 .BUY>
 		<MERCHANT .BUY-LIST .BUY-PRICE ,PLAYER F>
 	)>
 	<CRLF>
@@ -5865,7 +5865,7 @@
 	<COND (<CHECK-VEHICLE ,MANTA-SKY-CAR>
 		<SET-DESTINATION ,STORY402 2 ,STORY289>
 	)(ELSE
-		<SET-DESTINATION ,STORY402 2 ,STORY393>	
+		<SET-DESTINATION ,STORY402 2 ,STORY393>
 	)>>
 
 <CONSTANT TEXT403 "You pass on through a plain of ice tors -- baroque crags which glint with a metallic sheen against the delicate blue sky. The wind, blasting between the tors, makes a desolate keening sound. You see no signs of life. Cold gnaws at you from outside, hunger from within.">

@@ -7,6 +7,6 @@ all: clean
 test: clean
 	zilf -w heartice.zil
 	zapf heartice.zap
-	
+
 clean:
 	rm -f *.xzap *.zap *.z?
