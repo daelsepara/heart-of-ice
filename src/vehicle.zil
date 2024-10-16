@@ -1,11 +1,9 @@
 <OBJECT VEHICLE
-    (DESC "Manta sky-car")
+    (DESC "Car")
     (SYNONYM CAR)
-    (ADJECTIVE MANTA SKY)
     (FLAGS VEHICLEBIT)>
 
 <OBJECT VEHICLES
-    (DESC "Manta sky-cars")
+    (DESC "Cars")
     (SYNONYM CARS)
-    (ADJECTIVE MANTA SKY)
     (FLAGS CONTBIT OPENBIT)>

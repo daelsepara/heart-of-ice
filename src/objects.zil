@@ -246,3 +246,9 @@
         <TELL "The genetic effects of " T .EFFECT " has been reversed" ,PERIOD-CR>
         <HLIGHT 0>
     )>>
+    
+<OBJECT MANTA-SKY-CAR
+    (DESC "Manta sky-car")
+    (SYNONYM CAR)
+    (ADJECTIVE MANTA SKY)
+    (FLAGS VEHICLEBIT)>

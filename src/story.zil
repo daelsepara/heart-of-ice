@@ -1365,7 +1365,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY083-PRECHOICE ()
-	<COND (<CHECK-VEHICLE ,VEHICLE> <STORY-JUMP ,STORY017>)>>
+	<COND (<CHECK-VEHICLE ,MANTA-SKY-CAR> <STORY-JUMP ,STORY017>)>>
 
 <CONSTANT TEXT084 "You see the air twist inside out as the baron projects a bolt of psychic force against the oncoming creature. Like Boche's gun blast, the bolt is deflected by its shield of metal legs. \"It is a robot, immune to paradoxing,\" shouts the baron. \"We must retreat!\"||You have abetter idea. You may not be as powerful a psionic as Baron Siriasis, but that only means you've learned to be smarter. Instead of channelling your psi-force as a direct bolt, you use it to transmute the blue fluid that fills the glass bubble. Within moments the gnarled little homunculous inside is floating in acid. The thing rears up on its long legs like a dying spider, then topples to the floor. By the time you go over to look, the body inside has entirely dissolved away.||\"Not a robot,\" you say to the startled baron, \"but a cyborg. You should have attacked the organic part.\"||He glares at you, then gives a curt nod of respect. \"It seems I can still learn new tricks of my craft, even from a youngster like you.\"||Together you head on to the end of the passage.">
 
@@ -1774,7 +1774,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY115-PRECHOICE ()
-	<TAKE-VEHICLE ,VEHICLE>
+	<TAKE-VEHICLE ,MANTA-SKY-CAR>
 	<COND (<CHECK-CODEWORD ,CODEWORD-DIAMOND> <STORY-JUMP ,STORY181>)>>
 
 <CONSTANT TEXT116 "The computer terminals are only intended to access the library catalogue, but you have no trouble routing into the building's administrative computer and then opening an outside line via the rooftop satellite dish. Like most organizations with the ability to connect into global communications, the Society protects its system from accidental linkage into Gaia by the use of a filter program. This is necessary to prevent infection by the same viruses that are resident in Gaia, as well as to stop Gaia from taking over the Society's whole system for her own use.||You set a standard filter-override program running. It should take a few minutes, and to kill time you run a check on other users who have logged into the system recently. Only one name is displayed: Janus Gaunt. He requested all the Society's records regarding the Heart of Volent. Intrigued, you call up his biofile. The screen shows a round-faced man with extremely white skin and hair like silver floss. Flicking idly through the data, you find he has a reputation for outstanding work in the fields of bioengineering and nanotechnology. The address of his mansion causes you a double-take; it is located in the Paris catacombs. You were not even sure Paris still existed.||The terminal bleeps, informing you the link with Gaia is ready. You switch over. When you type in your query about the Heart, Gaia's response is swift: THE HEART MUST BE DESTROYED. ACTIVATION OF ITS POWER WILL CRASH THE UNIVERSE, WIPING OUT ALL THAT EXISTS.||You reply: INCLUDING EARTH?||EVERYTHING, Gaia tells you. BARYSAL BOMBARDMENT CAN CAUSE A CRITICAL RESONANCE. DESTROYING THE HEART'S CRYSTALLINE STRUCTURE. TWO SIMULTANEOUS BOMBARDMENTS MUST BE MADE, THE BEAMS PHASED AND CROSSING AT RIGHT ANGLES.||This is awkward. From what you have heard, the Heart is a gem several metres across. To destroy it as Gaia suggests, you'd need an accomplice. And two barysal guns. You try to get further information, but the link is broken. Like a senile invalid, Gaia has lapsed back into her customary incoherence.">
@@ -2076,7 +2076,7 @@
 		<CRLF>
 		<TELL ,TEXT137-CONTINUED>
 		<TELL ,PERIOD-CR>
-		<LOSE-VEHICLE ,VEHICLE>
+		<LOSE-VEHICLE ,MANTA-SKY-CAR>
 	)>>
 
 <CONSTANT TEXT138 "You seek out the librarian, a plump sour-faced man who sits at his desk amid the stacks like a spider in its web. He is barely able to disguise his irritation when you explain what you want. \"A link to Gaia? That is most irregular. Very few of our members make such requests.\"||He will deter you if you let him, if only to spare himself inconvenience. Recalling the status of the typical Society member, you adopt an uncompromising attitude and say, \"It was not a request, but a command. You will now establish a link so that I can talk to Gaia.\"||\"Talk?\" He spreads his hands imploringly. \"What will you talk about? Gaia is mad!\" Seeing you will not be put off, he grumbles under his breath and pushes a slip of paper across the desk. \"Write your query there and it will be broadcast to Gaia. The reply will be brought back to you.\"||\"I prefer a direct two-way communication.\"||\"Impossible!\" he cries. \"That is against Society policy, as nay link to Gaia must be stringently monitored to prevent arrogation of our computer network.\"||You see he will not be swayed on this point. You write out your message and wait for half an hour until the librarian comes back. \"Here is your reply from Gaia,\" he says, his tone of surprise showing that he did not expect anything but gibberish. He reads from the paper in his hand; \"go and meet with Gilgamesh under the pyramid. Humbaba will give you access.\"||\"Is that all?\"||He nods. \"Gaia then began to transmit random references to Babylonian history followed by a digression into architectural feats of history, and the link was terminated.\"">
@@ -2815,7 +2815,7 @@
 
 <ROUTINE STORY192-PRECHOICE ("AUX" (LIFE 0))
 	<COUNT-POSSESSIONS>
-	<COND (<CHECK-VEHICLE ,VEHICLE>
+	<COND (<CHECK-VEHICLE ,MANTA-SKY-CAR>
 		<SET LIFE 2>
 	)(ELSE
 		<COND (<CONSUME-FOOD 1> <INC .LIFE>)>
@@ -3127,7 +3127,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY218-PRECHOICE ()
-	<TAKE-VEHICLE ,VEHICLE>>
+	<TAKE-VEHICLE ,MANTA-SKY-CAR>>
 
 <CONSTANT TEXT219 "You station yourselves beside the Heart. Within its glittering facets, a universe is waiting to be born. Infinite possibilities flicker in the violet glare.|Golgoth seems to share your mood. \"There's no other way,\" he says. \"Ready?\"||\"What will happen?\" you ask him. \"I mean, will it just disappear, or will there be an explosion?\"||He shrugs. \"I don't know. Personally I doubt if I'll be around afterwards to collect this month's pay, but no one lives for ever.\"||You nod. \"I just never expected to be a martyr, that's all.\"||The beams from your guns converge at the centre of the Heart, splintering its crystal lattice. The light within grows until it blinds you. With a rush of energy, the Heart suddenly bursts apart, engulfing you and Golgoth in a cold flare of energy.">
 
@@ -4255,7 +4255,7 @@
 <ROUTINE STORY300-PRECHOICE ()
 	<COND (<CHECK-CODEWORD ,CODEWORD-HOURGLASS>
 		<STORY-JUMP ,STORY235>
-	)(<OR <CHECK-VEHICLE ,VEHICLE> <CHECK-ITEM ,MEDICAL-KIT>>
+	)(<OR <CHECK-VEHICLE ,MANTA-SKY-CAR> <CHECK-ITEM ,MEDICAL-KIT>>
 		<STORY-JUMP ,STORY257>
 	)>>
 
@@ -4507,7 +4507,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY320-PRECHOICE ()
-	<COND (<OR <CHECK-VEHICLE ,VEHICLE> <CHECK-ITEM ,MEDICAL-KIT>> <GAIN-LIFE 1>)>
+	<COND (<OR <CHECK-VEHICLE ,MANTA-SKY-CAR> <CHECK-ITEM ,MEDICAL-KIT>> <GAIN-LIFE 1>)>
 	<DELETE-CODEWORD ,CODEWORD-HOURGLASS>>
 
 <CONSTANT TEXT321 "\"I shall always think of you as having been a friend,\" says Gaunt after a long pause.||Something in the words makes them sound like an epitaph. You look round to see the xoms facing you with long crystal knives.||\"What's going on?\"||In the dulled light of the glow-lamps, Gaunt himself looks like a pale phantom. You see the gleam of his teeth as he smiles. \"I must find the key to my own ruthless nature, or tomorrow I shall die,\" he murmurs. \"Do you know that the desire for power and change is the desire for one's own death? By expunging you, whom I admire, I expunge that weakness in myself. For you see, come what may, I shall have the Heart.\"||\"You're completely mad.\"||He nods. \"I must be. It is not sane to covet the role of God.\" He gestures and the xoms shuffle forward, jabbing their knives towards your chest.||A shot rings out and one of the xoms falls, flames spouting from a blast hole through its torso. Gaunt whirls in time to see a small man in combat fatigues who rushes out of the darkness and tackles him to the ground.||Vajra Singh steps into the light with his two other guards behind him. They are Brits -- small men with pallid pinched faces, thuggish but famed for their loyalty. The one standing over Gaunt presses a gun to his head and glances at Singh. \"Shall I kill 'im, sah?\" he barks. Singh nods. A blast of plasma scrambles Gaunt's brains into the snow. The xoms jerk back and their arms drop listlessly to their sides.||You breathe a sigh. \"A timely intervention. You saved my life.\"||Vajra Singh hardly looks at you. \"Gaunt broke the terms of the truce. He would have died tomorrow, in any case. He was a weak man.\" He turns and strides off with his guards following.">
@@ -4721,7 +4721,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY338-PRECHOICE ()
-	<COND (<CHECK-VEHICLE ,VEHICLE>
+	<COND (<CHECK-VEHICLE ,MANTA-SKY-CAR>
 		<CRLF>
 		<TELL ,TEXT338-BURREK>
 		<TELL ,PERIOD-CR>
@@ -4775,7 +4775,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY342-PRECHOICE ()
-	<COND (<OR <CHECK-ITEM ,MEDICAL-KIT> <CHECK-VEHICLE ,VEHICLE>> <STORY-JUMP ,STORY257>)>>
+	<COND (<OR <CHECK-ITEM ,MEDICAL-KIT> <CHECK-VEHICLE ,MANTA-SKY-CAR>> <STORY-JUMP ,STORY257>)>>
 
 <CONSTANT TEXT343 "You hurry to catch up with Singh and tell him about Gaia's warnings. At first he seems barely interested, but gradually your words get through. He comes to a halt and turns to stare into your face. \"You propose an alliance,\" he says. \"his is wise. If we are allies, we are virtually certain to prevail against all others and reach the Heart. Tomorrow, you go with Baron Siriasis and I shall team up with Golgoth. They are our most dangerous adversaries. If the opportunity arises, we must slay them.\"||\"What if your group finds the Heart first? Or my group, for that matter?\"||\"I swear I shall not take its power until only you and I are left. Then together wee can discuss the future of the cosmos.\"||You watch him march back to his tent. You feel sure Singh will keep his oath of alliance. If only you didn't have a sneaking suspicion that you've just tied yourself to the lion's tail.">
 
@@ -5000,7 +5000,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY361-PRECHOICE ()
-	<COND (<CHECK-VEHICLE ,VEHICLE> <STORY-JUMP ,STORY289>)>>
+	<COND (<CHECK-VEHICLE ,MANTA-SKY-CAR> <STORY-JUMP ,STORY289>)>>
 
 <CONSTANT TEXT362 "You hack through the lardy skin to the meat, which is easily parcelled into food packs.">
 
@@ -5244,7 +5244,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY381-PRECHOICE ()
-	<COND (<CHECK-VEHICLE ,VEHICLE>
+	<COND (<CHECK-VEHICLE ,MANTA-SKY-CAR>
 		<SET-DESTINATION ,STORY381 2 ,STORY289>
 	)(ELSE
 		<SET-DESTINATION ,STORY381 2 ,STORY393>
@@ -5565,7 +5565,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY402-PRECHOICE ()
-	<COND (<CHECK-VEHICLE ,VEHICLE>
+	<COND (<CHECK-VEHICLE ,MANTA-SKY-CAR>
 		<SET-DESTINATION ,STORY402 2 ,STORY289>
 	)(ELSE
 		<SET-DESTINATION ,STORY402 2 ,STORY393>
