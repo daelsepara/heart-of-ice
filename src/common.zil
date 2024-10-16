@@ -29,17 +29,20 @@
 		<MOVE .SKILL ,LOST-SKILLS>
 	)>>
 
+<ROUTINE LOSE-SKILLS ("OPT" MAX)
+	<COND (<NOT .MAX> <SET MAX 1>)>
+	<LOSE-STUFF ,SKILLS ,LOST-SKILLS "skill" .MAX RESET-SKILLS>>
+
+
 ; "deaths"
 ; ---------------------------------------------------------------------------------------------
 <CONSTANT DIED-IN-COMBAT "You died in combat">
-
 <CONSTANT DIED-OF-HUNGER "You starved to death">
-
 <CONSTANT DIED-GREW-WEAKER "You grew weaker and eventually died">
-
 <CONSTANT DIED-FROM-INJURIES "You died from your injuries">
-
 <CONSTANT DIED-FROM-COLD "You eventually freeze to death">
+<CONSTANT DIED-OF-THIRST "You go mad from thirst">
+<CONSTANT KILLED-AT-ONCE "You are killed at once">
 
 ; "miscellaneous notifications"
 ; ---------------------------------------------------------------------------------------------
@@ -189,3 +192,40 @@
 		)>
 	)>
 	<RETURN 0>>
+
+<ROUTINE LOSE-STUFF (CONTAINER LOST-CONTAINER ITEM "OPT" MAX ACTION "AUX" (COUNT 0) ITEMS)
+	<COND (<NOT .MAX> <SET MAX 1>)>
+	<COND (<G? <COUNT-CONTAINER .CONTAINER> .MAX>
+		<RESET-TEMP-LIST>
+		<SET ITEMS <COUNT-CONTAINER .CONTAINER>>
+		<DO (I 1 .ITEMS)
+			<SET COUNT <+ .COUNT 1>>
+			<COND (<L=? .COUNT .ITEMS>
+				<PUT TEMP-LIST .COUNT <GET-ITEM .I .CONTAINER>>
+			)>
+		>
+		<REPEAT ()
+			<COND (.ACTION <APPLY .ACTION>)>
+			<SELECT-FROM-LIST TEMP-LIST .COUNT .MAX .ITEM .CONTAINER "retain">
+			<COND (<EQUAL? <COUNT-CONTAINER .CONTAINER> .MAX>
+				<CRLF>
+				<TELL "You have selected: ">
+				<PRINT-CONTAINER .CONTAINER>
+				<CRLF>
+				<TELL "Do you agree?">
+				<COND (<YES?> <RETURN>)>
+			)(ELSE
+				<CRLF>
+				<HLIGHT ,H-BOLD>
+				<TELL "You must select " N .MAX " " .ITEM>
+				<COND (<G? .MAX 1> <TELL "s">)>
+				<TELL ,PERIOD-CR>
+				<HLIGHT 0>
+			)>
+		>
+		<DO (I 1 .COUNT)
+			<COND (<NOT <IN? <GET TEMP-LIST .I> .CONTAINER>>
+				<MOVE <GET TEMP-LIST .I> .LOST-CONTAINER>
+			)>
+		>
+	)>>

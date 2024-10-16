@@ -129,6 +129,12 @@
     (ADJECTIVE GIVE)
     (FLAGS CONTBIT OPENBIT)>
 
+<OBJECT LOST-BAG
+	(DESC "stuff lost")
+	(SYNONYM BAG)
+	(ADJECTIVE LOST)
+	(FLAGS CONTBIT OPENBIT)>
+
 ; "pause routines"
 ; ---------------------------------------------------------------------------------------------
 <ROUTINE PRESS-BEGIN ()
