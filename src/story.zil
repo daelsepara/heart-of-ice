@@ -1,17 +1,6 @@
-<INSERT-FILE "numbers">
+<INSERT-FILE "gamebook">
 
-<GLOBAL CHARACTERS-ENABLED T>
 <GLOBAL STARTING-POINT BACKGROUND>
-
-<CONSTANT BAD-ENDING "Your adventure ends here.|">
-<CONSTANT GOOD-ENDING "Further adventure awaits.|">
-<CONSTANT DESTINY-GODHOOD "You are immortal and all-powerful now. Your adventure has culminated in godhood.|">
-<CONSTANT DESTINY-SENTINEL "The stasis bomb activates, turning you into an undying sentinel for all time.|">
-<CONSTANT DESTINY-SACRIFICE "In this chamber deep below the ruins of Du-En, the two of you give your lives for the sake of the whole world.|">
-<CONSTANT DESTINY-UNKNOWN "But then, who does?|">
-
-<OBJECT CURRENCY (DESC "scads")>
-<OBJECT VEHICLE (DESC "car")>
 
 <ROUTINE RESET-OBJECTS ()
 	<PUTP ,BARYSAL-GUN ,P?CHARGES 6>
@@ -104,31 +93,15 @@
 	<PUTP ,STORY450 ,P?DEATH T>
 	<RETURN>>
 
-<CONSTANT DIED-IN-COMBAT "You died in combat">
-<CONSTANT DIED-OF-HUNGER "You starved to death">
-<CONSTANT DIED-GREW-WEAKER "You grew weaker and eventually died">
-<CONSTANT DIED-FROM-INJURIES "You died from your injuries">
-<CONSTANT DIED-FROM-COLD "You eventually freeze to death">
-<CONSTANT NATURAL-HARDINESS "Your natural hardiness made you cope better with the situation">
-
 <CONSTANT CHARGE-BARYSAL-KEY !\b>
 <CONSTANT CHARGE-BARYSAL-KEY-CAPS !\B>
-
 <CONSTANT MAX-BARYSAL 6>
 
 <CONSTANT FACILITIES <LTABLE "go to the library" "the medical lounge" "the gymnasium" "the armoury" "the canteen">>
 <CONSTANT FACILITIES-DESTINATIONS <LTABLE STORY006 STORY028 STORY051 STORY447 STORY094>>
-
 <CONSTANT TALK-CHOICES <LTABLE "go and talk to Golgoth" "Boche" "Gaunt">>
 <CONSTANT TALK-DESTINATIONS <LTABLE STORY126 STORY104 STORY148>>
-
 <GLOBAL PRACTICED-SHORTSWORD F>
-
-<OBJECT LOST-SKILLS
-	(DESC "skills lost")
-	(SYNONYM SKILLS)
-	(ADJECTIVE LOST)
-	(FLAGS CONTBIT OPENBIT)>
 
 <ROUTINE SPECIAL-INTERRUPT-ROUTINE (KEY "AUX" CHARGES)
 	<COND (<EQUAL? .KEY ,CHARGE-BARYSAL-KEY-CAPS ,CHARGE-BARYSAL-KEY>
@@ -146,293 +119,25 @@
 	)>
 	<RFALSE>>
 
-<ROUTINE PREVENT-DEATH ("OPT" STORY)
-	<COND (<NOT .STORY> <SET STORY ,HERE>)>
-	<COND (<GETP .STORY ,P?DEATH> <PUTP .STORY ,P?DEATH F>)>>
-
-<ROUTINE GET-NUMBER (MESSAGE "OPT" MINIMUM MAXIMUM "AUX" COUNT)
-	<REPEAT ()
-		<CRLF>
-		<TELL .MESSAGE>
-		<COND (<AND <OR <ASSIGNED? MINIMUM> <ASSIGNED? MAXIMUM>> <G? .MAXIMUM .MINIMUM>>
-			<TELL " (" N .MINIMUM "-" N .MAXIMUM ")">
-		)>
-		<TELL "? ">
-		<READLINE>
-		<COND (<EQUAL? <GETB ,LEXBUF 1> 1> <SET COUNT <CONVERT-TO-NUMBER 1 10>>
-			<COND (<OR .MINIMUM .MAXIMUM>
-				<COND (<AND <G=? .COUNT .MINIMUM> <L=? .COUNT .MAXIMUM>> <RETURN>)>
-			)(<G? .COUNT 0>
-				<RETURN>
-			)>
-		)>
-	>
-	<RETURN .COUNT>>
-
-<ROUTINE DELETE-CODEWORD (CODEWORD)
-	<COND (<AND .CODEWORD <CHECK-CODEWORD .CODEWORD>>
-		<CRLF>
-		<TELL "[You lose the codeword ">
-		<HLIGHT ,H-BOLD>
-		<TELL D .CODEWORD "]" CR>
-		<HLIGHT 0>
-		<REMOVE .CODEWORD>
-	)>>
-
-<ROUTINE KEEP-ITEM (ITEM "OPT" JUMP)
-	<CRLF>
-	<TELL "Keep " T .ITEM "?">
-	<COND (<YES?>
-		<COND (<NOT <CHECK-ITEM .ITEM>> <TAKE-ITEM .ITEM>)>
-		<COND (.JUMP <STORY-JUMP .JUMP>)>
-		<RTRUE>
-	)>
-	<COND (<CHECK-ITEM .ITEM> <LOSE-ITEM .ITEM>)>
-	<RFALSE>>
-
-<ROUTINE TEST-MORTALITY (DAMAGE MESSAGE "OPT" STORY SKILL)
+<ROUTINE TEST-MORTALITY-SHORTSWORD (DAMAGE MESSAGE "OPT" STORY)
 	<COND (<NOT .STORY> <SET STORY ,HERE>)>
 	<COND (
 		<AND
-			<EQUAL? .SKILL ,SKILL-CLOSE-COMBAT>
-			<CHECK-SKILL .SKILL>
+			<CHECK-SKILL ,SKILL-CLOSE-COMBAT>
 			<CHECK-ITEM ,SHORTSWORD>
 			,PRACTICED-SHORTSWORD
 		>
 		<EMPHASIZE "The shortsword prevented 1 damage.">
 		<DEC .DAMAGE>
 	)>
-	<COND (<G? .DAMAGE 0>
-		<LOSE-LIFE .DAMAGE .MESSAGE .STORY>
-	)(ELSE
-		<PUTP .STORY ,P?DEATH F>
-	)>>
+	<TEST-MORTALITY .DAMAGE .MESSAGE .STORY>>
 
-<ROUTINE FIRE-BARYSAL ("OPT" AMOUNT)
-	<DISCHARGE-ITEM ,BARYSAL-GUN .AMOUNT>>
-
-<ROUTINE CHARGE-BARYSAL ("OPT" AMOUNT "AUX" CHARGES)
-	<COND (<NOT .AMOUNT> <SET AMOUNT 1>)>
-	<SET CHARGES <GETP ,BARYSAL-GUN ,P?CHARGES>>
-	<SET CHARGES <+ .CHARGES .AMOUNT>>
-	<COND (<G? .CHARGES ,MAX-BARYSAL> <SET CHARGES ,MAX-BARYSAL>)>
-	<PUTP ,BARYSAL-GUN ,P?CHARGES .CHARGES>>
-
-<ROUTINE TAKE-BARYSAL ("OPT" AMOUNT)
-	<COND (<NOT .AMOUNT> <SET AMOUNT 1>)>
-	<PUTP ,BARYSAL-GUN ,P?CHARGES .AMOUNT>
-	<TAKE-ITEM ,BARYSAL-GUN>>
-
-<ROUTINE TAKE-OR-CHARGE ("OPT" AMOUNT PROMPT PLURAL "AUX" TAKEN)
-	<COND (<NOT .AMOUNT> <SET AMOUNT 1>)>
-	<COND (<NOT .PLURAL> <SET PLURAL 1>)>
-	<COND (<AND .PROMPT <G? .PLURAL 1>>
-		<SET TAKEN <GET-NUMBER "You many barysal guns will you take?" 0 .PLURAL>>
-		<COND (<L=? .TAKEN 0>
-			<RETURN 0>
-		)(ELSE
-			<SET PROMPT F>
-			<SET AMOUNT <* .TAKEN .AMOUNT>>
-			<SET PLURAL .TAKEN>
-		)>
-	)>
-	<COND (.PROMPT <CRLF>)>
-	<COND (<CHECK-ITEM ,BARYSAL-GUN>
-		<COND (.PROMPT
-			<TELL "Take " T ,BARYSAL-GUN>
-			<COND (<G? .PLURAL 1> <TELL "s' (" N .PLURAL ")">)(ELSE <TELL "'s">)>
-			<TELL " remaining ">
-			<COND (<G? .AMOUNT 1> <TELL N .AMOUNT " charges">)(ELSE <TELL "charge">)>
-			<TELL "?">
-			<COND (<YES?>
-				<CHARGE-BARYSAL .AMOUNT>
-				<RETURN .PLURAL>
-			)>
-		)(ELSE
-			<CHARGE-BARYSAL .AMOUNT>
-			<RETURN .PLURAL>
-		)>
-	)(ELSE
-		<COND (.PROMPT
-			<TELL "Take " T ,BARYSAL-GUN>
-			<COND (<G? .PLURAL 1> <TELL "s (" N .PLURAL ")">)>
-			<TELL " (" N .AMOUNT " charge">
-			<COND (<G? .AMOUNT 1> <TELL "s">)>
-			<TELL " left)?">
-			<COND (<YES?>
-				<TAKE-BARYSAL .AMOUNT>
-				<RETURN .PLURAL>
-			)>
-		)(ELSE
-			<TAKE-BARYSAL .AMOUNT>
-			<RETURN .PLURAL>
-		)>
-	)>
-	<RETURN 0>>
-
-<ROUTINE ADD-QUANTITY (OBJECT "OPT" AMOUNT CONTAINER "AUX" QUANTITY CURRENT)
-	<COND (<NOT .OBJECT> <RETURN>)>
-	<COND (<L=? .AMOUNT 0> <RETURN>)>
-	<COND (<NOT .CONTAINER> <SET CONTAINER ,PLAYER>)>
-	<COND (<EQUAL? .CONTAINER ,PLAYER>
-		<DO (I 1 .AMOUNT)
-			<TAKE-ITEM .OBJECT>
-		>
-	)(ELSE
-		<SET CURRENT <GETP .OBJECT ,P?QUANTITY>>
-		<SET QUANTITY <+ .CURRENT .AMOUNT>>
-		<PUTP .OBJECT ,P?QUANTITY .QUANTITY>
-	)>>
-
-<ROUTINE ADD-FOOD-PACK ("OPT" AMOUNT)
-	<ADD-QUANTITY ,FOOD-PACK .AMOUNT ,PLAYER>>
-
-<ROUTINE BUY-FOOD-PACK (PRICE "AUX" QUANTITIES)
-	<COND (<G=? ,MONEY .PRICE>
-		<CRLF>
-		<TELL "Buy a food pack for " N .PRICE " scads each?">
-		<COND (<YES?>
-			<REPEAT ()
-				<SET QUANTITIES <GET-NUMBER "How many food packs will you buy" 0 8>>
-				<COND (<G? .QUANTITIES 0>
-					<COND (<L=? <* .QUANTITIES .PRICE> ,MONEY>
-						<CRLF>
-						<HLIGHT ,H-BOLD>
-						<TELL "You purchased " N .QUANTITIES>
-						<TELL " " D ,FOOD-PACK>
-						<COND (<G? .QUANTITIES 1> <TELL "s">)>
-						<TELL ,PERIOD-CR>
-						<CHARGE-MONEY <* .QUANTITIES .PRICE>>
-						<ADD-FOOD-PACK .QUANTITIES>
-						<COND (<L? ,MONEY .PRICE> <RETURN>)>
-					)(ELSE
-						<EMPHASIZE "You can't afford that!">
-					)>
-				)(ELSE
-					<RETURN>
-				)>
-			>
-		)>
-	)>>
-
-<ROUTINE SELL-FOOD-PACK (PRICE "AUX" (FOOD-SOLD 0) (QUANTITY 0))
-	<COND (<HAS-FOOD>
-		<SET QUANTITY <GETP ,FOOD-PACK ,P?QUANTITY>>
-		<CRLF>
-		<TELL "Sell food packs at " N .PRICE " " D ,CURRENCY " each?">
-		<COND (<YES?>
-			<SET FOOD-SOLD <GET-NUMBER "How many food packs will you sell" 0 .QUANTITY>>
-			<COND (<G? .FOOD-SOLD 0>
-				<SETG ,MONEY <+ ,MONEY <* .FOOD-SOLD .PRICE>>>
-				<SET .QUANTITY <- .QUANTITY .FOOD-SOLD>>
-				<CRLF>
-				<TELL "You sold ">
-				<HLIGHT ,H-BOLD>
-				<TELL N .FOOD-SOLD " food pack">
-				<COND (<G? .FOOD-SOLD 1> <TELL "s">)>
-				<HLIGHT 0>
-				<TELL ,PERIOD-CR>
-				<COND (<G? .QUANTITY 0>
-					<PUTP ,FOOD-PACK ,P?QUANTITY .QUANTITY>
-				)(ELSE
-					<PUTP ,FOOD-PACK ,P?QUANTITY 1>
-					<REMOVE ,FOOD-PACK>
-				)>
-			)>
-		)>
-	)>>
-
-<ROUTINE TAKE-FOOD-PACKS ("OPT" AMOUNT "AUX" PACKS)
-	<COND (<NOT .AMOUNT> <SET .AMOUNT 1>)>
-	<CRLF>
-	<TELL "Take " T ,FOOD-PACK>
-	<COND (<G? .AMOUNT 1> <TELL "s">)>
-	<TELL "?">
-	<COND (<YES?>
-		<COND (<G? .AMOUNT 1>
-			<SET PACKS <GET-NUMBER "How many food packs will you take" 0 .AMOUNT>>
-			<ADD-FOOD-PACK .PACKS>
-			<RETURN .PACKS>
-		)(ELSE
-			<TAKE-ITEM ,FOOD-PACK>
-			<RETURN 1>
-		)>
-	)>
-	<RETURN 0>>
-
-<ROUTINE CONSUME-FOOD ("OPT" AMOUNT JUMP "AUX" QUANTITY (RETURN-VALUE F))
-	<COND (<NOT .AMOUNT> <SET AMOUNT 1>)>
-	<COND (<CHECK-ITEM ,FOOD-PACK>
-		<SET QUANTITY <GETP ,FOOD-PACK ,P?QUANTITY>>
-		<COND (<G=? .QUANTITY .AMOUNT>
-			<SET QUANTITY <- .QUANTITY .AMOUNT>>
-			<PUTP ,FOOD-PACK ,P?QUANTITY .QUANTITY>
-			<COND (<G=? .QUANTITY 1>
-				<CRLF>
-				<HLIGHT ,H-BOLD>
-				<TELL "[Your supply of food packs decreased by " N .AMOUNT "]" CR>
-				<HLIGHT 0>
-			)(ELSE
-				<EMPHASIZE "[You've exhausted your food packs]">
-			)>
-			<COND (.JUMP <STORY-JUMP .JUMP>)>
-			<SET RETURN-VALUE T>
-		)>
-		<COND (<L? .QUANTITY 1>
-			<PUTP ,FOOD-PACK ,P?QUANTITY 1>
-			<REMOVE ,FOOD-PACK>
-		)>
-	)>
-	<RETURN .RETURN-VALUE>>
-
-<ROUTINE HAS-FOOD ("OPT" (THRESHOLD 0) "AUX" (QUANTITY 0))
-	<COND (<CHECK-ITEM ,FOOD-PACK>
-		<SET QUANTITY <GETP ,FOOD-PACK ,P?QUANTITY>>
-		<COND (<G? .QUANTITY .THRESHOLD> <RTRUE>)>
-	)>
-	<RFALSE>>
-
-<ROUTINE TAKE-QUANTITIES (OBJECT PLURAL MESSAGE "OPT" AMOUNT)
-	<CRLF>
-	<TELL "Take the " .PLURAL "?">
-	<COND (<YES?> <ADD-QUANTITY .OBJECT <GET-NUMBER .MESSAGE 0 .AMOUNT> ,PLAYER>)>>
-
-<ROUTINE CHECK-VEHICLE (RIDE)
-	<COND (<OR <IN? .RIDE ,VEHICLES> <AND ,CURRENT-VEHICLE <EQUAL? ,CURRENT-VEHICLE .RIDE>>> <RTRUE>)>
-	<RFALSE>>
-
-<ROUTINE TAKE-VEHICLE (VEHICLE)
-	<COND (.VEHICLE
-		<COND (,CURRENT-VEHICLE <REMOVE ,CURRENT-VEHICLE>)>
-		<MOVE .VEHICLE ,VEHICLES>
-		<SETG CURRENT-VEHICLE .VEHICLE>
-		<UPDATE-STATUS-LINE>
-	)>>
-
-<ROUTINE LOSE-VEHICLE (VEHICLE)
-	<COND (.VEHICLE
-		<COND (<CHECK-VEHICLE .VEHICLE>
-			<REMOVE .VEHICLE>
-			<SETG CURRENT-VEHICLE NONE>
-			<UPDATE-STATUS-LINE>
-		)>
-	)>>
 
 <ROUTINE ASSASSINS-LOOT (KNIVES AMOUNT)
 	<TAKE-QUANTITIES ,KNIFE "knives" "How many of the assassins' knives will you take" .KNIVES>
 	<CRLF>
 	<TELL "Take the money on the dead man's body (" N .AMOUNT " scads)?">
 	<COND (<YES?> <GAIN-MONEY .AMOUNT>)>>
-
-<ROUTINE LOSE-SKILL (SKILL)
-	<COND (<AND .SKILL <CHECK-SKILL .SKILL>>
-		<CRLF>
-		<HLIGHT ,H-BOLD>
-		<TELL "You lost " T .SKILL " skill">
-		<TELL ,PERIOD-CR>
-		<HLIGHT 0>
-		<MOVE .SKILL ,LOST-SKILLS>
-	)>>
 
 <ROUTINE RESET-RETROVIRUS ()
 	<PUTP ,VIRID-MYSTERY ,P?PURCHASED F>
@@ -541,8 +246,6 @@
 			<RETURN>
 		)>
 	>>
-
-<CONSTANT TEXT "This story has not been written yet.">
 
 <CONSTANT BACKGROUND-TEXT "In 2023, worsening conditions in the world's climate led to the first Global Economic Conference. It was agreed to implement measures intended to reverse industrial damage to the ecology and replenish the ozone layer. By 2031, an array of weather control satellites were in orbit. For added efficiency, and as a mark of worldwide cooperation, these were placed under the control of a supercomputer network called Gaia: the Global Artificial Intelligence Array. The Earth's climate began to show steady improvement.||The first hint of disaster came early in 2037, when Gaia shut down inexplicably for a period of seventeen minutes. Normal operation was resumed but the system continued to suffer 'glitches'. One such glitch resulted in Paris being subjected to a two-day heat wave of such intensity that the pavements cracked. After several months, the fault was identified. A computer virus had been introduced into Gaia by unknown means. The system's designer began programming an antivirus but died before his war was complete. The crisis grew throughout that year until finally, following the death of five thousand people in a flash flood along the Bangladesh coastline, the Gaia project was officially denounced. Unfortunately, it was no longer possible to shut it down.||By the mid twenty-first century, global weather conditions were in chaos owing to Gaia's sporadic operation. Ice sheets advanced further each year. Australia was subject to virtually constant torrential rain. The centre of Asia had become an arid wasteland. The political situation reflected the ravages of the climate, with wars flaring continually around the globe. Late in 2054, computer scientists in London tried to hack into Gaia and locate the replicating viruses in the program. Gaia, detecting this, interpreted the action as an attack on its program and retaliated by taking over a range of defense networks which allowed it to launch a nuclear strike. London was completely destroyed.||By the end of the century Gaia had routed itself into all major computer networks, taking control of weather, communications and weapons systems all across the planet. Periods of lucidity and hospitable climate were interspersed with hurricanes and arctic blizzards. The US President gave an interview in which he likened Gaia to a living entity: \"She was intended as mankind's protective mother, but this 'mother' has gone mad.\" Spiralling decline in the world's fortunes left much of humanity on the brink of extinction. The population fell rapidly until only a few million people remained scattered around the globe -- mostly in cities where food could still be artificially produced.||It is now the year 2300. The rich stand aloof, disporting themselves with forced gaiety and waiting for the end. The poor inhabit jostling slums where disease is rife and law is unknown. Between the cities, the land lies under a blanket of snow and ice. No-one expects humanity to last another century. This is truly 'the end of history'.">
 
@@ -900,7 +603,7 @@
 		<SET EXPERT T>
 		<SET DAMAGE 1>
 	)>
-	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY026 ,SKILL-CLOSE-COMBAT>
+	<TEST-MORTALITY-SHORTSWORD .DAMAGE ,DIED-IN-COMBAT ,STORY026>
 	<COND (<IS-ALIVE>
 		<CRLF>
 		<COND (.EXPERT
@@ -1143,7 +846,7 @@
 
 <ROUTINE STORY044-PRECHOICE ("AUX" (DAMAGE 3))
 	<COND (<CHECK-SKILL ,SKILL-CLOSE-COMBAT> <SET DAMAGE 1>)>
-	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY044 ,SKILL-CLOSE-COMBAT>
+	<TEST-MORTALITY-SHORTSWORD .DAMAGE ,DIED-IN-COMBAT ,STORY044>
 	<IF-ALIVE TEXT044-CONTINUED>>
 
 <CONSTANT TEXT045 "You look at Boche's hand but do not take it. In these latter days, with humanity on the brink of extinction, you have learned to be wary of strangers.||\"I travel alone.\"||Boche is not deterred. \"Come, that's hardly friendly. I've paid your bill.\"||\"I did not ask you to. Landlord, return this man's money. I shall settle my own account.\"">
@@ -1369,7 +1072,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY063-EVENTS ()
-	<COND (,RUN-ONCE <FIRE-BARYSAL 1>)>
+	<COND (,RUN-ONCE <DISCHARGE-ITEM ,BARYSAL-GUN 1>)>
 	<RETURN ,STORY063>>
 
 <ROOM STORY064
@@ -1394,7 +1097,7 @@
 
 <ROUTINE STORY065-PRECHOICE ("AUX" (DAMAGE 5))
 	<COND (<CHECK-SKILL ,SKILL-CLOSE-COMBAT> <SET DAMAGE 3>)>
-	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY065 ,SKILL-CLOSE-COMBAT>
+	<TEST-MORTALITY-SHORTSWORD .DAMAGE ,DIED-IN-COMBAT ,STORY065>
 	<IF-ALIVE ,TEXT065-CONTINUE>>
 
 <CONSTANT TEXT066 "The puppets are programmed to fight each other in an epic theatrical battle. But you doubt if the programmers ever expected a group of spectators to wander onto the stage during the performance. Dodging the sword-blows is almost impossible. The strobing light was supposed to enhance the scene, adding a sense of frantic pace as well as disguising any jerkiness in the puppet' movement, but it also makes it much harder to see a sword-thrust coming.||You finally succeed in pushing your way through the melee and jumping down off the stage, but in the process you take several nasty cuts.">
@@ -1409,7 +1112,7 @@
 
 <ROUTINE STORY066-PRECHOICE ("AUX" (DAMAGE 2))
 	<COND (<CHECK-SKILL ,SKILL-CLOSE-COMBAT> <SET DAMAGE 1>)>
-	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY066 ,SKILL-CLOSE-COMBAT>>
+	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY066>>
 
 <CONSTANT TEXT067 "Taking up your pack, you trudge out into the snow. Moments later you hear the crunching of rapid footsteps and Boche catches up with you. His breath curls into the diamond-clear morning air. \"We may as well travel together for mutual convenience, at least for a while,\" he says chirpily.">
 <CONSTANT CHOICES067 <LTABLE "agree to this" "refuse point-blank">>
@@ -1432,7 +1135,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY068-PRECHOICE ()
-	<FIRE-BARYSAL 1>>
+	<DISCHARGE-ITEM ,BARYSAL-GUN 1>>
 
 <CONSTANT TEXT069 "The drawback to using the card is the holographic picture on the front, which looks nothing like you.">
 <CONSTANT CHOICES069 <LTABLE "get the ID card altered" "forget about the card and investigate your other options instead">>
@@ -1563,7 +1266,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY076-PRECHOICE ()
-	<COND (,RUN-ONCE <TEST-MORTALITY 3 ,DIED-IN-COMBAT ,STORY076 ,SKILL-CLOSE-COMBAT>)>
+	<COND (,RUN-ONCE <TEST-MORTALITY-SHORTSWORD 3 ,DIED-IN-COMBAT ,STORY076>)>
 	<IF-ALIVE ,TEXT076-CONTINUED>>
 
 <CONSTANT TEXT077 "Bador expresses dismay when you tell him you intend to cross the Ice Wastes. \"By your father's beard! Do you wish to become a corpse with hoarfrost in your veins? Put aside all thought of such a scheme, I pray you!\" You cannot help smiling. \"What?\" says Bador, starting to weep. \"Do you mock my concern?\"||You place a hand on his sleeve. \"Calm yourself. You and I are strangers, and you already have your fee. Do not allow thought of my death to upset you, but give me advice on how to avoid such a fate.\"||\"Only the barbarian Ebor venture into the Sahara, and even they go no further that its fringes. It is a place of ghosts and devils, and the wind is like flint.\"||\"The Ebor? A nomad tribe? How do they survive?\"||\"They have burreks, shaggy thick-necked beasts that grow folds of fat. When the blizzard comes, the Ebor rider shelters by his burrek and bleeds the animal, frying up a blood pudding to sustain him.\" Bador grimaces to show what he thinks of such a custom.">
@@ -1606,7 +1309,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY079-PRECHOICE ()
-	<FIRE-BARYSAL 1>>
+	<DISCHARGE-ITEM ,BARYSAL-GUN 1>>
 
 <CONSTANT TEXT080 "You find several items scattered across a bench at the back of the laboratory. These include a flashlight, a pair of binoculars, a set of polarized goggles, and a barysal gun. The gun has been opened for inspection, but it is a simple matter to secure the but and replace the screws. You check the power unit, finding two charges remaining.">
 <CONSTANT CHOICES080 <LTABLE "descend the shaft to the bottom level" "ascend and leave the pyramid">>
@@ -1622,7 +1325,7 @@
 
 <ROUTINE STORY080-PRECHOICE ()
 	<COND (,RUN-ONCE
-		<TAKE-OR-CHARGE 2 T>
+		<TAKE-OR-CHARGE ,BARYSAL-GUN 2 T>
 		<SELECT-FROM-LIST <LTABLE FLASHLIGHT BINOCULARS POLARIZED-GOGGLES> 3 3>
 	)>>
 
@@ -1662,7 +1365,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY083-PRECHOICE ()
-	<COND (<CHECK-VEHICLE ,MANTA-SKY-CAR> <STORY-JUMP ,STORY017>)>>
+	<COND (<CHECK-VEHICLE ,VEHICLE> <STORY-JUMP ,STORY017>)>>
 
 <CONSTANT TEXT084 "You see the air twist inside out as the baron projects a bolt of psychic force against the oncoming creature. Like Boche's gun blast, the bolt is deflected by its shield of metal legs. \"It is a robot, immune to paradoxing,\" shouts the baron. \"We must retreat!\"||You have abetter idea. You may not be as powerful a psionic as Baron Siriasis, but that only means you've learned to be smarter. Instead of channelling your psi-force as a direct bolt, you use it to transmute the blue fluid that fills the glass bubble. Within moments the gnarled little homunculous inside is floating in acid. The thing rears up on its long legs like a dying spider, then topples to the floor. By the time you go over to look, the body inside has entirely dissolved away.||\"Not a robot,\" you say to the startled baron, \"but a cyborg. You should have attacked the organic part.\"||He glares at you, then gives a curt nod of respect. \"It seems I can still learn new tricks of my craft, even from a youngster like you.\"||Together you head on to the end of the passage.">
 
@@ -1711,7 +1414,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY087-PRECHOICE ()
-	<FIRE-BARYSAL 1>>
+	<DISCHARGE-ITEM ,BARYSAL-GUN 1>>
 
 <CONSTANT TEXT088 "Gargan XIV closes in on you. Gargan XIII draws a knife and looks down at Golgoth, in no hurry to finish him off. Suddenly he looks up with abroad smile. She was wrong in thinking him beaten. To the contrary, he has the look of a cat who has trapped two very large mice.">
 
@@ -1774,7 +1477,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY093-PRECHOICE ()
-	<TAKE-FOOD-PACKS 10>
+	<TAKE-FOOD 10>
 	<SELECT-FROM-LIST <LTABLE MEDICAL-KIT FLASHLIGHT COLD-WEATHER-SUIT ROPE> 4 4>>
 
 <CONSTANT TEXT094 "The canteen is located at the top of the building, with wide windows giving a breathtaking view over the city. You stand and look out for a few minutes at the tall towers wreathed in swirling fog. Below, a dark patch of woodland studded with mistily sparkling lamps can only be the infamous Claustral Park.||The canteen has no human attendants, just a food dispenser which brings forth foil-wrapped packs at the touch of a button.">
@@ -1792,7 +1495,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY094-PRECHOICE ()
-	<COND (,RUN-ONCE <TAKE-FOOD-PACKS 8>)>>
+	<COND (,RUN-ONCE <TAKE-FOOD 8>)>>
 
 <CONSTANT CHOICES095 <LTABLE "make use of an" "try to find out about Baron Siriasis" "Chaim Golgoth" "Gilgamesh" "the Sphinx" "get some rest">>
 
@@ -1814,7 +1517,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY096-PRECHOICE ()
-	<FIRE-BARYSAL 1>>
+	<DISCHARGE-ITEM ,BARYSAL-GUN 1>>
 
 <CONSTANT TEXT097 "The nearest man stabs his knife at your heart. You deflect the blow with an open-handed block to his wrist, then sidestep in close to deliver two swift elbow strikes across his face. As he sags, you pluck the knife out of his fingers. The angle is wrong to get the man with the gun, so you cast the knife at each other. It catches him in the shoulder and he falls back with a grunt.||The man with the gun is about to fire. You throw yourself into a forward roll, hearing the blast crack overhead and explode against the wall. Scissoring your legs, you thrust him off-balance before he can take another shot. He topples into the fire, his frightened yelp cut brutally short as his head hits a rock.||Before you can get to your feet, the man with the knife in his shoulder comes lumbering forward and tries to stomp you in the guts. You jerk aside, catch his ankle, and bring him down backwards across your hip, where a swift powerful twist ends the struggle.||You search the shelter. The barysal gun has one charge left. You also find two knives, a set of polarized goggles, cold weather clothes, binoculars, and six food packs.">
 <CONSTANT TEXT097-CONTINUED "Then you wait for the blizzard to blow itself out before you emerge into the crisp snow outside">
@@ -1827,8 +1530,8 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY097-PRECHOICE ()
-	<TAKE-OR-CHARGE 1 T>
-	<TAKE-FOOD-PACKS 6>
+	<TAKE-OR-CHARGE ,BARYSAL-GUN 1 T>
+	<TAKE-FOOD 6>
 	<TAKE-QUANTITIES ,KNIFE "knives" "How many knives will you take" 2>
 	<SELECT-FROM-LIST <LTABLE POLARIZED-GOGGLES COLD-WEATHER-SUIT BINOCULARS> 3 3>>
 
@@ -1890,7 +1593,7 @@
 			<TAKE-ITEM ,FUR-COAT>
 		)>
 	)>
-	<BUY-FOOD-PACK 4>
+	<BUY-FOOD 4>
 	<CRLF>
 	<TELL ,TEXT101-CONTINUED>
 	<TELL ,PERIOD-CR>>
@@ -2071,7 +1774,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY115-PRECHOICE ()
-	<TAKE-VEHICLE ,MANTA-SKY-CAR>
+	<TAKE-VEHICLE ,VEHICLE>
 	<COND (<CHECK-CODEWORD ,CODEWORD-DIAMOND> <STORY-JUMP ,STORY181>)>>
 
 <CONSTANT TEXT116 "The computer terminals are only intended to access the library catalogue, but you have no trouble routing into the building's administrative computer and then opening an outside line via the rooftop satellite dish. Like most organizations with the ability to connect into global communications, the Society protects its system from accidental linkage into Gaia by the use of a filter program. This is necessary to prevent infection by the same viruses that are resident in Gaia, as well as to stop Gaia from taking over the Society's whole system for her own use.||You set a standard filter-override program running. It should take a few minutes, and to kill time you run a check on other users who have logged into the system recently. Only one name is displayed: Janus Gaunt. He requested all the Society's records regarding the Heart of Volent. Intrigued, you call up his biofile. The screen shows a round-faced man with extremely white skin and hair like silver floss. Flicking idly through the data, you find he has a reputation for outstanding work in the fields of bioengineering and nanotechnology. The address of his mansion causes you a double-take; it is located in the Paris catacombs. You were not even sure Paris still existed.||The terminal bleeps, informing you the link with Gaia is ready. You switch over. When you type in your query about the Heart, Gaia's response is swift: THE HEART MUST BE DESTROYED. ACTIVATION OF ITS POWER WILL CRASH THE UNIVERSE, WIPING OUT ALL THAT EXISTS.||You reply: INCLUDING EARTH?||EVERYTHING, Gaia tells you. BARYSAL BOMBARDMENT CAN CAUSE A CRITICAL RESONANCE. DESTROYING THE HEART'S CRYSTALLINE STRUCTURE. TWO SIMULTANEOUS BOMBARDMENTS MUST BE MADE, THE BEAMS PHASED AND CROSSING AT RIGHT ANGLES.||This is awkward. From what you have heard, the Heart is a gem several metres across. To destroy it as Gaia suggests, you'd need an accomplice. And two barysal guns. You try to get further information, but the link is broken. Like a senile invalid, Gaia has lapsed back into her customary incoherence.">
@@ -2137,10 +1840,10 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY119-PRECHOICE ()
-	<FIRE-BARYSAL 2>
-	<TAKE-OR-CHARGE 2 T>
+	<DISCHARGE-ITEM ,BARYSAL-GUN 2>
+	<TAKE-OR-CHARGE ,BARYSAL-GUN 2 T>
 	<TAKE-QUANTITIES ,KNIFE "knives" "How many of the assassins' knives will you take" 2>
-	<TAKE-FOOD-PACKS 6>
+	<TAKE-FOOD 6>
 	<SELECT-FROM-LIST <LTABLE POLARIZED-GOGGLES BINOCULARS COLD-WEATHER-SUIT> 3 3>
 	<CRLF>
 	<TELL ,TEXT119-CONTINUED>
@@ -2285,7 +1988,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY130-PRECHOICE ()
-	<FIRE-BARYSAL 1>>
+	<DISCHARGE-ITEM ,BARYSAL-GUN 1>>
 
 <CONSTANT TEXT131 "Your shot burns through Singh's armour and he staggers back, but although wounded he is far from beaten. He presses the fire button on his mantramukta cannon just as Boche goes for an opportunist shot at you. The beam carves through your shoulder.">
 <CONSTANT TEXT131-CONTINUED "A moment later Boche falls as Singh swings the cannon around, blasting him apart with a torrent of searing energy.||There is a moment of silence as the cannon's blast cuts out. It will take a few seconds to build up charge before it can fire again. Golgoth seizes the chance to take aim with his barysal gun. This is the showdown that will decide which of you lives to claim the power of the Heart.">
@@ -2373,7 +2076,7 @@
 		<CRLF>
 		<TELL ,TEXT137-CONTINUED>
 		<TELL ,PERIOD-CR>
-		<LOSE-VEHICLE ,MANTA-SKY-CAR>
+		<LOSE-VEHICLE ,VEHICLE>
 	)>>
 
 <CONSTANT TEXT138 "You seek out the librarian, a plump sour-faced man who sits at his desk amid the stacks like a spider in its web. He is barely able to disguise his irritation when you explain what you want. \"A link to Gaia? That is most irregular. Very few of our members make such requests.\"||He will deter you if you let him, if only to spare himself inconvenience. Recalling the status of the typical Society member, you adopt an uncompromising attitude and say, \"It was not a request, but a command. You will now establish a link so that I can talk to Gaia.\"||\"Talk?\" He spreads his hands imploringly. \"What will you talk about? Gaia is mad!\" Seeing you will not be put off, he grumbles under his breath and pushes a slip of paper across the desk. \"Write your query there and it will be broadcast to Gaia. The reply will be brought back to you.\"||\"I prefer a direct two-way communication.\"||\"Impossible!\" he cries. \"That is against Society policy, as nay link to Gaia must be stringently monitored to prevent arrogation of our computer network.\"||You see he will not be swayed on this point. You write out your message and wait for half an hour until the librarian comes back. \"Here is your reply from Gaia,\" he says, his tone of surprise showing that he did not expect anything but gibberish. He reads from the paper in his hand; \"go and meet with Gilgamesh under the pyramid. Humbaba will give you access.\"||\"Is that all?\"||He nods. \"Gaia then began to transmit random references to Babylonian history followed by a digression into architectural feats of history, and the link was terminated.\"">
@@ -2437,7 +2140,7 @@
 
 <ROUTINE STORY142-PRECHOICE ()
 	<GAIN-LIFE 1>
-	<ADD-FOOD-PACK 2>>
+	 <ADD-QUANTITY ,FOOD-PACK 2>>
 
 <CONSTANT TEXT143 "\"On this point,\" announces Bador, \"I would be untruthful if I pretended to know with adamantine certainty. According to some, the city took its name from Khare-Ohe, or 'Field of Conflict,' as it was found on the spot where the first pharaoh watched a falcon fight a rat. Another version relates it to the settlement of el-Qahira, consecrated to the red planet of victory.\"||You shake your head. \"These are ancient myths. I am interested in recent history.\"||Ah, Well, then Du-En rose to power, Kahira became an important as a base of operations for those armed forces opposing the Volentine Watchers -- in essence, the rest of the world. Owing to heat-conductive pipes buried along the bed of the Isis River, fishes are abundant even in these parlous times, and Kahira continues to flourish. The warm water, rising into contact with icy winds off the Saharan plain, forms the incessant mist which is characteristic of the city.\"||\"And why is the city built on high columns of concrete, instead of sprawling along the river banks?\"||Balor pulls an uncertain face. \"Defence? Scarcity of materials? An obscure edict? Who can say?\"">
 <CONSTANT CHOICES143 <LTABLE "ask his advice about the Sahara" "about Giza" "about the best place to stay" "you can dismiss him">>
@@ -2592,8 +2295,8 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY154-PRECHOICE ("AUX" (COUNT 4))
-	<SET COUNT <- .COUNT <TAKE-OR-CHARGE 3 T 2>>>
-	<SET COUNT <- .COUNT <TAKE-FOOD-PACKS 3>>>
+	<SET COUNT <- .COUNT <TAKE-OR-CHARGE ,BARYSAL-GUN 3 T 2>>>
+	<SET COUNT <- .COUNT <TAKE-FOOD 3>>>
 	<COND (<G? .COUNT 0>
 		<COND (<G? .COUNT 3> <SET COUNT 3>)>
 		<SELECT-FROM-LIST <LTABLE FLASHLIGHT MEDICAL-KIT STUN-GRENADE> 3 .COUNT>
@@ -2725,7 +2428,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY163-PRECHOICE ()
-	<TAKE-FOOD-PACKS 3>
+	<TAKE-FOOD 3>
 	<SELECT-FROM-LIST <LTABLE COLD-WEATHER-SUIT POLARIZED-GOGGLES> 2 2>
 	<CRLF>
 	<TELL ,TEXT163-CONTINUED>
@@ -2747,7 +2450,7 @@
 <ROUTINE STORY164-PRECHOICE ()
 	<COND (,RUN-ONCE
 		<GAIN-LIFE 1>
-		<ADD-FOOD-PACK 1>
+		 <ADD-QUANTITY ,FOOD-PACK 1>
 	)>
 	<CRLF>
 	<TELL ,TEXT164-CONTINUED>
@@ -2913,7 +2616,7 @@
 	<TELL "Take the battery unit (6 charges)?">
 	<COND (<YES?>
 		<COND (<CHECK-ITEM ,BARYSAL-GUN>
-			<CHARGE-BARYSAL 6>
+			<CHARGE-ITEM ,BARYSAL-GUN ,MAX-BARYSAL 6>
 		)(ELSE
 			<COND (<CHECK-ITEM ,BATTERY-UNIT>
 				<SET CHARGES <GETP ,BATTERY-UNIT ,P?CHARGES>>
@@ -3039,7 +2742,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY186-PRECHOICE ()
-	<TEST-MORTALITY 3 ,DIED-IN-COMBAT ,STORY186 ,SKILL-CLOSE-COMBAT>
+	<TEST-MORTALITY-SHORTSWORD 3 ,DIED-IN-COMBAT ,STORY186>
 	<IF-ALIVE ,TEXT186-CONTINUED>>
 
 <CONSTANT TEXT187 "You recognize the signs that mark some areas of the city as unsafe: the hard sidelong scrutiny of the locals, the ragged evidence of poverty, the nervous hurrying footsteps in the fog. You head for a well-lit plaza where people are likely to be working all night.">
@@ -3087,7 +2790,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY190-PRECHOICE ()
-	<TAKE-OR-CHARGE 1 T>
+	<TAKE-OR-CHARGE ,BARYSAL-GUN 1 T>
 	<CRLF>
 	<TELL ,TEXT190-CONTINUED>
 	<TELL ,PERIOD-CR>>
@@ -3112,7 +2815,7 @@
 
 <ROUTINE STORY192-PRECHOICE ("AUX" (LIFE 0))
 	<COUNT-POSSESSIONS>
-	<COND (<CHECK-VEHICLE ,MANTA-SKY-CAR>
+	<COND (<CHECK-VEHICLE ,VEHICLE>
 		<SET LIFE 2>
 	)(ELSE
 		<COND (<CONSUME-FOOD 1> <INC .LIFE>)>
@@ -3424,7 +3127,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY218-PRECHOICE ()
-	<TAKE-VEHICLE ,MANTA-SKY-CAR>>
+	<TAKE-VEHICLE ,VEHICLE>>
 
 <CONSTANT TEXT219 "You station yourselves beside the Heart. Within its glittering facets, a universe is waiting to be born. Infinite possibilities flicker in the violet glare.|Golgoth seems to share your mood. \"There's no other way,\" he says. \"Ready?\"||\"What will happen?\" you ask him. \"I mean, will it just disappear, or will there be an explosion?\"||He shrugs. \"I don't know. Personally I doubt if I'll be around afterwards to collect this month's pay, but no one lives for ever.\"||You nod. \"I just never expected to be a martyr, that's all.\"||The beams from your guns converge at the centre of the Heart, splintering its crystal lattice. The light within grows until it blinds you. With a rush of energy, the Heart suddenly bursts apart, engulfing you and Golgoth in a cold flare of energy.">
 
@@ -3650,7 +3353,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY238-PRECHOICE ()
-	<FIRE-BARYSAL 1>>
+	<DISCHARGE-ITEM ,BARYSAL-GUN 1>>
 
 <CONSTANT TEXT239 "You are almost hypnotized by terror, and it is only by the merest chance that your fingers brush the grenade hanging at your belt. Unclipping it, you send it rolling and bounding across the floor. The baron's brain comes rushing through the air just as the grenade detonates. There is a flash, and the brain is flung to the floor by the concussion. While it lies dazed, you crush it under your heel. If only you could shut out the dying shriek that echoes telepathically through your mind and will stay with you until your dying day.">
 
@@ -3775,7 +3478,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY248-PRECHOICE ()
-	<TEST-MORTALITY 2 ,DIED-IN-COMBAT ,STORY248 ,SKILL-CLOSE-COMBAT>
+	<TEST-MORTALITY-SHORTSWORD 2 ,DIED-IN-COMBAT ,STORY248>
 	<IF-ALIVE ,TEXT248-CONTINUED>>
 
 <CONSTANT TEXT249 "The third bodyguard, Goro, is found only fifty metres from the ice cave where you took shelter. He is frozen on his hands and knees, having died crawling in the merciless fury of the blizzard. Snow is piled around the body.||The other two, who may be his brothers for all you know, betray no emotion at the sight. Of course, they must have known he could not have survived. \"Shall we bury him, boss?\" says one.||Shandor looks at the sky. Dusk is already descending along the edge of the valley, shadows creeping like blots of soot across the crisp white snow. He considers, then gives you a curt nod back towards the crevasse. \"Toss the body down into the cave -- it's as good a tomb as any. I want to be off this glacier by nightfall.\"||Your journey continues for another week. Hungry and beset by chilling winds, you feel drained of strength. The unbroken glower of grey cloud across the sky leaves you dispirited. By the time you reach the eastern foothills, your fingers are tingling with the first stages of frostbite.">
@@ -3866,7 +3569,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY256-PRECHOICE ()
-	<TAKE-FOOD-PACKS 2>
+	<TAKE-FOOD 2>
 	<CRLF>
 	<TELL ,TEXT256-CONTINUED>
 	<TELL ,PERIOD-CR>>
@@ -3924,7 +3627,7 @@
 <ROUTINE STORY260-PRECHOICE ("AUX" (DAMAGE 6))
 	<COND (<CHECK-SKILL ,SKILL-CLOSE-COMBAT> <SET DAMAGE 4>)>
 	<COND (<CHECK-CODEWORD ,CODEWORD-TALOS> <DEC .DAMAGE>)>
-	<TEST-MORTALITY .DAMAGE ,DIED-FROM-INJURIES ,STORY260 ,SKILL-CLOSE-COMBAT>
+	<TEST-MORTALITY-SHORTSWORD .DAMAGE ,DIED-FROM-INJURIES ,STORY260>
 	<IF-ALIVE ,TEXT260-CONTINUED>>
 
 <CONSTANT TEXT261 "You find Boche recovering from the blast. Despite a gash on his forehead, he is in good spirits. \"It worked!\" he says. \"I'd been barring that grenade all along, but the joke was that I didn't even know it myself. It was the only way to foil the baron's mind-reading you see.\"||\"I don't understand.\"||Boche spits out rock dust before explaining. \"I knew the baron was heading for Du-En and that he'd be the hardest foe I'd have to face, so I got myself hypnotized to forget that I was carrying a grenade. I had a post-hypnotic suggestion planted that I should use it at a key moment. He never knew what hit him, did he?\"||\"A ruthlessly clever scheme.\"||If you intended any sarcasm, Boche fails to notice it. \"Thanks,\" he says. \"Now, let's get going and find the Heart.\"">
@@ -4162,7 +3865,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY276-PRECHOICE ()
-	<TAKE-FOOD-PACKS 8>
+	<TAKE-FOOD 8>
 	<SELECT-FROM-LIST <LTABLE COLD-WEATHER-SUIT MEDICAL-KIT> 2 2>
 	<COND (<CHECK-ITEM ,LITTLE-GAIA> <STORY-JUMP ,STORY014>)>>
 
@@ -4179,7 +3882,7 @@
 
 <ROUTINE STORY277-PRECHOICE ()
 	<COND (<CHECK-SKILL ,SKILL-CLOSE-COMBAT>
-		<TEST-MORTALITY 5 ,DIED-IN-COMBAT ,STORY277 ,SKILL-CLOSE-COMBAT>
+		<TEST-MORTALITY-SHORTSWORD 5 ,DIED-IN-COMBAT ,STORY277>
 		<COND (<IS-ALIVE> <RETURN>)>
 	)>
 	<CRLF>
@@ -4251,7 +3954,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY282-PRECHOICE ()
-	<FIRE-BARYSAL 1>>
+	<DISCHARGE-ITEM ,BARYSAL-GUN 1>>
 
 <CONSTANT TEXT283 "A merchant takes you to a vault tunnelled into the block of one of the great piazzas. Passing through a door guarded by two burly men with iron batons, you wait in a short corridor lit by a flickering light panel. At last a steel door opens at the far end and you walk through into the merchant's storeroom. Here he shows you what he has for sale:">
 <CONSTANT TEXT283-CONTINUED "\"I will also buy such items,\" the merchant tells you, \"at half the price I've quoted for sale.\"||\"Why should I wish to sell?\"||His lips curls in an inscrutable half-smile. \"You have come to Venis for the ferry, I presume. You'll need money for your ticket.\"">
@@ -4278,7 +3981,7 @@
 			<CRLF>
 			<TELL "Recharge your barysal gun to full capacity (6 charges) for 16 scads?">
 			<COND (<YES?>
-				<CHARGE-BARYSAL 6>
+				<CHARGE-ITEM ,BARYSAL-GUN ,MAX-BARYSAL 6>
 				<SETG MONEY <- ,MONEY 16>>
 			)>
 		)>
@@ -4287,7 +3990,7 @@
 		<PUT .SELL-PRICE .SELL 8>
 	)(ELSE
 		<INC .BUY>
-		<CHARGE-BARYSAL 6>
+		<CHARGE-ITEM ,BARYSAL-GUN ,MAX-BARYSAL 6>
 		<PUT .BUY-LIST .BUY ,BARYSAL-GUN>
 		<PUT .BUY-PRICE .BUY 16>
 	)>
@@ -4552,7 +4255,7 @@
 <ROUTINE STORY300-PRECHOICE ()
 	<COND (<CHECK-CODEWORD ,CODEWORD-HOURGLASS>
 		<STORY-JUMP ,STORY235>
-	)(<OR <CHECK-VEHICLE ,MANTA-SKY-CAR> <CHECK-ITEM ,MEDICAL-KIT>>
+	)(<OR <CHECK-VEHICLE ,VEHICLE> <CHECK-ITEM ,MEDICAL-KIT>>
 		<STORY-JUMP ,STORY257>
 	)>>
 
@@ -4598,7 +4301,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY304-PRECHOICE ()
-	<FIRE-BARYSAL 1>>
+	<DISCHARGE-ITEM ,BARYSAL-GUN 1>>
 
 <CONSTANT TEXT305 "Vajra Singh is a Sikh warlord, and a man of unyielding honour. Since you have no gun, he does not deign to use his own, but instead leaps forward to settle the matter with his bare hands. You see at once that he is a powerful fighter. His punch chops through the air, and even though you manage to twist aside you can almost feel the shockwave. A single blow from such a warrior could smash through stone.||You skip back on the balls of your feet, trying to make best use of your speed against his naked strength. A punch hammers into your stomach, and Singh follows it up with a great leonine roar as his foot crunches against your breastbone. You feel ribs crack, but you dive in with a gasp and launch a rapid series of strikes at his face.">
 <CONSTANT TEXT305-CONTINUED "You finally manage to defeat this titanic foe.">
@@ -4613,7 +4316,7 @@
 
 <ROUTINE STORY305-PRECHOICE ("AUX" (DAMAGE 9))
 	<COND (<CHECK-SKILL ,SKILL-CLOSE-COMBAT> <SET DAMAGE 5>)>
-	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY305 ,SKILL-CLOSE-COMBAT>
+	<TEST-MORTALITY-SHORTSWORD .DAMAGE ,DIED-IN-COMBAT ,STORY305>
 	<IF-ALIVE ,TEXT305-CONTINUED>>
 
 <CONSTANT TEXT306 "Boche shudders as he looks along the row of dead white faces. There are at least ten corpses here in the pass, some on this ledge and others are perched further along among the rocks. \"The must have climbed up onto the ledge to get away from wolves,\" says Boche.||He's wrong. There are no wolves up here in the mountains. And these people were not cowering from predators when they died. In every case they are frozen in postures that suggest curiosity: poised peering out from the ledge, lines of amazement stamped on their faces, icicles across their wide eyes. Death did not surround them with shivering jaws, but stole up softly like a thief in the night.||The sky is fading from grey to black. If you press on now, you will have to spend the night in open country, unprotected from the bitter wind.">
@@ -4699,7 +4402,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY312-PRECHOICE ()
-	<TAKE-OR-CHARGE 1 T>
+	<TAKE-OR-CHARGE ,BARYSAL-GUN 1 T>
 	<SELECT-FROM-LIST <LTABLE ID-CARD FLASHLIGHT> 2 2>>
 
 <CONSTANT TEXT313 "Electric lighting is rare enough in this age, and is usually arranged by means of a coal- or oil-fuelled generator. For there still to be electricity here, when Marsay has been abandoned for nearly two centuries, there must be a nuclear power source. Presumably such a power source would have to be regulated by computers, which means the possibility of a link to Gaia.">
@@ -4758,7 +4461,7 @@
 
 <ROUTINE STORY316-PRECHOICE ("AUX" (DAMAGE 4))
 	<COND (<CHECK-SKILL ,SKILL-CLOSE-COMBAT> <SET DAMAGE 2>)>
-	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY316 ,SKILL-CLOSE-COMBAT>
+	<TEST-MORTALITY-SHORTSWORD .DAMAGE ,DIED-IN-COMBAT ,STORY316>
 	<IF-ALIVE ,TEXT316-CONTINUED>>
 
 <CONSTANT TEXT317 "He gives you a dubious sidelong look. \"It is not so simple as all that. Our way of life here on al-Lat is governed by a complex creed, of which you know nothing. We are a society which is closed to outsiders.\"||The door of the laboratory slides open at this point and Riza Baihaqi comes in. \"I'm about to take a flyer back down to Earth, so I can drop you at Sudan,\" he says bluffly. \"Have you been learning about our work here? I hope it will prove useful in your venture.\"">
@@ -4789,7 +4492,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY319-PRECHOICE ()
-	<TAKE-FOOD-PACKS 2>
+	<TAKE-FOOD 2>
 	<CRLF>
 	<TELL ,TEXT319-CONTINUED>
 	<TELL ,PERIOD-CR>>
@@ -4804,7 +4507,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY320-PRECHOICE ()
-	<COND (<OR <CHECK-VEHICLE ,MANTA-SKY-CAR> <CHECK-ITEM ,MEDICAL-KIT>> <GAIN-LIFE 1>)>
+	<COND (<OR <CHECK-VEHICLE ,VEHICLE> <CHECK-ITEM ,MEDICAL-KIT>> <GAIN-LIFE 1>)>
 	<DELETE-CODEWORD ,CODEWORD-HOURGLASS>>
 
 <CONSTANT TEXT321 "\"I shall always think of you as having been a friend,\" says Gaunt after a long pause.||Something in the words makes them sound like an epitaph. You look round to see the xoms facing you with long crystal knives.||\"What's going on?\"||In the dulled light of the glow-lamps, Gaunt himself looks like a pale phantom. You see the gleam of his teeth as he smiles. \"I must find the key to my own ruthless nature, or tomorrow I shall die,\" he murmurs. \"Do you know that the desire for power and change is the desire for one's own death? By expunging you, whom I admire, I expunge that weakness in myself. For you see, come what may, I shall have the Heart.\"||\"You're completely mad.\"||He nods. \"I must be. It is not sane to covet the role of God.\" He gestures and the xoms shuffle forward, jabbing their knives towards your chest.||A shot rings out and one of the xoms falls, flames spouting from a blast hole through its torso. Gaunt whirls in time to see a small man in combat fatigues who rushes out of the darkness and tackles him to the ground.||Vajra Singh steps into the light with his two other guards behind him. They are Brits -- small men with pallid pinched faces, thuggish but famed for their loyalty. The one standing over Gaunt presses a gun to his head and glances at Singh. \"Shall I kill 'im, sah?\" he barks. Singh nods. A blast of plasma scrambles Gaunt's brains into the snow. The xoms jerk back and their arms drop listlessly to their sides.||You breathe a sigh. \"A timely intervention. You saved my life.\"||Vajra Singh hardly looks at you. \"Gaunt broke the terms of the truce. He would have died tomorrow, in any case. He was a weak man.\" He turns and strides off with his guards following.">
@@ -4880,7 +4583,7 @@
 
 <ROUTINE STORY326-PRECHOICE ("AUX" (DAMAGE 5))
 	<COND (<CHECK-SKILL ,SKILL-CLOSE-COMBAT> <SET DAMAGE 3>)>
-	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY326 ,SKILL-CLOSE-COMBAT>
+	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY326>
 	<IF-ALIVE ,TEXT326-CONTINUE>>
 
 <CONSTANT TEXT327 "Singh is more used to his cannon than the light pistol, and you are just a fraction faster. Your barysal beam splits the air and he falls without a sound. It is only as you go over to inspect the body that you realize he had a chance of hitting you with a dying shot. He chose not to take that shot. Why?||Because it would have been petty to deprive you of victory when you had beaten him fairly? You can think of no better explanation. Sing died as he had lived: a man of uncompromising honour.">
@@ -5018,7 +4721,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY338-PRECHOICE ()
-	<COND (<CHECK-VEHICLE ,MANTA-SKY-CAR>
+	<COND (<CHECK-VEHICLE ,VEHICLE>
 		<CRLF>
 		<TELL ,TEXT338-BURREK>
 		<TELL ,PERIOD-CR>
@@ -5072,7 +4775,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY342-PRECHOICE ()
-	<COND (<OR <CHECK-ITEM ,MEDICAL-KIT> <CHECK-VEHICLE ,MANTA-SKY-CAR>> <STORY-JUMP ,STORY257>)>>
+	<COND (<OR <CHECK-ITEM ,MEDICAL-KIT> <CHECK-VEHICLE ,VEHICLE>> <STORY-JUMP ,STORY257>)>>
 
 <CONSTANT TEXT343 "You hurry to catch up with Singh and tell him about Gaia's warnings. At first he seems barely interested, but gradually your words get through. He comes to a halt and turns to stare into your face. \"You propose an alliance,\" he says. \"his is wise. If we are allies, we are virtually certain to prevail against all others and reach the Heart. Tomorrow, you go with Baron Siriasis and I shall team up with Golgoth. They are our most dangerous adversaries. If the opportunity arises, we must slay them.\"||\"What if your group finds the Heart first? Or my group, for that matter?\"||\"I swear I shall not take its power until only you and I are left. Then together wee can discuss the future of the cosmos.\"||You watch him march back to his tent. You feel sure Singh will keep his oath of alliance. If only you didn't have a sneaking suspicion that you've just tied yourself to the lion's tail.">
 
@@ -5101,7 +4804,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY345-PRECHOICE ()
-	<FIRE-BARYSAL 1>>
+	<DISCHARGE-ITEM ,BARYSAL-GUN 1>>
 
 <CONSTANT TEXT346 "Golgoth suddenly explodes into action. Seizing Boche around the neck and pressing his gun to his temple, he orders him to shoot Singh unless he wants to die at once. Boche raises his own gun and fires at Singh is turning to act. As Singh staggers back, his armour breastplate charred by the blast, Golgoth coolly shoots Boche through the head, holding the body up as a shield.||Singh is fumbling for the trigger of his mantramukta cannon. \"Get him now!\" Golgoth shouts to you. \"Before he recovers!\"">
 <CONSTANT CHOICES346 <LTABLE "attack with a" "or a" "decide not to act">>
@@ -5125,7 +4828,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY347-PRECHOICE ()
-	<FIRE-BARYSAL 1>>
+	<DISCHARGE-ITEM ,BARYSAL-GUN 1>>
 
 <CONSTANT TEXT348 "The barysal beam cleaves through Singh's armour, but his own shot slays you at once. You die knowing that victory was almost within your grasp.">
 
@@ -5188,7 +4891,7 @@
 
 <ROUTINE STORY352-PRECHOICE ()
 	<COUNT-POSSESSIONS>
-	<SELL-FOOD-PACK 1>
+	<SELL-FOOD 1>
 	<COND (<G=? ,MONEY 10>
 		<STORY-JUMP ,STORY246>
 	)(ELSE
@@ -5275,7 +4978,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY359-PRECHOICE ()
-	<BUY-FOOD-PACK 2>
+	<BUY-FOOD 2>
 	<MERCHANT <LTABLE GAS-MASK FLASHLIGHT MEDICAL-KIT POLARIZED-GOGGLES ROPE> <LTABLE 15 8 8 6 3>>
 	<COND (<CHECK-CODEWORD ,CODEWORD-DIAMOND> <STORY-JUMP ,STORY381>)>>
 
@@ -5297,7 +5000,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY361-PRECHOICE ()
-	<COND (<CHECK-VEHICLE ,MANTA-SKY-CAR> <STORY-JUMP ,STORY289>)>>
+	<COND (<CHECK-VEHICLE ,VEHICLE> <STORY-JUMP ,STORY289>)>>
 
 <CONSTANT TEXT362 "You hack through the lardy skin to the meat, which is easily parcelled into food packs.">
 
@@ -5309,7 +5012,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY362-PRECHOICE ()
-	<TAKE-FOOD-PACKS 6>
+	<TAKE-FOOD 6>
 	<COND (<NOT <CHECK-ITEM ,FUR-COAT>>
 		<CRLF>
 		<TELL "Strip of the pelt to make a " D ,FUR-COAT "?">
@@ -5442,7 +5145,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY373-PRECHOICE ()
-	<FIRE-BARYSAL 1>>
+	<DISCHARGE-ITEM ,BARYSAL-GUN 1>>
 
 <CONSTANT TEXT374 "You stride confidently into the lobby. The receptionist, a prim-looking man with pursed lips, sits at a desk. Behind him on the wall is displayed the Society's symbol: a triangle enclosing a circle and central dot. To one side, a bronze-coloured elevator door is set into the black marble wall.||The receptionist looks up, blinks. \"Good evening. How may I help you?\"||Unsure of protocol, you hand him your card. He slides it into a slot in the desk, consults a screen, then hands the card back. His blank expression has become an unctuous smile as he says, \"Our facilities are here at your disposal. There are no other members in residence at the moment, so you'll have the building to yourself.\"||The elevator door opens. You mutter a gruff thank-you and walk past. Inside the elevator, you study the panel and decide which floor to go to.">
 
@@ -5486,7 +5189,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY377-PRECHOICE ()
-	<TAKE-OR-CHARGE 1 T>
+	<TAKE-OR-CHARGE ,BARYSAL-GUN 1 T>
 	<SELECT-FROM-LIST <LTABLE ID-CARD FLASHLIGHT> 2 2>>
 
 <CONSTANT TEXT378 "Fax leads you down the stairway. At the bottom lies a wide circular hall with various tunnels leading off it. A sign above each tunnel proclaims the destinations available. You read them with a feeling of melancholy: New York, Moscow, Edinburgh... Most of these places are now buried under a kilometre of ice.||Fax shows you a food machine set into the wall. \"Most of the buttons no longer work, but the 'Skudge Bar' is nutritious.\" He presses a button, the machine hums, and a moment later a foil-wrapped block drops out of a slot. Unwrapping it, you find a chewy fudge which surprises you in having a savoury taste.">
@@ -5502,7 +5205,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY378-PRECHOICE ()
-	<COND (,RUN-ONCE <TAKE-FOOD-PACKS 8>)>
+	<COND (,RUN-ONCE <TAKE-FOOD 8>)>
 	<COND (<CHECK-SKILL ,SKILL-CYBERNETICS> <STORY-JUMP ,STORY009>)>>
 
 <CONSTANT TEXT379 "The numbers tattooed on their shoulders give you the clue: they can only be members of the Gargan clone-group. These were specially bred superbings employed by the Chikusa Corporation for tasks such as mining in the asteroid belt, where ordinary humans would find the work too strenuous. They were later used as enforcers when the corporation moved into criminal affairs. There was a rumour that the entire clone-group had been ambushed and killed in Bangkok, but it seems that at least these two survived.||They are very dangerous people.">
@@ -5541,7 +5244,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY381-PRECHOICE ()
-	<COND (<CHECK-VEHICLE ,MANTA-SKY-CAR>
+	<COND (<CHECK-VEHICLE ,VEHICLE>
 		<SET-DESTINATION ,STORY381 2 ,STORY289>
 	)(ELSE
 		<SET-DESTINATION ,STORY381 2 ,STORY393>
@@ -5589,7 +5292,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY384-PRECHOICE ()
-	<TAKE-FOOD-PACKS 8>>
+	<TAKE-FOOD 8>>
 
 <CONSTANT TEXT385 "At first there is no sign of Kyle Boche, until you notice him snoozing in his bedroll beside the remains of last night's fire. \"They'll find no sign of the Heart today,\" he reckons. \"It's wiser to rest for now and build our strength. When that lot finds the Heart there's going to be a battle royal. We'll need to be ready for that moment when it comes.\"||You see Chaim Golgoth waving to you and stroll over to where he is standing with the Gargan clones. \"Are you planning to go exploring today?\" he asks. \"You're welcome to join our group, if so.\" The Gargan twins glower at this, but do not dispute it.">
 <CONSTANT CHOICES385 <LTABLE "back out and spend the day resting" "accept Golgoth's invitation">>
@@ -5743,7 +5446,7 @@
 
 <ROUTINE STORY394-PRECHOICE ()
 	<COND (,RUN-ONCE
-		<BUY-FOOD-PACK 2>
+		<BUY-FOOD 2>
 		<MERCHANT <LTABLE ROPE LANTERN MEDICAL-KIT> <2 3 12>>
 	)>
 	<COND (<OR <CHECK-SKILL ,SKILL-STREETWISE> <CHECK-ITEM ,VADE-MECUM>>
@@ -5789,7 +5492,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY398-PRECHOICE ()
-	<TAKE-OR-CHARGE 1 T>
+	<TAKE-OR-CHARGE ,BARYSAL-GUN 1 T>
 	<SELECT-FROM-LIST <LTABLE ID-CARD FLASHLIGHT> 2 2>>
 
 <CONSTANT TEXT399 "Instead of answering, he rummages in a locker and brings forth a metal canister. Taking this outside, he approaches a thin stalk of ferns sprouting form the ground beside the barren area and spray it with a chemical. It almost instantly withers. \"I found a storehouse full of the stuff,\" he cries gleefully, brandishing the canister. \"It's well to keep the surrounding area free of plant life, you see. The sanguivores travel rapidly through the trees, but they will not venture onto barren ground, where they are as clumsy as waterlogged tents flapping in a breeze.\"||He presses the cannister into your hand and urges you to keep it. You are on the point of commenting that the liquor he offered you is probably almost as toxic, but you decide not to offend him.">
@@ -5862,7 +5565,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY402-PRECHOICE ()
-	<COND (<CHECK-VEHICLE ,MANTA-SKY-CAR>
+	<COND (<CHECK-VEHICLE ,VEHICLE>
 		<SET-DESTINATION ,STORY402 2 ,STORY289>
 	)(ELSE
 		<SET-DESTINATION ,STORY402 2 ,STORY393>
@@ -6368,7 +6071,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY447-PRECHOICE ()
-	<TAKE-OR-CHARGE 6 T>
+	<TAKE-OR-CHARGE ,BARYSAL-GUN 6 T>
 	<SELECT-FROM-LIST <LTABLE KNIFE CROSSBOW STUN-GRENADE> 3 3>>
 
 <CONSTANT TEXT448 "As your companions set off along the ramp towards the Heart, each keeping a weather eye on the others, you roll the stasis bomb into their midst. It activates before they have time to run, rooting them to the spot like statues. You move around them. Of all the adventurers who set out for Du-En, you are now the only one left.">

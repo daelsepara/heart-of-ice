@@ -147,14 +147,6 @@
     (ADJECTIVE VINE)
     (FLAGS TAKEBIT)>
 
-; Vehicles
-
-<OBJECT MANTA-SKY-CAR
-    (DESC "Manta sky-car")
-    (SYNONYM CAR)
-    (ADJECTIVE MANTA SKY)
-    (FLAGS VEHICLEBIT)>
-
 <OBJECT BURREK
     (DESC "burrek")
     (SYNONYM BURREK)
