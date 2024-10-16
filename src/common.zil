@@ -29,14 +29,24 @@
 		<MOVE .SKILL ,LOST-SKILLS>
 	)>>
 
-; "helper functions/constants when damage is dealt to player"
+; "deaths"
 ; ---------------------------------------------------------------------------------------------
 <CONSTANT DIED-IN-COMBAT "You died in combat">
+
 <CONSTANT DIED-OF-HUNGER "You starved to death">
+
 <CONSTANT DIED-GREW-WEAKER "You grew weaker and eventually died">
+
 <CONSTANT DIED-FROM-INJURIES "You died from your injuries">
+
 <CONSTANT DIED-FROM-COLD "You eventually freeze to death">
 
+; "miscellaneous notifications"
+; ---------------------------------------------------------------------------------------------
+<CONSTANT NATURAL-HARDINESS "Your natural hardiness made you cope better with the situation">
+
+; "helper functions/constants when damage is dealt to player"
+; ---------------------------------------------------------------------------------------------
 <ROUTINE PREVENT-DEATH ("OPT" STORY)
 	<COND (<NOT .STORY> <SET STORY ,HERE>)>
 	<COND (<GETP .STORY ,P?DEATH> <PUTP .STORY ,P?DEATH F>)>>
