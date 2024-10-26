@@ -1,7 +1,8 @@
-; "Objects for Heart of Ice"
+; "objects for Heart of Ice"
+; ---------------------------------------------------------------------------------------------
 
-; Weapons
-
+; weapons
+; ---------------------------------------------------------------------------------------------
 <OBJECT BARYSAL-GUN
     (DESC "barysal gun")
     (SYNONYM GUN)
@@ -22,8 +23,8 @@
     (REQUIRES SKILL-ESP)
     (FLAGS TAKEBIT)>
 
-; Objects
-
+; "story objects"
+; ---------------------------------------------------------------------------------------------
 <OBJECT ANTIDOTE-PILLS
     (DESC "antidote pills")
     (SYNONYM PILLS)
@@ -152,8 +153,8 @@
     (SYNONYM BURREK)
     (FLAGS VEHICLEBIT)>
 
-;Retroviruses
-
+; "retroviruses"
+; ---------------------------------------------------------------------------------------------
 <OBJECT VIRID-MYSTERY
     (DESC "Virid Mystery")
     (SYNONYM MYSTERY)
@@ -246,7 +247,9 @@
         <TELL "The genetic effects of " T .EFFECT " has been reversed" ,PERIOD-CR>
         <HLIGHT 0>
     )>>
-    
+
+; "vehicle"
+; ---------------------------------------------------------------------------------------------
 <OBJECT MANTA-SKY-CAR
     (DESC "Manta sky-car")
     (SYNONYM CAR)
