@@ -1245,6 +1245,14 @@
         <CRLF>
         <PRINT-BOLD "Codewords: ">
         <PRINT-CONTAINER ,CODEWORDS>
+        <COND (<FIRST? VEHICLES>
+            <CRLF>
+            <HLIGHT ,H-BOLD>
+            <PRINT-CAP-OBJ ,VEHICLE>
+            <TELL ": ">
+            <HLIGHT 0>
+            <PRINT-CONTAINER ,VEHICLES>
+        )>
         <CRLF>
         <HLIGHT ,H-BOLD>
         <PRINT-CAP-OBJ ,CURRENCY>
