@@ -1,3 +1,6 @@
+; "Heart of Ice"
+; ---------------------------------------------------------------------------------------------
+
 <INSERT-FILE "gamebook">
 
 <GLOBAL STARTING-POINT BACKGROUND>
@@ -2051,7 +2054,7 @@
 
 <ROOM STORY136
 	(DESC "136")
-	(STORY TEXT)
+	(STORY TEXT136)
 	(PRECHOICE STORY136-PRECHOICE)
 	(CONTINUE STORY092)
 	(FLAGS LIGHTBIT)>
@@ -3814,7 +3817,7 @@
 			<COND (<G? .COUNT 0>
 				<RESET-GIVEBAG>
 				<DO (I 1 .ITEMS)
-					<SET ITEM <GET-ITEM .I>>
+					<SET ITEM <GET-FROM-LIST .I>>
 					<COND (<AND .ITEM <N=? .ITEM ,FOOD-PACK>>
 						<INC .TO-DONATE>
 						<PUT .GIVE-LIST .TO-DONATE .ITEM>

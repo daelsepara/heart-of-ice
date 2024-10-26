@@ -1,4 +1,5 @@
-; "Codewords for Heart of Ice"
+; "codewords for Heart of Ice"
+; ---------------------------------------------------------------------------------------------
 
 <OBJECT CODEWORD-BLUE
     (DESC "Blue")

@@ -1,4 +1,5 @@
-"Heart of Ice (ZIL)"
+; "Heart of Ice (ZIL)"
+; ---------------------------------------------------------------------------------------------
 
 <CONSTANT GAME-TITLE "||Heart of Ice">
 <CONSTANT GAME-DESCRIPTION "|Dave Morris (1994)||Implemented in ZIL by SD Separa (2020)|">
